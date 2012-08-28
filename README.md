@@ -23,6 +23,8 @@ NSHipster runs on [Jekyll](https://github.com/mojombo/jekyll), a blog-aware, sta
 
 ``` shell
 $ cd path/to/nshipster.com
+$ gem install bundler
+$ bundle install
 $ gem install jekyll
 $ jekyll --auto --server
 ```
