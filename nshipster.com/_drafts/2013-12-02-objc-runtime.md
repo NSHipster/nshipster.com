@@ -1,0 +1,3 @@
+- associated objects
+- dynamic method creation
+- method swizzling

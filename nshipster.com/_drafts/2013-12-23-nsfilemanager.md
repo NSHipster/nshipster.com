@@ -1,0 +1,2 @@
+- defaultManager vs. ever wanting to create a new one?
+- search paths

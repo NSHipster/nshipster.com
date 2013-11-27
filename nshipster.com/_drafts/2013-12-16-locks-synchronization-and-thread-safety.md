@@ -1,0 +1,3 @@
+- OSAtomicSpinLock
+- NSLock, et al.
+- @synchronized(){}

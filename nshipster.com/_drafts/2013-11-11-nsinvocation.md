@@ -1,0 +1,2 @@
+- discussion of message passing, what selectors are, and why first arguments are self and _cmd
+- when to use nsinvocation (h4x!)

@@ -1,0 +1,3 @@
+- stubbing and mocking as fundamental testing methodologies
+  - scientific method and isolating variables
+  - but also being mindful of question of "what are you testing"
