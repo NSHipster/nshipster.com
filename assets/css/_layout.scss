@@ -385,7 +385,6 @@ body {
       margin: 2em 0;
       caption {
         margin: 2em 0 1em 0;
-        font-size: 1.5em;
       }
     }
     div.highlight {
@@ -843,3 +842,20 @@ body {
       }
     }
   }
+
+
+table#status {
+    table-layout: fixed;
+    margin-top: 2em;
+    caption {
+        padding: 1em 0;
+        color: #777777;
+    }
+
+    .version {
+        text-align: center;
+        em {
+            color: #777777;
+        }
+    }
+}
