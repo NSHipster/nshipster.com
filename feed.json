@@ -10,14 +10,7 @@ layout: null
     "icon": "{{ "/apple-touch-icon.png" | absolute_url }}",
     "favicon": "{{ "/favicon.ico" | absolute_url }}",
     "expired": false,
-    {% if site.author %}
-    "author": {% if site.author.name %} {
-        "name": "{{ site.author.name }}",
-        "url": {% if site.author.url %}"{{ site.author.url }}"{% else %}null{% endif %},
-        "avatar": {% if site.author.avatar %}"{{ site.url }}{% asset {{site.author.avatar}} @path %}"{% else %}null{% endif %}
-    },{% else %}"{{ site.author }}",{% endif %}
-    {% endif %}
-"items": [
+    "items": [
     {% assign sorted_posts = site.posts | sort: 'last_revised_on' | reverse %}
     {% for post in sorted_posts limit: 10 %}
         {
