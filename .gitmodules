@@ -1,0 +1,16 @@
+[submodule "collections/en/_posts"]
+	path = collections/en/_posts
+	url = https://github.com/NSHipster/articles.git
+	ignore = all
+[submodule "collections/zh-Hans/_posts"]
+	path = collections/zh-Hans/_posts
+	url = https://github.com/NSHipster/articles-zh-Hans.git
+	ignore = all
+[submodule "collections/es/_posts"]
+	path = collections/es/_posts
+	url = https://github.com/NSHipster/articles-es.git
+	ignore = all
+[submodule "collections/ko/_posts"]
+	path = collections/ko/_posts
+	url = https://github.com/NSHipster/articles-ko.git
+	ignore = all

@@ -1,0 +1,18 @@
+url: https://nshipster.es
+lang: es-ES
+
+description: >-
+  <strong>NSHipster</strong> es una publicación de los bits pasados por alto
+  en Objective-C, Swift y Cocoa. Actualización semanal.
+timezone: Europe/Madrid
+
+collections_dir: collections/es
+collections:
+  authors:
+    output: true
+    permalink: /authors/:path/
+  translators:
+    output: true
+    permalink: /translators/:path/
+  books:
+    output: false

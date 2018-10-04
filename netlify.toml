@@ -1,0 +1,73 @@
+[build]
+  publish = "_site"
+  command = """
+    git submodule update --init --remote --merge &&
+    sed -i s/DOMAIN_PLACEHOLDER/$DOMAIN/g netlify.toml &&
+    jekyll build --config _config/default.yml,_config/$DOMAIN.yml
+  """
+
+[context.production]
+  environment = { JEKYLL_ENV = "production" }
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Content-Security-Policy = """
+        default-src 'self' *.DOMAIN_PLACEHOLDER;
+        script-src 'self' *.DOMAIN_PLACEHOLDER;
+        style-src 'self' 'unsafe-inline';
+        img-src 'self' *.gravatar.com;
+        frame-ancestors 'none';
+        object-src 'none';
+        connect-src 'self' *.DOMAIN_PLACEHOLDER;
+        base-uri 'none';
+        upgrade-insecure-requests;
+        report-uri https://readeval.report-uri.com/r/d/ct/reportOnly;
+    """
+    Expect-CT = """
+        max-age=0, report-uri="https://readeval.report-uri.com/r/d/ct/reportOnly"
+    """
+    Referrer-Policy = "same-origin"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+
+[[headers]]
+  for = "/site.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
+
+[[headers]]
+  for = "/feed.xml"
+  [headers.values]
+    Content-Type = "application/atom+xml"
+
+[[redirects]]
+  from = "https://nshipster.netlify.com/*"
+  to = "https://nshipster.com/:splat"
+
+[[redirects]]
+  from = "http://nshipster.netlify.com/*"
+  to = "https://nshipster.com/:splat"
+
+
+[[redirects]]
+  from = "https://DOMAIN_PLACEHOLDER/authors/mattt-thompson"
+  to = "https://DOMAIN_PLACEHOLDER/authors/mattt"
+
+[[redirects]]
+  from = "https://DOMAIN_PLACEHOLDER/reader-submissions-new-years-2013"
+  to = "https://DOMAIN_PLACEHOLDER/new-years-2013/"
+
+[[redirects]]
+  from = "https://DOMAIN_PLACEHOLDER/wkwebkit"
+  to = "https://DOMAIN_PLACEHOLDER/wkwebview"
+
+[[redirects]]
+  from = "https://DOMAIN_PLACEHOLDER/swift-literal-convertible"
+  to = "https://DOMAIN_PLACEHOLDER/swift-literals"
+
+[[redirects]]
+  from = "https://DOMAIN_PLACEHOLDER/swift-documentation-example/*"
+  to = "https://swift-documentation-example.nshipster.com/:splat"

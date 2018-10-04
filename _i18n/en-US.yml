@@ -1,0 +1,21 @@
+format:
+  date: "%B %-d<sup>%o</sup>, %Y"
+
+this_week: This Week...
+continue_reading: Continue Reading
+recent_articles: Recent Articles
+publications: Publications
+popular_articles: Popular Articles
+contributors: Contributors
+
+written_by: Written by
+translated_by: Translated by
+revised: revised
+
+next_article: Next Article
+related_articles: Related Articles
+
+articles: Articles
+
+corrections: Questions? Corrections? <a href="https://twitter.com/NSHipster">@NSHipster</a> or <a href="https://github.com/NSHipster/articles">on GitHub</a>.
+license: NSHipster.com is released under a <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license">Creative Commons BY-NC License</a>.

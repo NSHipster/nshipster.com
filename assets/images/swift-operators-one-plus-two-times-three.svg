@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 22.1.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 600 200" style="enable-background:new 0 0 600 200;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:none;stroke:#010101;stroke-miterlimit:10;}
+	.st1{fill:#010101;}
+	.st2{font-family:'ArialMT';}
+	.st3{font-size:38.6263px;}
+</style>
+<circle class="st0" cx="257.9" cy="25" r="23.5"/>
+<text transform="matrix(1 0 0 1 246.3535 36.2726)" class="st1 st2 st3">+</text>
+<text transform="matrix(1 0 0 1 317.9647 127.597)" class="st1 st2 st3">*</text>
+<text transform="matrix(1 0 0 1 177.1132 104.5529)" class="st1 st2 st3">1</text>
+<g>
+	<line class="st0" x1="198.1" y1="72.7" x2="222.7" y2="48.2"/>
+	<line class="st0" x1="317.6" y1="71.4" x2="293" y2="46.8"/>
+</g>
+<circle class="st0" cx="326.3" cy="106.5" r="23.5"/>
+<g>
+	<text transform="matrix(1 0 0 1 245.556 186.1595)" class="st1 st2 st3">2</text>
+	<text transform="matrix(1 0 0 1 387.2441 186.1595)" class="st1 st2 st3">3</text>
+</g>
+<g>
+	<line class="st0" x1="266.5" y1="154.3" x2="291.1" y2="129.7"/>
+	<line class="st0" x1="386" y1="153" x2="361.5" y2="128.4"/>
+</g>
+</svg>

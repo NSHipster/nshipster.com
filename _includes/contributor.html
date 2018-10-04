@@ -1,0 +1,33 @@
+{% case include.role %}
+{% when 'author' %}
+  {% assign contributor = site.authors | where:"name", page.author | first %}
+{% when 'translator' %}
+  {% assign contributor = site.translators | where:"name", page.translator | first %}
+{% endcase %}
+
+<div class="contributor" itemprop="author" itemscope itemtype="https://schema.org/Person">
+    {% case include.role %}
+    {% when 'author' %}
+        <small>{% t written_by %}</small>
+    {% when 'translator' %}
+        <small>{% t translated_by %}</small>
+    {% endcase %}
+
+    {% if contributor %}
+        {% if contributor.image %}
+            <img class="avatar" alt="{{ contributor.name }}" itemprop="image" src="{% asset "{{ contributor.image }}" @path %}" draggable="false"/>
+        {% else %}
+            <img class="avatar" itemprop="image" src="//0.gravatar.com/avatar/{{ contributor.gravatar }}?size=300" draggable="false"/>
+        {% endif %}
+
+        <div class="details">
+            <span itemprop="name"><a href="{{ contributor.url }}">{{ contributor.name }}</a></span>
+
+            {{ contributor.content | markdownify }}
+
+            {% if contributor.google %}
+                <a href="https://plus.google.com/{{ contributor.google }}?rel=author" rel="author"></a>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>

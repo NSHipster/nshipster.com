@@ -1,0 +1,126 @@
+
+.highlight {
+    background: $dt-gray-dark !important;
+
+    code {
+      color: $dt-gray-light;
+    }
+  }
+
+  pre.highlight {
+    .hll,
+    .s,
+    .sa,
+    .sb,
+    .sc,
+    .dl,
+    .sd,
+    .s2,
+    .se,
+    .sh,
+    .si,
+    .sx,
+    .sr,
+    .s1,
+    .ss {
+      color: $dt-yellow;
+    }
+    .go {
+      color: $dt-gray;
+    }
+    .err,
+    .g,
+    .l,
+    .n,
+    .x,
+    .p,
+    .ge,
+    .gr,
+    .gh,
+    .gi,
+    .gp,
+    .gs,
+    .gu,
+    .gt,
+    .ld,
+    .no,
+    .nd,
+    .ni,
+    .ne,
+    .nn,
+    .nx,
+    .py,
+    .w,
+    .bp {
+      color: $dt-gray-light;
+    }
+    .gh,
+    .gi,
+    .gu {
+      font-weight: bold;
+    }
+    .ge {
+      text-decoration: underline;
+    }
+    .bp {
+      // font-style: italic;
+    }
+    .c,
+    .ch,
+    .cm,
+    .cpf,
+    .c1,
+    .cs {
+      color: $dt-blue;
+    }
+    .kd,
+    .kt,
+    .nb,
+    .nl,
+    .nv,
+    .vc,
+    .vg,
+    .vi,
+    .vm {
+      color: $dt-cyan;
+    }
+    .kd,
+    .nb,
+    .nl,
+    .nv,
+    .vc,
+    .vg,
+    .vi,
+    .vm {
+      // font-style: italic;
+    }
+    .na,
+    .nc,
+    .nf,
+    .fm {
+      color: $dt-orange;
+    }
+    .k,
+    .o,
+    .cp,
+    .kc,
+    .kn,
+    .kp,
+    .kr,
+    .nt,
+    .ow {
+      color: $dt-pink;
+    }
+    .m,
+    .mb,
+    .mf,
+    .mh,
+    .mi,
+    .mo,
+    .il {
+      color: $dt-purple;
+    }
+    .gd {
+      color: $dt-red;
+    }
+  }

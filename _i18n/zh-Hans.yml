@@ -1,0 +1,21 @@
+format:
+  date: "%Y年%-m月%-d日"
+
+this_week: 本周发布
+continue_reading: 继续阅读
+recent_articles: 最近的文章
+publications: 书籍
+popular_articles: 热门文章
+contributors: 贡献者
+
+written_by: 作者
+translated_by: 翻译者
+revised: 有改动
+
+next_article: 下一篇文章
+related_articles: 相关文章
+
+articles: 文章
+
+corrections: " "
+license: 除非另有声明、本网站采用知识共享「<a href="http://creativecommons.org/licenses/by-nc/3.0/cn/" rel="license">署名-非商业性使用 3.0 中国大陆</a>」许可协议授权。

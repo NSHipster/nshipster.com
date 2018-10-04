@@ -1,0 +1,22 @@
+format:
+  date: "%Y년 %-m월 %-d일"
+
+this_week: 이번 주
+continue_reading: 더 읽기
+recent_articles: 최근 기사
+publications: 책
+popular_articles: 인기 기사
+contributors: 기여자
+all_articles: 모든 기사
+
+written_by: "작성자 :"
+translated_by: "번역자 :"
+revised: 개정 된
+
+next_article: 다음 글
+related_articles: 관련 글
+
+articles: 기사
+
+corrections: 궁금하거나 잘못된 내용이 있나요? <a href="https://twitter.com/NSHipster">@NSHipster</a> 또는 <a href="https://github.com/NSHipster/articles">GitHub</a> 에 알려주세요.
+license: NSHipster는 <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license">Creative Commons BY-NC</a>에 따라 라이센스가 부여됩니다.

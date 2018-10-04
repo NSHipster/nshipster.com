@@ -1,0 +1,30 @@
+$dt-gray-dark: #282a36; // Background
+$dt-gray: #747683; // Current Line & Selection
+$dt-gray-light: #f8f8f2; // Foreground
+$dt-blue: #bfc6d8; // Comment
+$dt-cyan: #8be9fd;
+$dt-green: #50fa7b;
+$dt-orange: #ff8000;
+$dt-pink: #ff79c6;
+$dt-purple: #bd93f9;
+$dt-red: #ff5555;
+$dt-yellow: #f1fa8c;
+$dt-white: #fefefe; // Foreground
+
+
+body {
+    background-color: $dt-white;
+    color: $dt-gray-dark;
+    border-top: 3px $dt-orange solid;
+}
+
+a {
+    color: $dt-orange !important;
+    &:visited {
+      color: $dt-orange !important;
+    }
+    &:hover,
+    &:visited:hover {
+      text-decoration: none;
+    }
+  }

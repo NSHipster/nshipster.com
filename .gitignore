@@ -1,0 +1,12 @@
+.s3cfg
+_site
+_drafts
+build
+nshipster.com/articles
+nshipster.com/books
+nshipster.com/training
+.sass-cache
+.vscode
+.jekyll-cache
+.jekyll-metadata
+Procfile

@@ -1,0 +1,67 @@
+title: NSHipster
+permalink: /:title/
+
+twitter: 629523445
+facebook: 418545184954768
+google: 105091289906267717942
+issn: 2373-9800
+
+author:
+  name: Mattt
+  email: mattt@nshipster.com
+  url: /authors/mattt
+
+markdown: NSHipsterProcessor
+highlighter: rouge
+
+kramdown:
+  parse_block_html: true
+  parse_span_html: true
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: "default"
+  - scope:
+      path: ""
+      type: "authors"
+    values:
+      layout: "author"
+  - scope:
+      path: ""
+      type: "translators"
+    values:
+      layout: "translator"
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+
+groups:
+  - Cocoa
+  - Objective-C
+  - Swift
+  - Open Source
+  - Xcode
+  - Miscellanea
+  - Trivia
+
+include: [".well-known"]
+
+exclude:
+  - README*
+  - LICENSE*
+  - Gemfile*
+  - Procfile
+  - Rakefile
+  - rakelib/
+  - netlify.toml
+  - _redirects
+
+assets:
+  source_maps: false
+
+jekyll_tidy:
+  exclude: ["*.txt"]

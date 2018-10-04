@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+    <style>.st0{fill:#0088FF;} .st1{fill:#FFFFFF;}</style>
+    <path class="st0" d="M50 5C25.2 5 5 25.2 5 50s20.2 45 45 45 45-20.2 45-45S74.8 5 50 5z"/>
+    <path class="st1" d="M55.8 69.4c0 3.4-3.1 6.2-6.8 6.2s-6.8-2.8-6.8-6.2V45.3c0-3.4 3.1-6.2 6.8-6.2s6.8 2.8 6.8 6.2v24.1z"/>
+    <ellipse class="st1" cx="49" cy="29" rx="6.8" ry="6.7"/>
+</svg>

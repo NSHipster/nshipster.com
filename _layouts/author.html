@@ -1,0 +1,37 @@
+---
+layout: default
+---
+
+{% assign author = page %}
+{% capture date_format %}{% t format.date %}{% endcapture %}
+
+<article class="author" itemscope itemtype="https://schema.org/Person">
+  <header role="heading">
+    {% if author.image %}
+      <img class="avatar" alt="{{ author.name }}" itemprop="image" src="{% asset "{{ author.image }}" @path %}" draggable="false"/>
+    {% elsif author.gravatar %}
+      <img class="avatar" itemprop="image" src="//0.gravatar.com/avatar/{{ author.gravatar }}?size=300" draggable="false"/>
+    {% endif %}
+    <h1 itemprop="name">{{ author.name }}</h1>
+
+    {{ author.content | markdownify }}
+  </header>
+
+  <section class="archive">
+    <h1>{% t articles %}</h1>
+
+    <ol>
+    {% for post in site.posts %}
+      {% if post.author == author.name or post.authors contains author.name %}
+        <li>
+          <a href="{{ post.url }}" title="{{ post.title }}" class="title">{{ post.title }}</a>
+          <time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: date_format }}</time>
+
+          {{ post.excerpt | markdownify }}
+        </li>
+      {% endif %}
+    {% endfor %}
+    </ol>
+  </section>
+</article>
+

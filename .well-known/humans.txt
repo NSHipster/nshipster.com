@@ -1,0 +1,21 @@
+---
+layout: null
+permalink: /humans.txt
+---
+
+/* TEAM */
+
+Managing Editor: Mattt
+Site: https://mat.tt
+Contact: mattt [at] nshipster.com
+Twitter: @mattt
+Location: Portland, OR, United States
+
+/* SITE */
+
+Last update: {{ site.time | date: "%Y/%-m/%-d" }}
+Language: {{ site.lang }}
+Standards: HTML5, CSS3, WAI-ARIA
+Components: Zepto
+Software: Jekyll
+IDE: Visual Studio Code

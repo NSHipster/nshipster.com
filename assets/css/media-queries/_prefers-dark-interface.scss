@@ -1,0 +1,12 @@
+@media (prefers-dark-interface) {
+    body {
+      background: $dt-gray-dark !important;
+      color: $dt-gray-light !important;
+      blockquote {
+        color: $dt-gray-light !important;
+      }
+      div.highlight {
+        border: 1px $dt-gray-light solid !important;
+      }
+    }
+  }

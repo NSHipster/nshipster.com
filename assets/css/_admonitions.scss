@@ -1,0 +1,64 @@
+@mixin border-icon($name) {
+  content: " ";
+  background-image: asset_url($name + ".svg");
+  background-size: 24px 24px;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  display: block;
+  margin-left: -54px;
+  margin-top: 10px;
+  z-index: 100;
+}
+
+.admonition {
+  border-left-width: 4px;
+  border-left-style: solid;
+  padding: 5px 40px;
+  margin: 1.5em 0;
+  display: block;
+  overflow: visible;
+
+  p {
+      margin: inherit;
+  }
+
+  &.info {
+    background: #e9f5fc;
+    border-left-color: #0088ff;
+
+    a {
+      color: #0088ff !important;
+    }
+
+    &:before {
+      @include border-icon("info");
+    }
+  }
+
+  &.warning {
+    background: #fff2d1;
+    border-left-color: #f9d780;
+
+    a {
+      color: #f9d780 !important;
+    }
+
+    &:before {
+      @include border-icon("warning");
+    }
+  }
+
+  &.error {
+    background: #fcf2f6;
+    border-left-color: #e62279;
+
+    a {
+      color: #e62279 !important;
+    }
+
+    &:before {
+      @include border-icon("error");
+    }
+  }
+}
