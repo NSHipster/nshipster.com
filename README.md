@@ -5,7 +5,7 @@ Swift, Objective-C and Cocoa.
 Updated weekly.
 
 This repository hosts the source code that generates and deploys
-[NSHipster.com](https://nshipster.com).
+[NSHipster.com](https://nshipster.com) and its translations.
 For the articles themselves,
 see [this repository](https://github.com/nshipster/articles).
 
@@ -13,7 +13,7 @@ see [this repository](https://github.com/nshipster/articles).
 
 ## Requirements
 
-- Git 1.5.2+
+- Git 2.16.2+
 - Ruby 2.4.3+
 - [Bundler](https://bundler.io)
 
@@ -27,15 +27,32 @@ $ git clone git@github.com:NSHipster/nshipster.com.git
 $ cd nshipster.com
 ```
 
+Next, clone the articles submodules
+with the following commands:
+
+```terminal
+$ git submodule update --init --remote --merge
+```
+
 NSHipster is built using
 [Jekyll](https://github.com/jekyll/jekyll),
 a blog-aware, static site generator in Ruby.
 
-You can run the site locally with the following commands:
+Download and update the project dependencies with Bundler
+using the command:
 
 ```terminal
 $ bundle install
-$ bundle exec jekyll serve
+```
+
+To run the site locally,
+you must specify the configuration file
+corresponding to the NSHipster website you'd like to build
+(i.e. NSHipster.com, NSHipster.cn, etc.).
+You can run the site locally with the following commands:
+
+```terminal
+$ bundle exec jekyll serve --config _config/default.yml,_config/$DOMAIN.yml --trace
 ```
 
 Now open the server address in a web browser to see a local copy of the site
@@ -43,30 +60,6 @@ Now open the server address in a web browser to see a local copy of the site
 
 ```terminal
 $ open http://localhost:4000
-```
-
-## Synchronizing Articles
-
-Articles are located in the `_posts` directory,
-which is a subtree corresponding to the
-[articles repository](https://github.com/nshipster/articles).
-
-Git subtrees are similar to submodules,
-but have a slightly different workflow.
-
-To pull in the latest changes from the articles repository,
-run the following command:
-
-```terminal
-$ rake articles:pull
-```
-
-If you commit any changes to files in the `_posts` directory,
-be sure to push those changes to the articles repository.
-You can do this by running the following command:
-
-```terminal
-$ rake articles:push
 ```
 
 ## Deploying
@@ -93,9 +86,10 @@ Follow NSHipster on Twitter
 ## License
 
 All code is published under the
-[MIT License](http://opensource.org/licenses/MIT).
+[MIT License](https://opensource.org/licenses/MIT).
 
 All content is released under the
-[Creative Commons BY-NC License](http://creativecommons.org/licenses/by-nc/4.0/).
+[Creative Commons BY-NC License](https://creativecommons.org/licenses/by-nc/4.0/).
 
-NSHipster® and the NSHipster Logo are registered trademarks of NSHipster, LLC.
+NSHipster® and the NSHipster Logo
+are registered trademarks of Read Evaluate Press, LLC.
