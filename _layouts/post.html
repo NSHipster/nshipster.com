@@ -38,7 +38,7 @@ layout: default
 
     {% if page.last_revised_on %}
         <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished" hidden aria-hidden="true">{{ page.date | date: date_format }}</time>
-        <time datetime="{{ page.last_revised_on | date_to_xmlschema }}" itemprop="dateModified">{{ page.date | date: date_format }}</time>
+        <time datetime="{{ page.last_revised_on | date_to_xmlschema }}" itemprop="dateModified">{{ page.last_revised_on | date: date_format }}</time>
     {% else %}
         <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: date_format }}</time>
         <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="dateModified" hidden aria-hidden="true">{{ page.date | date: date_format }}</time>
