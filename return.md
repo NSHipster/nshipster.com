@@ -4,13 +4,12 @@ date: 2018-07-09
 title: Returning to Our Regularly Scheduled Programming
 author: Mattt
 category: ""
-excerpt: 
-    NSHipster returns to weekly publication,
-    with new articles every Monday,
-    updates every Wednesday,
-    and new trivia questions every Friday.
+excerpt: NSHipster returns to weekly publication,
+  with new articles every Monday,
+  updates every Wednesday,
+  and new trivia questions every Friday.
 status:
-    swift: n/a
+  swift: n/a
 ---
 
 When the iPhone SDK first came out,
@@ -163,7 +162,6 @@ I quietly got to work upgrading NSHipster's tech stack:
   which reduced file size by ~30% across the board.
 - Critical CSS is now inlined to optimize the site's
   [Critical Rendering Path](https://developers.google.com/web/fundamentals/performance/critical-rendering-path/).
-- The site now offers [JSON Feed](https://jsonfeed.org) syndication for articles.
 - And most important of all,
   the site now
   [supports the iPhone X notch](https://webkit.org/blog/7929/designing-websites-for-iphone-x/).
