@@ -18,7 +18,7 @@ permalink: /
   </article>
 
   {% assign latest_revision = site.posts | sort: 'last_revised_on' | last %}
-  {% if latest_revision and latest_revision.id != site.posts.first.id %}
+  {% if latest_revision and latest_revision.id != site.posts.first.id and latest_revision.revision_description %}
       <hr/>
 
       <article>
