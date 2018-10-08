@@ -24,7 +24,7 @@ layout: null
     </author>
     {% endif %}
 
-    {% assign sorted_posts = site.posts | sort: 'last_revised_on' | reverse %}
+    {% assign sorted_posts = site.posts | sort: 'updated_on' | reverse %}
     {% for post in sorted_posts limit: 10 %}
     <entry>
         <title type="html">{{ post.title | smartify | strip_html | normalize_whitespace | xml_escape }}</title>
