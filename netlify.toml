@@ -51,6 +51,9 @@
   from = "http://nshipster.netlify.com/*"
   to = "https://nshipster.com/:splat"
 
+[[redirects]]
+  from = "https://DOMAIN_PLACEHOLDER/swift-documentation-example/*"
+  to = "https://swift-documentation-example.nshipster.com/:splat"
 
 [[redirects]]
   from = "https://DOMAIN_PLACEHOLDER/authors/mattt-thompson"
@@ -69,5 +72,7 @@
   to = "https://DOMAIN_PLACEHOLDER/swift-literals"
 
 [[redirects]]
-  from = "https://DOMAIN_PLACEHOLDER/swift-documentation-example/*"
-  to = "https://swift-documentation-example.nshipster.com/:splat"
+  from = "https://nshipster.com/NSDateComponents"
+  to = "https://nshipster.com/DateComponents"
+
+
