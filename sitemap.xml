@@ -14,9 +14,9 @@ layout: null
 
   {% for post in site.posts %}
     <url>
-        <loc>{{ site.url }}{{ post.url }}</loc>
-        <lastmod>{{ post.last_modified_at | date_to_xmlschema }}</lastmod>
-        <changefreq>monthly</changefreq>
+        <loc>{{ post.url | absolute_url }}</loc>
+        <lastmod>{{ post.updated_on | date_to_xmlschema }}</lastmod>
+        <changefreq>yearly</changefreq>
         <priority>0.9</priority>
     </url>
   {% endfor %}
