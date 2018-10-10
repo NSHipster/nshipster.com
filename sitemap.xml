@@ -23,8 +23,13 @@ layout: null
 
   {% for author in site.authors %}
     <url>
-        <loc>{{ site.url }}{{ author.url }}</loc>
-        <changefreq>yearly</changefreq>
+        <loc>{{ author.url | absolute_url }}</loc>
+    </url>
+  {% endfor %}
+
+  {% for translator in site.translators %}
+    <url>
+        <loc>{{ translator.url | absolute_url }}</loc>
     </url>
   {% endfor %}
 </urlset>
