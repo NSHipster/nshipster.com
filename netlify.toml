@@ -72,7 +72,5 @@
   to = "https://DOMAIN_PLACEHOLDER/swift-literals"
 
 [[redirects]]
-  from = "https://nshipster.com/NSDateComponents"
-  to = "https://nshipster.com/DateComponents"
-
-
+  from = "https://nshipster.com/nsdatecomponents"
+  to = "https://nshipster.com/datecomponents"
