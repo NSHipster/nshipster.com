@@ -74,3 +74,7 @@
 [[redirects]]
   from = "https://nshipster.com/nsdatecomponents"
   to = "https://nshipster.com/datecomponents"
+
+[[redirects]]
+  from = "https://nshipster.com/nsvaluetransformer"
+  to = "https://nshipster.com/valuetransformer"
