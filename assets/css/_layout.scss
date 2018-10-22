@@ -443,7 +443,6 @@ body {
         width: 40%;
         margin: 2em auto;
       }
-      img,
       object,
       embed,
       figure,
@@ -451,6 +450,10 @@ body {
         margin: 1em auto;
         display: block;
         width: auto;
+      }
+      img {
+        margin: 1em auto;
+        display: block;
       }
       ul,
       ol {
