@@ -25,6 +25,9 @@
 
 
   @media screen and (max-width: 480px) {
+    .container {
+        padding: 1em;
+    }
 
     #recent article {
       width: 100%;
@@ -161,18 +164,13 @@
   }
 
   @media screen and (max-width: 480px) {
-    .book {
-      width: 100%;
-      margin-bottom: 1em;
-    }
-  }
-
-
-
-  @media screen and (max-width: 480px) {
     .tagline {
       font-size: 110%;
     }
+
+        #contributors {
+            display: none;
+            }
   }
 
 

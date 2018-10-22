@@ -56,9 +56,11 @@ permalink: /
 <section id="publications">
   <h1>{% t publications %}</h1>
 
+  <div class="books">
   {% include book.html book="nshipster-swift" %}
   {% include book.html book="cfhipsterref" %}
   {% include book.html book="nshipster-fake-book-objective-c" %}
+  </div>
 </section>
 
 {% if site.tags.popular.size > 4 %}
