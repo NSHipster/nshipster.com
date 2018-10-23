@@ -1,4 +1,6 @@
 @import "fonts/merriweather";
+@import "fonts/batang";
+
 
 $serif-font-stack: "Merriweather", Georgia, serif, "Apple Color Emoji",
   "Segoe UI Emoji", "Segoe UI Symbol";
@@ -19,6 +21,13 @@ body {
   font-kerning: normal;
   -webkit-font-smoothing: antialiased;
   line-height: 1.5;
+}
+
+html[lang="ko-KR"] {
+    body {
+        font-family: "Batang", $serif-font-stack;
+        font-weight: lighter;
+    }
 }
 
 h1,
