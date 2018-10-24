@@ -95,13 +95,20 @@ td > code {
   user-select: all;
 }
 
-code {
+code, samp {
   font-family: $mono-font-stack;
   font-size: 85%;
 }
 
 pre code {
   font-size: 80%;
+}
+
+samp {
+    white-space: pre;
+    overflow: scroll;
+    display: block;
+    padding: 0.5em 0;
 }
 
 section > h1 {
