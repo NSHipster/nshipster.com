@@ -42,11 +42,6 @@ $(document).ready(function () {
         }
     });
 
-    var hiddenSingleLanguages =
-        $("meta[property='nshipster:hide-single-lang']")
-        .attr("content")
-        .split(",") || [];
-
     $(".highlight-group").each(function () {
         var languages = [];
         $(this)
