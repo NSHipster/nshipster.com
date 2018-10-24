@@ -14,6 +14,8 @@ $(document).ready(function () {
             language = "JSON";
         } else if (classAttr.includes("language-javascript")) {
             language = "JavaScript";
+        } else if (classAttr.includes("language-terminal")) {
+            language = "Terminal";
         }
 
         if (language !== null) {
@@ -50,16 +52,11 @@ $(document).ready(function () {
         $(this)
             .find($("code"))
             .each(function () {
-                languages.push($(this).data("lang"));
+                var language = $(this).data("lang");
+                if (language) {
+                    languages.push(language);
+                }
             });
-
-        if (
-            languages.length <= 1 &&
-            languages[0] === undefined &&
-            hiddenSingleLanguages.indexOf(languages[0].toLowerCase()) != -1
-        ) {
-            return;
-        }
 
         $(this)
             .children(".highlighter-rouge:not(:first-child)")
