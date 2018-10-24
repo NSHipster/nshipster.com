@@ -52,7 +52,7 @@ module Jekyll
             href = a.attr('href')
             next if href.match?(/^\/|#{ENV['DOMAIN']}/)
 
-            a['rel'] = 'noopener'
+            a['rel'] = 'noopener noreferrer'
           end
         end
       end
