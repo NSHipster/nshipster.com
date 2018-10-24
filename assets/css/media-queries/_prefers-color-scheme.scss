@@ -1,0 +1,33 @@
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #2c2a28 !important;
+        color: $dt-gray-light !important;
+
+        blockquote {
+            color: $dt-gray-light !important;
+        }
+
+        div.highlight {
+            border: 1px $dt-gray-light solid !important;
+        }
+
+        .language-toggle a {
+            color: $dt-gray-light !important;
+        }
+
+        .info {
+            background: #333c44 !important;
+
+        }
+
+        .warning {
+            background: #484131 !important;
+
+        }
+
+        .error {
+            background: #592e41 !important;
+
+        }
+    }
+}
