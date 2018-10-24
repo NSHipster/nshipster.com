@@ -102,10 +102,6 @@ layout: default
       {% endif %}
     </section>
 
-    {% if page.tags contains "cfhipsterref" %}
-      {% include promo.html book="cfhipsterref" %}
-    {% endif %}
-
     <section>
       {% assign random_post = site.posts | shuffle | first %}
       {% assign next_post = page.next | default: random_post %}
