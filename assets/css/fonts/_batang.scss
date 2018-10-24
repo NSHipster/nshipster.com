@@ -1,10 +1,9 @@
 @font-face {
     font-family: 'Batang';
     src: url(font_path("Batang.woff2")) format("woff2"),
-    url(font_path("Batang.woff")) format("woff");
+        url(font_path("Batang.woff")) format("woff");
     font-weight: normal;
     font-style: normal;
     font-display: auto;
     unicode-range: U+AC00-D7A3, U+1100-11FF, U+3130-318F, U+A960-A97F, U+D7B0-D7FF;
 }
-

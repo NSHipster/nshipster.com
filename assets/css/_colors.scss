@@ -20,11 +20,13 @@ body {
 
 a {
     color: $dt-orange !important;
+
     &:visited {
-      color: $dt-orange !important;
+        color: $dt-orange !important;
     }
+
     &:hover,
     &:visited:hover {
-      text-decoration: none;
+        text-decoration: none;
     }
-  }
+}
