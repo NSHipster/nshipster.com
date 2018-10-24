@@ -11,11 +11,13 @@ $dt-red: #ff5555;
 $dt-yellow: #f1fa8c;
 $dt-white: #fefefe; // Foreground
 
-
-body {
-    background-color: $dt-white;
-    color: $dt-gray-dark;
+html {
     border-top: 3px $dt-orange solid;
+
+    body {
+        background-color: $dt-white;
+        color: $dt-gray-dark;
+    }
 }
 
 a {
