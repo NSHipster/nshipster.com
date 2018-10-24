@@ -54,7 +54,7 @@ $(document).ready(function() {
       });
 
     if (
-      languages.length <= 1 &&
+      languages.length >= 1 &&
       hiddenSingleLanguages.indexOf(languages[0].toLowerCase()) != -1
     ) {
       return;
