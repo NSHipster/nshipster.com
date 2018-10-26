@@ -436,8 +436,8 @@ section h1 {
     }
 
     div.highlight {
-        background: $dt-gray-dark !important;
-        border-radius: 0.25em;
+        background: $dt-gray-dark;
+        border-radius: 5px;
         overflow: auto;
         padding: 0 1em;
         margin-bottom: 1em;

@@ -11,8 +11,12 @@
 
 @import "media-queries/width";
 @import "media-queries/hover";
+@import "media-queries/inverted-colors";
+@import "media-queries/monochrome";
 @import "media-queries/prefers-color-scheme";
+@import "media-queries/prefers-contrast";
 @import "media-queries/prefers-reduced-motion";
+@import "media-queries/print";
 
 * {
     -webkit-box-sizing: border-box;

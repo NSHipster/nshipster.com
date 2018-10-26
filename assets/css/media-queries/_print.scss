@@ -1,0 +1,110 @@
+@media print {
+    @page {
+        margin: 0.5in;
+    }
+
+    // @page {
+    //     @bottom-center {
+    //         content: "Page "counter(page) " of "counter(pages);
+    //     }
+    //
+    //     @footnote {
+    //         border-top: 1pt black solid;
+    //     }
+    // }
+
+    html {
+        border-top: none;
+
+        body {
+            font-size: 10pt !important;
+        }
+    }
+
+    [role="banner"] {
+        position: absolute;
+
+        #logo svg {
+            width: 1in;
+            height: 1in;
+        }
+    }
+
+    article header {
+        padding-top: 1.5in;
+    }
+
+    img,
+    p,
+    blockquote,
+    aside,
+    ul,
+    ol,
+    table,
+    figure,
+    .highlight-group {
+        page-break-inside: avoid;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        page-break-after: avoid;
+    }
+
+    img {
+        max-width: 100% !important;
+    }
+
+    p {
+        a {
+            word-wrap: break-word;
+        }
+
+        a[href^="#"]:after {
+            display: none;
+        }
+
+        a[href^="http://"]:after,
+        a[href^="https://"]:after {
+            content: " ("attr(href) ")";
+            float: footnote;
+            text-decoration: none;
+            color: #333;
+        }
+    }
+
+    [title]::after {
+        content: attr(title);
+        float: footnote;
+    }
+
+    .highlight-group a {
+        font-size: 50%;
+    }
+
+    div.highlight {
+        border-radius: 5px;
+        border: 2px black solid;
+    }
+
+    [role="complementary"] {
+        display: none;
+    }
+
+    .admonition {
+        &::before {
+            visibility: hidden;
+        }
+    }
+
+    @media print and (color) {
+        * {
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+    }
+}

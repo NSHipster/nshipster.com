@@ -1,0 +1,10 @@
+@media (inverted-colors) {
+    * {
+        text-shadow: none !important;
+        box-shadow: none !important;
+    }
+
+    img {
+        filter: invert(100%);
+    }
+}

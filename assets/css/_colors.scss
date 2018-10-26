@@ -20,11 +20,17 @@ html {
     }
 }
 
-a {
-    color: $dt-orange !important;
+#logo {
+    #ns {
+        fill: $dt-orange; //f58020
+    }
+}
 
+a {
+
+    &,
     &:visited {
-        color: $dt-orange !important;
+        color: $dt-orange;
     }
 
     &:hover,
