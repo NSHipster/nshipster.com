@@ -1,4 +1,4 @@
-@media (monochrome),
+@media (monochrome) and (not(prefers-color-scheme: dark)),
 print and (not(color)),
 (prefers-contrast: high),
 screen and (-ms-high-contrast: active) {
