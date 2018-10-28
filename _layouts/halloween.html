@@ -1,0 +1,20 @@
+---
+layout: post
+---
+
+<aside class="spooky-disclaimer">
+<p><strong>Happy Halloween!</strong>
+This post is best experienced with a dark color scheme and ethereal soundtrack.</p>
+
+<button id="spookify">
+👻 Make it Spooky
+</button>
+
+</aside>
+
+{{ content }}
+
+{% asset halloween.css @inline %}
+{% asset halloween.js @inline %}
+
+<audio id="spooky-soundtrack" preload="none" loop src="{% asset spooky.m4a @path %}"></audio>

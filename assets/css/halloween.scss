@@ -1,0 +1,93 @@
+@charset "UTF-8";
+
+@import "colors";
+@import "functions";
+@import "typography";
+
+
+body {
+    transition: background 1s, color 1s !important;
+}
+
+blockquote.poetry {
+    font-style: italic;
+    display: block;
+    margin: 2em auto 3em auto !important;
+    border-left: none !important;
+    text-align: center;
+}
+
+.spooky-disclaimer {
+    @include clearfix;
+
+    border: 2px $dt-orange solid;
+    border-radius: 5px;
+    padding: 1em 2em;
+    margin-bottom: 2em;
+
+    display: flex;
+    align-items: center;
+
+    p {
+        strong {
+            font-family: $sans-serif-font-stack;
+            color: $dt-orange;
+            font-size: 2em;
+            display: block;
+        }
+
+        margin-right: 2em;
+    }
+
+    button {
+        width: 15em;
+
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .spooky-disclaimer {
+        display: block;
+    }
+
+    button {
+        display: block;
+        margin: 2em auto 0.75em auto;
+    }
+}
+
+body.spooky {
+    background: #2c2a28 !important;
+    color: $dt-gray-light !important;
+
+    cite {
+        color: $dt-gray-light !important;
+    }
+
+    blockquote {
+        color: $dt-gray-light !important;
+    }
+
+    div.highlight {
+        border: 1px $dt-gray-light solid !important;
+    }
+
+    .language-toggle a {
+        color: $dt-gray-light !important;
+    }
+
+    .info {
+        background: #333c44 !important;
+
+    }
+
+    .warning {
+        background: #484131 !important;
+
+    }
+
+    .error {
+        background: #592e41 !important;
+
+    }
+}
