@@ -82,3 +82,7 @@
 [[redirects]]
   from = "https://nshipster.com/nstemporarydirectory"
   to = "https://nshipster.com/temporary-files"
+
+[[redirects]]
+  from = "https://nshipster.com/nsfilemanager"
+  to = "https://nshipster.com/filemanager"
