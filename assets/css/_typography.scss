@@ -110,6 +110,10 @@ td>code {
     user-select: all;
 }
 
+pre {
+    font-family: $serif-font-stack;
+}
+
 code,
 samp {
     font-family: $mono-font-stack;
