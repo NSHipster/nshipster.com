@@ -1,18 +1,18 @@
 @media (prefers-color-scheme: dark) {
     body {
         background: #2c2a28 !important;
-        color: $dt-gray-light !important;
+        color: $gray-light !important;
 
         blockquote {
-            color: $dt-gray-light !important;
+            color: $gray-light !important;
         }
 
         div.highlight {
-            border: 1px $dt-gray-light solid !important;
+            border: 1px $gray-light solid !important;
         }
 
         .language-toggle a {
-            color: $dt-gray-light !important;
+            color: $gray-light !important;
         }
 
         .info {

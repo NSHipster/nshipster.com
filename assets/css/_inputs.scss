@@ -6,7 +6,7 @@ input[type="submit"] {
     -webkit-appearance: none;
     -webkit-font-smoothing: antialiased;
     appearance: none;
-    background-color: $dt-orange;
+    background-color: $orange;
     border-radius: 5px;
     border: none;
     color: white;
@@ -25,6 +25,6 @@ input[type="submit"] {
 
 button:hover,
 input[type="submit"]:hover {
-    background-color: darken($color: $dt-orange, $amount: 10%);
+    background-color: darken($color: $orange, $amount: 10%);
     color: white;
 }
