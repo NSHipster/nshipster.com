@@ -67,10 +67,10 @@ GEM
       htmlbeautifier
       htmlcompressor
       jekyll
-    jekyll-watch (2.0.0)
+    jekyll-watch (2.1.2)
       listen (~> 3.0)
     kramdown (1.17.0)
-    liquid (4.0.0)
+    liquid (4.0.1)
     liquid-tag-parser (1.9.0)
       extras (~> 0.3)
       liquid (>= 3.0, < 5.0)
@@ -81,10 +81,10 @@ GEM
     mercenary (0.3.6)
     mini_portile2 (2.3.0)
     minitest (5.11.3)
-    nokogiri (1.8.4)
+    nokogiri (1.8.5)
       mini_portile2 (~> 2.3.0)
     nuggets (1.6.0)
-    pathutil (0.16.1)
+    pathutil (0.16.2)
       forwardable-extended (~> 2.6)
     posix-spawn (0.3.13)
     public_suffix (3.0.3)
@@ -101,6 +101,9 @@ GEM
     sass-listen (4.0.0)
       rb-fsevent (~> 0.9, >= 0.9.4)
       rb-inotify (~> 0.9, >= 0.9.7)
+    sassc (2.0.0)
+      ffi (~> 1.9.6)
+      rake
     sprockets (4.0.0.beta8)
       concurrent-ruby (~> 1.0)
       rack (> 1, < 3)
@@ -125,6 +128,7 @@ DEPENDENCIES
   nokogiri
   rake
   rouge
+  sassc
   sprockets (~> 4.0.beta)
   tzinfo-data
   uglifier (~> 4.0)

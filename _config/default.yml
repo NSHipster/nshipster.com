@@ -62,6 +62,11 @@ exclude:
 
 assets:
   source_maps: false
+  compression: true
+  defaults:
+    js: { integrity: true }
+    css: { integrity: true }
+    img: { integrity: true }
 
 jekyll_tidy:
   exclude: ["*.txt"]
