@@ -20,7 +20,7 @@ layout: default
       {% for auth in page.authors %}
           {% if forloop.last %}&{% endif %}
           {% assign author = site.authors | where:"name",auth | first %}
-          <a class="author" href="{{ author.url }}">{{ author.name }}</a>
+          <a rel="author" class="author" href="{{ author.url }}">{{ author.name }}</a>
       {% endfor %}
       — <wbr/>
     {% elsif author %}
@@ -110,7 +110,7 @@ layout: default
         <small>{% t next_article %}</small>
         <article>
           <h1 class="title">
-            <a href="{{ next_post.url }}" title="{{ next_post.title }}" rel="next">{{ next_post.title | camel_break }}</a>
+            <a rel="next" href="{{ next_post.url }}" title="{{ next_post.title }}">{{ next_post.title | camel_break }}</a>
           </h1>
 
           {{ next_post.excerpt | markdownify }}
