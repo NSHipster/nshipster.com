@@ -12,8 +12,7 @@ layout: default
       <a href="{{ page.url }}">{{ page.title | camel_break }}</a>
     </h1>
 
-    <h2>
-
+    <div class="byline">
     <span>
     {% if page.authors %}
       {% t written_by %}
@@ -47,7 +46,7 @@ layout: default
     {% if page.revisions %}
     (<a href="#revisions">{% t revised %}</a>)
     {% endif %}
-    </h2>
+    </div>
 
     <link itemprop="image" href="{{ '/logo.png' | absolute_url }}"/>
     <meta itemprop="headline" content="{{ page.title }}"/>
