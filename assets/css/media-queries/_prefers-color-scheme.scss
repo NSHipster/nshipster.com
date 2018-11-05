@@ -30,4 +30,8 @@
 
         }
     }
+
+    img[src$=".svg"]{
+        filter: invert(100%);
+    }
 }
