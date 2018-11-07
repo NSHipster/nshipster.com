@@ -32,7 +32,7 @@ layout: default
     {% if page.translators %}
       {% t translated_by %}
       {% for trans in page.translators %}
-          {% if forloop.last %}&{% endif %}
+          {% if forloop.last %}&amp;{% endif %}
           {% assign translator = site.translators | where:"name",trans | first %}
           {% if translator %}
             <a class="translator" href="{{ translator.url }}">{{ translator.name }}</a>
