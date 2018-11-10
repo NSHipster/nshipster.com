@@ -1,7 +1,6 @@
 @import "fonts/merriweather";
 @import "fonts/batang";
 
-
 $serif-font-stack: "Merriweather",
 Georgia,
 serif,
@@ -25,7 +24,6 @@ monospace;
 html,
 body {
     font-family: $serif-font-stack;
-
     font-size: 1em;
     text-rendering: optimizeLegibility;
     //   -webkit-font-feature-settings: "kern" 1, "kern";
@@ -40,6 +38,39 @@ html[lang="ko-KR"] {
     body {
         font-family: "Batang", $serif-font-stack;
         font-weight: lighter;
+    }
+}
+
+html[lang="zh-Hans"] {
+
+    a.readmore,
+    section>h1,
+    article p em,
+    cite {
+        font-style: normal;
+        font-weight: bold;
+    }
+
+    [role="article"] header .byline {
+        font-style: normal;
+    }
+
+    .archive {
+
+        ol li time,
+        ul li time {
+            font-style: normal;
+            font-weight: bold;
+        }
+    }
+
+    #promotion h4 {
+        font-style: normal;
+        font-weight: bold;
+    }
+
+    .highlight span {
+        font-style: normal !important;
     }
 }
 
