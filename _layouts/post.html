@@ -28,7 +28,19 @@ layout: default
     </span>
 
     <span>
-    {% if translator %}
+    {% if page.translators %}
+      {% t translated_by %}
+      {% for trans in page.translators %}
+          {% if forloop.last %}&amp;{% endif %}
+          {% assign translator = site.translators | where:"name",trans | first %}
+          {% if translator %}
+            <a class="translator" href="{{ translator.url }}">{{ translator.name }}</a>
+          {% else %}
+            {{ trans }}
+          {% endif %}
+      {% endfor %}
+      — <wbr/>
+    {% elsif translator %}
         {% t translated_by %} <a class="translator" href="{{ translator.url }}">{{ translator.name }}</a> — <wbr/>
     {% elsif page.translator %}
         {% t translated_by %} {{ page.translator }} — <wbr/>
