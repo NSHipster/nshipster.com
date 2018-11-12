@@ -554,7 +554,7 @@ section h1 {
         }
 
         table {
-            th {
+            thead th {
                 text-align: center;
             }
 
@@ -979,6 +979,37 @@ table#status {
 
         em {
             color: #777777;
+        }
+    }
+}
+
+table#customplaygrounddisplayconvertible-categories {
+    table-layout: auto;
+
+    tbody th {
+        padding-left: 10px;
+        text-align: center;
+    }
+
+    ul {
+        padding: 0 0 0 20px;
+
+        li {
+            margin: 0;
+        }
+    }
+
+    td img {
+        margin: 0;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    table#customplaygrounddisplayconvertible-categories {
+
+        thead tr th:last-child,
+        tbody tr td:last-child {
+            display: none;
         }
     }
 }
