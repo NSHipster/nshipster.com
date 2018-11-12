@@ -8,7 +8,7 @@ permalink: /
     <header>
       <small>{% t this_week %}</small>
       <h1 class="title">
-        <a href="{{ site.posts.first.url }}">{{ site.posts.first.title }}</a>
+        <a href="{{ site.posts.first.url }}">{{ site.posts.first.title | camel_break }}</a>
       </h1>
     </header>
 
@@ -25,7 +25,7 @@ permalink: /
       <header>
           <small>{{ latest_revision.revision_description }}</small>
           <h1 class="title">
-            <a href="{{ latest_revision.url }}">{{ latest_revision.title }}</a>
+            <a href="{{ latest_revision.url }}">{{ latest_revision.title | camel_break }}</a>
           </h1>
       </header>
 
