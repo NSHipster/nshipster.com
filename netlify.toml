@@ -56,20 +56,20 @@
   to = "https://swift-documentation-example.nshipster.com/:splat"
 
 [[redirects]]
-  from = "https://DOMAIN_PLACEHOLDER/authors/mattt-thompson"
-  to = "https://DOMAIN_PLACEHOLDER/authors/mattt"
+  from = "https://nshipster.com/authors/mattt-thompson"
+  to = "https://nshipster.com/authors/mattt"
 
 [[redirects]]
-  from = "https://DOMAIN_PLACEHOLDER/reader-submissions-new-years-2013"
-  to = "https://DOMAIN_PLACEHOLDER/new-years-2013/"
+  from = "https://nshipster.com/reader-submissions-new-years-2013"
+  to = "https://nshipster.com/new-years-2013/"
 
 [[redirects]]
-  from = "https://DOMAIN_PLACEHOLDER/wkwebkit"
-  to = "https://DOMAIN_PLACEHOLDER/wkwebview"
+  from = "https://nshipster.com/wkwebkit"
+  to = "https://nshipster.com/wkwebview"
 
 [[redirects]]
-  from = "https://DOMAIN_PLACEHOLDER/swift-literal-convertible"
-  to = "https://DOMAIN_PLACEHOLDER/swift-literals"
+  from = "https://nshipster.com/swift-literal-convertible"
+  to = "https://nshipster.com/swift-literals"
 
 [[redirects]]
   from = "https://nshipster.com/nsdatecomponents"
