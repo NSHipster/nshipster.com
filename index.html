@@ -23,7 +23,7 @@ permalink: /
 
       <article>
       <header>
-          <small>{{ latest_revision.revision_description }}</small>
+          <small>{{ latest_revision.revision_description | markdownify }}</small>
           <h1 class="title">
             <a href="{{ latest_revision.url }}">{{ latest_revision.title | camel_break }}</a>
           </h1>
