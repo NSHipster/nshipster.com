@@ -94,3 +94,7 @@
 [[redirects]]
   from = "https://nshipster.com/mirrortype"
   to = "https://nshipster.com/mirror"
+
+[[redirects]]
+  from = "https://nshipster.com/nslocale"
+  to = "https://nshipster.com/locale"
