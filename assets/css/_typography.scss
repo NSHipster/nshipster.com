@@ -187,3 +187,15 @@ a {
         text-decoration: underline;
     }
 }
+
+kbd {
+    background-color: #fafafa;
+    border-radius: 3px;
+    border: 1px solid #ccc;
+    box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px #fff inset;
+    font-family: $sans-serif-font-stack;
+    font-variant: small-caps;
+    margin: 0 .1em;
+    padding: .1em .6em;
+    text-transform: lowercase;
+}
