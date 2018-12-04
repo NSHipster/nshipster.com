@@ -189,9 +189,10 @@ a {
 }
 
 kbd {
-    background-color: #fafafa;
+    color: $gray-dark;
+    background-color: $gray-light;
     border-radius: 3px;
-    border: 1px solid #ccc;
+    border: 1px solid $gray;
     box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px #fff inset;
     font-family: $sans-serif-font-stack;
     font-variant: small-caps;
