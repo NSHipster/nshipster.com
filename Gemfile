@@ -4,6 +4,7 @@ ruby '2.4.3'
 source 'https://rubygems.org'
 
 gem 'jekyll', '~> 3.8'
+gem 'rack', '>= 2.0.6'
 
 gem 'sprockets', '~> 4.0.beta', require: false
 gem 'uglifier', '~> 4.0'
