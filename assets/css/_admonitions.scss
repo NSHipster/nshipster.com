@@ -12,6 +12,7 @@
 }
 
 .admonition {
+    font-family: $sans-serif-font-stack;
     border-left-width: 4px;
     border-left-style: solid;
     padding: 5px 40px;
@@ -20,7 +21,8 @@
     overflow: visible;
 
     p {
-        margin: inherit;
+        margin: 0.5em 0;
+        font-size: smaller;
     }
 
     &.info {
