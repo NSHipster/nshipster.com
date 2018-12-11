@@ -469,12 +469,16 @@ section h1 {
             color: #a3a39e;
 
             a,
-            span {
+            span,
+            time {
                 white-space: nowrap;
             }
 
-            time {
-                white-space: nowrap;
+            .authors,
+            .translators {
+                &:after {
+                    content: " — ";
+                }
             }
         }
     }

@@ -13,23 +13,31 @@ layout: default
     </h1>
 
     <div class="byline">
-    <span>
     {% if page.authors %}
-      {% t written_by %}
-      {% for auth in page.authors %}
-          {% if forloop.last %}&{% endif %}
+        {% t written_by %}
+        <span class="authors">
+        {% for auth in page.authors %}
+          {% if forloop.last %}&amp;{% endif %}
           {% assign author = site.authors | where:"name",auth | first %}
           <a rel="author" class="author" href="{{ author.url }}">{{ author.name }}</a>
-      {% endfor %}
-      — <wbr/>
+        {% endfor %}
+        </span>
+        <wbr/>
     {% elsif author %}
-      {% t written_by %} <a class="author" href="{{ author.url }}">{{ author.name }}</a> — <wbr/>
+      {% t written_by %}
+      <span class="authors">
+        <a class="author" href="{{ author.url }}">{{ author.name }}</a>
+      </span>
+    {% elsif page.author %}
+        {% t written_by %}
+        <span class="authors">
+            {{ page.translator }}
+        </span>
     {% endif %}
-    </span>
 
-    <span>
     {% if page.translators %}
       {% t translated_by %}
+      <span class="translators">
       {% for trans in page.translators %}
           {% if forloop.last %}&amp;{% endif %}
           {% assign translator = site.translators | where:"name",trans | first %}
@@ -39,13 +47,18 @@ layout: default
             {{ trans }}
           {% endif %}
       {% endfor %}
-      — <wbr/>
+      </span>
     {% elsif translator %}
-        {% t translated_by %} <a class="translator" href="{{ translator.url }}">{{ translator.name }}</a> — <wbr/>
+        {% t translated_by %}
+        <span class="translators">
+          <a class="translator" href="{{ translator.url }}">{{ translator.name }}</a>
+        </span>
     {% elsif page.translator %}
-        {% t translated_by %} {{ page.translator }} — <wbr/>
+        {% t translated_by %}
+        <span class="translators">
+          {{ page.translator }}
+        </span>
     {% endif %}
-    </span>
 
     {% if page.last_revised_on %}
         <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished" hidden aria-hidden="true">{{ page.date | date: date_format }}</time>
@@ -90,7 +103,7 @@ layout: default
             <em>This article uses Swift version {{ page.status.swift }}.</em>
         {% endif %}
       {% else %}
-            {% if page.status.reviewed %}<em>This article was last reviewed on {{ page.status.reviewed }}.</em>{% endif %}
+         {% if page.status.reviewed %}<em>This article was last reviewed on {{ page.status.reviewed }}.</em>{% endif %}
       {% endif %}
       Find status information for all articles on the <a href="/status/">status page</a>.
       </p>
