@@ -98,3 +98,7 @@
 [[redirects]]
   from = "https://nshipster.com/nslocale"
   to = "https://nshipster.com/locale"
+
+[[redirects]]
+  from = "https://nshipster.com/nscharacterset"
+  to = "https://nshipster.com/characterset"
