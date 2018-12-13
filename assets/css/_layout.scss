@@ -645,6 +645,11 @@ article.author {
     text-align: center;
     margin-top: 2em;
     padding: 1em;
+
+    section {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
 }
 
 .avatar {

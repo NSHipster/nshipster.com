@@ -135,6 +135,10 @@
             margin-right: 0;
         }
     }
+
+    [role="contentinfo"] {
+        font-size: smaller;
+    }
 }
 
 @media screen and (max-width: 768px) {
