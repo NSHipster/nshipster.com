@@ -265,16 +265,15 @@ dl {
 #recent {
     ul {
         display: grid;
-
         grid-template-columns: repeat(3, 1fr);
-        column-gap: 2em;
+        gap: 1em 2em;
 
         li {
             min-height: 15em;
 
             .title {
                 height: 4em;
-                font-size: 2em;
+                font-size: 1.75em;
                 display: table-cell;
                 line-height: 1;
                 vertical-align: bottom;

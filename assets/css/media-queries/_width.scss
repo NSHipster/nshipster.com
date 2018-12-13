@@ -1,6 +1,6 @@
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 768px) {
     .container {
-        padding: 1em;
+        padding: 1.5em;
     }
 
     #recent {
@@ -37,11 +37,6 @@
 
         .content {
             overflow: hidden;
-
-            ul,
-            ol {
-                padding: 0;
-            }
 
             blockquote {
                 margin: 1em 0;
@@ -113,10 +108,6 @@
         }
     }
 
-    .tagline {
-        font-size: 110%;
-    }
-
     #contributors {
         display: none;
     }
@@ -136,12 +127,22 @@
         }
     }
 
-    [role="contentinfo"] {
-        font-size: smaller;
+    .archive dl {
+        width: 100%;
+        margin: 0;
+        float: none;
+
+        dt {
+            margin-bottom: 0.5em;
+        }
+
+        dd {
+            margin-bottom: 1em;
+        }
     }
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 960px) {
     [role="article"] header h1 {
         font-size: 8vw;
     }
@@ -175,16 +176,13 @@
         font-size: 100%;
     }
 
-    .archive dl {
-        width: 100%;
-        margin: 0;
-        float: none;
-    }
-
     #recent {
         ul {
             grid-template-columns: repeat(2, 1fr);
-            column-gap: 1em;
         }
+    }
+
+    .anchor {
+        font-size: 67%;
     }
 }
