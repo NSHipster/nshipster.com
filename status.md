@@ -5,8 +5,8 @@ permalink: /status
 ---
 
 The common swift (_Apus apus_) can travel at speeds over 100km/h.
-The Swift programming language,
-true to its name and namesake,
+The Swift programming language ---
+true to its name and namesake ---
 is similarly fast-moving,
 frequently introducing new language features and syntax rules.
 As a result,

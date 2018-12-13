@@ -87,36 +87,29 @@ layout: default
 
   <footer role="complementary">
     {% if site.lang == "en-US" %}
-    {% if page.revisions or page.status %}
-    <section id="revisions">
-      <small>NSMutableHipster</small>
+        {% if page.revisions or page.status %}
+        <section id="revisions">
+        <small>NSMutableHipster</small>
 
-      <p>
-      Questions? Corrections? <a href="https://github.com/NSHipster/articles/issues">Issues</a> and <a href="https://github.com/NSHipster/articles/blob/master/{{ page.path | remove_first:'_posts/' }}">pull requests</a> are always welcome — NSHipster is made better by readers like you.
-      </p>
+        <p>
+        Questions? Corrections? <a href="https://github.com/NSHipster/articles/issues">Issues</a> and <a href="https://github.com/NSHipster/articles/blob/master/{{ page.path | remove_first:'_posts/' }}">pull requests</a> are always welcome.
+        </p>
 
-      <p>
-      {% if page.status.swift and page.status.swift != "t.b.c." and page.status.swift != "n/a" %}
-        {% if page.status.reviewed %}
-            <em>This article uses Swift version {{ page.status.swift }} and was last reviewed on {{ page.status.reviewed }}.</em>
-        {% else %}
-            <em>This article uses Swift version {{ page.status.swift }}.</em>
+        <p class="status">
+        {% if page.status.swift and page.status.swift != "t.b.c." and page.status.swift != "n/a" %}
+            {% if page.status.reviewed %}
+                <em>This article uses Swift version {{ page.status.swift }} and was last reviewed on {{ page.status.reviewed }}.</em>
+            {% else %}
+                <em>This article uses Swift version {{ page.status.swift }}.</em>
+            {% endif %}
+
+            Find status information for all articles on the <a href="/status/">status page</a>.
+        {% elsif page.status.reviewed %}
+            <em>This article was last reviewed on {{ page.status.reviewed }}.</em>
         {% endif %}
-      {% else %}
-         {% if page.status.reviewed %}<em>This article was last reviewed on {{ page.status.reviewed }}.</em>{% endif %}
-      {% endif %}
-      Find status information for all articles on the <a href="/status/">status page</a>.
-      </p>
-
-      <dl>
-      {% for revision in page.revisions %}
-        <dt>{{ revision[0] | date: date_format }}</dt>
-        <dd>{{ revision[1] | markdownify }}</dd>
-      {% endfor %}
-      </dl>
-    </section>
-    {% endif %}
-
+        </p>
+        </section>
+        {% endif %}
     {% endif %}
 
     <section id="attribution">
