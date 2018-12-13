@@ -60,7 +60,7 @@ module Jekyll
 
         def transform_placeholder_tokens!(doc)
           doc.css('code').each do |code|
-            code.inner_html = code.inner_html.gsub(/&lt;#\s*(.+)\s*#&gt;/, '<mark class="placeholder">\\1</mark>')
+            code.inner_html = code.inner_html.gsub(/&lt;#\s*(.+)\s*#&gt;/, '<var class="placeholder">\\1</var>')
           end
         end
 
