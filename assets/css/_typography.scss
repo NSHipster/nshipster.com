@@ -17,8 +17,11 @@ sans-serif,
 "Apple Color Emoji",
 "Segoe UI Emoji",
 "Segoe UI Symbol";
-$mono-font-stack: Courier,
-Monaco,
+$mono-font-stack: "SFMono-Regular",
+Consolas,
+"Liberation Mono",
+Menlo,
+Courier,
 monospace;
 
 html,
