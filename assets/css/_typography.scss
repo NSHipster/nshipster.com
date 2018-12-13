@@ -211,3 +211,28 @@ kbd {
     border: 1px $gray-dark solid;
     border-radius: 5px;
 }
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    &:hover .anchor {
+        visibility: visible;
+        text-decoration: none;
+    }
+}
+
+.anchor {
+    visibility: hidden;
+    position: absolute;
+    float: left;
+    margin-left: -1.5em;
+    padding: 0 0.5em;
+    color: $gray !important;
+
+    :focus {
+        outline: none
+    }
+}

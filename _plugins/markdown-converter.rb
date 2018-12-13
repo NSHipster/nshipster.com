@@ -23,6 +23,7 @@ module Jekyll
           transform_apple_trademarks!(doc)
           transform_code_symbols!(doc)
           transform_placeholder_tokens!(doc)
+          add_heading_anchors!(doc)
 
           doc.to_html
         end
@@ -60,6 +61,15 @@ module Jekyll
         def transform_placeholder_tokens!(doc)
           doc.css('code').each do |code|
             code.inner_html = code.inner_html.gsub(/&lt;#\s*(.+)\s*#&gt;/, '<mark class="placeholder">\\1</mark>')
+          end
+        end
+
+        def add_heading_anchors!(doc)
+          selector = (1..6).map { |n| "h#{n}" }.join(", ")
+          doc.css(selector).each do |h|
+            next unless id = h.attr('id')
+            h.remove_attribute('id')
+            h.prepend_child(%{<a class="anchor" aria-hidden="true" id="#{id}" href="##{id}">#</a>})
           end
         end
       end
