@@ -711,42 +711,23 @@ article.author {
     ol,
     ul {
         list-style: none;
-    }
 
-    ol li,
-    ul li {
-        margin: 2em 0;
-    }
+        li {
+            margin: 2em 0;
 
-    ol li {
+        }
 
         span,
         time {
             display: block;
         }
-    }
 
-    ul li {
-
-        span,
         time {
-            display: block;
+            white-space: nowrap;
+            font-style: italic;
+            font-weight: 300;
+            margin-bottom: 1em;
         }
-    }
-
-    ol li .title,
-    ul li .title {
-        font-family: $sans-serif-font-stack;
-        font-weight: 700;
-        font-size: 1.25em;
-    }
-
-    ol li time,
-    ul li time {
-        white-space: nowrap;
-        font-style: italic;
-        font-weight: 300;
-        margin-bottom: 1em;
     }
 }
 
