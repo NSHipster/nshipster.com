@@ -63,23 +63,6 @@ permalink: /
   </div>
 </section>
 
-{% if site.tags.popular.size > 4 %}
-<section id="popular">
-  <h1>{% t popular_articles %}</h1>
-
-  {% assign popular = site.tags.popular | shuffle %}
-  {% for post in popular limit: 4 %}
-    <article class="excerpt">
-      <header>
-        <h1 class="title"><a href="{{ post.url }}">{{ post.title | camel_break }}</a></h1>
-      </header>
-
-      {{ post.excerpt | markdownify }}
-    </article>
-  {% endfor %}
-</section>
-{% endif %}
-
 {% if site.lang == "en-US" %}
 <section id="contributors">
   <h1>{% t contributors %}</h1>
