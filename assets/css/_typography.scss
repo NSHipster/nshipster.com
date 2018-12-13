@@ -225,6 +225,11 @@ h6 {
     }
 }
 
+.title {
+    font-family: $sans-serif-font-stack;
+    font-weight: 700;
+}
+
 .anchor {
     visibility: hidden;
     position: absolute;

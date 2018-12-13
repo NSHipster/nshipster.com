@@ -262,52 +262,33 @@ dl {
     padding: 1em;
 }
 
-#recent article {
-    float: left;
-    display: block;
-    margin-right: 2%;
-    width: 30%;
-    min-height: 15em;
+#recent {
+    ul {
+        display: grid;
 
-    &:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
+        grid-template-columns: repeat(3, 1fr);
+        column-gap: 2em;
 
-    &:last-child {
-        margin-right: 0;
-    }
+        li {
+            min-height: 15em;
 
-    p {
-        display: -webkit-box;
-        overflow: hidden;
-        -webkit-line-clamp: 5;
-        -webkit-box-orient: vertical;
-        text-overflow: -o-ellipsis-lastline;
-    }
-}
+            .title {
+                height: 4em;
+                font-size: 2em;
+                display: table-cell;
+                line-height: 1;
+                vertical-align: bottom;
+                padding-bottom: 1em;
+            }
 
-#popular article {
-    float: left;
-    display: block;
-    margin-right: 2.35765%;
-    width: 48.82117%;
-
-    &:last-child,
-    &:nth-of-type(2n) {
-        margin-right: 0;
-    }
-
-    p {
-        display: -webkit-box;
-        overflow: hidden;
-        -webkit-line-clamp: 5;
-        -webkit-box-orient: vertical;
-        text-overflow: -o-ellipsis-lastline;
+            p {
+                overflow: hidden;
+                -webkit-line-clamp: 3;
+                text-overflow: ellipsis;
+            }
+        }
     }
 }
-
 
 #merchandise {
     margin-top: -30px;
@@ -417,10 +398,6 @@ article.author {
             margin-bottom: 1em;
         }
     }
-}
-
-section h1 {
-    margin-bottom: 1em;
 }
 
 [role="article"] {

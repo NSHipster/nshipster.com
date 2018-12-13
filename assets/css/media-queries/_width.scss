@@ -3,15 +3,21 @@
         padding: 1em;
     }
 
-    #recent article {
-        width: 100%;
-        min-height: 7em;
-        margin-bottom: 1em;
-    }
+    #recent {
+        ul {
+            display: block;
 
-    #popular article {
-        width: 100%;
-        margin-bottom: 1em;
+            li {
+                min-height: auto;
+                margin-bottom: 2em;
+
+                .title {
+                    display: block;
+                    height: auto;
+                    padding-bottom: 0.5em;
+                }
+            }
+        }
     }
 
     #follow {
@@ -171,16 +177,10 @@
         float: none;
     }
 
-    #recent article {
-        float: left;
-        display: block;
-        margin-right: 2.35765%;
-        width: 48.82117%;
-        min-height: 12em;
-
-        &:last-child,
-        &:nth-of-type(3n) {
-            margin-right: 0;
+    #recent {
+        ul {
+            grid-template-columns: repeat(2, 1fr);
+            column-gap: 1em;
         }
     }
 }

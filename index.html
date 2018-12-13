@@ -37,19 +37,19 @@ permalink: /
 
 </section>
 
-{% if site.posts.size > 6 %}
+{% if site.posts.size > 3 %}
 <section id="recent">
   <h1>{% t recent_articles %}</h1>
 
-  {% for post in site.posts offset:1 limit: 6 %}
-    <article class="excerpt">
-      <header>
-        <h1 class="title"><a href="{{ post.url }}">{{ post.title | camel_break }}</a></h1>
-      </header>
+  <ul>
+    {% for post in site.posts offset:1 limit: 9 %}
+      <li>
+        <a class="title" href="{{ post.url }}">{{ post.title | camel_break }}</a>
 
-      {{ post.excerpt | markdownify }}
-    </article>
-  {% endfor %}
+        {{ post.excerpt | markdownify }}
+      </li>
+    {% endfor %}
+  </ul>
 </section>
 {% endif %}
 
