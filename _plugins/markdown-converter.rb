@@ -22,6 +22,7 @@ module Jekyll
           secure_links_to_cross_origin_destinations!(doc)
           transform_apple_trademarks!(doc)
           transform_code_symbols!(doc)
+          transform_placeholder_tokens!(doc)
 
           doc.to_html
         end
@@ -55,8 +56,13 @@ module Jekyll
             a['rel'] = 'noopener noreferrer'
           end
         end
+
+        def transform_placeholder_tokens!(doc)
+          doc.css('code').each do |code|
+            code.inner_html = code.inner_html.gsub(/&lt;#\s*(.+)\s*#&gt;/, '<mark class="placeholder">\\1</mark>')
+          end
+        end
       end
     end
   end
 end
-
