@@ -102,19 +102,24 @@ permalink: /
 {% endif %}
 
 <section id="archive" class="archive" role="navigation">
-  {% for category in site.categories %}
-    <dl>
+  {% for group in site.groups %}
+    {% for category in site.categories %}
       {% assign category_name = category[0] %}
-      <dt>{{ category_name | default: "Miscellaneous" }}</dt>
-      {% for posts in category offset: 1 %}
-         {% assign sorted = posts | sort: "title" %}
-         {% for post in sorted %}
-            {% unless post.retired %}
-            <dd><a href="{{ post.url }}">{{ post.title | camel_break }}</a></dd>
-            {% endunless %}
-         {% endfor %}
-      {% endfor %}
-    </dl>
+      {% if category_name != group %}
+          {% continue %}
+      {% endif %}
+      <dl>
+        <dt>{{ category_name | default: "Miscellaneous" }}</dt>
+        {% for posts in category offset: 1 %}
+           {% assign sorted = posts | sort: "title" %}
+           {% for post in sorted %}
+              {% unless post.retired %}
+              <dd><a href="{{ post.url }}">{{ post.title | camel_break }}</a></dd>
+              {% endunless %}
+           {% endfor %}
+        {% endfor %}
+      </dl>
+    {% endfor %}
   {% endfor %}
 </section>
 

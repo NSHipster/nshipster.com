@@ -41,12 +41,12 @@ defaults:
 
 groups:
   - Cocoa
-  - Objective-C
   - Swift
-  - Open Source
   - Xcode
-  - Miscellanea
+  - Open Source
+  - Miscellaneous
   - Trivia
+  - Objective-C
 
 include: [".well-known"]
 
