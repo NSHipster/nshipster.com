@@ -69,4 +69,6 @@ assets:
     img: { integrity: true }
 
 jekyll_tidy:
-  exclude: ["*.txt"]
+  exclude:
+    - robots.txt
+    - humans.txt
