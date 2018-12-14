@@ -37,7 +37,7 @@ module Jekyll
         end
 
         def transform_code_symbols!(doc)
-          doc.css('p > code, li > code, td > code').each do |code|
+          doc.css(':not(pre) code').each do |code|
             code.remove_attribute('class')
             code.inner_html = code.inner_html.gsub(/(?:([a-z])([A-Z]+))/, '\\1<wbr/>\\2')
           end
