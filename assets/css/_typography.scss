@@ -132,6 +132,10 @@ a {
     &:focus {
         outline: none;
     }
+
+    code {
+        white-space: nowrap;
+    }
 }
 
 p>small {
