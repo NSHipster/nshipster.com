@@ -7,3 +7,9 @@ User-agent: *
 Allow: /
 
 Sitemap: {{ site.url }}/sitemap.xml
+
+{% for post in site.posts %}
+{% if post.retired %}
+Disallow: {{ post.url }}
+{% endif %}
+{% endfor %}
