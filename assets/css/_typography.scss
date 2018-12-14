@@ -223,7 +223,7 @@ h4,
 h5,
 h6 {
     &:hover .anchor {
-        visibility: visible;
+        opacity: 1;
         text-decoration: none;
     }
 }
@@ -234,7 +234,8 @@ h6 {
 }
 
 .anchor {
-    visibility: hidden;
+    opacity: 0;
+    transition: 300ms opacity;
     position: absolute;
     float: left;
     margin-left: -1.5em;
