@@ -8,6 +8,9 @@ Allow: /
 
 Sitemap: {{ site.url }}/sitemap.xml
 
+Disallow: /status/
+Disallow: /return/
+
 {% for post in site.posts %}
 {% if post.retired %}
 Disallow: {{ post.url }}
