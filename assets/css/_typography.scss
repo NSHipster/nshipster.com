@@ -170,6 +170,13 @@ td {
     }
 }
 
+ol,
+ul {
+    li {
+        margin-bottom: 0.5em;
+    }
+}
+
 pre {
     font-family: $serif-font-stack;
 }
