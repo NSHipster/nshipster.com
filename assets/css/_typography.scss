@@ -150,6 +150,28 @@ td>code {
     user-select: all;
 }
 
+a,
+p,
+li,
+dd,
+td {
+    &>code {
+        background: $gray-light;
+        padding: .25em;
+        font-size: 85%;
+        border-radius: 3px;
+    }
+}
+
+p,
+li,
+dd,
+td {
+    &>code {
+        color: $purple-dark;
+    }
+}
+
 pre {
     font-family: $serif-font-stack;
 }
