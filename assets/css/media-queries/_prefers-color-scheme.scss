@@ -46,4 +46,23 @@
         background-color: $gray-dark;
         border-color: $gray-light;
     }
+
+    a,
+    p,
+    li,
+    dd,
+    td {
+        &>code {
+            background: $gray-dark;
+        }
+    }
+
+    p,
+    li,
+    dd,
+    td {
+        &>code {
+            color: $purple;
+        }
+    }
 }
