@@ -144,9 +144,7 @@ p>small {
     text-transform: lowercase;
 }
 
-p>code,
-li>code,
-td>code {
+:not(pre)>code {
     user-select: all;
 }
 
