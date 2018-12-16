@@ -8,7 +8,12 @@ div.highlight {
     }
 }
 
+.language-toggle>a:only-child {
+    display: none;
+}
+
 .highlight {
+
     .hll,
     .s,
     .sa,
