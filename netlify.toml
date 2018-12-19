@@ -106,3 +106,7 @@
 [[redirects]]
   from = "https://nshipster.com/documentation"
   to = "https://nshipster.com/swift-documentation"
+
+[[redirects]]
+  from = "https://nshipster.com/swift-comparison-protocols"
+  to = "https://nshipster.com/equatable-and-comparable"
