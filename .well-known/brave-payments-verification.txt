@@ -1,0 +1,4 @@
+This is a Brave Payments publisher verification file.
+
+Domain: nshipster.com
+Token: 9427d793d5eb646c66ff42e31086f6e792c31f252ba241ce213f98d6dd1ddfce
