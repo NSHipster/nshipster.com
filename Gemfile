@@ -3,7 +3,7 @@
 ruby '2.4.3'
 source 'https://rubygems.org'
 
-gem 'jekyll', '~> 3.8'
+gem 'jekyll', git: "https://github.com/jekyll/jekyll.git"
 gem 'rack', '>= 2.0.6'
 
 gem 'sprockets', '~> 4.0.beta', require: false
@@ -14,8 +14,12 @@ gem 'nokogiri'
 gem 'rouge'
 gem 'sassc'
 
+gem 'liquid-c'
+
 group :jekyll_plugins do
   gem 'jekyll-assets'
+  gem 'jekyll-commonmark'
+  gem 'jekyll-include-cache'
   gem 'jekyll-last-modified-at'
   gem 'jekyll-tagging-related_posts'
   gem 'jekyll-tidy'
