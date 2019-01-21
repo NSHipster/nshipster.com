@@ -498,11 +498,15 @@ article.author {
         ol {
             margin: 1.5em 0;
             padding: 0 3em;
-        }
 
-        ul li,
-        ol li {
-            list-style: disc;
+            ul,
+            ol {
+                margin-top: 0.5em;
+            }
+
+            li {
+                list-style: disc;
+            }
         }
 
         figure {
