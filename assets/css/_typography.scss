@@ -241,6 +241,11 @@ kbd {
     border: 1px $gray-dark solid;
     border-radius: 5px;
     font-style: normal;
+
+    .highlight & {
+        background: transparent;
+        border-color: $gray-light;
+    }
 }
 
 h1,
