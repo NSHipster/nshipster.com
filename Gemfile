@@ -10,8 +10,11 @@ gem 'sprockets', '~> 4.0.beta', require: false
 gem 'uglifier', '~> 4.0'
 
 gem 'kramdown'
+
+gem 'rouge', git: "https://github.com/NSHipster/rouge.git",
+             branch: 'swift-with-placeholder-token'
+
 gem 'nokogiri'
-gem 'rouge'
 gem 'sassc'
 
 group :jekyll_plugins do
