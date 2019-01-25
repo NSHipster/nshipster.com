@@ -52,7 +52,7 @@ module Jekyll
         def secure_links_to_cross_origin_destinations!(doc)
           doc.css('a[href]').each do |a|
             href = a.attr('href')
-            next if href.match?(/^\/|#{ENV['DOMAIN']}/)
+            next if href =~ /^\/|#{ENV['DOMAIN']}/
 
             a['rel'] = 'noopener noreferrer'
           end
