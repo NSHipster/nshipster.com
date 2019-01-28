@@ -69,7 +69,7 @@ module Jekyll
           doc.css(selector).each do |h|
             next unless id = h.attr('id')
             h.remove_attribute('id')
-            h.prepend_child(%{<a class="anchor" aria-hidden="true" id="#{id}" href="##{id}">#</a>})
+            h.prepend_child(%{<a class="anchor" aria-hidden="true" id="#{id}" href="##{id}"></a>})
           end
         end
       end

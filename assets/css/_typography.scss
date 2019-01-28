@@ -256,9 +256,8 @@ h3,
 h4,
 h5,
 h6 {
-    &:hover .anchor {
+    &:hover .anchor::before {
         opacity: 1;
-        text-decoration: none;
     }
 }
 
@@ -267,7 +266,8 @@ h6 {
     font-weight: 700;
 }
 
-.anchor {
+.anchor::before {
+    content: "#";
     opacity: 0;
     transition: 300ms opacity;
     position: absolute;
@@ -275,6 +275,7 @@ h6 {
     margin-left: -1.5em;
     padding: 0 0.5em;
     color: $gray !important;
+    text-decoration: none;
 
     :focus {
         outline: none
