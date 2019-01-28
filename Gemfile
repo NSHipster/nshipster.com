@@ -6,7 +6,7 @@ source 'https://rubygems.org'
 gem 'jekyll', git: "https://github.com/jekyll/jekyll.git"
 gem 'rack', '>= 2.0.6'
 
-gem 'sprockets', '~> 4.0.beta', require: false
+gem 'sprockets', '~> 4.0.beta'
 gem 'uglifier', '~> 4.0'
 
 gem 'kramdown'
