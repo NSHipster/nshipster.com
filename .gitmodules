@@ -14,3 +14,6 @@
 	path = collections/ko/_posts
 	url = https://github.com/NSHipster/articles-ko.git
 	ignore = all
+[submodule "collections/fr/_posts"]
+	path = collections/fr/_posts
+	url = https://github.com/NSHipster/articles-fr.git
