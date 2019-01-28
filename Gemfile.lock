@@ -34,8 +34,6 @@ GEM
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
     colorator (1.1.0)
-    commonmarker (0.18.2)
-      ruby-enum (~> 0.5)
     concurrent-ruby (1.1.4)
     em-websocket (0.5.1)
       eventmachine (>= 0.12.9)
@@ -65,9 +63,6 @@ GEM
       nokogiri (~> 1.8)
       pathutil (~> 0.16)
       sprockets (>= 3.3, < 4.1.beta)
-    jekyll-commonmark (1.2.0)
-      commonmarker (~> 0.14)
-      jekyll (>= 3.0, < 4.0)
     jekyll-include-cache (0.1.0)
       jekyll (~> 3.3)
     jekyll-last-modified-at (1.0.1)
@@ -114,8 +109,6 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
-    ruby-enum (0.7.2)
-      i18n
     ruby_dep (1.5.0)
     safe_yaml (1.0.4)
     sass (3.7.3)
@@ -143,7 +136,6 @@ DEPENDENCIES
   foreman
   jekyll!
   jekyll-assets
-  jekyll-commonmark
   jekyll-include-cache
   jekyll-last-modified-at
   jekyll-tagging-related_posts
