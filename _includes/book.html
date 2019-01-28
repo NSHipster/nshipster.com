@@ -10,7 +10,7 @@
       <meta itemprop="priceCurrency" content="USD"/>
       <meta itemprop="price" content="{{ book.price }}"/>
 
-      <a href="{{ book.book_url }}" title="{{ book.title }}" target="_blank" itemprop="url">
+      <a href="{{ book.book_url }}" title="{{ book.title }}" rel="noopener" itemprop="url">
         <img src="{% asset "{{ book.image }}" @path %}" class="cover" alt="{{ book.title }}" itemprop="image"/>
       </a>
     </div>
