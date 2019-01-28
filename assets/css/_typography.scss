@@ -34,7 +34,9 @@ body {
     -webkit-font-kerning: normal;
     font-kerning: normal;
     -webkit-font-smoothing: antialiased;
-    line-height: 1.5;
+    line-height: 1.45;
+    font-size: 14pt;
+    font-weight: 300;
 }
 
 html[lang="ko-KR"] {
@@ -115,7 +117,7 @@ h6 {
 }
 
 p {
-    margin: 0 0 0.75em;
+    margin: 0 0 1em 0;
 }
 
 a {
