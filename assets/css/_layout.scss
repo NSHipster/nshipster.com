@@ -124,19 +124,11 @@ dl {
 }
 
 [role="banner"] {
-    display: block;
+    display: flex;
     margin-bottom: 1em;
 
-    &:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-
     #logo {
-        float: left;
         display: block;
-        margin-right: 2.35765%;
         -webkit-touch-callout: none;
         -webkit-user-select: none;
         -khtml-user-select: none;
@@ -145,19 +137,10 @@ dl {
         user-select: none;
         font-size: 1em;
         height: 6em;
-
-        &:last-child {
-            margin-right: 0;
-        }
+        margin-right: 6em;
 
         a {
             display: block;
-
-            &:after {
-                content: "";
-                display: table;
-                clear: both;
-            }
         }
 
         svg {
@@ -185,62 +168,8 @@ dl {
         }
     }
 
-    nav {
-        float: left;
-        display: block;
-        margin-right: 2.35765%;
-        width: 40.29137%;
-
-        &:last-child {
-            margin-right: 0;
-        }
-
-        li {
-            display: block;
-            float: left;
-            display: block;
-            margin-right: 10.1484%;
-            width: 26.56773%;
-
-            &:last-child {
-                margin-right: 0;
-            }
-
-            a {
-                font-size: 1.5em;
-                display: block;
-                text-align: center;
-                padding-top: 14px;
-
-                &.current {
-                    padding-top: 10px;
-                    border-top: 4px #ff8000 solid;
-                }
-
-                &:hover {
-                    padding-top: 10px;
-                    border-top: 4px #ffc080 solid;
-                }
-            }
-        }
-    }
-
-    form {
-        float: left;
-        display: block;
-        margin-right: 2.35765%;
-        width: 23.23176%;
-        margin-left: 8.5298%;
-        margin-right: 0;
-        float: right;
-
-        &:last-child {
-            margin-right: 0;
-        }
-
-        input {
-            height: 2.5em !important;
-        }
+    .tagline {
+        flex: 1;
     }
 }
 

@@ -157,26 +157,25 @@
 
 @media screen and (max-width: 960px) {
     [role="banner"] {
+        display: block;
+
         #logo {
-            margin: 0 auto 2em auto;
+            margin: 0;
+            height: auto;
 
             svg {
-                width: 100% !important;
+                width: 25vw;
+                display: block;
+                margin: 0 auto 1.5em auto;
             }
+
+            padding-bottom: 0.5em;
         }
 
-        #logo,
-        nav {
-            width: 100%;
+        .tagline {
+            font-size: 4.4vw;
+            padding-bottom: 2em;
         }
-    }
-
-    form {
-        display: none;
-    }
-
-    #follow form input[type="submit"] {
-        font-size: 0.67em;
     }
 
     #recent {
