@@ -152,7 +152,8 @@ html[lang="ko-KR"] [role="banner"] {
 
 [role="banner"] {
     display: flex;
-    margin-bottom: 1em;
+    margin-bottom: 1.5em;
+    padding-bottom: 1.5em;
 
     #logo {
         display: block;
@@ -252,7 +253,6 @@ html[lang="ko-KR"] [role="banner"] {
         margin-bottom: 15px;
     }
 }
-
 
 #follow {
     ul {

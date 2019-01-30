@@ -154,6 +154,8 @@
 @media screen and (max-width: 960px) {
     [role="banner"] {
         display: block;
+        margin-bottom: 0;
+        padding-bottom: 0;
 
         #logo {
             margin: 0 !important;
