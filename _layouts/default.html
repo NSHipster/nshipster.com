@@ -9,7 +9,7 @@
     <link rel="canonical" href="{{ page.url | absolute_url }}"/>
   {% else %}
     <title>{{ page.title | strip_html }}</title>
-    <meta name="description" content="{{ site.description | strip_html }}"/>
+    <meta name="description" content="{{ site.description | markdownify | strip_html }}"/>
     <link rel="canonical" href="{{ site.url }}"/>
   {% endif %}
 
@@ -48,7 +48,7 @@
     <meta name="twitter:description" content="{{ page.excerpt | markdownify | strip_html | escape }}"/>
   {% else %}
     <meta name="twitter:title" content="{{ site.title }}"/>
-    <meta name="twitter:description" content="{{ site.description | strip_html | escape }}"/>
+    <meta name="twitter:description" content="{{ site.description | markdownify | strip_html | escape }}"/>
   {% endif %}
   <meta property="twitter:account_id" content="{{ site.twitter }}"/>
 
@@ -66,7 +66,7 @@
   {% else %}
     <meta property="og:title" content="{{ site.title }}"/>
     <meta property="og:url" content="{{ site.url }}"/>
-    <meta property="og:description" content="{{ site.description | strip_html | escape }}" />
+    <meta property="og:description" content="{{ site.description | markdownify | strip_html | escape }}" />
   {% endif %}
 
   {% if page.url == '/' %}
@@ -99,7 +99,7 @@
       </h1>
 
       {% if page.url == "/" %}
-        <h2 class="tagline">{{ site.description }}</h2>
+        <h2 class="tagline">{{ site.description | markdownify }}</h2>
       {% endif %}
     </header>
 

@@ -8,7 +8,7 @@
     "@type": "Person",
     "name": "Mattt"
   },
-  "description": "{{ site.description | strip_html }}",
+  "description": "{{ site.description | markdownify | strip_html }}",
   "publisher": "Read Evaluate Press, LLC"
 }
 </script>

@@ -10,7 +10,7 @@ layout: null
     <id>{{ page.url | absolute_url | xml_escape }}</id>
 
     <title type="html">{{ site.title | smartify | xml_escape }}</title>
-    <subtitle type="html">{{ site.description | xml_escape }}</subtitle>
+    <subtitle type="html">{{ site.description | markdownify | xml_escape }}</subtitle>
 
     {% if site.author %}
     <author>
