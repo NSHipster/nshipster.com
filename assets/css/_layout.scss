@@ -11,11 +11,10 @@ body {
 }
 
 hr {
-    border-bottom: 1px solid #dddddd;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    margin: 1.5em 0;
+    border: none;
+    margin: 1em 0;
+    padding: 1em 0;
+    display: block;
 }
 
 img {
