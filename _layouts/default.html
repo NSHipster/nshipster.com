@@ -99,7 +99,7 @@
       </h1>
 
       {% if page.url == "/" %}
-        <h2 class="tagline">{{ site.description | markdownify }}</h2>
+        <h2 class="tagline">{{ site.description | markdownify | unwrap }}</h2>
       {% endif %}
     </header>
 
