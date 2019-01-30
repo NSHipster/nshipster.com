@@ -87,7 +87,7 @@ h4,
 h5,
 h6 {
     font-family: $sans-serif-font-stack;
-    line-height: 1.25em;
+    line-height: 1.1em;
     margin: 0 0 1rem 0;
 }
 
@@ -297,6 +297,7 @@ h6 {
     header {
         h1 {
             font-size: 3.5em;
+            line-height: 1;
             margin-bottom: 0.5rem;
             overflow-wrap: break-word;
         }
