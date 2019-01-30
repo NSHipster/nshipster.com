@@ -82,11 +82,11 @@ dl {
 
     dt {
         font-weight: bold;
-        margin-top: 0.75em;
+        margin: 1em 0;
     }
 
     dd {
-        margin: 0;
+        margin: 0 0 0.25rem 1em;
     }
 }
 
@@ -661,49 +661,6 @@ article.author {
             color: #4c3150 !important;
         }
     }
-}
-
-.archive ul>li,
-[role="contentinfo"] ul>li,
-#related ul>li {
-    list-style: disc inside !important;
-    display: table-row;
-}
-
-.archive ul>li:before,
-[role="contentinfo"] ul>li:before,
-#related ul>li:before {
-    content: "●";
-    display: table-cell;
-    padding-right: 0.5em;
-}
-
-.archive dl,
-[role="contentinfo"] dl,
-#related dl {
-    padding: 0 0.5em;
-}
-
-.archive dl dt,
-[role="contentinfo"] dl dt,
-#related dl dt {
-    font-size: 1.5em;
-    margin-bottom: 1em;
-}
-
-.archive dl dd,
-[role="contentinfo"] dl dd,
-#related dl dd {
-    list-style: disc inside !important;
-    display: table-row;
-}
-
-.archive dl dd:before,
-[role="contentinfo"] dl dd:before,
-#related dl dd:before {
-    content: "●";
-    display: table-cell;
-    padding-right: 0.5em;
 }
 
 #publications {
