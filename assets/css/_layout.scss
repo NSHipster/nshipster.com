@@ -301,15 +301,8 @@ dl {
     }
 }
 
-#revisions {
-    border-top: 1px #ccc solid;
-    padding: 1em 0 0;
-}
 
 #follow {
-    border-top: 1px #cccccc solid;
-    padding: 1em 0;
-
     ul {
         float: left;
         display: block;
@@ -554,7 +547,6 @@ article.author {
             display: block;
             margin-right: 2.35765%;
             width: 48.82117%;
-            border-top: 1px #cccccc solid;
             padding: 1em 0;
 
             &:last-child,
@@ -622,30 +614,8 @@ article.author {
 }
 
 [role="complementary"] {
-    display: block;
-
-    &:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-
-    #continue {
-        float: left;
-        display: block;
-
-        &:last-child {
-            margin-right: 0;
-        }
-
-        h1 {
-            margin-bottom: 0.5em;
-        }
-
-        p {
-            font-size: 0.75em;
-        }
-    }
+    border-top: 1px #ddd solid;
+    padding-top: 2em;
 }
 
 [role="contentinfo"] {
