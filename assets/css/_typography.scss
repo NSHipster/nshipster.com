@@ -286,6 +286,13 @@ h6 {
     font-size: 1.5em;
 }
 
+#latest,
+#announcement {
+    small {
+        font-style: italic;
+    }
+}
+
 [role="article"] {
     header {
         h1 {
