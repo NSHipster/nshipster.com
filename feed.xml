@@ -9,8 +9,8 @@ layout: null
     <updated>{{ site.time | date_to_xmlschema }}</updated>
     <id>{{ page.url | absolute_url | xml_escape }}</id>
 
-    <title type="html">{{ site.title | smartify | xml_escape }}</title>
-    <subtitle type="html">{{ site.description | markdownify | xml_escape }}</subtitle>
+    <title>{{ site.title | markdownify | strip_html }}</title>
+    <subtitle>{{ site.description | markdownify | strip_html }}</subtitle>
 
     {% if site.author %}
     <author>
