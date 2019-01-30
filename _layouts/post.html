@@ -122,7 +122,7 @@ layout: default
     <section>
       {% assign random_post = site.posts | shuffle | first %}
       {% assign next_post = page.next | default: random_post %}
-      {% if next_post %}
+      {% if next_post and next_post.url != page.url %}
       <div id="continue">
         <small>{% t next_article %}</small>
         <article>
