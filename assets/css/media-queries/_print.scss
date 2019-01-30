@@ -3,35 +3,35 @@
         margin: 0.5in;
     }
 
-    // @page {
-    //     @bottom-center {
-    //         content: "Page "counter(page) " of "counter(pages);
-    //     }
-    //
-    //     @footnote {
-    //         border-top: 1pt black solid;
-    //     }
-    // }
+    @page {
+        @bottom-center {
+            content: "Page "counter(page) " of "counter(pages);
+            font-size: small;
+        }
+
+        @footnote {
+            border-top: 1pt black solid;
+            padding-top: 1em;
+            font-size: smaller;
+            padding-left: 1.5em;
+        }
+    }
 
     html {
         border-top: none;
 
         body {
-            font-size: 10pt !important;
+            font-size: 12pt !important;
         }
     }
 
-    [role="banner"] {
-        position: absolute;
+    #logo {
+        height: 3em !important;
 
-        #logo svg {
-            width: 1in;
-            height: 1in;
+        svg {
+            transform: scale(0.5);
+            transform-origin: top left;
         }
-    }
-
-    article header {
-        padding-top: 1.5in;
     }
 
     img,
@@ -46,12 +46,17 @@
         page-break-inside: avoid;
     }
 
+    .highlight-group {
+        page-break-before: avoid;
+    }
+
     h1,
     h2,
     h3,
     h4,
     h5,
     h6 {
+        page-break-before: avoid;
         page-break-after: avoid;
     }
 
@@ -70,15 +75,20 @@
 
         a[href^="http://"]:after,
         a[href^="https://"]:after {
-            content: " ("attr(href) ")";
+            // content: " ("attr(href) ")";
+            // text-decoration: underline;
+            content: attr(href);
             float: footnote;
-            text-decoration: none;
             color: #333;
+            text-decoration: none;
+            text-align: left;
+            page-break-inside: avoid;
+            page-break-before: avoid;
         }
     }
 
-    [title]::after {
-        content: attr(title);
+    article [title]::after {
+        content: " ("attr(title) ") ";
         float: footnote;
     }
 
@@ -91,20 +101,33 @@
         border: 2px black solid;
     }
 
+    [role="article"] {
+        .content {
+            margin-bottom: 1em !important;
+        }
+    }
+
     [role="complementary"] {
         display: none;
     }
 
+    [role="contentinfo"] {
+        page-break-inside: avoid;
+        font-size: small;
+    }
+
     .admonition {
+        padding: 0 0 0 1em;
+
         &::before {
             visibility: hidden;
         }
     }
+}
 
-    @media print and (color) {
-        * {
-            -webkit-print-color-adjust: exact;
-            print-color-adjust: exact;
-        }
+@media print and (color) {
+    * {
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
     }
 }
