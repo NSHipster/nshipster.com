@@ -1,4 +1,17 @@
 @media screen and (max-width: 768px) {
+    [role="article"] header {
+        .byline {
+
+            .authors,
+            .translators {
+                &:after {
+                    content: " ";
+                    display: block;
+                }
+            }
+        }
+    }
+
     .container {
         padding: 1.5em;
     }
