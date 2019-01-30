@@ -27,7 +27,7 @@
                 .title {
                     display: block;
                     height: auto;
-                    padding-bottom: 0.5em;
+                    padding-bottom: 0.5rem;
                 }
             }
         }
@@ -46,7 +46,7 @@
     }
 
     [role="article"] {
-        font-size: 75%;
+        font-size: smaller;
 
         .content {
             overflow: hidden;
@@ -157,8 +157,6 @@
 
 @media screen and (max-width: 960px) {
     [role="banner"] {
-        margin-bottom: 2em;
-
         #logo {
             margin: 0 auto 2em auto;
 
@@ -179,10 +177,6 @@
 
     #follow form input[type="submit"] {
         font-size: 0.67em;
-    }
-
-    [role="article"] {
-        font-size: 100%;
     }
 
     #recent {

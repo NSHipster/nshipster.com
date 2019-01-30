@@ -247,11 +247,7 @@ dl {
 #latest,
 #announcement {
     h1 {
-        margin-bottom: 0.5em;
-    }
-
-    article {
-        font-size: 125%;
+        margin-bottom: 0.5rem;
     }
 }
 
@@ -397,7 +393,6 @@ article.author {
 }
 
 [role="article"] {
-    font-size: 125%;
     margin-bottom: 1em;
     overflow-x: hidden;
 
@@ -423,15 +418,7 @@ article.author {
         text-align: center;
         margin-bottom: 3em;
 
-        h1 {
-            font-size: 3em;
-            line-height: 1em;
-            margin-bottom: 0.5em;
-            overflow-wrap: break-word;
-        }
-
         .byline {
-            font-size: 1.25em;
             font-family: $serif-font-stack;
             font-style: italic;
             font-weight: 300;
@@ -453,27 +440,14 @@ article.author {
     }
 
     .content {
-        margin-bottom: 5em;
+        margin-bottom: 4em;
 
         h1,
         h2,
         h3,
         h4,
         h5 {
-            margin: 2em 0 1em 0;
-        }
-
-        h3 {
-            font-size: 1.25em;
-        }
-
-        h4 {
-            font-size: 1em;
-        }
-
-        hr {
-            width: 40%;
-            margin: 2em auto;
+            margin-top: 2.5rem;
         }
 
         object,
@@ -802,10 +776,7 @@ article.author {
 .tagline {
     clear: both;
     font-weight: 300;
-    margin: 1em 0;
-    padding-top: 1em;
 }
-
 
 .highlight-group {
     margin-top: 1em;

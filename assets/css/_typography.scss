@@ -27,7 +27,6 @@ monospace;
 html,
 body {
     font-family: $serif-font-stack;
-    font-size: 1em;
     text-rendering: optimizeLegibility;
     //   -webkit-font-feature-settings: "kern" 1, "kern";
     //   font-feature-settings: "kern" 1, "kern";
@@ -89,11 +88,11 @@ h5,
 h6 {
     font-family: $sans-serif-font-stack;
     line-height: 1.25em;
-    margin: 0;
+    margin: 0 0 1rem 0;
 }
 
 h1 {
-    font-size: 2.25em;
+    font-size: 3em;
 }
 
 h2 {
@@ -101,15 +100,15 @@ h2 {
 }
 
 h3 {
-    font-size: 1.75em;
-}
-
-h4 {
     font-size: 1.5em;
 }
 
-h5 {
+h4 {
     font-size: 1.25em;
+}
+
+h5 {
+    font-size: 1.125em;
 }
 
 h6 {
@@ -117,7 +116,7 @@ h6 {
 }
 
 p {
-    margin: 0 0 1em 0;
+    margin: 0 0 1rem 0;
 }
 
 a {
@@ -155,10 +154,10 @@ p,
 li,
 dd,
 td {
-    &>code {
+    code {
         background: $gray-light;
         padding: .25em;
-        font-size: 85%;
+        font-size: smaller;
         border-radius: 3px;
     }
 }
@@ -167,7 +166,7 @@ p,
 li,
 dd,
 td {
-    &>code {
+    code {
         color: $purple-dark;
     }
 }
@@ -186,11 +185,12 @@ pre {
 code,
 samp {
     font-family: $mono-font-stack;
-    font-size: 85%;
 }
 
-pre code {
-    font-size: 80%;
+pre code,
+samp {
+    font-size: smaller;
+    line-height: 1.1em;
 }
 
 samp {
@@ -203,10 +203,10 @@ samp {
 section>h1 {
     font-family: $serif-font-stack;
     font-weight: 300;
-    text-align: center;
-    margin-bottom: 2em;
-    margin-top: 2em;
     font-size: 1.5em;
+    text-align: center;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
 }
 
 article.excerpt h1 {
@@ -279,5 +279,19 @@ h6 {
 
     :focus {
         outline: none
+    }
+}
+
+.tagline {
+    font-size: 1.5em;
+}
+
+[role="article"] {
+    header {
+        h1 {
+            font-size: 4em;
+            margin-bottom: 0.5rem;
+            overflow-wrap: break-word;
+        }
     }
 }
