@@ -29,15 +29,13 @@ monospace;
 html,
 body {
     font-family: $serif-font-stack;
-    text-rendering: optimizeLegibility;
-    //   -webkit-font-feature-settings: "kern" 1, "kern";
-    //   font-feature-settings: "kern" 1, "kern";
-    -webkit-font-kerning: normal;
-    font-kerning: normal;
-    -webkit-font-smoothing: antialiased;
-    line-height: 1.45;
-    font-size: 14pt;
+    font-size: 15pt;
+    line-height: 1.5;
     font-weight: 300;
+    font-kerning: normal;
+    -webkit-font-kerning: normal;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
 
 html[lang="ko-KR"] {
@@ -94,7 +92,7 @@ h6 {
 }
 
 h1 {
-    font-size: 3em;
+    font-size: 2.5em;
 }
 
 h2 {
@@ -291,7 +289,7 @@ h6 {
 [role="article"] {
     header {
         h1 {
-            font-size: 4em;
+            font-size: 3.5em;
             margin-bottom: 0.5rem;
             overflow-wrap: break-word;
         }
