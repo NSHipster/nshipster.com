@@ -3,6 +3,26 @@ title: NSHipster
 permalink: /
 ---
 
+{% if site.lang == "en-US" %}
+{% assign announcement = site.pages | where: "title", "Flight School" | first %}
+{% if announcement %}
+<section id="announcement">
+  <article>
+    <header>
+      <small>Special Announcement</small>
+      <h1 class="title">
+        <a href="{{ announcement.url }}">{{ announcement.title }}</a>
+      </h1>
+    </header>
+
+    {{ announcement.excerpt | markdownify }}
+
+    <a class="readmore" href="{{ announcement.url }}">{% t continue_reading %}</a>
+  </article>
+</section>
+{% endif %}
+{% endif %}
+
 <section id="latest">
   <article>
     <header>
@@ -57,9 +77,9 @@ permalink: /
   <h1>{% t publications %}</h1>
 
   <div class="books">
-  {% include book.html book="nshipster-swift" %}
-  {% include book.html book="cfhipsterref" %}
-  {% include book.html book="nshipster-fake-book-objective-c" %}
+  {% include book.html book="flight-school-guide-to-swift-codable" %}
+  {% include book.html book="flight-school-guide-to-swift-numbers" %}
+  {% include book.html book="flight-school-guide-to-swift-strings" %}
   </div>
 </section>
 
