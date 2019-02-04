@@ -20,7 +20,7 @@ through concise, focused guides.
 
 Today, I'm excited to announce updates to our guides to
 [Swift Codable](https://flight.school/books/codable) and
-[Numbers](https://flight.school/books/codable),
+[Numbers](https://flight.school/books/numbers),
 as well as a brand new
 [Guide to Swift Strings](https://flight.school/books/strings).
 Everything is up-to-date with the latest from Swift 5 and Xcode 10.2,
