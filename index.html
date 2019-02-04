@@ -73,6 +73,7 @@ permalink: /
 </section>
 {% endif %}
 
+{% if site.lang == "en-US" %}
 <section id="publications">
   <h1>{% t publications %}</h1>
 
@@ -82,6 +83,7 @@ permalink: /
   {% include book.html book="flight-school-guide-to-swift-strings" %}
   </div>
 </section>
+{% endif %}
 
 {% if site.lang == "en-US" %}
 <section id="contributors">
