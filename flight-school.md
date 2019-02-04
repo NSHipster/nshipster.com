@@ -31,6 +31,7 @@ I think you're gonna love what Flight School has to offer.
 
 ---
 
+{% if site.lang == "en-US" %}
 {::nomarkdown type="html"}
 
 <section id="publications">
@@ -42,6 +43,7 @@ I think you're gonna love what Flight School has to offer.
 </section>
 
 {:/}
+{% endif %}
 
 ## Why I'm Writing Flight School
 
