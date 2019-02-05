@@ -185,4 +185,20 @@
     .anchor {
         font-size: smaller;
     }
+
+    article.author,
+    article.translator {
+        header {
+            display: block;
+
+            .avatar {
+                margin: 0 auto 1em auto;
+                display: block;
+            }
+
+            h1 {
+                text-align: center;
+            }
+        }
+    }
 }

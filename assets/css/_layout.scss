@@ -325,25 +325,32 @@ html[lang="ko-KR"] [role="banner"] {
     }
 }
 
-article.author {
+article.author,
+article.translator {
     padding-top: 2em;
 
     header {
-        min-height: 200px;
+        display: grid;
+
+        grid-template:
+            "avatar . title"
+            "avatar . description";
+        grid-template-columns: 1fr 1em 3fr;
+        grid-template-rows: 1fr 2fr;
+        gap: 1em 1em;
+        margin-bottom: 1em;
+        padding-bottom: 1em;
 
         .avatar {
-            float: left;
-            display: block;
-            margin-right: 5%;
-            width: 20%;
-
-            &:last-child {
-                margin-right: 0;
-            }
+            grid-area: avatar;
         }
 
         h1 {
-            margin-bottom: 1em;
+            grid-area: title;
+        }
+
+        p {
+            grid-area: description;
         }
     }
 }
