@@ -121,12 +121,12 @@
         }
     }
 
-    #contributors {
-        display: none;
-    }
-
     #promotion .book img {
         margin: 0 auto;
+    }
+
+    #contributors ul li {
+        flex-basis: 33%;
     }
 
     #recent article {

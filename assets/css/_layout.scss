@@ -573,30 +573,30 @@ article.author {
     user-select: none;
 }
 
-#contributors li {
-    float: left;
-    display: block;
-    margin-right: 2.35765%;
-    width: 23.23176%;
-    margin-bottom: 1em;
+#contributors {
+    ul {
+        display: flex;
+        justify-content: center;
+        align-content: space-between;
+        flex-flow: row wrap;
 
-    &:last-child {
-        margin-right: 0;
-    }
+        li {
+            flex: 0;
+            display: block;
+            margin-bottom: 1em;
+            flex-basis: 25%;
 
-    &:nth-of-type(4) {
-        margin-right: 0;
-    }
+            .avatar {
+                display: block;
+                margin: 0 auto 1em auto;
+                width: 70%;
+            }
 
-    .avatar {
-        display: block;
-        margin: 0 auto 1em auto;
-        width: 70%;
-    }
-
-    a {
-        text-align: center;
-        display: block;
+            a {
+                text-align: center;
+                display: block;
+            }
+        }
     }
 }
 
