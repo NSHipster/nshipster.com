@@ -13,6 +13,13 @@ div.highlight {
 }
 
 .highlight {
+    ::selection {
+        color: inherit;
+    }
+
+    ::-moz-selection {
+        color: inherit;
+    }
 
     .hll,
     .s,
