@@ -1,0 +1,55 @@
+---
+layout: null
+permalink: /sw.js
+---
+
+"use strict";
+
+const version = '{{ site.time | date: "%Y%m%d%H%M%S" }}';
+
+self.addEventListener("install", function(event) {
+  self.skipWaiting();
+
+  event.waitUntil(
+    caches.open('nshipster-static-' + version).then(function(cache) {
+        cache.addAll([
+            {% assign fonts = site.static_files | where: "font", true %}
+            {% for font in fonts %}
+              "{% asset "{{ font.name }}" @path %}",
+            {% endfor %}
+        ]);
+
+        return cache.addAll([
+            "{% asset "application.js" @path %}"
+        ]);
+    })
+  );
+});
+
+self.addEventListener("activate", function(event) {
+  event.waitUntil(
+    caches.keys().then(function(cacheNames){
+      return Promise.all(
+        cacheNames.filter(function(cacheName){
+          return cacheName.startsWith("nshipster-static-")
+            && cacheName != staticCacheName;
+        }).map(function(cacheName){
+          return caches.delete(cacheName);
+        })
+      )
+    })
+  )
+});
+
+self.addEventListener('fetch', function(event) {
+  event.respondWith(
+    caches.open('nshipster-dynamic').then(function(cache) {
+      return cache.match(event.request).then(function (response) {
+        return response || fetch(event.request).then(function(response) {
+          cache.put(event.request, response.clone());
+          return response;
+        });
+      });
+    })
+  );
+});

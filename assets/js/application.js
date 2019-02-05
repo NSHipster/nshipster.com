@@ -118,3 +118,13 @@ setTimeout(function () {
         document.querySelector("#logo svg").classList.add("animated");
     }
 }, 1000);
+
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function () {
+        navigator.serviceWorker.register('/sw.js');
+
+        navigator.serviceWorker.ready.then(function (registration) {
+            console.log('Service worker registered on scope', registration.scope);
+        });
+    });
+}

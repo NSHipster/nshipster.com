@@ -38,6 +38,22 @@ defaults:
       type: "posts"
     values:
       layout: "post"
+  - scope:
+      path: "assets/css"
+    values:
+      stylesheet: true
+  - scope:
+      path: "assets/fonts"
+    values:
+      font: true
+  - scope:
+      path: "assets/images"
+    values:
+      image: true
+  - scope:
+      path: "assets/js"
+    values:
+      javascript: true
 
 groups:
   - Cocoa
