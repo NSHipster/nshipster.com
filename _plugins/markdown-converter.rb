@@ -15,20 +15,26 @@ module Jekyll
         end
 
         def convert(content)
-          html = @kramdown.convert(content)
-          doc = Nokogiri::HTML::DocumentFragment.parse(html)
+          cache.getset(content) do
+            html = @kramdown.convert(content)
+            doc = Nokogiri::HTML::DocumentFragment.parse(html)
 
-          remove_proprietary_attributes!(doc)
-          secure_links_to_cross_origin_destinations!(doc)
-          transform_apple_trademarks!(doc)
-          transform_code_symbols!(doc)
-          transform_placeholder_tokens!(doc)
-          add_heading_anchors!(doc)
+            remove_proprietary_attributes!(doc)
+            secure_links_to_cross_origin_destinations!(doc)
+            transform_apple_trademarks!(doc)
+            transform_code_symbols!(doc)
+            transform_placeholder_tokens!(doc)
+            add_heading_anchors!(doc)
 
-          doc.to_html
+            doc.to_html
+          end
         end
 
         private
+
+        def cache
+          @@cache ||= Jekyll::Cache.new("ConvertMarkdown")
+        end
 
         def remove_proprietary_attributes!(doc)
           doc.css('[markdown]').each do |element|
