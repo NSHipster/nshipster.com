@@ -1,114 +1,125 @@
-//= require vendor/zepto.js
-//= require vendor/zepto.cookie.js
+'use strict';
 
-$(document).ready(function () {
-    var group = [];
-    $("div.highlighter-rouge").each(function () {
-        var language = null;
-        var classAttr = $(this).attr("class");
-        if (classAttr.includes("language-swift")) {
-            language = "Swift";
-        } else if (classAttr.includes("language-objc")) {
-            language = "Objective-C";
-        } else if (classAttr.includes("language-json")) {
-            language = "JSON";
-        } else if (classAttr.includes("language-javascript")) {
-            language = "JavaScript";
-        } else if (classAttr.includes("language-terminal")) {
-            language = "Terminal";
-        }
+(function () {
+    const delay = 300;
 
-        if (language !== null) {
-            $(this)
-                .find("code")
-                .data("lang", language);
-        }
-
-        group.push($(this));
-
-        if (
-            !$(this)
-            .next()
-            .hasClass("highlighter-rouge")
-        ) {
-            var container = $('<div class="highlight-group"></div>');
-            container.insertBefore(group[0]);
-
-            for (i in group) {
-                group[i].appendTo(container);
-            }
-
-            group = [];
-        }
-    });
-
-    $(".highlight-group").each(function () {
-        var languages = [];
-        $(this)
-            .find($("code"))
-            .each(function () {
-                var language = $(this).data("lang");
-                if (language) {
-                    languages.push(language);
-                }
-            });
-
-        $(this)
-            .children(".highlighter-rouge:not(:first-child)")
-            .hide();
-
-        var span = $('<span class="language-toggle"></span>');
-        for (i in languages) {
-            var language = languages[i];
-            var a = $('<a data-lang="' + language + '">' + language + "</a>");
-            if (i == 0) {
-                a.addClass("active");
-            }
-            span.append(a);
-        }
-
-        $(this).prepend(span);
-    });
-
-    var showAllWithLanguage = function (lang) {
-        $("a[data-lang=" + lang + "]").each(function () {
-            $(this)
-                .siblings("a")
-                .removeClass("active");
-            $(this).addClass("active");
-            $(this)
-                .parent()
-                .siblings(".highlighter-rouge")
-                .each(function () {
-                    if (
-                        $(this)
-                        .find("code")
-                        .data("lang") === lang
-                    ) {
-                        $(this).show();
-                    } else {
-                        $(this).hide();
-                    }
-                });
-        });
+    // For easy reference
+    const keys = {
+        end: 35,
+        home: 36,
+        left: 37,
+        up: 38,
+        right: 39,
+        down: 40,
     };
 
-    $("a[data-lang]").on("click", function () {
-        var lang = $(this).data("lang");
-        if (["Swift", "Objective-C"].includes(lang)) {
-            $.fn.cookie("pref-lang", lang, {
-                expires: 3650,
-                path: "/"
-            });
-        }
-        showAllWithLanguage(lang);
-    });
+    // Add or subtract depending on key pressed
+    const direction = {
+        37: -1,
+        39: 1,
+    };
 
-    var preferredLanguage = $.fn.cookie("pref-lang");
-    if (preferredLanguage) {
-        showAllWithLanguage(preferredLanguage);
-    }
-});
+    document.querySelectorAll('[role="tablist"]').forEach((tablist) => {
+        const tabs = tablist.querySelectorAll('[role="tab"]');
+        const panels = tablist.parentElement.querySelectorAll('[role="tabpanel"]');
+
+        const clickEventListener = (event) => {
+            const target = event.target;
+
+            activateTab(target, false);
+        };
+
+        const keydownEventListener = (event) => {
+            const key = event.keyCode;
+
+            switch (key) {
+                case keys.end:
+                    event.preventDefault();
+                    // Activate last tab
+                    activateTab(tabs[tabs.length - 1]);
+                    break;
+                case keys.home:
+                    event.preventDefault();
+                    // Activate first tab
+                    activateTab(tabs[0]);
+                    break;
+
+                    // Up and down are in keydown
+                    // because we need to prevent page scroll >:)
+                case keys.up:
+                case keys.down:
+                    determineOrientation(event);
+                    break;
+            };
+        };
+
+        const keyupEventListener = (event) => {
+            const key = event.keyCode;
+            const target = event.target;
+
+            tabs.forEach(tab => {
+                tab.addEventListener('focus', focusEventListener);
+            });
+
+            if (direction[key]) {
+                if (target.dataset.index !== undefined) {
+                    if (tabs[target.dataset.index + direction[pressed]]) {
+                        tabs[target.dataset.index + direction[pressed]].focus();
+                    } else if (pressed === keys.left || pressed === keys.up) {
+                        tabs[tabs.length - 1].focus();
+                    } else if (pressed === keys.right || pressed == keys.down) {
+                        tabs[0].focus();
+                    };
+                };
+            };
+        };
+
+        const focusEventListener = (event) => {
+            const target = event.target;
+
+            const handler = (target) => {
+                focused = document.activeElement;
+
+                if (target === focused) {
+                    activateTab(target, false);
+                };
+            };
+
+            setTimeout(handler, delay, target);
+        };
+
+        const activateTab = (tab, setFocus) => {
+            tabs.forEach(tab => {
+                tab.setAttribute('tabindex', '-1');
+                tab.setAttribute('aria-selected', 'false');
+                tab.removeEventListener('focus', focusEventListener);
+            });
+
+            panels.forEach(panel => {
+                panel.setAttribute('hidden', 'hidden');
+            });
+
+            tab.removeAttribute('tabindex');
+
+            tab.setAttribute('aria-selected', 'true');
+
+            var controls = tab.getAttribute('aria-controls');
+            document.getElementById(controls).removeAttribute('hidden');
+
+            if (setFocus) {
+                tab.focus();
+            };
+        };
+
+        for (let index = 0; index < tabs.length; index++) {
+            const tab = tabs[index];
+            tab.addEventListener('click', clickEventListener);
+            tab.addEventListener('keydown', keydownEventListener);
+            tab.addEventListener('keyup', keyupEventListener);
+            tab.dataset.index = index;
+        }
+    });
+}());
 
 setTimeout(function () {
     if (
