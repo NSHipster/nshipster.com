@@ -684,6 +684,7 @@ article.translator {
             width: 200px;
             border: 4px transparent solid;
             transition: 0.25s ease-in-out border-color;
+            filter: none !important;
 
             &:hover {
                 padding: 0;
