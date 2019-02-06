@@ -31,8 +31,11 @@
         }
     }
 
-    img[src$=".svg"] {
-        filter: invert(100%);
+    article,
+    i {
+        img[src$=".svg"] {
+            filter: invert(100%);
+        }
     }
 
     kbd {
