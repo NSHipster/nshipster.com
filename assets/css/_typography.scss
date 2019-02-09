@@ -196,6 +196,7 @@ samp {
 samp {
     white-space: pre;
     overflow: scroll;
+    -webkit-overflow-scrolling: touch;
     display: block;
     padding: 0.5em 0;
 }

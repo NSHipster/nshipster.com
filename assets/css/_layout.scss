@@ -361,6 +361,7 @@ article.translator {
 
     table {
         overflow: scroll;
+        -webkit-overflow-scrolling: touch;
         margin: 2em 0;
 
         caption {
