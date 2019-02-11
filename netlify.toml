@@ -110,3 +110,8 @@
 [[redirects]]
   from = "https://nshipster.com/swift-comparison-protocols"
   to = "https://nshipster.com/equatable-and-comparable"
+
+
+[[redirects]]
+  from = "https://nshipster.com/nsregularexpression"
+  to = "https://nshipster.com/swift-regular-expressions"
