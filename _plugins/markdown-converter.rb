@@ -126,6 +126,7 @@ module Jekyll
                   <button role="tab"
                           role="tablist"
                           id="#{id}-tab"
+                          class="#{language.downcase}"
                           aria-label="Languages"
                           aria-controls="#{id}"
                           aria-selected="#{index == 0 ? 'true' : 'false'}"

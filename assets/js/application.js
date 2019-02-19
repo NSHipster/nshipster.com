@@ -3,7 +3,6 @@
 (function () {
     const delay = 300;
 
-    // For easy reference
     const keys = {
         end: 35,
         home: 36,
@@ -13,7 +12,6 @@
         down: 40,
     };
 
-    // Add or subtract depending on key pressed
     const direction = {
         37: -1,
         39: 1,
@@ -27,6 +25,14 @@
             const target = event.target;
 
             activateTab(target, false);
+
+            for (const language of ['swift', 'objective-c']) {
+                if (target.classList.contains(language)) {
+                    document.querySelectorAll(`[role="tab"].${language}`).forEach((tab) => {
+                        activateTab(tab, false);
+                    })
+                }
+            }
         };
 
         const keydownEventListener = (event) => {
@@ -35,17 +41,12 @@
             switch (key) {
                 case keys.end:
                     event.preventDefault();
-                    // Activate last tab
                     activateTab(tabs[tabs.length - 1]);
                     break;
                 case keys.home:
                     event.preventDefault();
-                    // Activate first tab
                     activateTab(tabs[0]);
                     break;
-
-                    // Up and down are in keydown
-                    // because we need to prevent page scroll >:)
                 case keys.up:
                 case keys.down:
                     determineOrientation(event);
