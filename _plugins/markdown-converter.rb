@@ -113,7 +113,7 @@ module Jekyll
             tablist = group.at('[role="tablist"]')
 
             group.css('.highlight').each_with_index do |div, index|
-              language = div['data-lang']
+              language = div['data-lang'] || 'text'
 
               id = "code-listing-#{number}-#{language.downcase}"
               div['id'] = id.to_s
