@@ -25,7 +25,9 @@
         const clickEventListener = (event) => {
             const target = event.target;
 
-            activateTab(target, false);
+            target.dispatchEvent(new Event('activate', {
+                bubbles: true
+            }));
         };
 
         const keydownEventListener = (event) => {
@@ -36,11 +38,15 @@
             switch (keyCode) {
                 case keys.end:
                     event.preventDefault();
-                    tabs[tabs.length - 1].dispatchEvent(new Event('activate'));
+                    tabs[tabs.length - 1].dispatchEvent(new Event('activate', {
+                        bubbles: true
+                    }));
                     break;
                 case keys.home:
                     event.preventDefault();
-                    tabs[0].dispatchEvent(new Event('activate'));
+                    tabs[0].dispatchEvent(new Event('activate', {
+                        bubbles: true
+                    }));
                     break;
                 case keys.up:
                 case keys.down:
@@ -90,7 +96,8 @@
 
         const activateEventListener = (event) => {
             const {
-                target
+                target,
+                bubbles
             } = event;
 
             tabs.forEach(tab => {
@@ -109,9 +116,19 @@
             var controls = target.getAttribute('aria-controls');
             document.getElementById(controls).removeAttribute('hidden');
 
-            // if (setFocus) {
-            //     tab.focus();
-            // };
+            if (bubbles) {
+                for (const language of ['swift', 'objective-c']) {
+                    if (target.classList.contains(language)) {
+                        if (window.localStorage) {
+                            window.localStorage.setItem("preferred-language", language);
+                        }
+
+                        document.querySelectorAll(`[role="tab"].${language}`).forEach((tab) => {
+                            tab.dispatchEvent(new Event('activate'));
+                        });
+                    }
+                }
+            }
         };
 
         for (let index = 0; index < tabs.length; index++) {
@@ -125,11 +142,12 @@
         }
     });
 
-    for (const language of ['swift', 'objective-c']) {
-        if (target.classList.contains(language)) {
+    if (window.localStorage) {
+        const language = window.localStorage.getItem("preferred-language");
+        if (language) {
             document.querySelectorAll(`[role="tab"].${language}`).forEach((tab) => {
                 tab.dispatchEvent(new Event('activate'));
-            })
+            });
         }
     }
 }());
