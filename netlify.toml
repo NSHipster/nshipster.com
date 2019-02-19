@@ -12,6 +12,12 @@
 [[headers]]
   for = "/*"
   [headers.values]
+    Referrer-Policy = "same-origin"
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
+
+[[headers]]
+  for = "*/"
+  [headers.values]
     Content-Security-Policy = """
         default-src 'self' *.DOMAIN_PLACEHOLDER;
         script-src 'self' *.DOMAIN_PLACEHOLDER;
@@ -27,8 +33,6 @@
     Expect-CT = """
         max-age=0, report-uri="https://readeval.report-uri.com/r/d/ct/reportOnly"
     """
-    Referrer-Policy = "same-origin"
-    Strict-Transport-Security = "max-age=63072000; includeSubDomains; preload"
     X-Content-Type-Options = "nosniff"
     X-Frame-Options = "DENY"
     X-XSS-Protection = "1; mode=block"
