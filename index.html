@@ -43,7 +43,7 @@ permalink: /
   <h1>{% t recent_articles %}</h1>
 
   <ul>
-    {% for post in site.posts offset:1 limit: 9 %}
+    {% for post in site.posts offset:1 limit: 6 %}
       <li>
         <a class="title" href="{{ post.url }}">{{ post.title | camel_break }}</a>
 
