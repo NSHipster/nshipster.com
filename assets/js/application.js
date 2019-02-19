@@ -17,7 +17,8 @@
         39: 1,
     };
 
-    document.querySelectorAll('[role="tablist"]').forEach((tablist) => {
+    const tablists = document.querySelectorAll('[role="tablist"]');
+    tablists.forEach((tablist) => {
         const tabs = tablist.querySelectorAll('[role="tab"]');
         const panels = tablist.parentElement.querySelectorAll('[role="tabpanel"]');
 
@@ -25,27 +26,21 @@
             const target = event.target;
 
             activateTab(target, false);
-
-            for (const language of ['swift', 'objective-c']) {
-                if (target.classList.contains(language)) {
-                    document.querySelectorAll(`[role="tab"].${language}`).forEach((tab) => {
-                        activateTab(tab, false);
-                    })
-                }
-            }
         };
 
         const keydownEventListener = (event) => {
-            const key = event.keyCode;
+            const {
+                keyCode
+            } = event;
 
-            switch (key) {
+            switch (keyCode) {
                 case keys.end:
                     event.preventDefault();
-                    activateTab(tabs[tabs.length - 1]);
+                    tabs[tabs.length - 1].dispatchEvent(new Event('activate'));
                     break;
                 case keys.home:
                     event.preventDefault();
-                    activateTab(tabs[0]);
+                    tabs[0].dispatchEvent(new Event('activate'));
                     break;
                 case keys.up:
                 case keys.down:
@@ -55,14 +50,16 @@
         };
 
         const keyupEventListener = (event) => {
-            const key = event.keyCode;
-            const target = event.target;
+            const {
+                keyCode,
+                target
+            } = event;
 
             tabs.forEach(tab => {
                 tab.addEventListener('focus', focusEventListener);
             });
 
-            if (direction[key]) {
+            if (direction[keyCode]) {
                 if (target.dataset.index !== undefined) {
                     if (tabs[target.dataset.index + direction[pressed]]) {
                         tabs[target.dataset.index + direction[pressed]].focus();
@@ -76,20 +73,26 @@
         };
 
         const focusEventListener = (event) => {
-            const target = event.target;
+            const {
+                target
+            } = event;
 
             const handler = (target) => {
                 focused = document.activeElement;
 
                 if (target === focused) {
-                    activateTab(target, false);
+                    target.dispatchEvent(new Event('activate'));
                 };
             };
 
             setTimeout(handler, delay, target);
         };
 
-        const activateTab = (tab, setFocus) => {
+        const activateEventListener = (event) => {
+            const {
+                target
+            } = event;
+
             tabs.forEach(tab => {
                 tab.setAttribute('tabindex', '-1');
                 tab.setAttribute('aria-selected', 'false');
@@ -100,16 +103,15 @@
                 panel.setAttribute('hidden', 'hidden');
             });
 
-            tab.removeAttribute('tabindex');
+            target.removeAttribute('tabindex');
+            target.setAttribute('aria-selected', 'true');
 
-            tab.setAttribute('aria-selected', 'true');
-
-            var controls = tab.getAttribute('aria-controls');
+            var controls = target.getAttribute('aria-controls');
             document.getElementById(controls).removeAttribute('hidden');
 
-            if (setFocus) {
-                tab.focus();
-            };
+            // if (setFocus) {
+            //     tab.focus();
+            // };
         };
 
         for (let index = 0; index < tabs.length; index++) {
@@ -117,9 +119,19 @@
             tab.addEventListener('click', clickEventListener);
             tab.addEventListener('keydown', keydownEventListener);
             tab.addEventListener('keyup', keyupEventListener);
+            tab.addEventListener('activate', activateEventListener);
+
             tab.dataset.index = index;
         }
     });
+
+    for (const language of ['swift', 'objective-c']) {
+        if (target.classList.contains(language)) {
+            document.querySelectorAll(`[role="tab"].${language}`).forEach((tab) => {
+                tab.dispatchEvent(new Event('activate'));
+            })
+        }
+    }
 }());
 
 setTimeout(function () {
