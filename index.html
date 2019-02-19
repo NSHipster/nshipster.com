@@ -16,25 +16,6 @@ permalink: /
 
     <a class="readmore" href="{{ site.posts.first.url }}">{% t continue_reading %}</a>
   </article>
-
-  {% assign latest_revision = site.posts | sort: 'last_revised_on' | last %}
-  {% if latest_revision and latest_revision.id != site.posts.first.id and latest_revision.revision_description %}
-      <hr/>
-
-      <article>
-      <header>
-          <small>{{ latest_revision.revision_description | markdownify | unwrap }}</small>
-          <h1 class="title">
-            <a href="{{ latest_revision.url }}">{{ latest_revision.title | camel_break }}</a>
-          </h1>
-      </header>
-
-      {{ latest_revision.excerpt | markdownify }}
-
-      <a class="readmore" href="{{ latest_revision.url }}">{% t continue_reading %}</a>
-      </article>
-  {% endif %}
-
 </section>
 
 {% if site.lang == "en-US" %}
