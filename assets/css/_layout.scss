@@ -369,14 +369,6 @@ article.translator {
         }
     }
 
-    div.highlight {
-        background: $gray-dark;
-        border-radius: 5px;
-        overflow: auto;
-        padding: 0 1em;
-        margin-bottom: 1em;
-    }
-
     header {
         display: block;
         text-align: center;
@@ -704,32 +696,48 @@ article.translator {
     margin-top: 1em;
 }
 
-.language-toggle {
-    display: block;
 
-    &:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
+[role="tablist"] {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-right: 3px;
 
-    a {
+    button {
         cursor: pointer;
-        display: block;
-        float: right;
+        flex: 0;
         padding-left: 0.5em;
-        color: #222220;
-        opacity: 0.25;
+        color: $gray-dark !important;
         text-decoration: none;
         transition: opacity 0.5s;
+        background: transparent !important;
+        padding: 0;
+        margin: 0 0 0 0.5em;
 
-        &:hover {
-            opacity: 0.5;
+        &:not([aria-selected="true"]) {
+            opacity: 0.25;
+
+            &:hover {
+                opacity: 0.5;
+            }
         }
 
         &.active {
             opacity: 1;
         }
+
+        &:focus {
+            outline: thin dotted;
+            outline-offset: 2px;
+        }
+    }
+}
+
+[role="tabpanel"] {
+    margin-top: 0.25em;
+
+    &:focus {
+        outline: 0;
     }
 }
 
