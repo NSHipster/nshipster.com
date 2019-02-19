@@ -83,7 +83,9 @@ module Jekyll
                        when /json/ then 'JSON'
                        when /javascript/ then 'JavaScript'
                        when /terminal/ then 'Terminal'
-                        end
+                       when /xml/ then 'XML'
+                       else div['class']
+                       end
 
             pre = div.at('pre')
             pre['class'] = 'highlight'
