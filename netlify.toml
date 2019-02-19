@@ -34,14 +34,39 @@
     X-XSS-Protection = "1; mode=block"
 
 [[headers]]
+  for = "*.gif"
+  [headers.values]
+    Content-Type = "image/gif"
+
+[[headers]]
+  for = "*.jpg"
+  [headers.values]
+    Content-Type = "image/jpeg"
+
+[[headers]]
+  for = "*.png"
+  [headers.values]
+    Content-Type = "image/png"
+
+[[headers]]
+  for = "*.svg"
+  [headers.values]
+    Content-Type = "image/svg+xml; charset=utf-8"
+
+[[headers]]
+  for = "*.js"
+  [headers.values]
+    Content-Type = "application/javascript; charset=utf-8"
+
+[[headers]]
   for = "/site.webmanifest"
   [headers.values]
-    Content-Type = "application/manifest+json"
+    Content-Type = "application/manifest+json; charset=utf-8"
 
 [[headers]]
   for = "/feed.xml"
   [headers.values]
-    Content-Type = "application/atom+xml"
+    Content-Type = "application/atom+xml; charset=utf-8"
 
 [[redirects]]
   from = "https://nshipster.netlify.com/*"
