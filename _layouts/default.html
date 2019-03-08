@@ -44,11 +44,13 @@
   {% if page.id %}
     <meta name="twitter:title" content="{{ page.title }}"/>
     <meta name="twitter:description" content="{{ page.excerpt | markdownify | strip_html | escape }}"/>
+    <meta name="twitter:label1" value="Category" />
+    <meta name="twitter:data1" value="{{ page.category }}" />
   {% else %}
     <meta name="twitter:title" content="{{ site.title }}"/>
     <meta name="twitter:description" content="{{ site.description | markdownify | strip_html | escape }}"/>
   {% endif %}
-  <meta property="twitter:account_id" content="{{ site.twitter }}"/>
+  <meta name="twitter:account_id" content="{{ site.twitter }}"/>
 
   <meta property="og:site_name" content="{{ site.title }}"/>
   <meta property="og:image" content="{{ '/logo.png' | absolute_url }}"/>
