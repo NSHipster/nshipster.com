@@ -16,10 +16,10 @@
         default-src 'self' *.DOMAIN_PLACEHOLDER;
         script-src 'self' *.DOMAIN_PLACEHOLDER https://cdn.apple-mapkit.com;
         style-src 'self' 'unsafe-inline';
-        img-src 'self' *.gravatar.com;
+        img-src 'self' *.gravatar.com https://cdn.apple-mapkit.com;
         frame-ancestors 'none';
         object-src 'none';
-        connect-src 'self' *.DOMAIN_PLACEHOLDER;
+        connect-src 'self' *.DOMAIN_PLACEHOLDER https://cdn.apple-mapkit.com;
         base-uri 'none';
         upgrade-insecure-requests;
         report-uri https://readeval.report-uri.com/r/d/ct/reportOnly;
