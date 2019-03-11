@@ -83,13 +83,15 @@ module Jekyll
 
         def unnest_code_listing_markup!(doc)
           doc.css('div.highlighter-rouge').each do |div|
-            language = case div['class']
+            language = case div.classes.detect {|c| !c.match?(/rouge/)}
                        when /swift/ then 'Swift'
                        when /objc|objective-c/ then 'Objective-C'
                        when /json/ then 'JSON'
                        when /javascript/ then 'JavaScript'
                        when /terminal/ then 'Terminal'
+                       when /html/ then "HTML"
                        when /xml/ then 'XML'
+                       when /jwt/ then 'JWT'
                        else div['class']
                        end
 
