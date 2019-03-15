@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
-ruby '2.4.3'
 source 'https://rubygems.org'
 
-gem 'jekyll', git: "https://github.com/jekyll/jekyll.git"
+gem 'jekyll', git: 'https://github.com/jekyll/jekyll.git'
 gem 'rack', '>= 2.0.6'
 
 gem 'sprockets', '~> 4.0.beta'
@@ -11,7 +10,7 @@ gem 'uglifier', '~> 4.0'
 
 gem 'kramdown'
 
-gem 'rouge', git: "https://github.com/NSHipster/rouge.git",
+gem 'rouge', git: 'https://github.com/NSHipster/rouge.git',
              branch: 'swift-with-placeholder-token'
 
 gem 'nokogiri'
