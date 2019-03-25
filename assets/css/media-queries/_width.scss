@@ -1,209 +1,207 @@
 @media screen and (max-width: 768px) {
-    [role="article"] header {
-        .byline {
-
-            .authors,
-            .translators {
-                &:after {
-                    content: " ";
-                    display: block;
-                }
-            }
+  [role="article"] header {
+    .byline {
+      .authors,
+      .translators {
+        &:after {
+          content: " ";
+          display: block;
         }
+      }
+    }
+  }
+
+  .container {
+    padding: 1em;
+  }
+
+  #recent {
+    ul {
+      display: block;
+
+      li {
+        min-height: auto;
+        margin-bottom: 2em;
+
+        .title {
+          display: block;
+          height: auto;
+          padding-bottom: 0.5rem;
+        }
+      }
+    }
+  }
+
+  #follow {
+    ul {
+      width: 100%;
     }
 
-    .container {
-        padding: 1em;
+    form {
+      width: 100%;
+      margin-left: 0;
+      margin-top: 2em;
+    }
+  }
+
+  [role="article"] {
+    font-size: smaller;
+
+    .content {
+      overflow: hidden;
+
+      blockquote {
+        margin: 1em 0;
+      }
     }
 
-    #recent {
-        ul {
-            display: block;
+    footer .contributor {
+      width: 100%;
+      margin-bottom: 1em;
 
-            li {
-                min-height: auto;
-                margin-bottom: 2em;
+      &:not(:first-child) {
+        border-top: none;
+      }
 
-                .title {
-                    display: block;
-                    height: auto;
-                    padding-bottom: 0.5rem;
-                }
-            }
-        }
+      .avatar {
+        padding: 0;
+      }
+
+      .details {
+        margin-top: 0;
+      }
+    }
+  }
+
+  [role="complementary"] {
+    #continue,
+    #related {
+      width: 100%;
     }
 
-    #follow {
-        ul {
-            width: 100%;
-        }
+    #related {
+      margin-top: 1em;
 
-        form {
-            width: 100%;
-            margin-left: 0;
-            margin-top: 2em;
-        }
+      li {
+        font-size: 1em;
+      }
+    }
+  }
+
+  #sharing {
+    ul {
+      width: 100%;
     }
 
-    [role="article"] {
-        font-size: smaller;
+    li {
+      display: none !important;
+      margin: 0;
+      float: left;
+      display: block;
+      margin-right: 2.35765%;
+      width: 23.23176%;
 
-        .content {
-            overflow: hidden;
+      &:last-child,
+      &:nth-child(4) {
+        margin-right: 0;
+      }
 
-            blockquote {
-                margin: 1em 0;
-            }
-        }
+      &:nth-child(5) {
+        clear: left;
+      }
 
-        footer .contributor {
-            width: 100%;
-            margin-bottom: 1em;
-
-            &:not(:first-child) {
-                border-top: none;
-            }
-
-            .avatar {
-                padding: 0;
-            }
-
-            .details {
-                margin-top: 0;
-            }
-        }
-    }
-
-    [role="complementary"] {
-
-        #continue,
-        #related {
-            width: 100%;
-        }
-
-        #related {
-            margin-top: 1em;
-
-            li {
-                font-size: 1em;
-            }
-        }
-    }
-
-    #sharing {
-        ul {
-            width: 100%;
-        }
-
-        li {
-            display: none !important;
-            margin: 0;
-            float: left;
-            display: block;
-            margin-right: 2.35765%;
-            width: 23.23176%;
-
-            &:last-child,
-            &:nth-child(4) {
-                margin-right: 0;
-            }
-
-            &:nth-child(5) {
-                clear: left;
-            }
-
-            a,
-            i {
-                display: block;
-                margin: 0 auto;
-                font-size: 1.25em;
-            }
-        }
-    }
-
-    #promotion .book img {
-        margin: 0 auto;
-    }
-
-    #contributors ul li {
-        flex-basis: 33%;
-    }
-
-    #recent article {
-        float: none;
+      a,
+      i {
         display: block;
-        width: 100%;
-
-        &:last-child,
-        &:nth-of-type(2n) {
-            margin-right: 0;
-        }
+        margin: 0 auto;
+        font-size: 1.25em;
+      }
     }
+  }
 
-    .archive dl {
-        width: 100%;
-        margin: 0;
-        float: none;
+  #promotion .book img {
+    margin: 0 auto;
+  }
 
-        dt {
-            margin: 2em 0 0.5em 0;
-        }
+  #contributors ul li {
+    flex-basis: 33%;
+  }
+
+  #recent article {
+    float: none;
+    display: block;
+    width: 100%;
+
+    &:last-child,
+    &:nth-of-type(2n) {
+      margin-right: 0;
     }
+  }
+
+  .archive dl {
+    width: 100%;
+    margin: 0;
+    float: none;
+
+    dt {
+      margin: 2em 0 0.5em 0;
+    }
+  }
 }
 
 @media screen and (max-width: 960px) {
-    [role="banner"] {
+  [role="banner"] {
+    display: block;
+    margin-bottom: 0;
+    padding-bottom: 0;
+
+    #logo {
+      margin: 0 !important;
+      height: auto;
+
+      svg {
+        width: 25vw;
         display: block;
-        margin-bottom: 0;
-        padding-bottom: 0;
+        margin: 0 auto 1.5em auto;
+      }
 
-        #logo {
-            margin: 0 !important;
-            height: auto;
-
-            svg {
-                width: 25vw;
-                display: block;
-                margin: 0 auto 1.5em auto;
-            }
-
-            padding-bottom: 0.5em;
-        }
-
-        .tagline {
-            font-size: 4.4vw;
-            padding-bottom: 2em;
-        }
+      padding-bottom: 0.5em;
     }
 
-    #recent {
-        ul {
-            grid-template-columns: repeat(2, 1fr);
-        }
+    .tagline {
+      font-size: 4.4vw;
+      padding-bottom: 2em;
     }
+  }
 
-    .anchor {
-        font-size: smaller;
+  #recent {
+    ul {
+      grid-template-columns: repeat(2, 1fr);
     }
+  }
 
-    #announcement {
-        margin-left: 0;
-        margin-right: 0;
+  .anchor {
+    font-size: smaller;
+  }
+
+  #announcement {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  article.author,
+  article.translator {
+    header {
+      display: block;
+
+      .avatar {
+        margin: 0 auto 1em auto;
+        display: block;
+      }
+
+      h1 {
+        text-align: center;
+      }
     }
-
-    article.author,
-    article.translator {
-        header {
-            display: block;
-
-            .avatar {
-                margin: 0 auto 1em auto;
-                display: block;
-            }
-
-            h1 {
-                text-align: center;
-            }
-        }
-    }
+  }
 }
