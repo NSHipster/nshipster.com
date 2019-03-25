@@ -12,7 +12,7 @@ image: zoe-smith.jpg
 
 [Zoë Smith](https://zoesmith.io/about)
 [(@zoejessica)](https://twitter.com/zoejessica)
-is a software developer for Apple platforms,
+is a software developer for Apple platforms
 and the creator of
 [AccessControlKitty](https://github.com/zoejessica/accesscontrolkitty) and
 [F\*\*\*ingIfCaseLetSyntax.com](http://fuckingifcaseletsyntax.com).
