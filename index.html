@@ -18,26 +18,6 @@ permalink: /
   </article>
 </section>
 
-{% if site.lang == "en-US" %}
-    {% assign announcement = site.pages | where: "title", "Flight School" | first %}
-    {% if announcement %}
-    <section id="announcement">
-    <article>
-        <header>
-        <small>Special Announcement</small>
-        <h1 class="title">
-            <a href="{{ announcement.url }}">{{ announcement.title }}</a>
-        </h1>
-        </header>
-
-        {{ announcement.excerpt | markdownify }}
-
-        <a class="readmore" href="{{ announcement.url }}">{% t continue_reading %}</a>
-    </article>
-    </section>
-    {% endif %}
-{% endif %}
-
 {% if site.posts.size > 3 %}
 <section id="recent">
   <h1>{% t recent_articles %}</h1>
