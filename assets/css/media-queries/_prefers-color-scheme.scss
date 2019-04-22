@@ -55,7 +55,7 @@
     li,
     dd,
     td {
-        &>code {
+        code {
             background: $gray-dark;
         }
     }
