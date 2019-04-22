@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 297.19 184.3" width="297.19" height="184.3">
+    <path fill="none" d="M86.14 40.19h182.15V176.8H86.14z"/>
+    <path fill="none" stroke="#231f20" stroke-miterlimit="10" d="M68.29 40.19h200"/>
+    <path fill="none" stroke="#231f20" stroke-miterlimit="10" stroke-width="3" d="M68.29 176.81h200"/>
+    <path fill="none" stroke="#231f20" stroke-miterlimit="10" d="M86.14 21.56v155.25"/>
+    <path fill="none" stroke="#231f20" stroke-miterlimit="10" stroke-width="3" d="M268.29 21.56v155.25"/>
+    <text transform="translate(57.24 10.37)" font-size="12" fill="#231f20" font-family="Menlo-Regular, Menlo">minXEdge</text>
+    <text transform="translate(0 43.03)" font-size="12" fill="#231f20" font-family="Menlo-Regular, Menlo">minYEdge</text>
+    <text transform="translate(0 179.81)" font-size="12" fill="#231f20" font-family="Menlo-Regular, Menlo">maxYEdge</text>
+    <text transform="translate(239.39 10.37)" font-size="12" fill="#231f20" font-family="Menlo-Regular, Menlo">maxXEdge</text>
+    <circle cx="86.14" cy="40.19" r="2.83" fill="#fff" stroke="#231f20" stroke-miterlimit="10"/>
+</svg>

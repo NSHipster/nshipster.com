@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 313.73 169.61" width="313.73" height="169.61">
+    <rect x="232.6" y=".5" width="80.63" height="134.21" rx="12" fill="#fff" stroke="#231f20" stroke-miterlimit="10"/>
+    <rect x=".5" y=".5" width="170.06" height="134.21" rx="12" fill="#fff" stroke="#231f20" stroke-miterlimit="10"/>
+    <circle cx="13.99" cy="15.06" r="4.12" fill="#fff" stroke="#231f20" stroke-miterlimit="10"/>
+    <circle cx="58.73" cy="76.48" r="4.12" fill="#231f20" stroke="#fff" stroke-miterlimit="10"/>
+    <circle cx="25.58" cy="15.06" r="4.12" fill="#fff" stroke="#231f20" stroke-miterlimit="10"/>
+    <circle cx="37.16" cy="15.06" r="4.12" fill="#fff" stroke="#231f20" stroke-miterlimit="10"/>
+    <path fill="none" stroke="#9d9fa2" stroke-miterlimit="10" d="M.5 76.48H1"/>
+    <path fill="none" stroke="#9d9fa2" stroke-miterlimit="10" stroke-dasharray="0.9903789162635803,1.9807578325271606" d="M2.98 76.48h46.55"/>
+    <path fill="none" stroke="#9d9fa2" stroke-miterlimit="10" d="M50.52 76.48h.5"/>
+    <path fill="#9d9fa2" d="M50.29 78.98l4.32-2.5-4.32-2.49v4.99z"/>
+    <path fill="none" stroke="#9d9fa2" stroke-miterlimit="10" d="M58.73 84.19v.5"/>
+    <path fill="none" stroke="#9d9fa2" stroke-miterlimit="10" stroke-dasharray="0.9903789162635803,1.9807578325271606" d="M58.73 86.67v46.55"/>
+    <path fill="none" stroke="#9d9fa2" stroke-miterlimit="10" d="M58.73 134.21v.5"/>
+    <path fill="#9d9fa2" d="M56.23 84.92l2.5-4.32 2.49 4.32h-4.99z"/>
+    <circle cx="298.9" cy="67.61" r="4.12" fill="#231f20" stroke="#fff" stroke-miterlimit="10"/>
+    <path fill="none" stroke="#9d9fa2" stroke-miterlimit="10" d="M232.6 67.61h.5"/>
+    <path fill="none" stroke="#9d9fa2" stroke-miterlimit="10" stroke-dasharray="0.9761025905609131,1.9522051811218262" d="M235.05 67.61h54.66"/>
+    <path fill="none" stroke="#9d9fa2" stroke-miterlimit="10" d="M290.69 67.61h.5"/>
+    <path fill="#9d9fa2" d="M290.46 70.1l4.32-2.49-4.32-2.5v4.99z"/>
+    <path fill="none" stroke="#9d9fa2" stroke-miterlimit="10" d="M298.9 59.9v-.5"/>
+    <path fill="none" stroke="#9d9fa2" stroke-miterlimit="10" stroke-dasharray="0.9897953271865845,1.979590654373169" d="M298.9 57.42V1.99"/>
+    <path fill="none" stroke="#9d9fa2" stroke-miterlimit="10" d="M298.9 1V.5"/>
+    <path fill="#9d9fa2" d="M301.39 59.17l-2.49 4.32-2.5-4.32h4.99z"/>
+    <rect x="251.98" y="126.2" width="41.87" height="1.79" rx=".9" fill="#231f20"/>
+    <path d="M254.55.5h36.74v2.9a2.9 2.9 0 0 1-2.9 2.9h-30.95a2.9 2.9 0 0 1-2.9-2.9V.5z" fill="#231f20"/>
+    <text transform="translate(62.36 67.61)" font-size="8" fill="#231f20" font-family="Menlo-Regular, Menlo">(x, y)</text>
+    <text transform="translate(264.05 58.35)" font-size="8" fill="#231f20" font-family="Menlo-Regular, Menlo">(x, y)</text>
+    <text transform="translate(67.86 166.61)" font-size="12" fill="#231f20" font-family="Menlo-Regular, Menlo">macOS</text>
+    <text transform="translate(264.42 166.61)" font-size="12" fill="#231f20" font-family="Menlo-Regular, Menlo">iOS</text>
+</svg>
