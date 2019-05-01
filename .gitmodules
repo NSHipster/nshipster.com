@@ -1,19 +1,24 @@
 [submodule "collections/en/_posts"]
 	path = collections/en/_posts
 	url = https://github.com/NSHipster/articles.git
+	branch = master
 	ignore = all
 [submodule "collections/zh-Hans/_posts"]
 	path = collections/zh-Hans/_posts
 	url = https://github.com/NSHipster/articles-zh-Hans.git
+	branch = master
 	ignore = all
 [submodule "collections/es/_posts"]
 	path = collections/es/_posts
 	url = https://github.com/NSHipster/articles-es.git
+	branch = master
 	ignore = all
 [submodule "collections/ko/_posts"]
 	path = collections/ko/_posts
 	url = https://github.com/NSHipster/articles-ko.git
+	branch = master
 	ignore = all
 [submodule "collections/fr/_posts"]
 	path = collections/fr/_posts
 	url = https://github.com/NSHipster/articles-fr.git
+	branch = master
