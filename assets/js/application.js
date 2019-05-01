@@ -142,12 +142,20 @@
         }
     });
 
-    if (window.localStorage) {
-        const language = window.localStorage.getItem("preferred-language");
-        if (language) {
-            document.querySelectorAll(`[role="tab"].${language}`).forEach((tab) => {
-                tab.dispatchEvent(new Event('activate'));
+            document
+              .querySelectorAll(`[role="tab"].${language}`)
+              .forEach(tab => {
+                tab.dispatchEvent(new Event("activate"));
+              });
+
+            document.querySelectorAll(".highlight-group").forEach(group => {
+              if (
+                group.clientHeight > (parseInt(group.style.minHeight, 10) || 0)
+              ) {
+                group.style.minHeight = `${group.clientHeight}px`;
+              }
             });
+          }
         }
     }
 }());
