@@ -22,3 +22,4 @@
 	path = collections/fr/_posts
 	url = https://github.com/NSHipster/articles-fr.git
 	branch = master
+	ignore = all
