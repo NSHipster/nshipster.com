@@ -17,17 +17,18 @@
 
         .info {
             background: #333c44 !important;
-
         }
 
         .warning {
             background: #484131 !important;
-
         }
 
         .error {
             background: #592e41 !important;
+        }
 
+        [role="tablist"] button {
+            color: $gray-light !important;
         }
     }
 
