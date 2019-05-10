@@ -61,9 +61,8 @@ exclude:
   - _redirects
 
 assets:
-  source_maps: true
+  source_maps: false
   compression: true
-  digest: false
   defaults:
     js: { integrity: true }
     css: { integrity: true }
