@@ -1,0 +1,15 @@
+div.variable-width {
+  resize: horizontal;
+  overflow: hidden;
+  min-width: 30ch;
+  width: 30ch;
+  max-width: 100%;
+  margin-bottom: 2em;
+
+  .highlight {
+    height: 80vh;
+    overflow: scroll;
+    font-size: 14px !important;
+    line-height: 1.2 !important;
+  }
+}

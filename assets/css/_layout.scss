@@ -878,3 +878,14 @@ table#customplaygrounddisplayconvertible-categories {
     }
   }
 }
+
+details {
+  summary {
+    cursor: pointer;
+    margin-bottom: 1em;
+    user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+  }
+}
