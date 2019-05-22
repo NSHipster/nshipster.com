@@ -87,6 +87,10 @@
   {% if page.previous %}
     <link rel="prev" href="{{ page.previous.url | absolute_url }}" />
   {% endif %}
+
+  {% if site.url == "https://nsmutablehipster.com" %}
+    <meta name="robots" content="noindex,nofollow" />
+  {% endif %}
 </head>
 
 <body>
