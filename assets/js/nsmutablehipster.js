@@ -1,5 +1,7 @@
 //= require vendor/typed.min.js
 
+"use strict";
+
 (function() {
   document.body.contentEditable = true;
   document.querySelectorAll("a").forEach(element => {

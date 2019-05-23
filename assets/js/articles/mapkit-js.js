@@ -1,3 +1,5 @@
+"use strict";
+
 (function() {
   mapkit.init({
     authorizationCallback: done => {

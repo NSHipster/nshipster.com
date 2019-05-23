@@ -1,5 +1,7 @@
 //= require vendor/resize-observer.min.js
 
+"use strict";
+
 function getComputedWidthInEm(element) {
   const computed = window.getComputedStyle(element);
 
