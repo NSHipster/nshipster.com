@@ -27,6 +27,7 @@ module Jekyll
             add_heading_anchors!(doc)
             unnest_code_listing_markup!(doc)
             consolidate_consecutive_code_listings!(doc)
+            improve_accessibility!(doc)
 
             doc.to_html
           end
@@ -148,6 +149,16 @@ module Jekyll
               ))
             end
             number += 1
+          end
+        end
+
+        def improve_accessibility!(doc)
+          doc.css('img[src$=".svg"]').each do |img|
+            img['role'] = 'img'
+          end
+
+          doc.css('img:not([alt])').each do |img|
+            img['alt'] = ''
           end
         end
       end
