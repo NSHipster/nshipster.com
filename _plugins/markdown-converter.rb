@@ -35,7 +35,7 @@ module Jekyll
         private
 
         def cache
-          @@cache ||= Jekyll::Cache.new("ConvertMarkdown")
+          @@cache ||= Jekyll::Cache.new('ConvertMarkdown')
         end
 
         def remove_proprietary_attributes!(doc)
@@ -60,7 +60,7 @@ module Jekyll
         def secure_links_to_cross_origin_destinations!(doc)
           doc.css('a[href]').each do |a|
             href = a.attr('href')
-            next if href =~ /^\/|#{ENV['DOMAIN']}/
+            next if href =~ %r{^/|#{ENV['DOMAIN']}}
 
             a['rel'] = 'noopener noreferrer'
           end
@@ -76,6 +76,7 @@ module Jekyll
           selector = (1..6).map { |n| "h#{n}" }.join(', ')
           doc.css(selector).each do |h|
             next unless id = h.attr('id')
+
             h.remove_attribute('id')
             h.prepend_child(%(<a class="anchor" aria-hidden="true" id="#{id}" href="##{id}"></a>))
           end
@@ -83,13 +84,13 @@ module Jekyll
 
         def unnest_code_listing_markup!(doc)
           doc.css('div.highlighter-rouge').each do |div|
-            language = case div.classes.detect {|c| !c.match?(/rouge/)}
+            language = case div.classes.detect { |c| !c.match?(/rouge/) }
                        when /swift/ then 'Swift'
                        when /objc|objective-c/ then 'Objective-C'
                        when /json/ then 'JSON'
                        when /javascript/ then 'JavaScript'
                        when /terminal/ then 'Terminal'
-                       when /html/ then "HTML"
+                       when /html/ then 'HTML'
                        when /xml/ then 'XML'
                        when /jwt/ then 'JWT'
                        else div['class']
@@ -111,6 +112,7 @@ module Jekyll
 
             while sibling = group.at_xpath('following-sibling::node()[not(self::text()[not(normalize-space())])][1]')
               break unless sibling.classes.include?('highlight')
+
               group.add_child(sibling)
             end
 
