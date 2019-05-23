@@ -5,7 +5,7 @@ layout: default
 <article role="article">
   <header role="heading">
     <h1 class="title" itemprop="name">
-      <a href="{{ page.url }}">{{ page.title | camel_break }}</a>
+      <a href="{{ page.url }}">{{ page.title | escape | camel_break }}</a>
     </h1>
   </header>
 

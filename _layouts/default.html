@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8"/>
   {% if page.id %}
-    <title>{{ page.title | strip_html }} - {{ site.title }}</title>
+    <title>{{ page.title | strip_html | escape | strip }} - {{ site.title }}</title>
     <meta name="description" content="{{ page.excerpt | markdownify | strip_html }}"/>
     <meta name="revisit-after" content="1 month"/>
   {% else %}
-    <title>{{ page.title | strip_html }}</title>
+    <title>{{ page.title | strip_html | escape | strip }}</title>
     <meta name="description" content="{{ site.description | markdownify | strip_html }}"/>
     <meta name="revisit-after" content="7 days"/>
   {% endif %}

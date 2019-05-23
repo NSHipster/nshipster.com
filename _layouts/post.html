@@ -9,7 +9,7 @@ layout: default
 <article role="article" itemscope itemtype="https://schema.org/Article">
   <header role="heading">
     <h1 class="title" itemprop="name">
-      <a href="{{ page.url }}">{{ page.title | camel_break }}</a>
+      <a href="{{ page.url }}">{{ page.title | strip_html | escape | camel_break }}</a>
     </h1>
 
     <div class="byline">
@@ -74,7 +74,7 @@ layout: default
     </div>
 
     <link itemprop="image" href="{{ '/logo.png' | absolute_url }}"/>
-    <meta itemprop="headline" content="{{ page.title }}"/>
+    <meta itemprop="headline" content="{{ page.title | strip_html | escape | camel_break }}"/>
     <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization" hidden aria-hidden="true">
       <meta itemprop="name" content="NSHipster"/>
       <meta itemprop="logo" content="{{ '/logo.png' | absolute_url }}"/>
@@ -127,7 +127,7 @@ layout: default
         <small>{% t next_article %}</small>
         <article>
           <h1 class="title">
-            <a rel="next" href="{{ next_post.url }}" title="{{ next_post.title }}">{{ next_post.title | camel_break }}</a>
+            <a rel="next" href="{{ next_post.url }}">{{ next_post.title | strip_html | escape | camel_break }}</a>
           </h1>
 
           {{ next_post.excerpt | markdownify }}
