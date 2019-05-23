@@ -108,6 +108,10 @@
   {% if site.url == "https://nsmutablehipster.com" %}
     <meta name="robots" content="noindex,nofollow" />
   {% endif %}
+
+  {% if page.retired %}
+    <meta name="robots" content="noindex,nofollow" />
+  {% endif %}
 </head>
 
 <body>
