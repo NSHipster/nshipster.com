@@ -157,6 +157,10 @@
     {% asset nsmutablehipster.js !type defer="defer" %}
   {% endif %}
 
+  {% if page.id and site.lang == 'en-US' %}
+    {% include json-ld/article.html %}
+  {% endif %}
+
   {% include json-ld/organization.html %}
   {% include json-ld/website.html %}
 </body>

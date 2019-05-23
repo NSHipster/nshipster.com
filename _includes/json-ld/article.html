@@ -1,0 +1,29 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "{{ page.title | strip_html | strip }}",
+  "description": "{{ page.excerpt | markdownify | strip_html | strip }}",
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "dateModified": "{{ page.last_revised_on | date_to_xmlschema }}",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ site.url }}"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "NSHipster",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "logo": "{{ '/logo.png' | absolute_url }}"
+    }
+  },
+  "speakable": {
+    "@type": "SpeakableSpecification",
+    "xpath": [
+        "/html/head/title",
+        "/html/head/meta[@name='description']/@content"
+    ]
+  }
+}
+</script>
