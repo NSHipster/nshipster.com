@@ -5,12 +5,13 @@
   {% if page.id %}
     <title>{{ page.title | strip_html }} - {{ site.title }}</title>
     <meta name="description" content="{{ page.excerpt | markdownify | strip_html }}"/>
+    <meta name="revisit-after" content="1 month"/>
   {% else %}
     <title>{{ page.title | strip_html }}</title>
     <meta name="description" content="{{ site.description | markdownify | strip_html }}"/>
+    <meta name="revisit-after" content="7 days"/>
   {% endif %}
 
-  <meta name="revisit-after" content="7 days"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <meta name="format-detection" content="telephone=no"/>
   <meta name="color-scheme" content="light dark"/>
