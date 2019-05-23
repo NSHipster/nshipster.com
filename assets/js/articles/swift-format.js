@@ -9,37 +9,33 @@ function getComputedWidthInEm(element) {
   return (width / fontSize) * 2.6;
 }
 
-const container = document.querySelector(".variable-width");
+(function() {
+  const container = document.querySelector(".variable-width");
 
-const candidates = Array.from(document.querySelectorAll("[data-width]")).sort(
-  ({ dataset: { width: a } }, { dataset: { width: b } }) => b.localeCompare(a)
-);
+  const candidates = Array.from(document.querySelectorAll("[data-width]")).sort(
+    ({ dataset: { width: a } }, { dataset: { width: b } }) => b.localeCompare(a)
+  );
 
-const observer = new ResizeObserver(() => {
-  const targetWidth = getComputedWidthInEm(container);
-  console.log(targetWidth);
+  const observer = new ResizeObserver(() => {
+    const targetWidth = getComputedWidthInEm(container);
+    var foundMatch = false;
 
-  var foundMatch = false;
+    candidates.forEach(element => {
+      const width = Number(element.dataset.width);
+      if (!width || foundMatch) {
+        element.setAttribute("hidden", "hidden");
+      } else if (width < targetWidth) {
+        foundMatch = true;
+        element.removeAttribute("hidden");
+      } else {
+        element.setAttribute("hidden", "hidden");
+      }
+    });
 
-  console.log(candidates);
-
-  candidates.forEach(element => {
-    const width = Number(element.dataset.width);
-    if (!width || foundMatch) {
-      element.setAttribute("hidden", "hidden");
-    } else if (width < targetWidth) {
-      foundMatch = true;
-      console.log("found", element, { width, targetWidth });
-      element.removeAttribute("hidden");
-    } else {
-      element.setAttribute("hidden", "hidden");
+    if (!foundMatch) {
+      candidates[candidates.length - 1].removeAttribute("hidden");
     }
   });
 
-  if (!foundMatch) {
-    console.log("fallback");
-
-    candidates[candidates.length - 1].removeAttribute("hidden");
-  }
-});
-observer.observe(container);
+  observer.observe(container);
+})();
