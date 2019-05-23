@@ -156,6 +156,27 @@
       });
     }
   }
+
+  document
+    .querySelectorAll('article [role="heading"] h1.title')
+    .forEach(element => {
+      const resize = () => {
+        const compression = 1.0;
+        const minFontSize = 16.0;
+        const maxFontSize = 72.0;
+
+        element.style.fontSize =
+          Math.max(
+            Math.min(element.clientWidth / (compression * 10), maxFontSize),
+            minFontSize
+          ) + "px";
+      };
+
+      resize();
+
+      window.addEventListener("resize", resize);
+      window.addEventListener("orientationchange", resize);
+    });
 })();
 
 setTimeout(function() {
