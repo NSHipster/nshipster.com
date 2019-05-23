@@ -5,7 +5,7 @@
         url(font_path("Merriweather-Regular.woff")) format("woff");
     font-weight: normal;
     font-style: normal;
-    font-display: optional;
+    font-display: auto;
 }
 
 @font-face {
@@ -15,7 +15,7 @@
         url(font_path("Merriweather-Light.woff")) format("woff");
     font-weight: 300;
     font-style: normal;
-    font-display: optional;
+    font-display: auto;
 }
 
 @font-face {
@@ -25,7 +25,7 @@
         url(font_path("Merriweather-Black.woff")) format("woff");
     font-weight: 900;
     font-style: normal;
-    font-display: optional;
+    font-display: auto;
 }
 
 @font-face {
@@ -35,7 +35,7 @@
         url(font_path("Merriweather-Bold.woff")) format("woff");
     font-weight: bold;
     font-style: normal;
-    font-display: optional;
+    font-display: auto;
 }
 
 @font-face {
@@ -45,7 +45,7 @@
         url(font_path("Merriweather-BlackItalic.woff")) format("woff");
     font-weight: 900;
     font-style: italic;
-    font-display: optional;
+    font-display: auto;
 }
 
 @font-face {
@@ -55,7 +55,7 @@
         url(font_path("Merriweather-Italic.woff")) format("woff");
     font-weight: normal;
     font-style: italic;
-    font-display: optional;
+    font-display: auto;
 }
 
 @font-face {
@@ -65,7 +65,7 @@
         url(font_path("Merriweather-BoldItalic.woff")) format("woff");
     font-weight: bold;
     font-style: italic;
-    font-display: optional;
+    font-display: auto;
 }
 
 @font-face {
@@ -75,5 +75,5 @@
         url(font_path("Merriweather-LightItalic.woff")) format("woff");
     font-weight: 300;
     font-style: italic;
-    font-display: optional;
+    font-display: auto;
 }
