@@ -237,8 +237,8 @@ html[lang="ko-KR"] [role="banner"] {
         font-size: smaller;
         display: -webkit-box;
         overflow: hidden;
-        max-lines: 5;
-        -webkit-line-clamp: 5;
+        max-lines: 8;
+        -webkit-line-clamp: 8;
         -webkit-box-orient: vertical;
         text-overflow: ellipsis;
       }
