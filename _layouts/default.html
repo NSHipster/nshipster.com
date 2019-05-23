@@ -5,11 +5,9 @@
   {% if page.id %}
     <title>{{ page.title | strip_html }} - {{ site.title }}</title>
     <meta name="description" content="{{ page.excerpt | strip_html }}"/>
-    <link rel="canonical" href="{{ page.url | absolute_url }}"/>
   {% else %}
     <title>{{ page.title | strip_html }}</title>
     <meta name="description" content="{{ site.description | markdownify | strip_html }}"/>
-    <link rel="canonical" href="{{ site.url }}"/>
   {% endif %}
 
   <meta name="revisit-after" content="7 days"/>
@@ -19,7 +17,7 @@
 
   <link rel="alternate" type="application/atom+xml" title="{{ site.title }} Atom Feed" href="/feed.xml"/>
 
-  <link rel="preload" as="font" href="{% asset nshipster.woff2 @path %}" type="font/woff2" crossorigin="anonymous" />
+  <link rel="preload" type="font/woff2" as="font" href="{% asset nshipster.woff2 @path %}" crossorigin="anonymous" />
 
   {% asset "screen.css" @inline %}
 
@@ -70,13 +68,31 @@
     <meta property="og:description" content="{{ site.description | markdownify | strip_html | escape }}" />
   {% endif %}
 
-  {% if page.url == '/' %}
-    <link rel="alternate" hreflang="en-us" href="https://nshipster.com" />
-    <link rel="alternate" hreflang="es-ES" href="https://nshipster.es" />
-    <link rel="alternate" hreflang="ko-KR" href="https://nshipster.co.kr" />
-    <link rel="alternate" hreflang="zh-Hans" href="https://nshipster.cn" />
-    <link rel="alternate" hreflang="x-default" href="https://nshipster.com" />
+  <link rel="canonical" href="{{ page.url | prepend:'https://nshipster.com' }}" />
 
+  {% if site.lang != 'en-US' and page.translations contains 'en' %}
+    <link rel="alternate" hreflang="en" href="{{ page.url | prepend:'https://nshipster.com' }}" />
+  {% endif %}
+
+  {% if site.lang != 'es-ES' and page.translations contains 'es' %}
+    <link rel="alternate" hreflang="es" href="{{ page.url | prepend:'https://nshipster.es' }}" />
+  {% endif %}
+
+  {% if site.lang != 'fr-FR' and page.translations contains 'fr' %}
+    <link rel="alternate" hreflang="fr" href="{{ page.url | prepend:'https://nshipster.fr' }}" />
+  {% endif %}
+
+  {% if site.lang != 'ko-KR' and page.translations contains 'ko' %}
+    <link rel="alternate" hreflang="ko" href="{{ page.url | prepend:'https://nshipster.co.kr' }}" />
+  {% endif %}
+
+  {% if site.lang != 'zh-Hans' and page.translations contains 'zh-Hans' %}
+    <link rel="alternate" hreflang="zh-Hans" href="{{ page.url | prepend:'https://nshipster.cn' }}" />
+  {% endif %}
+
+  <link rel="alternate" hreflang="x-default" href="{{ page.url | prepend:'https://nshipster.com' }}" />
+
+  {% if page.url == '/' %}
     <link rel="prerender" href="{{ site.posts.first.url | absolute_url }}" />
   {% endif %}
 

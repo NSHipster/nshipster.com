@@ -6,6 +6,13 @@ facebook: 418545184954768
 google: 105091289906267717942
 issn: 2373-9800
 
+languages:
+  - en
+  - es
+  - fr
+  - ko
+  - zh-Hans
+
 author:
   name: Mattt
   email: mattt@nshipster.com
