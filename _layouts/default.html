@@ -97,11 +97,9 @@
 
   <div class="container">
     <header role="banner">
-      <h1 id="logo">
-        <a href="/" title="NSHipster">
-          {% asset logo.svg @inline %}
-        </a>
-      </h1>
+      <a id="logo" href="/" title="NSHipster">
+        {% asset logo.svg @inline %}
+      </a>
 
       {% if page.url == "/" %}
         <h2 class="tagline">{{ site.description | markdownify | unwrap }}</h2>
