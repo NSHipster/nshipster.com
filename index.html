@@ -55,9 +55,9 @@ permalink: /
     <li class="author">
       <a href="{{ author.url }}">
         {% if author.image %}
-            <img class="avatar" alt="{{ author.name }}" itemprop="image" src="{% asset "{{ author.image }}" @path %}" draggable="false"/>
+            <img class="avatar" alt="{{ author.name }}" src="{% asset "{{ author.image }}" @path %}" draggable="false"/>
         {% else %}
-            <img class="avatar" itemprop="image" src="//0.gravatar.com/avatar/{{ author.gravatar }}?size=300" draggable="false"/>
+            <img class="avatar" src="//0.gravatar.com/avatar/{{ author.gravatar }}?size=300" draggable="false"/>
         {% endif %}
       </a>
       <a href="{{ author.url }}">{{ author.name }}</a>

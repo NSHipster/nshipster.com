@@ -6,9 +6,9 @@ layout: default
 {% assign translator = site.translators | where: "name", page.translator | first %}
 {% capture date_format %}{% t format.date %}{% endcapture %}
 
-<article role="article" itemscope itemtype="https://schema.org/Article">
+<article role="article">
   <header role="heading">
-    <h1 class="title" itemprop="name">
+    <h1 class="title">
       <a href="{{ page.url }}">{{ page.title | strip_html | escape | camel_break }}</a>
     </h1>
 
@@ -61,27 +61,18 @@ layout: default
     {% endif %}
 
     {% if page.last_revised_on %}
-        <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished" hidden aria-hidden="true">{{ page.date | date: date_format }}</time>
-        <time datetime="{{ page.last_revised_on | date_to_xmlschema }}" itemprop="dateModified">{{ page.last_revised_on | date: date_format }}</time>
+        <time datetime="{{ page.last_revised_on | date_to_xmlschema }}">{{ page.last_revised_on | date: date_format }}</time>
     {% else %}
-        <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: date_format }}</time>
-        <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="dateModified" hidden aria-hidden="true">{{ page.date | date: date_format }}</time>
+        <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: date_format }}</time>
     {% endif %}
 
     {% if page.revisions %}
     ({% t revised %})
     {% endif %}
     </div>
-
-    <link itemprop="image" href="{{ '/logo.png' | absolute_url }}"/>
-    <meta itemprop="headline" content="{{ page.title | strip_html | escape | camel_break }}"/>
-    <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization" hidden aria-hidden="true">
-      <meta itemprop="name" content="NSHipster"/>
-      <meta itemprop="logo" content="{{ '/logo.png' | absolute_url }}"/>
-    </div>
   </header>
 
-  <div class="content" itemprop="articleBody">
+  <div class="content">
     {{ content }}
   </div>
 
