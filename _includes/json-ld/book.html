@@ -2,7 +2,10 @@
 {
   "@context": "https://schema.org",
   "@type": "Book",
-  "author": "{{ book.author }}",
+  "author": {
+    "@type": "Person",
+    "name": "Mattt"
+  },
   "bookFormat": "https://schema.org/EBook",
   "datePublished": "{{ book.date }}",
   "image": "{% asset '{{ book.image }}' @path %}",
