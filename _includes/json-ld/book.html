@@ -8,8 +8,8 @@
   "image": "{% asset '{{ book.image }}' @path %}",
   "inLanguage": "English",
   "isbn": "{{ book.isbn }}",
-  "name": "{{ book.title }}",
-  "description": "{{ book.summary | markdownify | strip_html | jsonify }}",
+  "name": "{{ book.title | strip_html | strip }}",
+  "description": "{{ book.summary | markdownify | strip_html | strip }}",
   "numberOfPages": "{{ book.number_of_pages }}",
   "offers": {
     "@type": "Offer",
