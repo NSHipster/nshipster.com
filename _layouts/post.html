@@ -67,7 +67,11 @@ layout: default
     {% endif %}
 
     {% if page.revisions %}
-    ({% t revised %})
+        {% if page.commit_history_url %}
+            (<a href="{{ page.commit_history_url | uri_escape }}" rel="noopener noreferrer">{% t revised %}</a>)
+        {% else %}
+            ({% t revised %})
+        {% endif %}
     {% endif %}
     </div>
   </header>
