@@ -123,6 +123,10 @@
             visibility: hidden;
         }
     }
+
+    [hidden] {
+        display: none !important;
+    }
 }
 
 @media print and (color) {
