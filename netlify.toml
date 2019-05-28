@@ -139,3 +139,7 @@
 [[redirects]]
   from = "https://nshipster.com/nsregularexpression"
   to = "https://nshipster.com/swift-regular-expressions"
+
+[[redirects]]
+  from = "https://nshipster.com/*/mutableCopyWithZone:"
+  to = "https://nsmutablehipster.com/:splat"
