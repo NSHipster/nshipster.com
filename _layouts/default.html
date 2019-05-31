@@ -105,11 +105,11 @@
     <link rel="prev" href="{{ page.previous.url | absolute_url }}" />
   {% endif %}
 
-  {% if site.url == "https://nsmutablehipster.com" %}
+  {% if page.retired %}
     <meta name="robots" content="noindex,nofollow" />
   {% endif %}
 
-  {% if page.retired %}
+  {% if site.url == "https://nsmutablehipster.com" %}
     <meta name="robots" content="noindex,nofollow" />
   {% endif %}
 </head>
