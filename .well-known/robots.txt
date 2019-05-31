@@ -3,21 +3,7 @@ layout: null
 permalink: /robots.txt
 ---
 
-{% if site.url == "https://nsmutablehipster.com" %}
-User-agent: *
-Disallow: /
-{% else %}
 User-agent: *
 Allow: /
 
 Sitemap: {{ site.url }}/sitemap.xml
-
-Disallow: /status/
-Disallow: /return/
-
-{% for post in site.posts %}
-{% if post.retired %}
-Disallow: {{ post.url }}
-{% endif %}
-{% endfor %}
-{% endif %}
