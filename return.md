@@ -4,6 +4,7 @@ date: 2018-07-09
 title: Returning to Our Regularly Scheduled Programming
 author: Mattt
 category: ""
+retired: true
 excerpt: NSHipster returns to weekly publication,
   with new articles every Monday,
   updates every Wednesday,

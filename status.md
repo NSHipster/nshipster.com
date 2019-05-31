@@ -2,6 +2,7 @@
 layout: page
 title: Article Status
 permalink: /status
+retired: true
 ---
 
 The common swift (_Apus apus_) can travel at speeds over 100km/h.
