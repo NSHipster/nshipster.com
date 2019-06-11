@@ -68,6 +68,11 @@
   [headers.values]
     Content-Type = "application/atom+xml; charset=utf-8"
 
+[[headers]]
+  for = "https://nshipster.com/swift-documentation-example/*"
+  [headers.values]
+    X-Robots-Tag = "none"
+
 [[redirects]]
   from = "https://nshipster.netlify.com/*"
   to = "https://nshipster.com/:splat"
