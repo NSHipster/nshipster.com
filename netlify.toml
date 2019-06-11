@@ -73,6 +73,11 @@
   [headers.values]
     X-Robots-Tag = "none"
 
+[[headers]]
+  for = "https://nsmutablehipster.com/*"
+  [headers.values]
+    X-Robots-Tag = "none"
+
 [[redirects]]
   from = "https://nshipster.netlify.com/*"
   to = "https://nshipster.com/:splat"
