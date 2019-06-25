@@ -1,71 +1,89 @@
 @mixin border-icon($name) {
-    content: " ";
-    background-image: asset_url($name + ".svg");
-    background-size: 24px 24px;
-    width: 24px;
-    height: 24px;
-    position: absolute;
-    display: block;
-    margin-left: -54px;
-    margin-top: 10px;
-    z-index: 100;
+  content: " ";
+  background-image: asset_url($name + ".svg");
+  background-size: 24px 24px;
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  display: block;
+  margin-left: -54px;
+  margin-top: 10px;
+  z-index: 100;
 }
 
 .admonition {
-    font-family: $sans-serif-font-stack;
-    border-left-width: 4px;
-    border-left-style: solid;
-    padding: 5px 40px;
-    margin: 1.5em 0;
-    display: block;
-    clear: both;
-    overflow: visible;
+  font-family: $sans-serif-font-stack;
+  border-left-width: 4px;
+  border-left-style: solid;
+  padding: 5px 40px;
+  margin: 1.5em 0;
+  display: block;
+  clear: both;
+  overflow: visible;
 
-    p {
-        margin: 0.5em 0;
-        font-size: smaller;
+  p {
+    margin: 0.5em 0;
+    font-size: smaller;
+  }
+
+  pre code {
+    font-size: small;
+  }
+
+  blockquote {
+    margin-left: 0 !important;
+    margin-top: 0.25em !important;
+    margin-bottom: 0.25em !important;
+  }
+
+  &.info {
+    background: #edf5fa;
+    border-color: #4daafc;
+
+    a {
+      color: #08f;
     }
 
-    pre code {
-        font-size: small;
+    blockquote {
+      border-left-color: #4daafc !important;
     }
 
-    &.info {
-        background: #edf5fa;
-        border-color: #4DAAFC;
+    &:before {
+      @include border-icon("info");
+    }
+  }
 
-        a {
-            color: #0088ff;
-        }
+  &.warning {
+    background: #fcfaf6;
+    border-color: #f9d780;
 
-        &:before {
-            @include border-icon("info");
-        }
+    a {
+      color: #f0b112;
     }
 
-    &.warning {
-        background: #fcfaf6;
-        border-color: #F9D780;
-
-        a {
-            color: #f0b112;
-        }
-
-        &:before {
-            @include border-icon("warning");
-        }
+    blockquote {
+      border-left-color: #f9d780 !important;
     }
 
-    &.error {
-        background: #fcf2f6;
-        border-color: #f5569d;
-
-        a {
-            color: #e62279;
-        }
-
-        &:before {
-            @include border-icon("error");
-        }
+    &:before {
+      @include border-icon("warning");
     }
+  }
+
+  &.error {
+    background: #fcf2f6;
+    border-color: #f5569d;
+
+    a {
+      color: #e62279;
+    }
+
+    blockquote {
+      border-left-color: #f5569d !important;
+    }
+
+    &:before {
+      @include border-icon("error");
+    }
+  }
 }
