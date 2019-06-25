@@ -89,6 +89,7 @@ module Jekyll
                        when /swift/ then 'Swift'
                        when /objc|objective-c/ then 'Objective-C'
                        when /json/ then 'JSON'
+                       when /python/ then 'Python'
                        when /javascript/ then 'JavaScript'
                        when /terminal/ then 'Terminal'
                        when /html/ then 'HTML'
