@@ -1,4 +1,8 @@
-<svg viewBox="0 0 732 1063" width="732" height="1063" xmlns="http://www.w3.org/2000/svg">
+<svg viewBox="0 0 732 1063" width="900" height="1100"
+    xmlns="http://www.w3.org/2000/svg">
+    <style>
+    text{stroke: none; fill: currentColor;}
+    </style>
     <g fill="none" fill-rule="evenodd">
         <path fill-opacity=".497" fill="#D8E3EC" d="M78 108h254v254H78zM78 425h254v254H78zM78 742h254v254H78z" />
         <path fill-opacity=".199" fill="#D8E3EC" d="M416 108h254v254H416zM416 425h254v254H416zM416 743h254v254H416z" />

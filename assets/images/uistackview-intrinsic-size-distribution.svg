@@ -1,5 +1,8 @@
-<svg viewBox="0 0 732 754" width="732" height="754"
+<svg viewBox="0 0 732 754" width="900" height="900"
     xmlns="http://www.w3.org/2000/svg">
+    <style>
+    text{stroke: none; fill: currentColor;}
+    </style>
     <g fill="none" fill-rule="evenodd">
         <path fill-opacity=".199" fill="#D8E3EC" d="M77 110h254v254H77zM77 427h254v254H77zM416 110h254v254H416zM416 427h254v254H416z" />
         <path fill="#FF8001" d="M77 191h60v110H77z" />

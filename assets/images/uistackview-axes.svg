@@ -1,4 +1,8 @@
-<svg viewBox="0 0 732 443" xmlns="http://www.w3.org/2000/svg" width="732" height="443">
+<svg viewBox="0 0 732 443"
+    xmlns="http://www.w3.org/2000/svg" width="900" height="500">
+    <style>
+    text{stroke: none; fill: currentColor;}
+    </style>
     <path fill="#FF8001" d="M77 110h85v254H77z"/>
     <path fill="#6236FF" d="M162 110h84v254h-84z"/>
     <path fill="#32C5FF" d="M246 110h85v254h-85z"/>
