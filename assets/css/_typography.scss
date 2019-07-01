@@ -72,6 +72,16 @@ h6 {
   font-family: $sans-serif-font-stack;
   line-height: 1.1em;
   margin: 0 0 1rem 0;
+
+  small {
+      display: block;
+      font-size: small;
+      font-variant: small-caps;
+      text-transform: uppercase;
+      font-weight: normal;
+      line-height: 2;
+      letter-spacing: 0.2ch;
+  }
 }
 
 h1 {
