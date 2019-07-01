@@ -1,13 +1,13 @@
 <svg viewBox="0 0 732 754" width="900" height="900"
     xmlns="http://www.w3.org/2000/svg">
     <style>
-    text{stroke: none; fill: currentColor;}
+    text{stroke: none; fill: currentColor; font-family:SFProText-Medium, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, sans-serif; font-weight: 400;}
     </style>
     <g fill="none" fill-rule="evenodd">
         <path fill-opacity=".199" fill="#D8E3EC" d="M77 110h254v254H77zM77 427h254v254H77zM416 110h254v254H416zM416 427h254v254H416z" />
         <path fill="#FF8001" d="M77 191h60v110H77z" />
         <path d="M80 194h54v104H80V194z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
-        <g fill="#000" fill-opacity=".487" font-family="SFProText-Medium, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, sans-serif" font-size="8" font-weight="400">
+        <g fill="#000" fill-opacity=".487" font-size="8">
             <text transform="translate(78.646 238.028)">
                 <tspan x="7.95" y="18.524">(60 × 110)</tspan>
             </text>
@@ -17,7 +17,7 @@
         </g>
         <path fill="#FF8001" d="M84 508h60v110H84z" />
         <path d="M87 511h54v104H87V511z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
-        <g fill="#000" fill-opacity=".487" font-family="SFProText-Medium, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, sans-serif" font-size="8" font-weight="400">
+        <g fill="#000" fill-opacity=".487" font-size="8">
             <text transform="translate(85.646 555.028)">
                 <tspan x="7.95" y="18.524">(60 × 110)</tspan>
             </text>
@@ -27,7 +27,7 @@
         </g>
         <path fill="#FF8001" d="M485 110h110v60H485z" />
         <path d="M488 113h104v54H488v-54z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
-        <g fill="#000" fill-opacity=".487" font-family="SFProText-Medium, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, sans-serif" font-size="8" font-weight="400">
+        <g fill="#000" fill-opacity=".487" font-size="8">
             <text transform="translate(488.017 130.879)">
                 <tspan x="30.997" y="18.524">(110 × 60)</tspan>
             </text>
@@ -37,7 +37,7 @@
         </g>
         <path fill="#FF8001" d="M485 434h110v60H485z" />
         <path d="M488 437h104v54H488v-54z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
-        <g fill="#000" fill-opacity=".487" font-family="SFProText-Medium, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, sans-serif" font-size="8" font-weight="400">
+        <g fill="#000" fill-opacity=".487" font-size="8">
             <text transform="translate(488.017 454.879)">
                 <tspan x="30.997" y="18.524">(110 × 60)</tspan>
             </text>
@@ -47,7 +47,7 @@
         </g>
         <path fill="#6236FF" d="M150 182h102v128H150z" />
         <path d="M154 185h94a1 1 0 0 1 1 1v120a1 1 0 0 1-1 1h-94a1 1 0 0 1-1-1V186a1 1 0 0 1 1-1z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
-        <g fill="#FFF" fill-opacity=".653" font-family="SFProText-Medium, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, sans-serif" font-size="8" font-weight="400">
+        <g fill="#FFF" fill-opacity=".653" font-size="8">
             <text transform="translate(152.798 238.442)">
                 <tspan x="24.942" y="18.524">(102 × 128)</tspan>
             </text>
@@ -57,7 +57,7 @@
         </g>
         <path fill="#6236FF" d="M150 499h102v128H150z" />
         <path d="M154 502h94a1 1 0 0 1 1 1v120a1 1 0 0 1-1 1h-94a1 1 0 0 1-1-1V503a1 1 0 0 1 1-1z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
-        <g fill="#FFF" fill-opacity=".653" font-family="SFProText-Medium, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, sans-serif" font-size="8" font-weight="400">
+        <g fill="#FFF" fill-opacity=".653" font-size="8">
             <text transform="translate(152.798 555.442)">
                 <tspan x="24.942" y="18.524">(102 × 128)</tspan>
             </text>
@@ -68,7 +68,7 @@
         <g>
             <path fill="#6236FF" d="M474 182h128v102H474z" />
             <path d="M478 185h120a1 1 0 0 1 1 1v94a1 1 0 0 1-1 1H478a1 1 0 0 1-1-1v-94a1 1 0 0 1 1-1z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
-            <g fill="#FFF" fill-opacity=".653" font-family="SFProText-Medium, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, sans-serif" font-size="8" font-weight="400">
+            <g fill="#FFF" fill-opacity=".653" font-size="8">
                 <text transform="translate(477.51 224.844)">
                     <tspan x="36.927" y="18.524">(128 × 102)</tspan>
                 </text>
@@ -80,7 +80,7 @@
         <g>
             <path fill="#6236FF" d="M474 499h128v102H474z" />
             <path d="M478 502h120a1 1 0 0 1 1 1v94a1 1 0 0 1-1 1H478a1 1 0 0 1-1-1v-94a1 1 0 0 1 1-1z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
-            <g fill="#FFF" fill-opacity=".653" font-family="SFProText-Medium, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, sans-serif" font-size="8" font-weight="400">
+            <g fill="#FFF" fill-opacity=".653" font-size="8">
                 <text transform="translate(477.51 541.844)">
                     <tspan x="36.927" y="18.524">(128 × 102)</tspan>
                 </text>
@@ -92,7 +92,7 @@
         <g>
             <path fill="#32C5FF" d="M263 151h68v190h-68z" />
             <path d="M267 154h60a1 1 0 0 1 1 1v182a1 1 0 0 1-1 1h-60a1 1 0 0 1-1-1V155a1 1 0 0 1 1-1z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
-            <g fill="#000" fill-opacity=".487" font-family="SFProText-Medium, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, sans-serif" font-size="8" font-weight="400">
+            <g fill="#000" fill-opacity=".487" font-size="8">
                 <text transform="translate(264.865 239.867)">
                     <tspan x="10.916" y="18.524">(68 × 190)</tspan>
                 </text>
@@ -104,7 +104,7 @@
         <g>
             <path fill="#32C5FF" d="M257 468h68v190h-68z" />
             <path d="M261 471h60a1 1 0 0 1 1 1v182a1 1 0 0 1-1 1h-60a1 1 0 0 1-1-1V472a1 1 0 0 1 1-1z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
-            <g fill="#000" fill-opacity=".487" font-family="SFProText-Medium, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, sans-serif" font-size="8" font-weight="400">
+            <g fill="#000" fill-opacity=".487" font-size="8">
                 <text transform="translate(258.865 556.867)">
                     <tspan x="10.916" y="18.524">(68 × 190)</tspan>
                 </text>
@@ -116,7 +116,7 @@
         <g>
             <path fill="#32C5FF" d="M445 296h190v68H445z" />
             <path d="M449 299h182a1 1 0 0 1 1 1v60a1 1 0 0 1-1 1H449a1 1 0 0 1-1-1v-60a1 1 0 0 1 1-1z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
-            <g fill="#000" fill-opacity=".487" font-family="SFProText-Medium, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, sans-serif" font-size="8" font-weight="400">
+            <g fill="#000" fill-opacity=".487" font-size="8">
                 <text transform="translate(450.211 321.063)">
                     <tspan x="67.152" y="18.524">(190 × 68)</tspan>
                 </text>
@@ -128,7 +128,7 @@
         <g>
             <path fill="#32C5FF" d="M445 606h190v68H445z" />
             <path d="M449 609h182a1 1 0 0 1 1 1v60a1 1 0 0 1-1 1H449a1 1 0 0 1-1-1v-60a1 1 0 0 1 1-1z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
-            <g fill="#000" fill-opacity=".487" font-family="SFProText-Medium, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, sans-serif" font-size="8" font-weight="400">
+            <g fill="#000" fill-opacity=".487" font-size="8">
                 <text transform="translate(450.211 631.063)">
                     <tspan x="67.152" y="18.524">(190 × 68)</tspan>
                 </text>
@@ -137,22 +137,22 @@
                 </text>
             </g>
         </g>
-        <text font-family="SFProText-Medium, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="400" fill="#6D7278">
+        <text font-size="12" fill="#6D7278">
             <tspan x="164.052" y="386">Equal Spacing</tspan>
         </text>
-        <text font-family="SFProText-Medium, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="400" fill="#6D7278">
+        <text font-size="12" fill="#6D7278">
             <tspan x="158.887" y="703">Equal Centering</tspan>
         </text>
-        <text font-family="SFProText-Medium, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="400" fill="#6D7278">
+        <text font-size="12" fill="#6D7278">
             <tspan x="502.052" y="386">Equal Spacing</tspan>
         </text>
-        <text font-family="SFProText-Medium, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, sans-serif" font-size="12" font-weight="400" fill="#6D7278">
+        <text font-size="12" fill="#6D7278">
             <tspan x="496.887" y="703">Equal Centering</tspan>
         </text>
-        <text font-family="SFProText-Medium, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, sans-serif" font-size="17" font-weight="400" fill="#585858">
+        <text font-size="17" fill="#585858">
             <tspan x="135.62" y="70">Horizontal Stack</tspan>
         </text>
-        <text font-family="SFProText-Medium, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, sans-serif" font-size="17" font-weight="400" fill="#585858">
+        <text font-size="17" fill="#585858">
             <tspan x="485.366" y="70">Vertical Stack</tspan>
         </text>
     </g>
