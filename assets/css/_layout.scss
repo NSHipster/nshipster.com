@@ -589,17 +589,19 @@ article.translator {
       flex: 0;
       display: block;
       margin-bottom: 1em;
-      flex-basis: 20%;
+      flex-basis: 15%;
+      padding: 0.25em;
 
       .avatar {
+          width: 75%;
         display: block;
         margin: 0 auto 1em auto;
-        width: 70%;
       }
 
       a {
         text-align: center;
         display: block;
+        font-size: small;
       }
     }
   }
