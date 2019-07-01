@@ -4,6 +4,7 @@ require 'yaml'
 
 require 'jekyll'
 require 'nokogiri'
+require 'active_support/inflector'
 
 module Jekyll
   module Converters
@@ -77,6 +78,8 @@ module Jekyll
           selector = (1..6).map { |n| "h#{n}" }.join(', ')
           doc.css(selector).each do |h|
             next unless id = h.attr('id')
+
+            id = ActiveSupport::Inflector.parameterize(id)
 
             h.remove_attribute('id')
             h.prepend_child(%(<a class="anchor" aria-hidden="true" id="#{id}" href="##{id}"></a>))
