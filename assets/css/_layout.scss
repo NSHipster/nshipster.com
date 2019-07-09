@@ -473,7 +473,10 @@ article.translator {
 
   sup {
     font-size: 50%;
-    margin-right: -0.5em;
+
+    time & {
+        margin-right: -0.5em;
+    }
   }
 
   footer {
