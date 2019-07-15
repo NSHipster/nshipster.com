@@ -151,5 +151,9 @@
   to = "https://nshipster.com/swift-regular-expressions"
 
 [[redirects]]
+  from = "https://nshipster.com/nsformatter"
+  to = "https://nshipster.com/formatter"
+
+[[redirects]]
   from = "https://nshipster.com/*/mutableCopyWithZone:"
   to = "https://nsmutablehipster.com/:splat"
