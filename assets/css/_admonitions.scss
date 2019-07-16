@@ -20,14 +20,19 @@
   display: block;
   clear: both;
   overflow: visible;
+  font-size: smaller;
 
   p {
     margin: 0.5em 0;
-    font-size: smaller;
   }
 
   pre code {
     font-size: small;
+    line-height: 1;
+  }
+
+  th, td {
+      padding: 0.5em !important;
   }
 
   blockquote {
