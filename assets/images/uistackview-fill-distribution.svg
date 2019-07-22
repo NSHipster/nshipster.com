@@ -1,0 +1,230 @@
+<svg viewBox="0 0 732 1063" width="900" height="1100"
+    xmlns="http://www.w3.org/2000/svg">
+    <style>
+    text{stroke: none; fill: currentColor; font-family:SFProText-Medium, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, sans-serif; font-weight: 400;}
+    </style>
+    <g fill="none" fill-rule="evenodd">
+        <path fill-opacity=".497" fill="#D8E3EC" d="M78 108h254v254H78zM78 425h254v254H78zM78 742h254v254H78z" />
+        <path fill-opacity=".199" fill="#D8E3EC" d="M416 108h254v254H416zM416 425h254v254H416zM416 743h254v254H416z" />
+        <path fill="#FF8001" d="M78 108h60v254H78z" />
+        <path d="M81 183h54v110H81V183z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
+        <g fill="#000" fill-opacity=".487" font-size="8">
+            <text transform="translate(79.646 230.337)">
+                <tspan x="7.95" y="18.524">(60 × 110)</tspan>
+            </text>
+            <text transform="translate(79.646 230.337)">
+                <tspan x="9.952" y="8.524">60 × 254</tspan>
+            </text>
+        </g>
+        <path fill="#FF8001" d="M79 425h66.5v254H79z" />
+        <path d="M82 500h60.5v110H82V500z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
+        <g fill="#000" fill-opacity=".487" font-size="8">
+            <text transform="translate(80.824 547.337)">
+                <tspan x="10.946" y="18.524">(60 × 110)</tspan>
+            </text>
+            <text transform="translate(80.824 547.337)">
+                <tspan x="9.131" y="8.524">66.5 × 254</tspan>
+            </text>
+        </g>
+        <path fill="#FF8001" d="M416 109h254v60H416z" />
+        <path d="M491 112h104v54H491v-54z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
+        <g fill="#000" fill-opacity=".487" font-size="8">
+            <text transform="translate(424 130)">
+                <tspan x="96.209" y="18.524">(110 × 60)</tspan>
+            </text>
+            <text transform="translate(424 130)">
+                <tspan x="98.211" y="8.524">254 × 60</tspan>
+            </text>
+        </g>
+        <path fill="#FF8001" d="M416 426h254v66.5H416z" />
+        <path d="M491 432.25h104v54H491v-54z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
+        <g fill="#000" fill-opacity=".487" font-size="8">
+            <text transform="translate(424 450.413)">
+                <tspan x="96.209" y="18.524">(110 × 60)</tspan>
+            </text>
+            <text transform="translate(424 450.413)">
+                <tspan x="94.395" y="8.524">254 × 66.5</tspan>
+            </text>
+        </g>
+        <path fill="#6236FF" d="M138 108h126v254H138z" />
+        <path d="M150 171h102v128H150V171z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
+        <g fill="#FFF" fill-opacity=".653" font-size="8">
+            <text transform="translate(141.456 230.337)">
+                <tspan x="36.005" y="18.524">(102 × 128)</tspan>
+            </text>
+            <text transform="translate(141.456 230.337)">
+                <tspan x="38.567" y="8.524">126 × 254</tspan>
+            </text>
+        </g>
+        <path fill="#6236FF" d="M146 425h112v254H146z" />
+        <path d="M151 488h102v128H151V488z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
+        <g fill="#FFF" fill-opacity=".653" font-size="8">
+            <text transform="translate(148.072 547.337)">
+                <tspan x="29.553" y="18.524">(102 × 128)</tspan>
+            </text>
+            <text transform="translate(148.072 547.337)">
+                <tspan x="29" y="8.524">112.5 × 254</tspan>
+            </text>
+        </g>
+        <path fill="#6236FF" d="M162 742h85.5v254H162z" />
+        <path d="M156 805h102v128H156V805z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
+        <g fill="#FFF" fill-opacity=".653" font-size="8">
+            <text transform="translate(164.345 864.337)">
+                <tspan x="17.337" y="18.524">(102 × 128)</tspan>
+            </text>
+            <text transform="translate(164.345 864.337)">
+                <tspan x="17.847" y="8.524">84.5 × 254</tspan>
+            </text>
+        </g>
+        <path fill="#6236FF" d="M416 169h254v126H416z" />
+        <path d="M483 184h120a1 1 0 0 1 1 1v94a1 1 0 0 1-1 1H483a1 1 0 0 1-1-1v-94a1 1 0 0 1 1-1z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
+        <g fill="#FFF" fill-opacity=".653" font-size="8">
+            <text transform="translate(424 223.96)">
+                <tspan x="93.695" y="18.524">(128 × 102)</tspan>
+            </text>
+            <text transform="translate(424 223.96)">
+                <tspan x="96.257" y="8.524">254 × 126</tspan>
+            </text>
+        </g>
+        <path fill="#6236FF" d="M416 492h254v112.5H416z" />
+        <path d="M483 500.25h120a1 1 0 0 1 1 1v94a1 1 0 0 1-1 1H483a1 1 0 0 1-1-1v-94a1 1 0 0 1 1-1z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
+        <g fill="#FFF" fill-opacity=".653" font-size="8">
+            <text transform="translate(424 539.947)">
+                <tspan x="93.695" y="18.524">(128 × 102)</tspan>
+            </text>
+            <text transform="translate(424 539.947)">
+                <tspan x="93.142" y="8.524">254 × 112.5</tspan>
+            </text>
+        </g>
+        <path fill="#6236FF" d="M416 827h254v85H416z" />
+        <path d="M480 821h126a1 1 0 0 1 1 1v100a1 1 0 0 1-1 1H480a1 1 0 0 1-1-1V822a1 1 0 0 1 1-1z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
+        <g>
+            <path fill="#FF8001" d="M416 743h254v84H416z" />
+            <path d="M491 757.935h104v54H491v-54z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
+            <g fill="#000" fill-opacity=".487" font-size="8">
+                <text transform="translate(424 776.531)">
+                    <tspan x="96.209" y="18.524">(110 × 60)</tspan>
+                </text>
+                <text transform="translate(424 776.531)">
+                    <tspan x="94.352" y="8.524">254 × 84.5</tspan>
+                </text>
+            </g>
+        </g>
+        <g fill="#FFF" fill-opacity=".653" font-size="8">
+            <text transform="translate(424 861)">
+                <tspan x="93.695" y="18.524">(128 × 102)</tspan>
+            </text>
+            <text transform="translate(424 861)">
+                <tspan x="94.204" y="8.524">254 × 84.5</tspan>
+            </text>
+        </g>
+        <g>
+            <path fill="#32C5FF" d="M264 108h68v254h-68z" />
+            <path d="M267 140h62v190h-62V140z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
+            <g fill="#000" fill-opacity=".487" font-size="8">
+                <text transform="translate(265.865 230.337)">
+                    <tspan x="10.916" y="18.524">(68 × 190)</tspan>
+                </text>
+                <text transform="translate(265.865 230.337)">
+                    <tspan x="13.602" y="8.524">68 × 254</tspan>
+                </text>
+            </g>
+        </g>
+        <g>
+            <path fill="#32C5FF" d="M257 425h75v254h-75z" />
+            <path d="M261 457h68v190h-68V457z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
+            <g fill="#000" fill-opacity=".487" font-size="8">
+                <text transform="translate(259.057 547.337)">
+                    <tspan x="14.143" y="18.524">(68 × 190)</tspan>
+                </text>
+                <text transform="translate(259.057 547.337)">
+                    <tspan x="17.209" y="8.524">75 × 254</tspan>
+                </text>
+            </g>
+        </g>
+        <g>
+            <path fill="#32C5FF" d="M247 742h85v254h-85z" />
+            <path d="M256 774h68v190h-68V774z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
+            <g fill="#000" fill-opacity=".487" font-size="8">
+                <text transform="translate(249.331 864.337)">
+                    <tspan x="18.752" y="18.524">(68 × 190)</tspan>
+                </text>
+                <text transform="translate(249.331 864.337)">
+                    <tspan x="17.616" y="8.524">84.5 × 254</tspan>
+                </text>
+            </g>
+        </g>
+        <g>
+            <path fill="#32C5FF" d="M416 294h254v68H416z" />
+            <path d="M452 297h182a1 1 0 0 1 1 1v60a1 1 0 0 1-1 1H452a1 1 0 0 1-1-1v-60a1 1 0 0 1 1-1z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
+            <g fill="#000" fill-opacity=".487" font-size="8">
+                <text transform="translate(424 319)">
+                    <tspan x="95.489" y="18.524">(190 × 68)</tspan>
+                </text>
+                <text transform="translate(424 319)">
+                    <tspan x="98.174" y="8.524">254 × 68</tspan>
+                </text>
+            </g>
+        </g>
+        <g>
+            <path fill="#32C5FF" d="M416 604h254v75H416z" />
+            <path d="M452 610.5h182a1 1 0 0 1 1 1v60a1 1 0 0 1-1 1H452a1 1 0 0 1-1-1v-60a1 1 0 0 1 1-1z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
+            <g fill="#000" fill-opacity=".487" font-size="8">
+                <text transform="translate(424 632.654)">
+                    <tspan x="95.489" y="18.524">(190 × 68)</tspan>
+                </text>
+                <text transform="translate(424 632.654)">
+                    <tspan x="98.555" y="8.524">254 × 75</tspan>
+                </text>
+            </g>
+        </g>
+        <g>
+            <path fill="#32C5FF" d="M416 912h254v84.5H416z" />
+            <path d="M452 923.25h182a1 1 0 0 1 1 1v60a1 1 0 0 1-1 1H452a1 1 0 0 1-1-1v-60a1 1 0 0 1 1-1z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
+            <g fill="#000" fill-opacity=".487" font-size="8">
+                <text transform="translate(424 945.614)">
+                    <tspan x="95.489" y="18.524">(190 × 68)</tspan>
+                </text>
+                <text transform="translate(424 945.614)">
+                    <tspan x="94.352" y="8.524">254 × 84.5</tspan>
+                </text>
+            </g>
+        </g>
+        <text font-size="12" fill="#6D7278">
+            <tspan x="197.741" y="384">Fill</tspan>
+        </text>
+        <text font-size="12" fill="#6D7278">
+            <tspan x="534.741" y="384">Fill</tspan>
+        </text>
+        <text font-size="12" fill="#6D7278">
+            <tspan x="492.431" y="701">Fill Proportionally</tspan>
+        </text>
+        <text font-size="12" fill="#6D7278">
+            <tspan x="512.159" y="1019">Fill Equally</tspan>
+        </text>
+        <text font-size="17" fill="#585858">
+            <tspan x="135.62" y="70">Horizontal Stack</tspan>
+        </text>
+        <text font-size="17" fill="#585858">
+            <tspan x="485.366" y="70">Vertical Stack</tspan>
+        </text>
+        <text font-size="12" fill="#6D7278">
+            <tspan x="155.431" y="701">Fill Proportionally</tspan>
+        </text>
+        <text font-size="12" fill="#6D7278">
+            <tspan x="175.159" y="1018">Fill Equally</tspan>
+        </text>
+        <g>
+            <path fill="#FF8001" d="M78 742h84v254H78z" />
+            <path d="M90 817h60v110H90V817z" stroke-opacity=".402" stroke="#FFF" stroke-dasharray="3,1" />
+            <g fill="#000" fill-opacity=".487" font-size="8">
+                <text transform="translate(80.3 864.337)">
+                    <tspan x="18.952" y="18.524">(60 × 110)</tspan>
+                </text>
+                <text transform="translate(80.3 864.337)">
+                    <tspan x="17.095" y="8.524">84.5 × 254</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

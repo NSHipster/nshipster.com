@@ -1,0 +1,30 @@
+dl {
+    width: auto;
+    font-family: initial;
+    display: grid;
+    grid-template-columns: auto max-content;
+    gap: 0 1em;
+    padding: 1em 0;
+    border-top: 1px solid;
+    border-bottom: 1px solid;
+    margin: 2em 0;
+  }
+
+  dt {
+    grid-column-start: 1;
+    margin: 0 !important;
+  }
+
+  dd {
+    grid-column-start: 2;
+    margin: 0 0 1em 0 !important;
+    &:before {
+        content: "• "
+    }
+  }
+
+  dd + dt {
+      &, & + dd {
+        padding-top: 2em;
+      }
+  }

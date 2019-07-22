@@ -9,8 +9,8 @@ layout: null
     <updated>{{ site.time | date_to_xmlschema }}</updated>
     <id>{{ page.url | absolute_url | xml_escape }}</id>
 
-    <title type="html">{{ site.title | smartify | xml_escape }}</title>
-    <subtitle type="html">{{ site.description | xml_escape }}</subtitle>
+    <title>{{ site.title | strip_html | xml_escape | strip }}</title>
+    <subtitle>{{ site.description | markdownify | strip_html }}</subtitle>
 
     {% if site.author %}
     <author>
@@ -24,7 +24,7 @@ layout: null
     </author>
     {% endif %}
 
-    {% assign sorted_posts = site.posts | sort: 'last_revised_on' | reverse %}
+    {% assign sorted_posts = site.posts | sort: 'updated_on' | reverse %}
     {% for post in sorted_posts limit: 10 %}
     <entry>
         <title type="html">{{ post.title | smartify | strip_html | normalize_whitespace | xml_escape }}</title>

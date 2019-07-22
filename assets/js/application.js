@@ -1,121 +1,183 @@
-//= require vendor/zepto.js
-//= require vendor/zepto.cookie.js
+"use strict";
 
-$(document).ready(function() {
-  var group = [];
-  $("div.highlighter-rouge").each(function() {
-    var language = null;
-    var classAttr = $(this).attr("class");
-    if (classAttr.includes("language-swift")) {
-      language = "Swift";
-    } else if (classAttr.includes("language-objc")) {
-      language = "Objective-C";
-    } else if (classAttr.includes("language-json")) {
-      language = "JSON";
-    } else if (classAttr.includes("language-javascript")) {
-      language = "JavaScript";
-    }
+(function() {
+  const delay = 300;
 
-    if (language !== null) {
-      $(this)
-        .find("code")
-        .data("lang", language);
-    }
-
-    group.push($(this));
-
-    if (
-      !$(this)
-        .next()
-        .hasClass("highlighter-rouge")
-    ) {
-      var container = $('<div class="highlight-group"></div>');
-      container.insertBefore(group[0]);
-
-      for (i in group) {
-        group[i].appendTo(container);
-      }
-
-      group = [];
-    }
-  });
-
-  var hiddenSingleLanguages =
-    $("meta[property='nshipster:hide-single-lang']")
-      .attr("content")
-      .split(",") || [];
-
-  $(".highlight-group").each(function() {
-    var languages = [];
-    $(this)
-      .find($("code"))
-      .each(function() {
-        languages.push($(this).data("lang"));
-      });
-
-    if (
-      languages.length <= 1 &&
-      hiddenSingleLanguages.indexOf(languages[0].toLowerCase()) != -1
-    ) {
-      return;
-    }
-
-    $(this)
-      .children(".highlighter-rouge:not(:first-child)")
-      .hide();
-
-    var span = $('<span class="language-toggle"></span>');
-    for (i in languages) {
-      var language = languages[i];
-      var a = $('<a data-lang="' + language + '">' + language + "</a>");
-      if (i == 0) {
-        a.addClass("active");
-      }
-      span.append(a);
-    }
-
-    $(this).prepend(span);
-  });
-
-  var showAllWithLanguage = function(lang) {
-    $("a[data-lang=" + lang + "]").each(function() {
-      $(this)
-        .siblings("a")
-        .removeClass("active");
-      $(this).addClass("active");
-      $(this)
-        .parent()
-        .siblings(".highlighter-rouge")
-        .each(function() {
-          if (
-            $(this)
-              .find("code")
-              .data("lang") === lang
-          ) {
-            $(this).show();
-          } else {
-            $(this).hide();
-          }
-        });
-    });
+  const keys = {
+    end: 35,
+    home: 36,
+    left: 37,
+    up: 38,
+    right: 39,
+    down: 40
   };
 
-  $("a[data-lang]").on("click", function() {
-    var lang = $(this).data("lang");
-    if (["Swift", "Objective-C"].includes(lang)) {
-      $.fn.cookie("pref-lang", lang, {
-        expires: 3650,
-        path: "/"
+  const direction = {
+    37: -1,
+    39: 1
+  };
+
+  const tablists = document.querySelectorAll('[role="tablist"]');
+  tablists.forEach(tablist => {
+    const tabs = tablist.querySelectorAll('[role="tab"]');
+    const panels = tablist.parentElement.querySelectorAll('[role="tabpanel"]');
+
+    const clickEventListener = event => {
+      const target = event.target;
+
+      target.dispatchEvent(
+        new Event("activate", {
+          bubbles: true
+        })
+      );
+    };
+
+    const keydownEventListener = event => {
+      const { keyCode } = event;
+
+      switch (keyCode) {
+        case keys.end:
+          event.preventDefault();
+          tabs[tabs.length - 1].dispatchEvent(
+            new Event("activate", {
+              bubbles: true
+            })
+          );
+          break;
+        case keys.home:
+          event.preventDefault();
+          tabs[0].dispatchEvent(
+            new Event("activate", {
+              bubbles: true
+            })
+          );
+          break;
+        case keys.up:
+        case keys.down:
+          determineOrientation(event);
+          break;
+      }
+    };
+
+    const keyupEventListener = event => {
+      const { keyCode, target } = event;
+
+      tabs.forEach(tab => {
+        tab.addEventListener("focus", focusEventListener);
       });
+
+      if (direction[keyCode]) {
+        if (target.dataset.index !== undefined) {
+          if (tabs[target.dataset.index + direction[pressed]]) {
+            tabs[target.dataset.index + direction[pressed]].focus();
+          } else if (pressed === keys.left || pressed === keys.up) {
+            tabs[tabs.length - 1].focus();
+          } else if (pressed === keys.right || pressed == keys.down) {
+            tabs[0].focus();
+          }
+        }
+      }
+    };
+
+    const focusEventListener = event => {
+      const { target } = event;
+
+      const handler = target => {
+        focused = document.activeElement;
+
+        if (target === focused) {
+          target.dispatchEvent(new Event("activate"));
+        }
+      };
+
+      setTimeout(handler, delay, target);
+    };
+
+    const activateEventListener = event => {
+      const { target, bubbles } = event;
+
+      tabs.forEach(tab => {
+        tab.setAttribute("tabindex", "-1");
+        tab.setAttribute("aria-selected", "false");
+        tab.removeEventListener("focus", focusEventListener);
+      });
+
+      panels.forEach(panel => {
+        panel.setAttribute("hidden", "hidden");
+      });
+
+      target.removeAttribute("tabindex");
+      target.setAttribute("aria-selected", "true");
+
+      var controls = target.getAttribute("aria-controls");
+      document.getElementById(controls).removeAttribute("hidden");
+
+      if (bubbles) {
+        for (const language of ["swift", "objective-c"]) {
+          if (target.classList.contains(language)) {
+            if (window.localStorage) {
+              window.localStorage.setItem("preferred-language", language);
+            }
+
+            document
+              .querySelectorAll(`[role="tab"].${language}`)
+              .forEach(tab => {
+                tab.dispatchEvent(new Event("activate"));
+              });
+
+            document.querySelectorAll(".highlight-group").forEach(group => {
+              if (
+                group.clientHeight > (parseInt(group.style.minHeight, 10) || 0)
+              ) {
+                group.style.minHeight = `${group.clientHeight}px`;
+              }
+            });
+          }
+        }
+      }
+    };
+
+    for (let index = 0; index < tabs.length; index++) {
+      const tab = tabs[index];
+      tab.addEventListener("click", clickEventListener);
+      tab.addEventListener("keydown", keydownEventListener);
+      tab.addEventListener("keyup", keyupEventListener);
+      tab.addEventListener("activate", activateEventListener);
+
+      tab.dataset.index = index;
     }
-    showAllWithLanguage(lang);
   });
 
-  var preferredLanguage = $.fn.cookie("pref-lang");
-  if (preferredLanguage) {
-    showAllWithLanguage(preferredLanguage);
+  if (window.localStorage) {
+    const language = window.localStorage.getItem("preferred-language");
+    if (language) {
+      document.querySelectorAll(`[role="tab"].${language}`).forEach(tab => {
+        tab.dispatchEvent(new Event("activate"));
+      });
+    }
   }
-});
+
+  document
+    .querySelectorAll('article [role="heading"] h1.title')
+    .forEach(element => {
+      const resize = () => {
+        const compression = 1.0;
+        const minFontSize = 16.0;
+        const maxFontSize = 72.0;
+
+        element.style.fontSize =
+          Math.max(
+            Math.min(element.clientWidth / (compression * 10), maxFontSize),
+            minFontSize
+          ) + "px";
+      };
+
+      resize();
+
+      window.addEventListener("resize", resize);
+      window.addEventListener("orientationchange", resize);
+    });
+})();
 
 setTimeout(function() {
   if (

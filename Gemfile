@@ -1,25 +1,34 @@
-ruby '2.4.3'
-source "https://rubygems.org"
+# frozen_string_literal: true
 
-gem 'jekyll', '~> 3.8'
+source 'https://rubygems.org'
 
-gem 'sprockets', '~> 4.0.beta', require: false
+gem 'jekyll', git: 'https://github.com/jekyll/jekyll.git'
+gem 'rack', '>= 2.0.6'
+
+gem 'sprockets', '~> 4.0.beta'
 gem 'uglifier', '~> 4.0'
+
+gem 'kramdown'
+
+gem 'rouge', git: 'https://github.com/NSHipster/rouge.git',
+             branch: 'swift-with-placeholder-token'
+
+gem 'nokogiri'
+gem 'sassc'
+
+gem 'liquid-c'
 
 group :jekyll_plugins do
   gem 'jekyll-assets'
-  gem 'jekyll-tidy'
-  gem 'jekyll-tagging-related_posts'
+  gem 'jekyll-include-cache'
   gem 'jekyll-last-modified-at'
+  gem 'jekyll-tagging-related_posts'
+  gem 'jekyll-tidy'
 end
 
-gem 'nokogiri'
-gem 'kramdown'
-gem 'rouge'
-
 group :development do
-  gem 'rake'
   gem 'foreman'
+  gem 'rake'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

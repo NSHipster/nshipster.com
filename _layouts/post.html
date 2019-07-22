@@ -6,118 +6,105 @@ layout: default
 {% assign translator = site.translators | where: "name", page.translator | first %}
 {% capture date_format %}{% t format.date %}{% endcapture %}
 
-<article role="article" itemscope itemtype="https://schema.org/Article">
+<article role="article">
   <header role="heading">
-    <h1 class="title" itemprop="name">
-      <a href="{{ page.url }}">{{ page.title | camel_break }}</a>
+    <h1 class="title">
+      <a href="{{ page.url }}">{{ page.title | strip_html | escape | camel_break }}</a>
     </h1>
 
-    <h2>
-
-    <span>
+    <div class="byline">
     {% if page.authors %}
-      {% t written_by %}
-      {% for auth in page.authors %}
-          {% if forloop.last %}&{% endif %}
+        {% t written_by %}
+        <span class="authors">
+        {% for auth in page.authors %}
+          {% if forloop.last %}&amp;{% endif %}
           {% assign author = site.authors | where:"name",auth | first %}
-          <a class="author" href="{{ author.url }}">{{ author.name }}</a>
-      {% endfor %}
-      — <wbr/>
+          <a rel="author" class="author" href="{{ author.url }}">{{ author.name }}</a>
+        {% endfor %}
+        </span>
+        <wbr/>
     {% elsif author %}
-      {% t written_by %} <a class="author" href="{{ author.url }}">{{ author.name }}</a> — <wbr/>
+      {% t written_by %}
+      <span class="authors">
+        <a class="author" href="{{ author.url }}">{{ author.name }}</a>
+      </span>
+    {% elsif page.author %}
+        {% t written_by %}
+        <span class="authors">
+            {{ page.translator }}
+        </span>
     {% endif %}
-    </span>
 
-    <span>
-    {% if translator %}
-        {% t translated_by %} <a class="translator" href="{{ translator.url }}">{{ translator.name }}</a> — <wbr/>
+    {% if page.translators %}
+      {% t translated_by %}
+      <span class="translators">
+      {% for trans in page.translators %}
+          {% if forloop.last %}&amp;{% endif %}
+          {% assign translator = site.translators | where:"name",trans | first %}
+          {% if translator %}
+            <a class="translator" href="{{ translator.url }}">{{ translator.name }}</a>
+          {% else %}
+            {{ trans }}
+          {% endif %}
+      {% endfor %}
+      </span>
+    {% elsif translator %}
+        {% t translated_by %}
+        <span class="translators">
+          <a class="translator" href="{{ translator.url }}">{{ translator.name }}</a>
+        </span>
     {% elsif page.translator %}
-        {% t translated_by %} {{ page.translator }} — <wbr/>
+        {% t translated_by %}
+        <span class="translators">
+          {{ page.translator }}
+        </span>
     {% endif %}
-    </span>
 
     {% if page.last_revised_on %}
-        <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished" hidden aria-hidden="true">{{ page.date | date: date_format }}</time>
-        <time datetime="{{ page.last_revised_on | date_to_xmlschema }}" itemprop="dateModified">{{ page.date | date: date_format }}</time>
+        <time datetime="{{ page.last_revised_on | date_to_xmlschema }}">{{ page.last_revised_on | date: date_format }}</time>
     {% else %}
-        <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">{{ page.date | date: date_format }}</time>
-        <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="dateModified" hidden aria-hidden="true">{{ page.date | date: date_format }}</time>
+        <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: date_format }}</time>
     {% endif %}
 
     {% if page.revisions %}
-    (<a href="#revisions">{% t revised %}</a>)
+        {% if page.commit_history_url %}
+            (<a href="{{ page.commit_history_url | uri_escape }}" rel="noopener noreferrer">{% t revised %}</a>)
+        {% else %}
+            ({% t revised %})
+        {% endif %}
     {% endif %}
-    </h2>
-
-    <link itemprop="image" href="{{ '/logo.png' | absolute_url }}"/>
-    <meta itemprop="headline" content="{{ page.title }}"/>
-    <div itemprop="publisher" itemscope itemtype="http://schema.org/Organization" hidden aria-hidden="true">
-      <meta itemprop="name" content="NSHipster"/>
-      <meta itemprop="logo" content="{{ '/logo.png' | absolute_url }}"/>
     </div>
   </header>
 
-  <div class="content" itemprop="articleBody">
+  <div class="content">
     {{ content }}
   </div>
 
   <footer role="complementary">
     {% if site.lang == "en-US" %}
-    {% if page.revisions or page.status %}
-    <section id="revisions">
-      <small>NSMutableHipster</small>
+        {% if page.revisions or page.status %}
+        <section id="revisions">
+        <small>NSMutableHipster</small>
 
-      <p>
-      Questions? Corrections? <a href="https://github.com/NSHipster/articles/issues">Issues</a> and <a href="https://github.com/NSHipster/articles/blob/master/{{ page.path | remove_first:'_posts/' }}">pull requests</a> are always welcome — NSHipster is made better by readers like you.
-      </p>
+        <p>
+        Questions? Corrections? <a href="https://github.com/NSHipster/articles/issues">Issues</a> and <a href="https://github.com/NSHipster/articles/blob/master/{{ page.path | remove_first:'_posts/' }}">pull requests</a> are always welcome.
+        </p>
 
-      <p>
-      {% if page.status.swift and page.status.swift != "t.b.c." and page.status.swift != "n/a" %}
-        {% if page.status.reviewed %}
-            <em>This article uses Swift version {{ page.status.swift }} and was last reviewed on {{ page.status.reviewed }}.</em>
-        {% else %}
-            <em>This article uses Swift version {{ page.status.swift }}.</em>
+        <p class="status">
+        {% if page.status.swift and page.status.swift != "t.b.c." and page.status.swift != "n/a" %}
+            {% if page.status.reviewed %}
+                <em>This article uses Swift version {{ page.status.swift }} and was last reviewed on {{ page.status.reviewed }}.</em>
+            {% else %}
+                <em>This article uses Swift version {{ page.status.swift }}.</em>
+            {% endif %}
+
+            Find status information for all articles on the <a href="/status/">status page</a>.
+        {% elsif page.status.reviewed %}
+            <em>This article was last reviewed on {{ page.status.reviewed }}.</em>
         {% endif %}
-      {% else %}
-            {% if page.status.reviewed %}<em>This article was last reviewed on {{ page.status.reviewed }}.</em>{% endif %}
-      {% endif %}
-      Find status information for all articles on the <a href="/status/">status page</a>.
-      </p>
-
-      <dl>
-      {% for revision in page.revisions %}
-        <dt>{{ revision[0] | date: date_format }}</dt>
-        <dd>{{ revision[1] | markdownify }}</dd>
-      {% endfor %}
-      </dl>
-    </section>
-    {% endif %}
-
-    <section id="follow">
-      <small>Follow NSHipster</small>
-
-      <ul>
-        <li class="twitter">
-          <a href="https://twitter.com/intent/user?screen_name=NSHipster" title="Follow NSHipster on Twitter"><i class="icon-twitter" aria-hidden="true"></i></a>
-        </li>
-        <li class="facebook">
-          <a href="https://www.facebook.com/NSHipster" title="Like NSHipster on Facebook"><i class="icon-facebook" aria-hidden="true"></i></a>
-        </li>
-        <li class="google-plus">
-          <a href="https://plus.google.com/+NSHipster" title="Follow NSHipster on Google+"><i class="icon-googleplus" aria-hidden="true"></i></a>
-        </li>
-        <li class="rss">
-          <a href="/feed.xml" title="Subscribe to the NSHipster RSS Feed"><i class="icon-feed" aria-hidden="true"></i></a>
-        </li>
-      </ul>
-
-      <form action="https://tinyletter.com/NSHipster" method="post" target="popupwindow" onsubmit="window.open('https://tinyletter.com/NSHipster', 'popupwindow', 'scrollbars=yes,width=800,height=600');return true">
-        <label for="email" hidden style="display:none;">Enter Your Email Address</label>
-        <input type="email" name="email" id="tlemail" placeholder="Your Email Address"/>
-        <input type="hidden" name="embed" value="1"/>
-        <input type="submit" value="Join the Newsletter"/>
-      </form>
-    </section>
+        </p>
+        </section>
+        {% endif %}
     {% endif %}
 
     <section id="attribution">
@@ -127,19 +114,15 @@ layout: default
       {% endif %}
     </section>
 
-    {% if page.tags contains "cfhipsterref" %}
-      {% include promo.html book="cfhipsterref" %}
-    {% endif %}
-
     <section>
       {% assign random_post = site.posts | shuffle | first %}
       {% assign next_post = page.next | default: random_post %}
-      {% if next_post %}
+      {% if next_post and next_post.url != page.url %}
       <div id="continue">
         <small>{% t next_article %}</small>
         <article>
           <h1 class="title">
-            <a href="{{ next_post.url }}" title="{{ next_post.title }}" rel="next">{{ next_post.title | camel_break }}</a>
+            <a rel="next" href="{{ next_post.url }}">{{ next_post.title | strip_html | escape | camel_break }}</a>
           </h1>
 
           {{ next_post.excerpt | markdownify }}

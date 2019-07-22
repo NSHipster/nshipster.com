@@ -8,7 +8,7 @@ permalink: /
     <header>
       <small>{% t this_week %}</small>
       <h1 class="title">
-        <a href="{{ site.posts.first.url }}">{{ site.posts.first.title }}</a>
+        <a href="{{ site.posts.first.url }}">{{ site.posts.first.title | strip_html | escape | camel_break }}</a>
       </h1>
     </header>
 
@@ -16,65 +16,33 @@ permalink: /
 
     <a class="readmore" href="{{ site.posts.first.url }}">{% t continue_reading %}</a>
   </article>
-
-  {% assign latest_revision = site.posts | sort: 'last_revised_on' | last %}
-  {% if latest_revision and latest_revision.id != site.posts.first.id %}
-      <hr/>
-
-      <article>
-      <header>
-          <small>{{ latest_revision.revision_description }}</small>
-          <h1 class="title">
-            <a href="{{ latest_revision.url }}">{{ latest_revision.title }}</a>
-          </h1>
-      </header>
-
-      {{ latest_revision.excerpt | markdownify }}
-
-      <a class="readmore" href="{{ latest_revision.url }}">{% t continue_reading %}</a>
-      </article>
-  {% endif %}
-
 </section>
 
-{% if site.posts.size > 6 %}
+{% if site.posts.size > 3 %}
 <section id="recent">
   <h1>{% t recent_articles %}</h1>
 
-  {% for post in site.posts offset:1 limit: 6 %}
-    <article class="excerpt">
-      <header>
-        <h1 class="title"><a href="{{ post.url }}">{{ post.title | camel_break }}</a></h1>
-      </header>
+  <ul>
+    {% for post in site.posts offset:1 limit: 6 %}
+      <li>
+        <a class="title" href="{{ post.url }}">{{ post.title | strip_html | escape | camel_break }}</a>
 
-      {{ post.excerpt | markdownify }}
-    </article>
-  {% endfor %}
+        {{ post.excerpt | markdownify }}
+      </li>
+    {% endfor %}
+  </ul>
 </section>
 {% endif %}
 
+{% if site.lang == "en-US" %}
 <section id="publications">
   <h1>{% t publications %}</h1>
 
-  {% include book.html book="nshipster-swift" %}
-  {% include book.html book="cfhipsterref" %}
-  {% include book.html book="nshipster-fake-book-objective-c" %}
-</section>
-
-{% if site.tags.popular.size > 4 %}
-<section id="popular">
-  <h1>{% t popular_articles %}</h1>
-
-  {% assign popular = site.tags.popular | shuffle %}
-  {% for post in popular limit: 4 %}
-    <article class="excerpt">
-      <header>
-        <h1 class="title"><a href="{{ post.url }}">{{ post.title | camel_break }}</a></h1>
-      </header>
-
-      {{ post.excerpt | markdownify }}
-    </article>
-  {% endfor %}
+  <div class="books">
+  {% include book.html book="flight-school-guide-to-swift-codable" %}
+  {% include book.html book="flight-school-guide-to-swift-numbers" %}
+  {% include book.html book="flight-school-guide-to-swift-strings" %}
+  </div>
 </section>
 {% endif %}
 
@@ -87,9 +55,9 @@ permalink: /
     <li class="author">
       <a href="{{ author.url }}">
         {% if author.image %}
-            <img class="avatar" alt="{{ author.name }}" itemprop="image" src="{% asset "{{ author.image }}" @path %}" draggable="false"/>
+            <img class="avatar" alt="{{ author.name }}" src="{% asset "{{ author.image }}" @path %}" draggable="false"/>
         {% else %}
-            <img class="avatar" itemprop="image" src="//0.gravatar.com/avatar/{{ author.gravatar }}?size=300" draggable="false"/>
+            <img class="avatar" src="//0.gravatar.com/avatar/{{ author.gravatar }}?size=300" draggable="false"/>
         {% endif %}
       </a>
       <a href="{{ author.url }}">{{ author.name }}</a>
@@ -100,17 +68,24 @@ permalink: /
 {% endif %}
 
 <section id="archive" class="archive" role="navigation">
-  {% for category in site.categories %}
-    <dl>
+  {% for group in site.groups %}
+    {% for category in site.categories %}
       {% assign category_name = category[0] %}
-      <dt>{{ category_name | default: "Miscellaneous" }}</dt>
-      {% for posts in category offset: 1 %}
-         {% assign sorted = posts | sort: "title" %}
-         {% for post in sorted %}
-            <dd><a href="{{ post.url }}">{{ post.title | camel_break }}</a></dd>
-         {% endfor %}
-      {% endfor %}
-    </dl>
+      {% if category_name != group %}
+          {% continue %}
+      {% endif %}
+      <dl>
+        <dt>{{ category_name | default: "Miscellaneous" }}</dt>
+        {% for posts in category offset: 1 %}
+           {% assign sorted = posts | sort: "title" %}
+           {% for post in sorted %}
+              {% unless post.retired %}
+              <dd><a href="{{ post.url }}">{{ post.title | strip_html | escape | camel_break }}</a></dd>
+              {% endunless %}
+           {% endfor %}
+        {% endfor %}
+      </dl>
+    {% endfor %}
   {% endfor %}
 </section>
 

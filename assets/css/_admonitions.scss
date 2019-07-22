@@ -12,23 +12,45 @@
 }
 
 .admonition {
+  font-family: $sans-serif-font-stack;
   border-left-width: 4px;
   border-left-style: solid;
   padding: 5px 40px;
   margin: 1.5em 0;
   display: block;
+  clear: both;
   overflow: visible;
+  font-size: smaller;
 
   p {
-      margin: inherit;
+    margin: 0.5em 0;
+  }
+
+  pre code {
+    font-size: small;
+    line-height: 1;
+  }
+
+  th, td {
+      padding: 0.5em !important;
+  }
+
+  blockquote {
+    margin-left: 0 !important;
+    margin-top: 0.25em !important;
+    margin-bottom: 0.25em !important;
   }
 
   &.info {
-    background: #e9f5fc;
-    border-left-color: #0088ff;
+    background: #edf5fa;
+    border-color: #4daafc;
 
     a {
-      color: #0088ff !important;
+      color: #08f;
+    }
+
+    blockquote {
+      border-left-color: #4daafc !important;
     }
 
     &:before {
@@ -37,11 +59,15 @@
   }
 
   &.warning {
-    background: #fff2d1;
-    border-left-color: #f9d780;
+    background: #fcfaf6;
+    border-color: #f9d780;
 
     a {
-      color: #f9d780 !important;
+      color: #f0b112;
+    }
+
+    blockquote {
+      border-left-color: #f9d780 !important;
     }
 
     &:before {
@@ -51,10 +77,14 @@
 
   &.error {
     background: #fcf2f6;
-    border-left-color: #e62279;
+    border-color: #f5569d;
 
     a {
-      color: #e62279 !important;
+      color: #e62279;
+    }
+
+    blockquote {
+      border-left-color: #f5569d !important;
     }
 
     &:before {

@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 252.36 185.3" width="252.36" height="185.3">
+    <path fill="none" d="M55.76 40.19h182.15V176.8H55.76z"/>
+    <path fill="none" stroke="#231f20" stroke-miterlimit="10" d="M37.91 40.19h200"/>
+    <path fill="none" stroke="#231f20" stroke-miterlimit="10" stroke-width="2" d="M37.91 108.5h200"/>
+    <path fill="none" stroke="#231f20" stroke-miterlimit="10" stroke-width="3" d="M37.91 176.81h200"/>
+    <path fill="none" stroke="#231f20" stroke-miterlimit="10" d="M55.76 21.56v155.25"/>
+    <path fill="none" stroke="#231f20" stroke-miterlimit="10" stroke-width="2" d="M146.84 21.56v155.25"/>
+    <path fill="none" stroke="#231f20" stroke-miterlimit="10" stroke-width="3" d="M237.91 21.56v155.25"/>
+    <text transform="translate(41.31 10.37)" font-size="12" fill="#231f20" font-family="Menlo-Regular, Menlo">minX</text>
+    <text transform="translate(0 44.03)" font-size="12" fill="#231f20" font-family="Menlo-Regular, Menlo">minY</text>
+    <text transform="translate(0 111.22)" font-size="12" fill="#231f20" font-family="Menlo-Regular, Menlo">midY</text>
+    <text transform="translate(0 180.81)" font-size="12" fill="#231f20" font-family="Menlo-Regular, Menlo">maxY</text>
+    <text transform="translate(132.39 10.37)" font-size="12" fill="#231f20" font-family="Menlo-Regular, Menlo">midX</text>
+    <text transform="translate(223.46 10.37)" font-size="12" fill="#231f20" font-family="Menlo-Regular, Menlo">maxX</text>
+    <circle cx="55.76" cy="40.19" r="2.83" fill="#fff" stroke="#231f20" stroke-miterlimit="10"/>
+</svg>

@@ -5,14 +5,14 @@ layout: default
 {% assign translator = page %}
 {% capture date_format %}{% t format.date %}{% endcapture %}
 
-<article class="author" itemscope itemtype="https://schema.org/Person">
+<article class="author">
   <header role="heading">
     {% if translator.image %}
-      <img class="avatar" alt="{{ translator.name }}" itemprop="image" src="{% asset "{{ translator.image }}" @path %}" draggable="false"/>
+      <img class="avatar" alt="{{ translator.name }}" src="{% asset "{{ translator.image }}" @path %}" draggable="false"/>
     {% elsif translator.gravatar %}
-      <img class="avatar" itemprop="image" src="//0.gravatar.com/avatar/{{ translator.gravatar }}?size=300" draggable="false"/>
+      <img class="avatar" src="//0.gravatar.com/avatar/{{ translator.gravatar }}?size=300" draggable="false"/>
     {% endif %}
-    <h1 itemprop="name">{{ translator.name }}</h1>
+    <h1>{{ translator.name }}</h1>
 
     {{ translator.content | markdownify }}
   </header>
@@ -25,7 +25,7 @@ layout: default
       {% if post.translator == translator.name or post.translators contains translator.name %}
         <li>
           <a href="{{ post.url }}" title="{{ post.title }}" class="title">{{ post.title }}</a>
-          <time datetime="{{ post.date | date_to_xmlschema }}" itemprop="datePublished">{{ post.date | date: date_format }}</time>
+          <time datetime="{{ post.date | date_to_xmlschema }}" >{{ post.date | date: date_format }}</time>
 
           {{ post.excerpt | markdownify }}
         </li>

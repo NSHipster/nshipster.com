@@ -1,24 +1,66 @@
 @import "fonts/merriweather";
+@import "fonts/batang";
 
 $serif-font-stack: "Merriweather", Georgia, serif, "Apple Color Emoji",
   "Segoe UI Emoji", "Segoe UI Symbol";
+
 $sans-serif-font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
   Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
   "Segoe UI Symbol";
-$mono-font-stack: Courier, Monaco, monospace;
+
+$mono-font-stack: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier,
+  monospace;
 
 html,
 body {
   font-family: $serif-font-stack;
-
-  font-size: 1em;
-  text-rendering: optimizeLegibility;
-  //   -webkit-font-feature-settings: "kern" 1, "kern";
-  //   font-feature-settings: "kern" 1, "kern";
-  -webkit-font-kerning: normal;
-  font-kerning: normal;
-  -webkit-font-smoothing: antialiased;
+  font-size: 15pt;
   line-height: 1.5;
+  font-weight: 300;
+  font-kerning: normal;
+  -webkit-font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+html[lang="ko-KR"] {
+  body {
+    font-family: "Batang", $serif-font-stack;
+    font-weight: lighter;
+  }
+}
+
+html[lang="ko-KR"],
+html[lang="zh-Hans"] {
+  a.readmore,
+  section > h1,
+  article p em,
+  article p dfn,
+  cite {
+    font-style: normal;
+    font-weight: bold;
+  }
+
+  [role="article"] header .byline {
+    font-style: normal;
+  }
+
+  .archive {
+    ol li time,
+    ul li time {
+      font-style: normal;
+      font-weight: bold;
+    }
+  }
+
+  #promotion h4 {
+    font-style: normal;
+    font-weight: bold;
+  }
+
+  .highlight span {
+    font-style: normal !important;
+  }
 }
 
 h1,
@@ -28,12 +70,26 @@ h4,
 h5,
 h6 {
   font-family: $sans-serif-font-stack;
-  line-height: 1.25em;
-  margin: 0;
+  line-height: 1.1em;
+  margin: 0 0 1rem 0;
+
+  small {
+      display: block;
+      font-size: small;
+      font-variant: small-caps;
+      text-transform: uppercase;
+      font-weight: normal;
+      line-height: 2;
+      letter-spacing: 0.2ch;
+  }
+
+  em {
+      font-style: normal;
+  }
 }
 
 h1 {
-  font-size: 2.25em;
+  font-size: 2.5em;
 }
 
 h2 {
@@ -41,15 +97,15 @@ h2 {
 }
 
 h3 {
-  font-size: 1.75em;
-}
-
-h4 {
   font-size: 1.5em;
 }
 
-h5 {
+h4 {
   font-size: 1.25em;
+}
+
+h5 {
+  font-size: 1.125em;
 }
 
 h6 {
@@ -57,7 +113,7 @@ h6 {
 }
 
 p {
-  margin: 0 0 0.75em;
+  margin: 0 0 1rem 0;
 }
 
 a {
@@ -65,12 +121,18 @@ a {
   -moz-transition: color 0.1s linear;
   transition: color 0.1s linear;
   text-decoration: none;
+
   &:hover {
     text-decoration: underline;
   }
+
   &:active,
   &:focus {
     outline: none;
+  }
+
+  code {
+    white-space: nowrap;
   }
 }
 
@@ -80,29 +142,69 @@ p > small {
   text-transform: lowercase;
 }
 
-p > code,
-li > code,
-td > code {
+:not(pre) > code {
   user-select: all;
 }
 
-code {
-  font-family: $mono-font-stack;
-  font-size: 85%;
+a,
+p,
+li,
+dd,
+td {
+  code {
+    background: $gray-light;
+    padding: 0.25em;
+    font-size: smaller;
+    border-radius: 3px;
+  }
 }
 
-pre code {
-  font-size: 80%;
+p,
+li,
+dd,
+td {
+  code {
+    color: $purple-dark;
+  }
+}
+
+ol,
+ul {
+  li {
+    margin-bottom: 0.5em;
+  }
+}
+
+pre {
+  font-family: $serif-font-stack;
+}
+
+code,
+samp {
+  font-family: $mono-font-stack;
+}
+
+pre code,
+samp {
+  font-size: smaller;
+  line-height: 1.1em;
+}
+
+samp {
+  white-space: pre;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  display: block;
+  padding: 0.5em 0;
 }
 
 section > h1 {
   font-family: $serif-font-stack;
   font-weight: 300;
-  font-style: italic;
-  text-align: center;
-  margin-bottom: 2em;
-  margin-top: 2em;
   font-size: 1.5em;
+  text-align: center;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
 }
 
 article.excerpt h1 {
@@ -113,7 +215,101 @@ a {
   &.readmore {
     font-style: italic;
   }
+
   &:hover {
     text-decoration: underline;
   }
+}
+
+kbd {
+  color: $gray-dark;
+  background-color: $gray-light;
+  border-radius: 3px;
+  border: 1px solid $gray;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2), 0 0 0 2px #fff inset;
+  font-family: $sans-serif-font-stack;
+  font-variant: small-caps;
+  margin: 0 0.1em;
+  padding: 0.1em 0.6em;
+  text-transform: lowercase;
+}
+
+.placeholder {
+  background: $gray-light;
+  display: inline-block;
+  padding: 0 0.25em;
+  border: 1px $gray-dark solid;
+  border-radius: 5px;
+  font-style: normal;
+
+  .highlight & {
+    background: transparent;
+    border-color: $gray-light;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  &:hover .anchor::before {
+    opacity: 1;
+  }
+}
+
+.title {
+  font-family: $sans-serif-font-stack;
+  font-weight: 700;
+}
+
+.anchor::before {
+  content: "#";
+  opacity: 0;
+  transition: 300ms opacity;
+  position: absolute;
+  float: left;
+  margin-left: -1.5em;
+  padding: 0 0.5em;
+  color: $gray !important;
+  text-decoration: none;
+
+  :focus {
+    outline: none;
+  }
+}
+
+.tagline {
+  font-size: 1.5em;
+}
+
+#latest,
+#announcement {
+  small {
+    font-style: italic;
+  }
+}
+
+[role="article"] {
+  header {
+    h1 {
+      font-size: 3.5em;
+      line-height: 1;
+      margin-bottom: 0.5rem;
+      padding: 0.5rem 0;
+    }
+  }
+}
+
+#archive {
+  dd {
+    font-size: smaller;
+    display: list-item;
+    list-style: circle;
+  }
+}
+
+.nowrap {
+  white-space: nowrap;
 }

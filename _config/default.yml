@@ -6,6 +6,13 @@ facebook: 418545184954768
 google: 105091289906267717942
 issn: 2373-9800
 
+languages:
+  - en
+  - es
+  - fr
+  - ko
+  - zh-Hans
+
 author:
   name: Mattt
   email: mattt@nshipster.com
@@ -41,12 +48,12 @@ defaults:
 
 groups:
   - Cocoa
-  - Objective-C
   - Swift
-  - Open Source
   - Xcode
-  - Miscellanea
+  - Open Source
+  - Miscellaneous
   - Trivia
+  - Objective-C
 
 include: [".well-known"]
 
@@ -62,6 +69,13 @@ exclude:
 
 assets:
   source_maps: false
+  compression: true
+  defaults:
+    js: { integrity: true }
+    css: { integrity: true }
+    img: { integrity: true }
 
 jekyll_tidy:
-  exclude: ["*.txt"]
+  exclude:
+    - robots.txt
+    - humans.txt

@@ -1,156 +1,115 @@
 @media screen and (max-width: 768px) {
-    [role="article"] header h1 {
-        font-size: 8vw;
-    }
-
-    [role="banner"]{
-        margin-bottom: 2em;
-    #logo {
-      margin: 0 auto 2em auto;
-      svg {
-        width: 100% !important;
+  [role="article"] header {
+    .byline {
+      .authors,
+      .translators {
+        &:after {
+          content: " ";
+          display: block;
+        }
       }
-    }
-
-
-      #logo,
-      nav {
-        width: 100%;
-      }
-    }
- form {
-      display: none;
     }
   }
 
+  .container {
+    padding: 1em;
+  }
 
-  @media screen and (max-width: 480px) {
+  #recent {
+    ul {
+      display: block;
 
-    #recent article {
+      li {
+        min-height: auto;
+        margin-bottom: 2em;
+
+        .title {
+          display: block;
+          height: auto;
+          padding-bottom: 0.5rem;
+        }
+      }
+    }
+  }
+
+  #follow {
+    ul {
       width: 100%;
-      min-height: 7em;
-      margin-bottom: 1em;
     }
 
-    #popular article {
-      width: 100%;
-      margin-bottom: 1em;
-    }
-
-    #follow ul {
-      width: 100%;
-    }
-
-    #follow form {
+    form {
       width: 100%;
       margin-left: 0;
       margin-top: 2em;
     }
   }
 
-  @media screen and (max-width: 768px) {
-    #follow form input[type="submit"] {
-      font-size: 0.67em;
-    }
-  }
+  [role="article"] {
+    font-size: smaller;
 
-  @media screen and (max-width: 480px) {
-    [role="article"] {
-      font-size: 75%;
-      .content {
-        overflow: hidden;
+    .content {
+      overflow: hidden;
+
+      blockquote {
+        margin: 1em 0;
       }
     }
-  }
 
-  @media screen and (max-width: 768px) {
-    [role="article"] {
-      font-size: 100%;
-    }
-  }
-
-  @media screen and (max-width: 480px) {
-    [role="article"] .content {
-      ul,
-      ol {
-        padding: 0;
-      }
-    }
-  }
-
-  @media screen and (max-width: 768px) {
-    [role="article"] .content blockquote {
-      margin: 1em 0;
-    }
-
-    [role="article"] footer .contributor {
+    footer .contributor {
       width: 100%;
       margin-bottom: 1em;
+
       &:not(:first-child) {
         border-top: none;
       }
+
       .avatar {
         padding: 0;
       }
-    }
-  }
 
-  @media screen and (max-width: 480px) {
-    [role="article"] footer .contributor .details {
-      margin-top: 0;
-    }
-  }
-
-  @media screen and (max-width: 480px) {
-    [role="complementary"] #related {
-      margin-top: 1em;
-    }
-  }
-
-  @media screen and (max-width: 480px) {
-    [role="complementary"] #related li {
-      font-size: 1em;
-    }
-  }
-
-  @media screen and (max-width: 480px) {
-    [role="complementary"] {
-      #continue,
-      #related {
-        width: 100%;
+      .details {
+        margin-top: 0;
       }
     }
   }
 
-  @media screen and (max-width: 768px) {
-    .archive dl {
-        width: 100%;
-        margin: 0;
-        float: none;
-      }
-  }
-
-  @media screen and (max-width: 480px) {
-    #sharing ul {
+  [role="complementary"] {
+    #continue,
+    #related {
       width: 100%;
     }
+
+    #related {
+      margin-top: 1em;
+
+      li {
+        font-size: 1em;
+      }
+    }
   }
 
-  @media screen and (max-width: 480px) {
-    #sharing li {
+  #sharing {
+    ul {
+      width: 100%;
+    }
+
+    li {
       display: none !important;
       margin: 0;
       float: left;
       display: block;
       margin-right: 2.35765%;
       width: 23.23176%;
+
       &:last-child,
       &:nth-child(4) {
         margin-right: 0;
       }
+
       &:nth-child(5) {
         clear: left;
       }
+
       a,
       i {
         display: block;
@@ -160,58 +119,89 @@
     }
   }
 
-  @media screen and (max-width: 480px) {
-    .book {
-      width: 100%;
-      margin-bottom: 1em;
-    }
+  #promotion .book img {
+    margin: 0 auto;
   }
 
-
-
-  @media screen and (max-width: 480px) {
-    .tagline {
-      font-size: 110%;
-    }
+  #contributors ul li {
+    flex-basis: 33%;
   }
 
+  #recent article {
+    float: none;
+    display: block;
+    width: 100%;
 
-
-@media screen and (max-width: 480px) {
-    #promotion .book img {
-      margin: 0 auto;
-    }
-  }
-
-
-  @media screen and (min-width: 769px) {
-    #recent article:nth-of-type(3n) {
+    &:last-child,
+    &:nth-of-type(2n) {
       margin-right: 0;
     }
   }
 
-  @media screen and (max-width: 768px) {
-    #recent article {
-      float: left;
-      display: block;
-      margin-right: 2.35765%;
-      width: 48.82117%;
-      min-height: 12em;
-      &:last-child,
-      &:nth-of-type(2n) {
-        margin-right: 0;
+  .archive dl {
+    width: 100%;
+    margin: 0;
+    float: none;
+
+    dt {
+      margin: 2em 0 0.5em 0;
+    }
+  }
+}
+
+@media screen and (max-width: 960px) {
+  [role="banner"] {
+    display: block;
+    margin-bottom: 0;
+    padding-bottom: 0;
+
+    #logo {
+      margin: 0 !important;
+      height: auto;
+
+      svg {
+        width: 25vw;
+        display: block;
+        margin: 0 auto 1.5em auto;
       }
+
+      padding-bottom: 0.5em;
+    }
+
+    .tagline {
+      font-size: 4.4vw;
+      padding-bottom: 2em;
     }
   }
 
-  @media screen and (max-width: 480px) {
-    #recent article {
-      float: none;
+  #recent {
+    ul {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  .anchor {
+    font-size: smaller;
+  }
+
+  #announcement {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  article.author,
+  article.translator {
+    header {
       display: block;
-      width: 100%;
-      &:last-child,
-      &:nth-of-type(2n) {
-        margin-right: 0;
+
+      .avatar {
+        margin: 0 auto 1em auto;
+        display: block;
+      }
+
+      h1 {
+        text-align: center;
       }
     }
   }
+}

@@ -2,14 +2,17 @@
 {
   "@context": "https://schema.org",
   "@type": "Book",
-  "author": "{{ book.author }}",
+  "author": {
+    "@type": "Person",
+    "name": "Mattt"
+  },
   "bookFormat": "https://schema.org/EBook",
   "datePublished": "{{ book.date }}",
   "image": "{% asset '{{ book.image }}' @path %}",
   "inLanguage": "English",
   "isbn": "{{ book.isbn }}",
-  "name": "{{ book.title }}",
-  "description": "{{ book.summary | markdownify | strip_html | jsonify }}",
+  "name": "{{ book.title | strip_html | strip }}",
+  "description": "{{ book.summary | markdownify | strip_html | strip }}",
   "numberOfPages": "{{ book.number_of_pages }}",
   "offers": {
     "@type": "Offer",
@@ -18,6 +21,9 @@
     "priceCurrency": "USD",
     "url": "{{ book.book_url }}"
   },
-  "publisher": "Read Evaluate Press, LLC"
+  "publisher": {
+    "@type": "Organization",
+    "name": "Read Evaluate Press, LLC"
+  }
 }
 </script>

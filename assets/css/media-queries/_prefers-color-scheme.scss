@@ -1,0 +1,72 @@
+@media (prefers-color-scheme: dark) {
+    body {
+        background: #2c2a28 !important;
+        color: $gray-light !important;
+
+        blockquote {
+            color: $gray-light !important;
+        }
+
+        div.highlight {
+            border: 1px $gray-light solid !important;
+        }
+
+        .language-toggle a {
+            color: $gray-light !important;
+        }
+
+        .info {
+            background: #333c44 !important;
+        }
+
+        .warning {
+            background: #484131 !important;
+        }
+
+        .error {
+            background: #592e41 !important;
+        }
+
+        [role="tablist"] button {
+            color: $gray-light !important;
+        }
+    }
+
+    article,
+    i {
+        img[src$=".svg"] {
+            filter: invert(100%);
+        }
+    }
+
+    kbd {
+        color: $gray-light;
+        background-color: $gray-dark;
+        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2), 0 0 0 2px #222 inset;
+    }
+
+    .placeholder {
+        color: $gray-light;
+        background-color: $gray-dark;
+        border-color: $gray-light;
+    }
+
+    a,
+    p,
+    li,
+    dd,
+    td {
+        code {
+            background: $gray-dark;
+        }
+    }
+
+    p,
+    li,
+    dd,
+    td {
+        code {
+            color: $purple;
+        }
+    }
+}

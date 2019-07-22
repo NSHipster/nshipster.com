@@ -1,13 +1,26 @@
-
 .highlight {
-    background: $dt-gray-dark !important;
+    background: $gray-dark;
+    border: 1px transparent solid;
+    border-radius: 5px;
+    overflow: auto;
+    padding: 0.5em 1em;
+    margin-bottom: 1em;
 
     code {
-      color: $dt-gray-light;
+        color: $gray-light;
+        background: transparent !important;
     }
-  }
+}
 
-  pre.highlight {
+.highlight {
+    ::selection {
+        color: inherit;
+    }
+
+    ::-moz-selection {
+        color: inherit;
+    }
+
     .hll,
     .s,
     .sa,
@@ -23,11 +36,13 @@
     .sr,
     .s1,
     .ss {
-      color: $dt-yellow;
+        color: $yellow;
     }
+
     .go {
-      color: $dt-gray;
+        color: $gray;
     }
+
     .err,
     .g,
     .l,
@@ -52,27 +67,32 @@
     .py,
     .w,
     .bp {
-      color: $dt-gray-light;
+        color: $gray-light;
     }
+
     .gh,
     .gi,
     .gu {
-      font-weight: bold;
+        font-weight: bold;
     }
+
     .ge {
-      text-decoration: underline;
+        text-decoration: underline;
     }
+
     .bp {
-      // font-style: italic;
+        // font-style: italic;
     }
+
     .c,
     .ch,
     .cm,
     .cpf,
     .c1,
     .cs {
-      color: $dt-blue;
+        color: $blue;
     }
+
     .kd,
     .kt,
     .nb,
@@ -82,8 +102,9 @@
     .vg,
     .vi,
     .vm {
-      color: $dt-cyan;
+        color: $cyan;
     }
+
     .kd,
     .nb,
     .nl,
@@ -92,14 +113,16 @@
     .vg,
     .vi,
     .vm {
-      // font-style: italic;
+        // font-style: italic;
     }
+
     .na,
     .nc,
     .nf,
     .fm {
-      color: $dt-orange;
+        color: $orange;
     }
+
     .k,
     .o,
     .cp,
@@ -109,8 +132,9 @@
     .kr,
     .nt,
     .ow {
-      color: $dt-pink;
+        color: $pink;
     }
+
     .m,
     .mb,
     .mf,
@@ -118,9 +142,14 @@
     .mi,
     .mo,
     .il {
-      color: $dt-purple;
+        color: $purple;
     }
+
     .gd {
-      color: $dt-red;
+        color: $red;
     }
-  }
+}
+
+.highlight[data-lang="JWT"] {
+    white-space: pre-wrap;
+}

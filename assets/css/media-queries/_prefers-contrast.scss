@@ -1,0 +1,32 @@
+@media (prefers-contrast: high),
+screen and (-ms-high-contrast: active) {
+    a {
+        transition: none;
+
+        &,
+        &:visited {
+            text-decoration: underline;
+            color: black !important;
+        }
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6,
+    p,
+    li,
+    dt,
+    dd,
+    span {
+        color: black !important;
+
+        a:hover {
+            text-decoration: none;
+            background: black;
+            color: white !important;
+        }
+    }
+}

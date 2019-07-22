@@ -1,0 +1,139 @@
+@media print {
+  @page {
+    margin: 0.5in;
+  }
+
+  @page {
+    @bottom-center {
+      content: "Page " counter(page) " of " counter(pages);
+      font-size: small;
+    }
+
+    @footnote {
+      border-top: 1pt black solid;
+      padding-top: 1em;
+      font-size: smaller;
+      padding-left: 1.5em;
+    }
+  }
+
+  html {
+    border-top: none;
+
+    body {
+      font-size: 12pt !important;
+    }
+  }
+
+  #logo {
+    height: 3em !important;
+
+    svg {
+      transform: scale(0.5);
+      transform-origin: top left;
+    }
+  }
+
+  img,
+  p,
+  blockquote,
+  aside,
+  ul,
+  ol,
+  table,
+  figure,
+  .highlight-group {
+    page-break-inside: avoid;
+  }
+
+  .highlight-group {
+    page-break-before: avoid;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    page-break-before: avoid;
+    page-break-after: avoid;
+  }
+
+  img {
+    max-width: 100% !important;
+  }
+
+  p {
+    a {
+      word-wrap: break-word;
+    }
+
+    a[href^="#"]:after {
+      display: none;
+    }
+
+    a[href^="http://"]:after,
+    a[href^="https://"]:after {
+      // content: " ("attr(href) ")";
+      // text-decoration: underline;
+      content: " (" attr(title) ") ";
+      float: footnote;
+      color: #333;
+      font-size: small;
+      text-decoration: none;
+      text-align: left;
+      page-break-inside: avoid;
+      page-break-before: avoid;
+    }
+  }
+
+  article [title]::after {
+    content: " (" attr(title) ") ";
+    float: footnote;
+    font-size: small;
+  }
+
+  .highlight-group a {
+    font-size: 50%;
+  }
+
+  div.highlight {
+    border-radius: 5px;
+    border: 2px black solid;
+  }
+
+  [role="article"] {
+    .content {
+      margin-bottom: 1em !important;
+    }
+  }
+
+  [role="complementary"] {
+    display: none;
+  }
+
+  [role="contentinfo"] {
+    page-break-inside: avoid;
+    font-size: small;
+  }
+
+  .admonition {
+    padding: 0 0 0 1em;
+
+    &::before {
+      visibility: hidden;
+    }
+  }
+
+  [hidden] {
+    display: none !important;
+  }
+}
+
+@media print and (color) {
+  * {
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+}

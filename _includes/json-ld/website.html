@@ -3,12 +3,19 @@
   "@context": "https://schema.org",
   "@type": "WebSite",
   "url": "{{ site.url }}",
-  "name": "{{ site.title }}",
+  "name": "{{ site.title | strip_html | strip }}",
   "author": {
     "@type": "Person",
     "name": "Mattt"
   },
-  "description": "{{ site.description | strip_html }}",
-  "publisher": "Read Evaluate Press, LLC"
+  "description": "{{ site.description | markdownify | strip_html | strip }}",
+  "publisher": {
+    "@type": "Organization",
+    "name": "NSHipster",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ '/logo.png' | absolute_url }}"
+    }
+  }
 }
 </script>

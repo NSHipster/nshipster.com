@@ -1,0 +1,36 @@
+#webgl-confetti {
+    position: relative;
+    width: 500px;
+    margin: 1em auto;
+    display: block;
+    canvas {
+        position: absolute;
+        z-index: 1000;
+    }
+}
+
+video {
+    width: 300px;
+}
+
+dl {
+    display: grid;
+    grid-template-columns: min-content auto;
+    gap: 0.5em 1em;
+  }
+
+  dt {
+    grid-column-start: 1;
+    margin: 0 !important;
+  }
+
+  dd {
+    grid-column-start: 2;
+    margin: 0 0 1em 0 !important;
+  }
+
+@media (prefers-reduced-motion: reduce) {
+    #webgl-confetti {
+        display: none !important;
+    }
+}

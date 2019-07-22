@@ -1,0 +1,135 @@
+@media (monochrome) and (not(prefers-color-scheme: dark)),
+print and (not(color)),
+(prefers-contrast: high),
+screen and (-ms-high-contrast: active) {
+    html {
+        border-top-color: black;
+
+        body {
+            background: white;
+
+            #logo {
+                a:hover {
+                    background: transparent !important;
+                }
+
+                #ns {
+                    fill: white;
+                    stroke: black;
+                    stroke-width: 10px;
+
+                }
+
+                #mustache {
+                    fill: black;
+                }
+            }
+
+            a {
+                transition: none;
+
+                &,
+                &:visited {
+                    text-decoration: underline;
+                    color: black !important;
+                }
+
+                &:hover {
+                    text-decoration: none;
+                }
+            }
+
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6,
+            p,
+            li,
+            dt,
+            dd,
+            span {
+                color: black !important;
+            }
+
+            // img {
+            //     outline: 1px black solid;
+            //     outline-offset: 2px;
+            // }
+
+            div.highlight {
+                color: black;
+                background: #fff !important;
+
+                code,
+                code span {
+                    color: black !important;
+                }
+
+                border: 2px black solid;
+
+                .c,
+                .ch,
+                .cm,
+                .cpf,
+                .c1,
+                .cs,
+                .ge,
+                .s,
+                .sa,
+                .sb,
+                .sc,
+                .dl,
+                .sd,
+                .s2,
+                .sh,
+                .sx,
+                .sr,
+                .s1,
+                .ss {
+                    font-style: italic;
+                }
+
+                .k,
+                .gh,
+                .gp,
+                .gs,
+                .gu,
+                .kc,
+                .kd,
+                .kn,
+                .kr,
+                .nc,
+                .ni,
+                .ne,
+                .nn,
+                .nt,
+                .ow {
+                    font-weight: bold;
+                }
+
+                .se,
+                .si {
+                    font-weight: bold;
+                    font-style: italic;
+                }
+            }
+
+            .admonition {
+                background: white !important;
+                border: 2px black solid !important;
+                border-radius: 5px;
+
+                &:before {
+                    visibility: hidden;
+                }
+            }
+
+            blockquote {
+                border-left-color: black !important;
+                color: black;
+            }
+        }
+    }
+}

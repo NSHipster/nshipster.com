@@ -1,0 +1,93 @@
+@import "../colors";
+
+#jwt-debug {
+  h3 {
+    margin: 0;
+
+    small {
+      display: block;
+      font-weight: normal;
+      font-size: smaller;
+    }
+  }
+
+  display: grid;
+  grid-template:
+    "encoded header"
+    "encoded payload"
+    "encoded signature";
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 0.5em 3em;
+
+  #jwt-encoded {
+    grid-area: encoded;
+
+    .highlight {
+      font-size: larger;
+      height: 86%;
+    }
+  }
+
+  #jwt-header {
+    grid-area: header;
+
+    span.s2 {
+      color: $pink !important;
+    }
+  }
+
+  #jwt-payload {
+    grid-area: payload;
+
+    span.s2 {
+      color: $purple !important;
+    }
+  }
+
+  #jwt-signature {
+    grid-area: signature;
+
+    span.s2,
+    span.nx {
+      color: $cyan !important;
+    }
+
+    span.o {
+      color: white !important;
+    }
+  }
+
+  #jwt-header,
+  #jwt-payload,
+  #jwt-signature {
+    .highlight {
+      font-size: smaller;
+    }
+  }
+}
+
+#map {
+  display: block;
+  width: 100%;
+  height: 400px;
+  margin-bottom: 2em;
+}
+
+.mk-map-view {
+  border: 1px transparent solid;
+  border-radius: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  #jwt-debug {
+    grid-template:
+      "encoded"
+      "header"
+      "payload"
+      "signature";
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    gap: 0.5em 0;
+  }
+}

@@ -2,34 +2,32 @@
 <html lang="{{ site.lang }}">
 <head>
   <meta charset="utf-8"/>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
   {% if page.id %}
-    <title>{{ page.title | strip_html }} - {{ site.title }}</title>
-    <meta name="description" content="{{ page.excerpt | strip_html }}"/>
-    <link rel="canonical" href="{{ page.url | absolute_url }}"/>
+    <title>{{ page.title | strip_html | escape | strip }} - {{ site.title }}</title>
+    <meta name="description" content="{{ page.excerpt | markdownify | strip_html }}"/>
+    <meta name="revisit-after" content="1 month"/>
   {% else %}
-    <title>{{ page.title | strip_html }}</title>
-    <meta name="description" content="{{ site.description | strip_html }}"/>
-    <link rel="canonical" href="{{ site.url }}"/>
+    <title>{{ page.title | strip_html | escape | strip }}</title>
+    <meta name="description" content="{{ site.description | markdownify | strip_html }}"/>
+    <meta name="revisit-after" content="7 days"/>
   {% endif %}
 
-  <meta name="revisit-after" content="7 days"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover"/>
   <meta name="format-detection" content="telephone=no"/>
+  <meta name="color-scheme" content="light dark"/>
 
   <link rel="alternate" type="application/atom+xml" title="{{ site.title }} Atom Feed" href="/feed.xml"/>
-  <link rel="alternate" type="application/json" title="{{ site.title }} JSON Feed" href="/feed.json"/>
 
-  <link rel="preload" as="font" href="{% asset nshipster.woff2 @path %}" type="font/woff2" crossorigin="anonymous" />
-  <link rel="preload" as="font" href="{% asset nshipster.woff @path %}" type="font/woff" crossorigin="anonymous" />
+  <link rel="preload" type="font/woff2" as="font" href="{% asset nshipster.woff2 @path %}" crossorigin="anonymous" />
 
   {% asset "screen.css" @inline %}
 
-  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"/>
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"/>
   <link rel="manifest" href="/site.webmanifest"/>
   <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#292724"/>
+  <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-title" content="NSHipster"/>
   <meta name="application-name" content="NSHipster"/>
   <meta name="msapplication-TileColor" content="#f8f7f5"/>
@@ -46,11 +44,13 @@
   {% if page.id %}
     <meta name="twitter:title" content="{{ page.title }}"/>
     <meta name="twitter:description" content="{{ page.excerpt | markdownify | strip_html | escape }}"/>
+    <meta name="twitter:label1" value="Category" />
+    <meta name="twitter:data1" value="{{ page.category }}" />
   {% else %}
     <meta name="twitter:title" content="{{ site.title }}"/>
-    <meta name="twitter:description" content="{{ site.description | strip_html | escape }}"/>
+    <meta name="twitter:description" content="{{ site.description | markdownify | strip_html | escape }}"/>
   {% endif %}
-  <meta property="twitter:account_id" content="{{ site.twitter }}"/>
+  <meta name="twitter:account_id" content="{{ site.twitter }}"/>
 
   <meta property="og:site_name" content="{{ site.title }}"/>
   <meta property="og:image" content="{{ '/logo.png' | absolute_url }}"/>
@@ -66,34 +66,64 @@
   {% else %}
     <meta property="og:title" content="{{ site.title }}"/>
     <meta property="og:url" content="{{ site.url }}"/>
-    <meta property="og:description" content="{{ site.description | strip_html | escape }}" />
+    <meta property="og:description" content="{{ site.description | markdownify | strip_html | escape }}" />
   {% endif %}
 
-  {% if page.url == '/' %}
-    <link rel="alternate" hreflang="en-us" href="https://nshipster.com" />
-    <link rel="alternate" hreflang="es-ES" href="https://nshipster.es" />
-    <link rel="alternate" hreflang="ko-KR" href="https://nshipster.co.kr" />
-    <link rel="alternate" hreflang="zh-Hans" href="https://nshipster.cn" />
-    <link rel="alternate" hreflang="x-default" href="https://nshipster.com" />
+  <link rel="canonical" href="{{ page.url | prepend:'https://nshipster.com' }}" />
 
+  {% if site.lang != 'en-US' and page.translations contains 'en' %}
+    <link rel="alternate" hreflang="en" href="{{ page.url | prepend:'https://nshipster.com' }}" />
+  {% endif %}
+
+  {% if site.lang != 'es-ES' and page.translations contains 'es' %}
+    <link rel="alternate" hreflang="es" href="{{ page.url | prepend:'https://nshipster.es' }}" />
+  {% endif %}
+
+  {% if site.lang != 'fr-FR' and page.translations contains 'fr' %}
+    <link rel="alternate" hreflang="fr" href="{{ page.url | prepend:'https://nshipster.fr' }}" />
+  {% endif %}
+
+  {% if site.lang != 'ko-KR' and page.translations contains 'ko' %}
+    <link rel="alternate" hreflang="ko" href="{{ page.url | prepend:'https://nshipster.co.kr' }}" />
+  {% endif %}
+
+  {% if site.lang != 'zh-Hans' and page.translations contains 'zh-Hans' %}
+    <link rel="alternate" hreflang="zh-Hans" href="{{ page.url | prepend:'https://nshipster.cn' }}" />
+  {% endif %}
+
+  <link rel="alternate" hreflang="x-default" href="{{ page.url | prepend:'https://nshipster.com' }}" />
+
+  {% if page.url == '/' %}
     <link rel="prerender" href="{{ site.posts.first.url | absolute_url }}" />
   {% endif %}
 
-  <meta property="nshipster:hide-single-lang" content="{{ page.hiddenlang }}"/>
+  {% if page.next %}
+    <link rel="next" href="{{ page.next.url | absolute_url }}" />
+  {% endif %}
+
+  {% if page.previous %}
+    <link rel="prev" href="{{ page.previous.url | absolute_url }}" />
+  {% endif %}
+
+  {% if page.retired %}
+    <meta name="robots" content="noindex,nofollow" />
+  {% endif %}
+
+  {% if site.url == "https://nsmutablehipster.com" %}
+    <meta name="robots" content="noindex,nofollow" />
+  {% endif %}
 </head>
 
 <body>
 
   <div class="container">
     <header role="banner">
-      <h1 id="logo">
-        <a href="/" title="NSHipster">
-          {% asset logo.svg @inline %}
-        </a>
-      </h1>
+      <a id="logo" href="/" title="NSHipster">
+        {% asset logo.svg @inline role="img" aria-hidden="true" %}
+      </a>
 
       {% if page.url == "/" %}
-        <h2 class="tagline">{{ site.description }}</h2>
+        <h2 class="tagline">{{ site.description | markdownify | unwrap }}</h2>
       {% endif %}
     </header>
 
@@ -103,9 +133,6 @@
 
     <footer role="contentinfo">
       <section class="credits colophon">
-        <p>
-          {% t corrections %}
-        </p>
         <p>
           <i aria-hidden="true" class="icon-cc" title="Creative Commons"></i>
           <i aria-hidden="true" class="icon-by" title="Attribution"></i>
@@ -117,7 +144,8 @@
         <p>
             NSHipster is also available in
             <a href="https://nshipster.cn" hreflang="zh-Hans">Chinese (Simplified)</a>,
-            <a href="https://nshipster.co.kr" hreflang="ko">Korean</a>, and
+            <a href="https://nshipster.co.kr" hreflang="ko">Korean</a>,
+            <a href="https://nshipster.fr" hreflang="fr">French</a>, and
             <a href="https://nshipster.es" hreflang="es">Spanish</a>
             .
         </p>
@@ -127,7 +155,15 @@
     </footer>
   </div>
 
-  {% asset application.js async='async' %}
+  {% asset application.js !type defer='defer' %}
+
+  {% if site.url == "https://nsmutablehipster.com" %}
+    {% asset nsmutablehipster.js !type defer="defer" %}
+  {% endif %}
+
+  {% if page.id and site.lang == 'en-US' %}
+    {% include json-ld/article.html %}
+  {% endif %}
 
   {% include json-ld/organization.html %}
   {% include json-ld/website.html %}

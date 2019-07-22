@@ -1,0 +1,9 @@
+{
+  "name": "NSHipster.com",
+  "description": "A journal of the overlooked bits in Objective-C, Swift, and Cocoa. Updated weekly.",
+  "repository": {
+    "url": "https://github.com/nshipster/nshipster.com",
+    "license": "MIT"
+  },
+  "keywords": ["Ruby", "Jekyll"]
+}

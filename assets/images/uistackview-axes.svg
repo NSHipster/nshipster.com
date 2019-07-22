@@ -1,0 +1,33 @@
+<svg viewBox="0 0 732 443"
+    xmlns="http://www.w3.org/2000/svg" width="900" height="500">
+    <style>
+    text{stroke: none; fill: currentColor; font-family: SFProText-Medium, SF Pro Text, -apple-system, system-ui, BlinkMacSystemFont, sans-serif; font-weight: 400;}
+    </style>
+    <path fill="#FF8001" d="M77 110h85v254H77z"/>
+    <path fill="#6236FF" d="M162 110h84v254h-84z"/>
+    <path fill="#32C5FF" d="M246 110h85v254h-85z"/>
+    <path fill="#FF8001" d="M669.5 109.5v85h-254v-85z"/>
+    <path fill="#6236FF" d="M669.5 194.5v84h-254v-84z"/>
+    <path fill="#32C5FF" d="M669.5 278.5v85h-254v-85z"/>
+    <path d="M322.5 382h-161v-1h161v-4l9 4.5-9 4.5v-4zM54.5 355V195h1v160h4l-4.5 9-4.5-9h4z" fill="#979797" fill-rule="nonzero"/>
+    <text font-family="-apple-system, system-ui, BlinkMacSystemFont, SFProText-Medium, SF Pro Text" font-size="12" fill="#6D7278">
+        <tspan x="89.235" y="384">Main Axis</tspan>
+    </text>
+    <path d="M661.5 382h-161v-1h161v-4l9 4.5-9 4.5v-4z" fill="#979797" fill-rule="nonzero"/>
+    <text font-size="12" fill="#6D7278">
+        <tspan x="425.297" y="384">Cross Axis</tspan>
+    </text>
+    <text transform="rotate(-90 55 150)" font-size="12" fill="#6D7278">
+        <tspan x="24.297" y="154">Cross Axis</tspan>
+    </text>
+    <path d="M393.5 355V195h1v160h4l-4.5 9-4.5-9h4z" fill="#979797" fill-rule="nonzero"/>
+    <text transform="rotate(-90 394 150)" font-size="12" fill="#6D7278">
+        <tspan x="366.235" y="154">Main Axis</tspan>
+    </text>
+    <text font-size="17" fill="#585858">
+        <tspan x="136.62" y="70">Horizontal Stack</tspan>
+    </text>
+    <text font-size="17" fill="#585858">
+        <tspan x="485.366" y="70">Vertical Stack</tspan>
+    </text>
+</svg>
