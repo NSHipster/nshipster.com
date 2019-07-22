@@ -16,5 +16,5 @@
 	ignore = all
 [submodule "collections/ru/_posts"]
 	path = collections/ru/_posts
-	url = https://39125d210221bbfb181dfae444904c7085560dda:x-oauth-basic@github.com/readeval/nshipster-articles-ru.git
+	url = https://github.com/readeval/nshipster-articles-ru.git
 	ignore = all
