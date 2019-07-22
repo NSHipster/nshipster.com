@@ -23,7 +23,3 @@
 	url = https://github.com/NSHipster/articles-fr.git
 	branch = master
 	ignore = all
-[submodule "collections/ru/_posts"]
-	path = collections/ru/_posts
-	url = https://github.com/readeval/nshipster-articles-ru.git
-	ignore = all
