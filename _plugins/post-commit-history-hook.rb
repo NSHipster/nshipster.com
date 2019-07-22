@@ -11,6 +11,7 @@ Jekyll::Hooks.register :posts, :pre_render do |post|
                       when /^fr/ then "articles-fr"
                       when /^ko/ then "articles-ko"
                       when /^zh-Hans/ then "articles-zh-Hans"
+                      when /^ru/ then "articles-ru"
                       else
                           raise "Unknown language: #{language}"
                       end
