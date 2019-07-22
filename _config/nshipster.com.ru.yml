@@ -6,7 +6,7 @@ description: >-
   Objective-C, Swift и Cocoa. Обновляется еженедельно.
 timezone: Europe/Moscow
 
-collections_dir: collections/ru
+collections_dir: collections/en
 collections:
   authors:
     output: true
