@@ -115,8 +115,11 @@ layout: default
     </section>
 
     <section>
-      {% assign random_post = site.posts | shuffle | first %}
-      {% assign next_post = page.next | default: random_post %}
+      {% assign next_post = page.next %}
+      {% if next_post == nil or next_post.url == page.url or next_post.retired %}
+        {% assign next_post = site.posts | first %}
+      {% endif %}
+
       {% if next_post and next_post.url != page.url %}
       <div id="continue">
         <small>{% t next_article %}</small>
