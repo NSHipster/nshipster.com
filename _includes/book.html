@@ -5,5 +5,5 @@
       <img src="{% asset "{{ book.image }}" @path %}" class="cover" alt="{{ book.title }}" />
     </a>
 
-    {% include json-ld/book.html %}
+    {% include_cached json-ld/book.html %}
 </div>

@@ -20,7 +20,7 @@
 
   <link rel="preload" type="font/woff2" as="font" href="{% asset nshipster.woff2 @path %}" crossorigin="anonymous" />
 
-  {% asset "screen.css" @inline %}
+  {% include_cached style.html %}
 
   <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"/>
@@ -165,7 +165,7 @@
     {% include json-ld/article.html %}
   {% endif %}
 
-  {% include json-ld/organization.html %}
-  {% include json-ld/website.html %}
+  {% include_cached json-ld/organization.html %}
+  {% include_cached json-ld/website.html %}
 </body>
 </html>

@@ -108,9 +108,9 @@ layout: default
     {% endif %}
 
     <section id="attribution">
-      {% include contributor.html role="author" %}
+      {% include_cached contributor.html role="author" %}
       {% if page.translator or page.translators %}
-        {% include contributor.html role="translator" %}
+        {% include_cached contributor.html role="translator" %}
       {% endif %}
     </section>
 
@@ -136,4 +136,4 @@ layout: default
   </footer>
 </article>
 
-{% include json-ld/breadcrumblist.html %}
+{% include_cached json-ld/breadcrumblist.html %}
