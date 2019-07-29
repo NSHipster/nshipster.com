@@ -1,0 +1,18 @@
+url: https://nshipster.com.ru
+lang: ru-RU
+
+description: >-
+  <strong>NSHipster</strong> это журнал пропущенных бит в
+  Objective-C, Swift и Cocoa. Обновляется еженедельно.
+timezone: Europe/Moscow
+
+collections_dir: collections/en
+collections:
+  authors:
+    output: true
+    permalink: /authors/:path/
+  translators:
+    output: true
+    permalink: /translators/:path/
+  books:
+    output: false

@@ -12,6 +12,7 @@ languages:
   - fr
   - ko
   - zh-Hans
+  - ru
 
 author:
   name: Mattt

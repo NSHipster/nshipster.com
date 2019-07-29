@@ -1,0 +1,21 @@
+format:
+  date: "%-d.%-m.%Y"
+
+this_week: На этой неделе...
+continue_reading: Продолжить чтение
+recent_articles: Последние статьи
+publications: Книги
+popular_articles: Популярные статьи
+contributors: Авторы
+
+written_by: Написано
+translated_by: Переведено
+revised: пересмотренный
+
+next_article: Следующая статья
+related_articles: Статьи по Теме
+
+articles: Статьи
+
+corrections: Вопросов? Поправки? <a href="https://twitter.com/NSHipster">@NSHipster</a> или <a href="https://github.com/NSHipster/articles">на GitHub</a>.
+license: NSHipster выпущен под лицензией <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license">Лицензия Creative Commons BY-NC</a>.
