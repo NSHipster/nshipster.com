@@ -3,27 +3,29 @@ title: NSHipster
 permalink: /
 ---
 
+{% assign sorted_posts = site.posts | sort: 'updated_on' | reverse %}
+{% assign latest_post = sorted_posts.first %}
 <section id="latest">
   <article>
     <header>
       <small>{% t this_week %}</small>
       <h1 class="title">
-        <a href="{{ site.posts.first.url }}">{{ site.posts.first.title | strip_html | escape | camel_break }}</a>
+        <a href="{{ latest_post.url }}">{{ latest_post.title | strip_html | escape | camel_break }}</a>
       </h1>
     </header>
 
-    {{ site.posts.first.excerpt | markdownify }}
+    {{ latest_post.excerpt | markdownify }}
 
-    <a class="readmore" href="{{ site.posts.first.url }}">{% t continue_reading %}</a>
+    <a class="readmore" href="{{ latest_post.url }}">{% t continue_reading %}</a>
   </article>
 </section>
 
-{% if site.posts.size > 3 %}
+{% if sorted_posts.size > 3 %}
 <section id="recent">
   <h1>{% t recent_articles %}</h1>
 
   <ul>
-    {% for post in site.posts offset:1 limit: 6 %}
+    {% for post in sorted_posts offset:1 limit: 6 %}
       <li>
         <a class="title" href="{{ post.url }}">{{ post.title | strip_html | escape | camel_break }}</a>
 
