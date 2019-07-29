@@ -21,8 +21,6 @@ gem 'liquid-c'
 group :jekyll_plugins do
   gem 'jekyll-assets'
   gem 'jekyll-include-cache'
-  gem 'jekyll-last-modified-at'
-  gem 'jekyll-tagging-related_posts'
   gem 'jekyll-tidy'
 end
 
