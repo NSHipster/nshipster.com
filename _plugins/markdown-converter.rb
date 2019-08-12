@@ -98,6 +98,7 @@ module Jekyll
                        when /html/ then 'HTML'
                        when /xml/ then 'XML'
                        when /jwt/ then 'JWT'
+                       when /applescript/ then 'AppleScript'
                        else div['class']
                        end
 
