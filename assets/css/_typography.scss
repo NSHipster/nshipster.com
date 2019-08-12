@@ -234,6 +234,10 @@ kbd {
   text-transform: lowercase;
 }
 
+abbr, .small-caps {
+    font-variant: small-caps;
+}
+
 .placeholder {
   background: $gray-light;
   display: inline-block;
