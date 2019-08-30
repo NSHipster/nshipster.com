@@ -6,8 +6,8 @@
     {% else %}
     <small>Just Announced</small>
     {% endif %}
-
-    {% include_cached book.html book=book.name %}
+    
+    {% include book.html book=book.name %}
     <h3>{{ book.short_title }}</h3>
     <h4>{{ book.sub_title }}</h4>
     {{ book.summary | markdownify }}

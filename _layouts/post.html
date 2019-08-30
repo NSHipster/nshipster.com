@@ -108,9 +108,9 @@ layout: default
     {% endif %}
 
     <section id="attribution">
-      {% include_cached contributor.html role="author" %}
+      {% include contributor.html role="author" %}
       {% if page.translator or page.translators %}
-        {% include_cached contributor.html role="translator" %}
+        {% include contributor.html role="translator" %}
       {% endif %}
     </section>
 
