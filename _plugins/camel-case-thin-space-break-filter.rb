@@ -2,7 +2,7 @@
 
 module Jekyll
   module CamelCaseThinSpaceBreakFilter
-    REGEX = /(?:([a-z])([A-Z]+))/.freeze
+    REGEX = /(?:([a-z]{2,})([A-Z]+))/.freeze
 
     def camel_break(string)
       string.gsub(REGEX, "\\1\u200B\\2")
