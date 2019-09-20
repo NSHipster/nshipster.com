@@ -1,0 +1,27 @@
+.conversation {
+    @include clearfix;
+
+    margin: 1em auto;
+    max-width: 650px;
+
+    ruby {
+      ruby-align: start;
+      ruby-position: over;
+      display: block;
+      clear: both;
+      max-width: 550px;
+
+      &.boke {
+        float: left;
+        text-align: left;
+        margin-bottom: 0.5em;
+      }
+
+      &.tsukkomi {
+        float: right;
+        color: $orange;
+        text-align: right;
+        margin-bottom: 1.5em;
+      }
+    }
+  }
