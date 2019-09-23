@@ -1,0 +1,42 @@
+.conversation {
+    max-width: 50ch;
+    display: block;
+    margin: 0 auto;
+    padding: 1em 0;
+    p {
+        margin: 0;
+    }
+
+    p:nth-of-type(2n) {
+        display: block;
+        font-style: italic;
+        text-align: right;
+        padding: 0.5em 0 1em 1em;
+        &::first-letter {
+            font-style: normal;
+        }
+    }
+}
+
+#on-device-speech-recognition-supported-languages {
+    text-align: left;
+
+    dl{
+        display: grid;
+        gap: 1em 2em;
+        grid-template-columns: repeat(1fr);
+      }
+
+      dt {
+        grid-column-start: 1;
+        margin: 0;
+        padding: 0;
+        text-align: right;
+      }
+
+      dd {
+        grid-column-start: 2;
+        margin: 0;
+        padding: 0;
+      }
+}
