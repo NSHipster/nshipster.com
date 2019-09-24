@@ -317,3 +317,9 @@ h6 {
 .nowrap {
   white-space: nowrap;
 }
+
+[lang*=-fonipa] {
+    font-family: $sans-serif-font-stack;
+    font-weight: normal;
+    font-style: normal;
+}
