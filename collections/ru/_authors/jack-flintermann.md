@@ -6,7 +6,6 @@ email: jack@stripe.com
 url: https://twitter.com/jflinter
 twitter: jflinter
 github: jflinter
-google: ""
 image: jack-flintermann.jpg
 ---
 

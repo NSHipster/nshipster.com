@@ -6,7 +6,6 @@ email: nate@nshipster.com
 url: https://twitter.com/nnnnnnnn
 twitter: nnnnnnnn
 github: natecook1000
-google: ""
 image: nate-cook.jpg
 ---
 

@@ -6,7 +6,6 @@ email: info@dreaminginbinary.co
 url: https://dreaminginbinary.co
 twitter: JordanMorgan10
 github: JordanMorgan10
-google: ""
 image: jordan-morgan.jpg
 ---
 

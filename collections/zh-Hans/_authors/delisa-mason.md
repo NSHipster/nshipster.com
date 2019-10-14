@@ -6,7 +6,6 @@ email: delisa.mason@gmail.com
 url: https://twitter.com/kattrali
 twitter: kattrali
 github: kattrali
-google: ""
 image: delisa-mason.jpg
 ---
 

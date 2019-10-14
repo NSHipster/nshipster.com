@@ -6,7 +6,6 @@ email: hello@redalemeden.com
 url: https://redalemeden.com
 twitter: kaishin
 github: kaishin
-google: ""
 image: reda-lemeden.jpg
 ---
 
