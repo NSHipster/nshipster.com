@@ -26,6 +26,8 @@ kramdown:
   parse_block_html: true
   parse_span_html: true
 
+future: true
+
 defaults:
   - scope:
       path: ""
