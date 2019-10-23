@@ -101,6 +101,7 @@ module Jekyll
                        when /xml/ then 'XML'
                        when /jwt/ then 'JWT'
                        when /applescript/ then 'AppleScript'
+                       when nil then ''
                        else
                         class_name.gsub(/language-/, "")
                        end
