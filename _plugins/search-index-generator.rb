@@ -9,7 +9,7 @@ module Jekyll
                   .filter { |post| !post.data['retired'] }
                   .map do |post|
         {
-          url: post.url,
+          url: site.config['url'] + post.url,
           title: post.data['title'],
           category: post.data['category'],
           content: post.data['excerpt']
