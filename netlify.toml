@@ -88,6 +88,11 @@
   to = "https://nshipster.com/:splat"
 
 [[redirects]]
+  from = "/search"
+  to = "/.netlify/functions/search"
+  status = 204
+
+[[redirects]]
   from = "https://DOMAIN_PLACEHOLDER/swift-documentation-example/*"
   to = "https://swift-documentation-example.nshipster.com/:splat"
 
