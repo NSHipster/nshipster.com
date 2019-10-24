@@ -323,3 +323,7 @@ h6 {
     font-weight: normal;
     font-style: normal;
 }
+
+table * {
+    font-feature-settings: "tnum";
+}
