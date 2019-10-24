@@ -2,24 +2,32 @@ import lunr from "lunr";
 
 export const handler = (event, context, callback) => {
   (async () => {
-    const json = fs.readFileSync(require.resolve("./index.json"));
+    const query = event.queryStringParameters.q;
 
-    var index = lunr(function() {
-      this.ref("url");
-      this.field("title", { boost: 10 });
-      this.field("category");
-      this.field("excerpt");
+    if (!query || query === "") {
+      callback(null, {
+        statusCode: 400
+      });
+    } else {
+      const json = fs.readFileSync(require.resolve("./index.json"));
 
-      json.forEach(function(doc) {
-        this.add(doc);
-      }, this);
-    });
+      var index = lunr(function() {
+        this.ref("url");
+        this.field("title", { boost: 10 });
+        this.field("category");
+        this.field("excerpt");
 
-    const results = index.search(query);
+        json.forEach(function(doc) {
+          this.add(doc);
+        }, this);
+      });
 
-    callback(null, {
-      statusCode: 200,
-      body: JSON.stringify(results)
-    });
+      const results = index.search(query);
+
+      callback(null, {
+        statusCode: 200,
+        body: JSON.stringify(results)
+      });
+    }
   })();
 };
