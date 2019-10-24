@@ -3,7 +3,8 @@
   command = """
     git submodule update --init --remote --merge &&
     sed -i s/DOMAIN_PLACEHOLDER/$DOMAIN/g netlify.toml &&
-    jekyll build --config _config/default.yml,_config/$DOMAIN.yml
+    jekyll build --config _config/default.yml,_config/$DOMAIN.yml &&
+    npm --prefix _functions install
   """
   functions = "_functions"
 
