@@ -6,7 +6,6 @@ email: natasha@natashatherobot.com
 url: https://twitter.com/NatashaTheRobot
 twitter: NatashaTheRobot
 github: NatashaTheRobot
-google: ""
 image: natasha-murashev.jpg
 ---
 

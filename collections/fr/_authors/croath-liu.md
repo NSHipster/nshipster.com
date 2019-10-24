@@ -6,7 +6,6 @@ email: Croath.Liu@gmail.com
 url: https://twitter.com/cr0ath
 twitter: cr0ath
 github: croath
-google: ""
 image: croath-liu.jpg
 ---
 

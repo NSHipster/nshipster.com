@@ -24,10 +24,6 @@
             <span><a href="{{ contributor.url }}">{{ contributor.name }}</a></span>
 
             {{ contributor.content | markdownify }}
-
-            {% if contributor.google %}
-                <a href="https://plus.google.com/{{ contributor.google }}?rel=author" rel="author"></a>
-            {% endif %}
         </div>
     {% endif %}
 </div>

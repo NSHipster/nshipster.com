@@ -6,7 +6,6 @@ email: zoews@me.com
 url: https://zoesmith.io/about
 twitter: zoejessica
 github: zoejessica
-google: ""
 image: zoe-smith.jpg
 ---
 

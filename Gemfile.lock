@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/NSHipster/rouge.git
-  revision: 4360cc1f76146e2be795b42929917a0201f09e19
+  revision: 2d03db87bf6a14a73c8fe8b475adec8eed1cf8ea
   branch: swift-with-placeholder-token
   specs:
     rouge (3.3.0)

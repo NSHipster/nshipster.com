@@ -74,17 +74,17 @@ h6 {
   margin: 0 0 1rem 0;
 
   small {
-      display: block;
-      font-size: small;
-      font-variant: small-caps;
-      text-transform: uppercase;
-      font-weight: normal;
-      line-height: 2;
-      letter-spacing: 0.2ch;
+    display: block;
+    font-size: small;
+    font-variant: small-caps;
+    text-transform: uppercase;
+    font-weight: normal;
+    line-height: 2;
+    letter-spacing: 0.2ch;
   }
 
   em {
-      font-style: normal;
+    font-style: normal;
   }
 }
 
@@ -234,8 +234,9 @@ kbd {
   text-transform: lowercase;
 }
 
-abbr, .small-caps {
-    font-variant: small-caps;
+abbr,
+.small-caps {
+  font-variant: small-caps;
 }
 
 .placeholder {
@@ -318,10 +319,15 @@ h6 {
   white-space: nowrap;
 }
 
-[lang*=-fonipa] {
-    font-family: $sans-serif-font-stack;
-    font-weight: normal;
-    font-style: normal;
+[lang*="-fonipa"] {
+  font-family: $sans-serif-font-stack;
+  font-weight: normal;
+  font-style: normal;
+}
+
+figcaption {
+  font-style: italic;
+  font-size: smaller;
 }
 
 table * {

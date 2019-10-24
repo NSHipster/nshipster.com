@@ -6,6 +6,7 @@ module Jekyll
 
     def camel_break(string)
       string.gsub(REGEX, "\\1\u200B\\2")
+            .gsub(/(mac|tv)\u200B(OS)/, "\\1\\2")
     end
   end
 end

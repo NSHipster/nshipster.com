@@ -3,8 +3,10 @@
   command = """
     git submodule update --init --remote --merge &&
     sed -i s/DOMAIN_PLACEHOLDER/$DOMAIN/g netlify.toml &&
-    jekyll build --config _config/default.yml,_config/$DOMAIN.yml
+    jekyll build --config _config/default.yml,_config/$DOMAIN.yml &&
+    npm --prefix _functions/search install
   """
+  functions = "_functions"
 
 [context.production]
   environment = { JEKYLL_ENV = "production" }
@@ -85,6 +87,11 @@
 [[redirects]]
   from = "http://nshipster.netlify.com/*"
   to = "https://nshipster.com/:splat"
+
+[[redirects]]
+  from = "/search"
+  to = "/.netlify/functions/search"
+  status = 204
 
 [[redirects]]
   from = "https://DOMAIN_PLACEHOLDER/swift-documentation-example/*"

@@ -10,3 +10,4 @@ nshipster.com/training
 .jekyll-cache
 .jekyll-metadata
 Procfile
+_functions/search/index.json

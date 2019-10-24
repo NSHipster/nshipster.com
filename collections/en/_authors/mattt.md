@@ -6,7 +6,6 @@ email: mattt@nshipster.com
 url: https://twitter.com/mattt
 twitter: mattt
 github: mattt
-google: 106751358503565042647
 image: mattt.jpg
 ---
 
