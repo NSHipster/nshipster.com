@@ -5,6 +5,7 @@
     sed -i s/DOMAIN_PLACEHOLDER/$DOMAIN/g netlify.toml &&
     jekyll build --config _config/default.yml,_config/$DOMAIN.yml
   """
+  functions = "_functions"
 
 [context.production]
   environment = { JEKYLL_ENV = "production" }
