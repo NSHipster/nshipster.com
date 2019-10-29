@@ -1,9 +1,11 @@
-#battery-usage {
-  float: right;
-  width: 300px;
-  padding-left: 20px;
-}
-
 h2 {
   clear: both;
+}
+
+@media screen and (min-width: 768px) {
+  #battery-usage {
+    float: right;
+    width: 300px;
+    padding-left: 20px;
+  }
 }
