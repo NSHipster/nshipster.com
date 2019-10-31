@@ -1,5 +1,6 @@
 @import "fonts/merriweather";
 @import "fonts/batang";
+@import "colors";
 
 $serif-font-stack: "Merriweather", Georgia, serif, "Apple Color Emoji",
   "Segoe UI Emoji", "Segoe UI Symbol";
@@ -331,5 +332,19 @@ figcaption {
 }
 
 table * {
-    font-feature-settings: "tnum";
+  font-feature-settings: "tnum";
+}
+
+aside.parenthetical {
+  font-size: smaller;
+  font-style: italic;
+  color: $gray;
+
+  p:before {
+    content: "(";
+  }
+
+  p:after {
+    content: ")";
+  }
 }
