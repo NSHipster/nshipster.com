@@ -68,6 +68,7 @@ exclude:
   - rakelib/
   - netlify.toml
   - _redirects
+  - _functions/
 
 assets:
   source_maps: false
