@@ -1,0 +1,22 @@
+@import "../functions";
+
+@media screen and (min-width: 768px) {
+  aside {
+    @include clearfix;
+
+    figure {
+      float: right;
+      padding-left: 20px;
+      margin: 0 !important;
+      padding: 0 !important;
+
+      img {
+        margin: 0 !important;
+      }
+
+      & + p:first-of-type {
+        margin-top: 2em;
+      }
+    }
+  }
+}
