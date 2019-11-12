@@ -17,8 +17,11 @@ module Jekyll
 
         def convert(content)
           cache.getset(content) do
+            content.gsub!("<#...#>", "\uFFFC")
             html = @kramdown.convert(content)
             doc = Nokogiri::HTML::DocumentFragment.parse(html)
+
+
 
             remove_proprietary_attributes!(doc)
             secure_links_to_cross_origin_destinations!(doc)
@@ -30,7 +33,7 @@ module Jekyll
             consolidate_consecutive_code_listings!(doc)
             improve_accessibility!(doc)
 
-            doc.to_html
+            doc.to_html.gsub("\uFFFC", '<var class="placeholder">…</var>')
           end
         end
 
