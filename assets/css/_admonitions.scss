@@ -31,14 +31,19 @@
     line-height: 1;
   }
 
-  th, td {
-      padding: 0.5em !important;
+  th,
+  td {
+    padding: 0.5em !important;
   }
 
   blockquote {
     margin-left: 0 !important;
     margin-top: 0.25em !important;
     margin-bottom: 0.25em !important;
+  }
+
+  ins {
+    background: transparent !important;
   }
 
   &.info {
