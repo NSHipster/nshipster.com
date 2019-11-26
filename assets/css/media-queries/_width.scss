@@ -147,6 +147,10 @@
       margin: 2em 0 0.5em 0;
     }
   }
+
+  #archive dd {
+    min-height: 30px;
+  }
 }
 
 @media screen and (max-width: 960px) {
