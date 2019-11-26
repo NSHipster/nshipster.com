@@ -17,11 +17,9 @@ module Jekyll
 
         def convert(content)
           cache.getset(content) do
-            content.gsub!("<#...#>", "\uFFFC")
+            content.gsub!('<#...#>', "\uFFFC")
             html = @kramdown.convert(content)
             doc = Nokogiri::HTML::DocumentFragment.parse(html)
-
-
 
             remove_proprietary_attributes!(doc)
             secure_links_to_cross_origin_destinations!(doc)
@@ -32,6 +30,7 @@ module Jekyll
             unnest_code_listing_markup!(doc)
             consolidate_consecutive_code_listings!(doc)
             improve_accessibility!(doc)
+            delineate_flim_flam!(doc)
 
             doc.to_html.gsub("\uFFFC", '<var class="placeholder">…</var>')
           end
@@ -106,7 +105,7 @@ module Jekyll
                        when /applescript/ then 'AppleScript'
                        when nil then ''
                        else
-                        class_name.gsub(/language-/, "")
+                         class_name.gsub(/language-/, '')
                        end
 
             pre = div.at('pre')
@@ -171,6 +170,12 @@ module Jekyll
 
           doc.css('img:not([alt])').each do |img|
             img['alt'] = ''
+          end
+        end
+
+        def delineate_flim_flam!(doc)
+          if divider = (doc.at_css('hr') || doc.at_css('h2'))
+            divider.add_next_sibling(%(<a id="get-on-with-it"/>))
           end
         end
       end
