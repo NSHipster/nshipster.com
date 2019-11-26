@@ -73,6 +73,27 @@ layout: default
             ({% t revised %})
         {% endif %}
     {% endif %}
+
+    {% if page.translations != empty %}
+    <dl id="translations">
+        <dt aria-label="Translations">{% t translated_into %}</dt>
+        {% capture translations %}
+        {% for translation in page.translations %}
+            {% assign translation_url = site.domains[translation] %}
+            {% if translation_url %}
+                <dd lang="translation" aria-label="{{ translation | as_language_code }}">
+                    <a href="{{ page.url | prepend:translation_url }}">
+                        {{ translation | as_language_code: translation }}
+                    </a>
+                </dd>
+                ,
+            {% endif %}
+        {% endfor %}
+        {% endcapture %}
+
+        {{ translations | split: "," | to_sentence }}
+    </dl>
+    {% endif %}
     </div>
   </header>
 

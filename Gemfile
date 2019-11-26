@@ -18,6 +18,8 @@ gem 'sassc'
 
 gem 'liquid-c'
 
+gem 'twitter_cldr'
+
 group :jekyll_plugins do
   gem 'jekyll-assets'
   gem 'jekyll-include-cache'

@@ -475,7 +475,7 @@ article.translator {
     font-size: 50%;
 
     time & {
-        margin-right: -0.5em;
+      margin-right: -0.5em;
     }
   }
 
@@ -596,7 +596,7 @@ article.translator {
       padding: 0.25em;
 
       .avatar {
-          width: 75%;
+        width: 75%;
         display: block;
         margin: 0 auto 1em auto;
       }
@@ -864,5 +864,18 @@ details {
     -ms-user-select: none;
     -moz-user-select: none;
     -webkit-user-select: none;
+  }
+}
+
+#translations {
+  font-size: smaller;
+
+  dt,
+  dd {
+    font-weight: 300 !important;
+    display: inline;
+    margin: 0;
+    font-display: optional;
+    font-style: normal;
   }
 }
