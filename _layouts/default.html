@@ -71,25 +71,12 @@
 
   <link rel="canonical" href="{{ page.url | absolute_url }}" />
 
-  {% if site.lang != 'en-US' and page.translations contains 'en' %}
-    <link rel="alternate" hreflang="en" href="{{ page.url | prepend:'https://nshipster.com' }}" />
-  {% endif %}
-
-  {% if site.lang != 'es-ES' and page.translations contains 'es' %}
-    <link rel="alternate" hreflang="es" href="{{ page.url | prepend:'https://nshipster.es' }}" />
-  {% endif %}
-
-  {% if site.lang != 'fr-FR' and page.translations contains 'fr' %}
-    <link rel="alternate" hreflang="fr" href="{{ page.url | prepend:'https://nshipster.fr' }}" />
-  {% endif %}
-
-  {% if site.lang != 'ko-KR' and page.translations contains 'ko' %}
-    <link rel="alternate" hreflang="ko" href="{{ page.url | prepend:'https://nshipster.co.kr' }}" />
-  {% endif %}
-
-  {% if site.lang != 'zh-Hans' and page.translations contains 'zh-Hans' %}
-    <link rel="alternate" hreflang="zh-Hans" href="{{ page.url | prepend:'https://nshipster.cn' }}" />
-  {% endif %}
+  {% for translation in page.translations %}
+    {% assign translation_url = site.domains[translation] %}
+    {% if translation_url %}
+        <link rel="alternate" hreflang="{{ translation }}" href="{{ page.url | prepend:translation_url }}" />
+    {% endif %}
+  {% endfor %}
 
   <link rel="alternate" hreflang="x-default" href="{{ page.url | prepend:'https://nshipster.com' }}" />
 
