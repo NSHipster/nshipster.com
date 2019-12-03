@@ -7,7 +7,7 @@ author: Mattt
 summary: >-
   Everything you need to know about working with numbers in Swift
 image: flight-school-guide-to-swift-numbers.svg
-availability: in_stock
+availability: http://schema.org/InStock
 book_url: https://flight.school/books/numbers
 price: 29.00
 number_of_pages: 120

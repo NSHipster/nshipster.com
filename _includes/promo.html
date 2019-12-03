@@ -1,19 +1,31 @@
-  {% assign book = site.books | where:"name",include.book | first %}
+{% assign book = site.books | where:"name", include.book | first %}
 
-  <section id="promotion"{% if include.home %} class="home"{% endif %}>
-    {% if book.availability == 'in_stock' %}
-    <small>Recommended Reading</small>
+<section id="promotion"{% if include.home %} class="home"{% endif %}>
+    {% if book.availability == 'http://schema.org/InStock' %}
+    <small>Now Available</small>
     {% else %}
-    <small>Just Announced</small>
+    <small>Now Available for Pre-Order</small>
     {% endif %}
-    
+
+    <article>
     {% include book.html book=book.name %}
-    <h3>{{ book.short_title }}</h3>
-    <h4>{{ book.sub_title }}</h4>
-    {{ book.summary | markdownify }}
-    {% if book.availability == 'in_stock' %}
-    <a class="buy" href="{{ book.book_url }}" target="_blank">Buy Now on Gumroad</a>
-    {% else %}
-    <a class="buy" href="{{ book.book_url }}" target="_blank">Pre-Order on Gumroad</a>
-    {% endif %}
-  </section>
+    <div>
+        <span class="price" title="Save $10 by pre-ordering today!">
+            <del>$39</del><ins>$29</ins>
+        </span>
+        <h3><a href="{{ book.book_url }}" rel="noopener">{{ book.sub_title }}</a></h3>
+        {% if book.edition %}<h4>{{ book.edition }}</h4>{% endif %}
+        {{ book.summary | markdownify }}
+
+        {% if book.availability == 'http://schema.org/InStock' %}
+        <a class="buy" href="{{ book.book_url }}" rel="noopener">Buy Now on Gumroad</a>
+        {% else %}
+
+        <p><strong>Pre-order by {{ book.date | date: "%B %-d<sup>%o</sup>"}} to save $10.</strong><br/>
+        <em>Free shipping within the continental United States.</em></p>
+
+        <a class="buy" href="{{ book.book_url }}" rel="noopener">Pre-Order Your Copy</a>
+        {% endif %}
+    </div>
+    </article>
+</section>

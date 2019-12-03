@@ -750,12 +750,39 @@ article.translator {
 }
 
 #promotion {
-  .book img {
-    margin: 0;
+  article {
+    background-color: rgba(255, 128, 0, 0.2);
+    margin-left: -1em;
+    margin-right: -1em;
+    margin-top: 0.5em;
+    padding: 1.5em 1em;
+  }
+
+  .book {
+    @include disable-selection;
+    float: left;
+    width: 500px;
+    margin-left: -150px;
+    margin-top: -150px;
+    margin-right: -20px;
+
+    img {
+      margin: 0;
+      margin-top: 100px;
+    }
+  }
+
+  & > small {
+    font-style: italic;
   }
 
   h3 {
     font-family: $serif-font-stack;
+    margin-bottom: 0.5em;
+
+    a {
+      color: inherit;
+    }
   }
 
   h4 {
@@ -763,6 +790,11 @@ article.translator {
     font-style: italic;
     font-weight: 300;
     margin-bottom: 1em;
+
+    sup {
+      vertical-align: baseline;
+      font-size: 1;
+    }
   }
 
   p {
@@ -776,7 +808,7 @@ article.translator {
     font-family: $sans-serif-font-stack;
     font-weight: 700;
     margin-top: 1em;
-    padding: 15px;
+    padding: 0.5em 1.5em;
     text-align: center;
     display: inline-block;
 
@@ -785,25 +817,22 @@ article.translator {
     }
   }
 
-  &.home {
-    margin-top: -15px;
-    padding: 35px 44px;
-    background: #eee;
-    border-radius: 20px;
-
-    p {
-      font-size: 1em;
+  .price {
+    cursor: help;
+    display: block;
+    text-align: right;
+    float: right;
+    padding-left: 1em;
+    * {
+      display: block;
     }
 
-    small {
-      display: block;
-      font-size: 1.2em;
-      font-weight: 700;
-      margin-left: 5px;
-      color: #777;
-      text-transform: lowercase;
-      font-family: $sans-serif-font-stack;
-      font-variant: small-caps;
+    del {
+      font-size: smaller;
+    }
+    ins {
+      text-decoration: none;
+      font-size: larger;
     }
   }
 }

@@ -1,7 +1,7 @@
 {% assign book = site.books | where:"name", include.book | first %}
 
 <div id="{{ book.name }}" class="book">
-    <a href="{{ book.book_url }}" title="{{ book.title }}" rel="noopener">
+    <a href="{{ book.book_url }}" title="{{ book.title }}" rel="noopener noreferrer" target="_blank">
       <img src="{% asset "{{ book.image }}" @path %}" class="cover" alt="{{ book.title }}" />
     </a>
 

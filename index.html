@@ -3,6 +3,10 @@ title: NSHipster
 permalink: /
 ---
 
+{% if site.lang == "en-US" %}
+{% include promo.html book="nshipster" %}
+{% endif %}
+
 {% assign sorted_posts = site.posts | sort: 'updated_on' | reverse %}
 {% assign latest_post = sorted_posts.first %}
 <section id="latest">

@@ -7,7 +7,7 @@ author: Mattt
 summary: >-
   A comprehensive reference for working with text in Swift and Foundation.
 image: flight-school-guide-to-swift-strings.svg
-availability: in_stock
+availability: http://schema.org/InStock
 book_url: https://flight.school/books/strings
 price: 29.00
 number_of_pages: 180
