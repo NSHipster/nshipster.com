@@ -1,0 +1,20 @@
+figure#wavailability {
+  table {
+    table-layout: auto;
+    font-size: smaller;
+
+    td[colspan="7"] {
+      text-align: left;
+    }
+
+    table {
+      td {
+        padding: 0.5em;
+        border-bottom: 1px solid #b7b7b7;
+      }
+      tr:last-of-type td {
+        border: none;
+      }
+    }
+  }
+}
