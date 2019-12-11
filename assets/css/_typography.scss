@@ -353,6 +353,16 @@ aside.parenthetical {
   p:after {
     content: ")";
   }
+
+  a,
+  code {
+    color: $gray !important;
+    background: transparent !important;
+  }
+
+  a {
+    text-decoration: underline;
+  }
 }
 
 .bibliography {
