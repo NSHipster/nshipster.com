@@ -30,6 +30,7 @@ module Jekyll
             unnest_code_listing_markup!(doc)
             consolidate_consecutive_code_listings!(doc)
             improve_accessibility!(doc)
+            style_optional_placeholders!(doc)
             delineate_flim_flam!(doc)
 
             doc.to_html.gsub("\uFFFC", '<var class="placeholder">…</var>')
@@ -171,6 +172,15 @@ module Jekyll
           doc.css('img:not([alt])').each do |img|
             img['alt'] = ''
           end
+        end
+
+        def style_optional_placeholders!(doc)
+            doc.css('var.placeholder').each do |var|
+                next unless var.text.match? /[\[\]]/
+                var.add_class("optional")
+                var['title'] = "Optional"
+                var.inner_html = var.inner_html.gsub(/[\[\]]/, "")
+            end
         end
 
         def delineate_flim_flam!(doc)
