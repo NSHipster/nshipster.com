@@ -468,6 +468,15 @@ article.translator {
       td {
         padding: 1em;
       }
+
+      table {
+        margin: 0;
+        th,
+        td {
+          border: none;
+          padding: 0.25em;
+        }
+      }
     }
   }
 

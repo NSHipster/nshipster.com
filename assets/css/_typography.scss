@@ -253,6 +253,10 @@ abbr,
     background: transparent;
     border-color: $gray-light;
   }
+
+  &.optional {
+    opacity: 0.5;
+  }
 }
 
 h1,
@@ -340,6 +344,7 @@ aside.parenthetical {
   font-size: smaller;
   font-style: italic;
   color: $gray;
+  padding-bottom: 1em;
 
   p:before {
     content: "(";
