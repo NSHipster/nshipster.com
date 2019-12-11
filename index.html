@@ -3,10 +3,6 @@ title: NSHipster
 permalink: /
 ---
 
-{% if site.lang == "en-US" %}
-{% include promo.html book="nshipster" %}
-{% endif %}
-
 {% assign sorted_posts = site.posts | sort: 'updated_on' | reverse %}
 {% assign latest_post = sorted_posts.first %}
 <section id="latest">
@@ -23,6 +19,10 @@ permalink: /
     <a class="readmore" href="{{ latest_post.url }}">{% t continue_reading %}</a>
   </article>
 </section>
+
+{% if site.lang == "en-US" %}
+{% include promo.html book="nshipster" %}
+{% endif %}
 
 {% if sorted_posts.size > 3 %}
 <section id="recent">
