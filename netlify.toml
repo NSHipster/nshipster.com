@@ -162,5 +162,9 @@
   to = "https://nshipster.com/formatter"
 
 [[redirects]]
+  from = "https://nshipster.com/clang-diagnostics"
+  to = "https://nshipster.com/pragma"
+
+[[redirects]]
   from = "https://nshipster.com/*/mutableCopyWithZone:"
   to = "https://nsmutablehipster.com/:splat"
