@@ -13,8 +13,8 @@ summary: >-
   to win the respect and admiration of your colleagues.
 
 image: nshipster-obscure-topics-third-edition.png
-availability: http://schema.org/PreOrder
-book_url: https://gum.co/nshipster-third-edition/preorder
+availability: http://schema.org/InStock
+book_url: https://gum.co/nshipster-third-edition
 price: 39.00
 number_of_pages: 300
 category: Media > Books > Non-Fiction > Technology Books
