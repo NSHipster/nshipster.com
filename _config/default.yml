@@ -27,6 +27,8 @@ kramdown:
 
 future: true
 
+strict_front_matter: true
+
 defaults:
   - scope:
       path: ""
