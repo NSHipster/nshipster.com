@@ -1,0 +1,15 @@
+dl {
+  display: grid;
+  grid-template-columns: min-content auto;
+  gap: 0.5em 1em;
+}
+
+dt {
+  grid-column-start: 1;
+  margin: 0 !important;
+}
+
+dd {
+  grid-column-start: 2;
+  margin: 0 0 1em 0 !important;
+}
