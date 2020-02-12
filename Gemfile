@@ -11,7 +11,7 @@ gem 'uglifier', '~> 4.0'
 gem 'kramdown'
 
 gem 'rouge', git: 'https://github.com/NSHipster/rouge.git',
-             branch: 'swift-with-placeholder-token'
+             branch: 'master'
 
 gem 'nokogiri'
 gem 'sassc'
@@ -23,8 +23,8 @@ gem 'twitter_cldr'
 group :jekyll_plugins do
   gem 'jekyll-assets'
   gem 'jekyll-include-cache'
-  gem 'jekyll-tidy'
   gem 'jekyll-scholar'
+  gem 'jekyll-tidy'
 end
 
 group :development do

@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/NSHipster/rouge.git
-  revision: 2d03db87bf6a14a73c8fe8b475adec8eed1cf8ea
-  branch: swift-with-placeholder-token
+  revision: 1eaae9778df4c92378f58e61d9976b0ed325ba64
+  branch: master
   specs:
-    rouge (3.3.0)
+    rouge (3.16.0)
 
 GIT
   remote: https://github.com/jekyll/jekyll.git
