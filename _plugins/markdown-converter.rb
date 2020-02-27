@@ -107,6 +107,7 @@ module Jekyll
                        when /lisp/ then 'Lisp'
                        when /fortran/ then 'FORTRAN'
                        when /cobol/ then 'COBOL'
+                       when /xcconfig/ then 'Xcode Build Settings'
                        when nil then ''
                        else
                          class_name.gsub(/language-/, '')
@@ -178,12 +179,13 @@ module Jekyll
         end
 
         def style_optional_placeholders!(doc)
-            doc.css('var.placeholder').each do |var|
-                next unless var.text.match? /[\[\]]/
-                var.add_class("optional")
-                var['title'] = "Optional"
-                var.inner_html = var.inner_html.gsub(/[\[\]]/, "")
-            end
+          doc.css('var.placeholder').each do |var|
+            next unless var.text.match? /[\[\]]/
+
+            var.add_class('optional')
+            var['title'] = 'Optional'
+            var.inner_html = var.inner_html.gsub(/[\[\]]/, '')
+          end
         end
 
         def delineate_flim_flam!(doc)
