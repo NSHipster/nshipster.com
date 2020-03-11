@@ -79,6 +79,7 @@ GEM
       sprockets (>= 3.3, < 4.1.beta)
     jekyll-include-cache (0.1.0)
       jekyll (~> 3.3)
+    jekyll-purgecss (0.3.0)
     jekyll-sanity (1.2.0)
       jekyll (~> 3.1)
     jekyll-sass-converter (1.5.2)
@@ -154,6 +155,7 @@ DEPENDENCIES
   jekyll!
   jekyll-assets
   jekyll-include-cache
+  jekyll-purgecss
   jekyll-scholar
   jekyll-tidy
   kramdown

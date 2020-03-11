@@ -23,6 +23,7 @@ gem 'twitter_cldr'
 group :jekyll_plugins do
   gem 'jekyll-assets'
   gem 'jekyll-include-cache'
+  gem 'jekyll-purgecss'
   gem 'jekyll-scholar'
   gem 'jekyll-tidy'
 end

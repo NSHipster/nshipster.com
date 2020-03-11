@@ -3,6 +3,7 @@
   command = """
     git submodule update --init --remote --merge &&
     sed -i s/DOMAIN_PLACEHOLDER/$DOMAIN/g netlify.toml &&
+    npm install &&
     jekyll build --config _config/default.yml,_config/$DOMAIN.yml &&
     npm --prefix _functions/search install
   """

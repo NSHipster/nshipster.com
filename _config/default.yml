@@ -84,3 +84,5 @@ jekyll_tidy:
   exclude:
     - robots.txt
     - humans.txt
+
+css_dir: assets
