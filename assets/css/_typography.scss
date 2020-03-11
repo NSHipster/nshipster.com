@@ -131,11 +131,6 @@ a {
     text-decoration: underline;
   }
 
-  &:hover,
-  &:visited:hover {
-    text-decoration: none;
-  }
-
   &:active,
   &:focus {
     outline: none;
