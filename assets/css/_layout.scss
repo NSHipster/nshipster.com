@@ -312,8 +312,8 @@ html[lang="ko-KR"] [role="banner"] {
         display: block;
         margin-right: 3.57866%;
         width: 35.26334%;
-        border-radius: 10px;
-        background: #ff8000;
+        border-radius: 8px;
+        background: var(--orange);
         font-size: 0.75em;
         padding: 15px 0;
 
@@ -452,7 +452,7 @@ article.translator {
     blockquote {
       margin: 2em;
       margin-right: 4em;
-      border-left: 3px #ff8000 solid;
+      border-left: 3px var(--orange) solid;
 
       cite {
         margin-top: 1em;
@@ -699,7 +699,7 @@ article.translator {
 
       &:hover {
         padding: 0;
-        border: 4px #ff8000 solid;
+        border: 4px var(--orange) solid;
       }
     }
   }
