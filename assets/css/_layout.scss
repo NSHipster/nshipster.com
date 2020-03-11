@@ -243,77 +243,6 @@ html[lang="ko-KR"] [role="banner"] {
   }
 }
 
-#follow {
-  ul {
-    float: left;
-    display: block;
-    margin-right: 2.35765%;
-    width: 31.76157%;
-
-    &:last-child {
-      margin-right: 0;
-    }
-
-    li {
-      float: left;
-      display: block;
-      margin-right: 7.42297%;
-      width: 19.43277%;
-      font-size: 2em;
-
-      &:last-child,
-      &:nth-of-type(4n) {
-        margin-right: 0;
-      }
-
-      a:hover {
-        text-decoration: none;
-      }
-    }
-  }
-
-  form {
-    float: left;
-    display: block;
-    margin-right: 2.35765%;
-    width: 57.35098%;
-    margin-left: 8.5298%;
-    margin-right: 0;
-
-    &:last-child {
-      margin-right: 0;
-    }
-
-    input {
-      &[type="email"] {
-        float: left;
-        display: block;
-        margin-right: 3.57866%;
-        width: 61.158%;
-
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-
-      &[type="submit"] {
-        float: left;
-        display: block;
-        margin-right: 3.57866%;
-        width: 35.26334%;
-        border-radius: 8px;
-        background: var(--orange);
-        font-size: 0.75em;
-        padding: 15px 0;
-
-        &:last-child {
-          margin-right: 0;
-        }
-      }
-    }
-  }
-}
-
 article.author,
 article.translator {
   padding-top: 2em;
@@ -644,7 +573,6 @@ article.translator {
     }
   }
 }
-
 
 #publications {
   .books {
