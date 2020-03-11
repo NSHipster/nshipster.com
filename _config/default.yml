@@ -71,6 +71,8 @@ exclude:
   - netlify.toml
   - _redirects
   - _functions/
+  - vendor/
+  - node_modules
 
 assets:
   source_maps: false
