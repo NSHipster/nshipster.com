@@ -79,7 +79,7 @@
       // text-decoration: underline;
       content: " (" attr(title) ") ";
       float: footnote;
-      color: #333;
+      color: var(--secondary-text);
       font-size: small;
       text-decoration: none;
       text-align: left;

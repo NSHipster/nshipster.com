@@ -13,14 +13,17 @@
 
 .admonition {
   font-family: $sans-serif-font-stack;
-  border-left-width: 4px;
-  border-left-style: solid;
+  border-left: 4px var(--separator) solid;
   padding: 5px 40px;
   margin: 1.5em 0;
   display: block;
   clear: both;
   overflow: visible;
   font-size: smaller;
+
+  a {
+    text-decoration: underline;
+  }
 
   p {
     margin: 0.5em 0;
@@ -40,6 +43,7 @@
     margin-left: 0 !important;
     margin-top: 0.25em !important;
     margin-bottom: 0.25em !important;
+    border-left-color: var(--separator) !important;
   }
 
   ins {
@@ -47,16 +51,10 @@
   }
 
   &.info {
-    background: #edf5fa;
-    border-color: #4daafc;
-
-    a {
-      color: #08f;
-    }
-
-    blockquote {
-      border-left-color: #4daafc !important;
-    }
+    --code: var(--blue);
+    --link: var(--blue);
+    --separator: var(--blue);
+    --background: #edf5fa;
 
     &:before {
       @include border-icon("info");
@@ -64,16 +62,10 @@
   }
 
   &.warning {
-    background: #fcfaf6;
-    border-color: #f9d780;
-
-    a {
-      color: #f0b112;
-    }
-
-    blockquote {
-      border-left-color: #f9d780 !important;
-    }
+    --background: #fcfaf6;
+    --code: var(--yellow);
+    --link: var(--yellow);
+    --separator: var(--yellow);
 
     &:before {
       @include border-icon("warning");
@@ -81,16 +73,10 @@
   }
 
   &.error {
-    background: #fcf2f6;
-    border-color: #f5569d;
-
-    a {
-      color: #e62279;
-    }
-
-    blockquote {
-      border-left-color: #f5569d !important;
-    }
+    --background: #fcf2f6;
+    --code: var(--pink);
+    --link: var(--pink);
+    --separator: var(--pink);
 
     &:before {
       @include border-icon("error");

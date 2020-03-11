@@ -8,7 +8,7 @@ body {
 body {
   padding: env(safe-area-inset-top) env(safe-area-inset-right)
     env(safe-area-inset-bottom) env(safe-area-inset-left);
-  border-top: 3px $orange solid;
+  border-top: 3px var(--orange) solid;
 }
 
 hr {
@@ -30,14 +30,14 @@ video {
 }
 
 blockquote {
-  border-left: 2px solid #ddd;
-  color: #595959;
+  border-left: 2px solid var(--separator);
+  color: var(--secondary-text);
   margin: 1.5em 0;
   padding-left: 0.75em;
 }
 
 cite {
-  color: #737373;
+  color: var(--text);
   font-style: italic;
 
   &:before {
@@ -53,14 +53,14 @@ table {
 }
 
 th {
-  border-bottom: 1px solid #b7b7b7;
+  border-bottom: 1px solid var(--separator-opaque);
   font-weight: bold;
   padding: 0.75em 0;
   text-align: left;
 }
 
 td {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid var(--separator);
   padding: 0.75em 0;
 }
 
@@ -377,7 +377,7 @@ article.translator {
       font-family: $serif-font-stack;
       font-style: italic;
       font-weight: 300;
-      color: #a3a39e;
+      color: var(--secondary-text);
 
       a,
       span,
@@ -551,7 +551,7 @@ article.translator {
       display: block;
       font-size: 1em;
       font-weight: 700;
-      color: #777;
+      color: var(--secondary-text);
       text-transform: lowercase;
       font-family: $sans-serif-font-stack;
       font-variant: small-caps;
@@ -724,7 +724,7 @@ article.translator {
     cursor: pointer;
     flex: 0;
     padding-left: 0.5em;
-    color: $gray-dark !important;
+    color: var(--fill) !important;
     text-decoration: none;
     transition: opacity 0.5s;
     background: transparent !important;
@@ -761,6 +761,7 @@ article.translator {
 #promotion {
   article {
     background-color: rgba(255, 128, 0, 0.2);
+    background-color: color(p3 1 0.5 0 0.2);
     margin-left: -1em;
     margin-right: -1em;
     margin-top: 0.5em;
@@ -811,9 +812,9 @@ article.translator {
   }
 
   a.buy {
-    background: #ff8000;
+    background: var(--orange);
     border-radius: 10px;
-    color: #fff !important;
+    color: white !important;
     font-family: $sans-serif-font-stack;
     font-weight: 700;
     margin-top: 1em;
@@ -852,14 +853,14 @@ table#status {
 
   caption {
     padding: 1em 0;
-    color: #777;
+    color: var(--secondary-text);
   }
 
   .version {
     text-align: center;
 
     em {
-      color: #777;
+      color: var(--secondary-text);
     }
   }
 }

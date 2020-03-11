@@ -1,32 +1,226 @@
 .highlight {
-    background: $gray-dark;
-    border: 1px transparent solid;
-    border-radius: 5px;
-    overflow: auto;
-    padding: 0.5em 1em;
-    margin-bottom: 1em;
+  background: var(--secondary-background);
+  border: 1px var(--separator-opaque) solid;
+  border-radius: 5px;
+  overflow: auto;
+  padding: 0.5em 1em;
+  margin-bottom: 1em;
 
-    code {
-        color: $gray-light;
-        background: transparent !important;
-    }
+  code {
+    color: var(--text);
+    background: transparent !important;
+  }
+
+  &[data-lang="JWT"] {
+    white-space: pre-wrap;
+  }
 }
 
 .highlight {
-    ::selection {
-        color: inherit;
+  .placeholder {
+    color: var(--text);
+  }
+
+  .o {
+    color: var(--text);
+  }
+
+  .p {
+    color: var(--gray);
+  }
+
+  .err {
+    color: var(--gray);
+  }
+
+  .s,
+  .sa,
+  .sb,
+  .sc,
+  .dl,
+  .sd,
+  .s2,
+  .sh,
+  .sx,
+  .sr,
+  .s1,
+  .ss {
+    color: var(--orange);
+  }
+
+  .se,
+  .si {
+    color: var(--text);
+  }
+
+  .k,
+  .kc,
+  .kd,
+  .kn,
+  .kp,
+  .kr {
+    color: var(--purple);
+  }
+
+  .kt {
+    color: var(--text);
+  }
+
+  .kd + .kt {
+    color: var(--text);
+  }
+
+  .go,
+  .nc,
+  .nf,
+  .nv {
+    color: var(--text);
+  }
+
+  .kt + .o + .n,
+  .nf {
+    color: var(--indigo);
+  }
+
+  .cp,
+  .c1 {
+    color: var(--gray);
+  }
+
+  .n,
+  .na,
+  .nb,
+  .bp,
+  .no,
+  .nd,
+  .ni,
+  .py,
+  .nl,
+  .nn,
+  .nx,
+  .nt,
+  .vc,
+  .vg,
+  .vi {
+    color: var(--text);
+  }
+
+  .l,
+  .ld,
+  .s,
+  .sb,
+  .sc,
+  .sd,
+  .s2,
+  .se,
+  .sh,
+  .si,
+  .sx,
+  .sr,
+  .s1,
+  .ss,
+  .m,
+  .mf,
+  .mh,
+  .mi,
+  .il,
+  .mo,
+  .mx,
+  .mb {
+    color: var(--indigo);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .highlight {
+    .p {
+      color: var(--gray2);
     }
 
-    ::-moz-selection {
-        color: inherit;
+    .err {
+      color: var(--gray);
     }
 
-    .hll,
     .s,
     .sa,
     .sb,
     .sc,
     .dl,
+    .sd,
+    .s2,
+    .sh,
+    .sx,
+    .sr,
+    .s1,
+    .ss {
+      color: var(--green);
+    }
+
+    .se,
+    .si {
+      color: var(--text);
+    }
+
+    .k,
+    .kc,
+    .kd,
+    .kn,
+    .kp,
+    .kr {
+      color: var(--teal);
+    }
+
+    .kt {
+      color: var(--yellow);
+    }
+
+    .kd + .kt {
+      color: var(--orange);
+    }
+
+    .go,
+    .nc,
+    .nf,
+    .nv {
+      color: var(--text);
+    }
+
+    .kt + .o + .n,
+    .nf {
+      color: var(--purple);
+    }
+
+    .cp {
+      color: var(--red);
+    }
+
+    .c1 {
+      color: var(--gray2);
+    }
+
+    .n,
+    .na,
+    .nb,
+    .bp,
+    .no,
+    .nd,
+    .ni,
+    .py,
+    .nl,
+    .nn,
+    .nx,
+    .nt,
+    .vc,
+    .vg,
+    .vi {
+      color: var(--pink);
+    }
+
+    .l,
+    .ld,
+    .s,
+    .sb,
+    .sc,
     .sd,
     .s2,
     .se,
@@ -35,121 +229,16 @@
     .sx,
     .sr,
     .s1,
-    .ss {
-        color: $yellow;
-    }
-
-    .go {
-        color: $gray;
-    }
-
-    .err,
-    .g,
-    .l,
-    .n,
-    .x,
-    .p,
-    .ge,
-    .gr,
-    .gh,
-    .gi,
-    .gp,
-    .gs,
-    .gu,
-    .gt,
-    .ld,
-    .no,
-    .nd,
-    .ni,
-    .ne,
-    .nn,
-    .nx,
-    .py,
-    .w,
-    .bp {
-        color: $gray-light;
-    }
-
-    .gh,
-    .gi,
-    .gu {
-        font-weight: bold;
-    }
-
-    .ge {
-        text-decoration: underline;
-    }
-
-    .bp {
-        // font-style: italic;
-    }
-
-    .c,
-    .ch,
-    .cm,
-    .cpf,
-    .c1,
-    .cs {
-        color: $blue;
-    }
-
-    .kd,
-    .kt,
-    .nb,
-    .nl,
-    .nv,
-    .vc,
-    .vg,
-    .vi,
-    .vm {
-        color: $cyan;
-    }
-
-    .kd,
-    .nb,
-    .nl,
-    .nv,
-    .vc,
-    .vg,
-    .vi,
-    .vm {
-        // font-style: italic;
-    }
-
-    .na,
-    .nc,
-    .nf,
-    .fm {
-        color: $orange;
-    }
-
-    .k,
-    .o,
-    .cp,
-    .kc,
-    .kn,
-    .kp,
-    .kr,
-    .nt,
-    .ow {
-        color: $pink;
-    }
-
+    .ss,
     .m,
-    .mb,
     .mf,
     .mh,
     .mi,
+    .il,
     .mo,
-    .il {
-        color: $purple;
+    .mx,
+    .mb {
+      color: var(--orange);
     }
-
-    .gd {
-        color: $red;
-    }
-}
-
-.highlight[data-lang="JWT"] {
-    white-space: pre-wrap;
+  }
 }

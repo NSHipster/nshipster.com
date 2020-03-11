@@ -19,87 +19,77 @@
 @import "media-queries/print";
 
 * {
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-::selection {
-    background: rgba(76, 49, 80, 0.5);
-    color: #ffffff;
-}
-
-::-moz-selection {
-    background: rgba(76, 49, 80, 0.5);
-    color: #ffffff;
-}
-
-#type-encodings tr>td:first-child,
-#method-encodings tr>td:first-child {
-    width: 12em;
-    padding-left: 3em;
+#type-encodings tr > td:first-child,
+#method-encodings tr > td:first-child {
+  width: 12em;
+  padding-left: 3em;
 }
 
 @media screen and (max-width: 480px) {
-    #gpuimage table {
-        font-size: 50%;
-    }
+  #gpuimage table {
+    font-size: 50%;
+  }
 }
 
 #gpuimage {
-    #gpuimage-benchmarks td {
-        text-align: center;
+  #gpuimage-benchmarks td {
+    text-align: center;
 
-        &:first-child {
-            text-align: left;
-        }
-
-        &:last-child {
-            text-align: right;
-        }
+    &:first-child {
+      text-align: left;
     }
 
-    #gpuimage-filters td {
-        vertical-align: top;
-        font-size: 75%;
+    &:last-child {
+      text-align: right;
     }
+  }
 
-    blockquote {
-        font-size: 75%;
-    }
+  #gpuimage-filters td {
+    vertical-align: top;
+    font-size: 75%;
+  }
+
+  blockquote {
+    font-size: 75%;
+  }
 }
 
 table {
-    &.core-data-versus-nskeyedarchiver td {
-        text-align: center;
+  &.core-data-versus-nskeyedarchiver td {
+    text-align: center;
 
-        &:first-child {
-            text-align: left;
-            font-weight: bold;
-        }
+    &:first-child {
+      text-align: left;
+      font-weight: bold;
     }
+  }
 
-    &#xcode-key-bindings-modifiers {
-        width: 100%;
+  &#xcode-key-bindings-modifiers {
+    width: 100%;
 
-        td,
-        th {
-            width: 20%;
-            text-align: center;
-        }
+    td,
+    th {
+      width: 20%;
+      text-align: center;
     }
+  }
 }
 
 #cfstringtransform table {
-    display: block;
+  display: block;
 
-    td:first-child {
-        width: 60%;
-    }
+  td:first-child {
+    width: 60%;
+  }
 }
 
 #icloud header time {
-    background-color: rgba(255, 128, 0, 0.2);
+  background-color: rgba(255, 128, 0, 0.2);
 }
 
 // .tabs {
@@ -206,4 +196,3 @@ table {
 // [role="tabpanel"] *+p {
 //     margin-top: 1em;
 // }
-

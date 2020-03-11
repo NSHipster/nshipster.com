@@ -33,7 +33,7 @@
     grid-area: header;
 
     span.s2 {
-      color: $pink !important;
+      color: var(--pink) !important;
     }
   }
 
@@ -41,7 +41,7 @@
     grid-area: payload;
 
     span.s2 {
-      color: $purple !important;
+      color: var(--purple) !important;
     }
   }
 
@@ -50,11 +50,7 @@
 
     span.s2,
     span.nx {
-      color: $cyan !important;
-    }
-
-    span.o {
-      color: white !important;
+      color: var(--teal) !important;
     }
   }
 

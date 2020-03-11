@@ -1,72 +1,90 @@
 @media (prefers-color-scheme: dark) {
-    body {
-        background: #2c2a28 !important;
-        color: $gray-light !important;
+  :root {
+    --red: rgb(255, 69, 58);
+    --yellow: rgb(255, 214, 10);
+    --green: rgb(48, 209, 88);
+    --teal: rgb(100, 210, 255);
+    --blue: rgb(10, 132, 255);
+    --indigo: rgb(94, 92, 230);
+    --purple: rgb(191, 90, 242);
+    --pink: rgb(255, 55, 95);
+    --gray: rgb(142, 142, 147);
+    --gray2: rgb(99, 99, 102);
+    --gray3: rgb(72, 72, 74);
+    --gray4: rgb(58, 58, 60);
+    --gray5: rgb(44, 44, 46);
+    --gray6: rgb(28, 28, 30);
 
-        blockquote {
-            color: $gray-light !important;
-        }
+    --text: rgb(255, 255, 255);
+    --secondary-text: rgb(235, 235, 245);
+    --placeholder-text: rgb(235, 235, 245);
+    --separator: rgb(84, 84, 88);
+    --opaque-separator: rgb(56, 56, 58);
+    --fill: rgb(120, 120, 128);
+    --secondary-fill: rgb(120, 120, 128);
+    --background: rgb(14, 14, 15);
+    --secondary-background: rgb(28, 28, 30);
+  }
 
-        div.highlight {
-            border: 1px $gray-light solid !important;
-        }
+  @supports (color: color(display-p3 1 1 1)) {
+    :root {
+      --red: color(display-p3 1 0.4118 0.3804);
+      --yellow: color(display-p3 1 0.8314 0.149);
+      --green: color(display-p3 0.1882 0.8588 0.3569);
+      --teal: color(display-p3 0.4392 0.8431 1);
+      --blue: color(display-p3 0.251 0.6118 1);
+      --indigo: color(display-p3 0.4902 0.4784 1);
+      --purple: color(display-p3 0.8549 0.5608 1);
+      --pink: color(display-p3 1 0.3922 0.5098);
+      --gray: color(display-p3 0.6824 0.6824 0.698);
+      --gray2: color(display-p3 0.4863 0.4863 0.502);
+      --gray3: color(display-p3 0.3294 0.3294 0.3373);
+      --gray4: color(display-p3 0.2667 0.2667 0.2745);
+      --gray5: color(display-p3 0.2118 0.2118 0.2196);
+      --gray6: color(display-p3 0.1412 0.1412 0.149);
 
-        .language-toggle a {
-            color: $gray-light !important;
-        }
+      --text: color(display-p3 1 1 1);
+      --secondary-text: color(display-p3 0.9216 0.9216 0.9608);
+      --placeholder-text: color(display-p3 0.9216 0.9216 0.9608);
+      --separator: color(display-p3 0.3294 0.3294 0.3451);
+      --opaque-separator: color(display-p3 0.2196 0.2196 0.2275);
+      --fill: color(display-p3 0.4706 0.4706 0.502);
+      --secondary-fill: color(display-p3 0.4706 0.4706 0.502);
+      --background: color(display-p3 0.0706 0.0706 0.075);
+      --secondary-background: color(display-p3 0.1412 0.1412 0.149);
+    }
+  }
 
-        .info {
-            background: #333c44 !important;
-        }
-
-        .warning {
-            background: #484131 !important;
-        }
-
-        .error {
-            background: #592e41 !important;
-        }
-
-        [role="tablist"] button {
-            color: $gray-light !important;
-        }
+  body {
+    div.highlight {
+      border: 1px var(--separator) solid !important;
     }
 
-    article,
-    i {
-        img[src$=".svg"] {
-            filter: invert(100%);
-        }
+    .language-toggle a {
+      color: var(--secondary-text) !important;
     }
 
-    kbd {
-        color: $gray-light;
-        background-color: $gray-dark;
-        box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2), 0 0 0 2px #222 inset;
+    .info {
+      background: #333c44 !important;
     }
 
-    .placeholder {
-        color: $gray-light;
-        background-color: $gray-dark;
-        border-color: $gray-light;
+    .warning {
+      background: #484131 !important;
     }
 
-    a,
-    p,
-    li,
-    dd,
-    td {
-        code {
-            background: $gray-dark;
-        }
+    .error {
+      background: #592e41 !important;
     }
+  }
 
-    p,
-    li,
-    dd,
-    td {
-        code {
-            color: $purple;
-        }
+  article,
+  i {
+    img[src$=".svg"] {
+      filter: invert(100%);
     }
+  }
+
+  kbd {
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2), 0 0 0 2px #222 inset;
+  }
 }

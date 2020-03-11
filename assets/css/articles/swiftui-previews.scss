@@ -3,7 +3,7 @@
 .code-with-automatic-preview {
   display: flex;
   align-items: stretch;
-  background-color: $gray-dark;
+  background-color: var(--secondary-background);
   margin-bottom: 2em;
 
   .highlight {
@@ -13,8 +13,8 @@
   aside {
     flex: 1;
     max-width: 400px;
-    border-left: 1px $gray-light solid;
-    background-color: #404040;
+    border-left: 1px var(--opaque-separator) solid;
+    background-color: var(--secondary-background);
     margin-left: 20px;
     padding: 10px;
   }
