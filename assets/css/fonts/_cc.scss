@@ -1,0 +1,9 @@
+@font-face {
+  font-family: "Creative Commons Symbols";
+  src: url(font_path("CreativeCommonsSymbols.woff2")) format("woff2"),
+    url(font_path("CreativeCommonsSymbols.woff")) format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: optional;
+  unicode-range: U+1F10F, U+1F16D, U+1F16F;
+}

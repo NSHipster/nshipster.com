@@ -4,7 +4,6 @@
 @import "animations";
 @import "typography";
 @import "admonitions";
-@import "icons";
 @import "layout";
 @import "code";
 @import "inputs";
@@ -90,6 +89,11 @@ table {
 
 #icloud header time {
   background-color: rgba(255, 128, 0, 0.2);
+}
+
+[role="contentinfo"] i {
+  font-style: normal;
+  font-family: "Creative Commons Symbols";
 }
 
 // .tabs {
