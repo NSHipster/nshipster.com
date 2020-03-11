@@ -645,26 +645,6 @@ article.translator {
   }
 }
 
-#sharing {
-  ul {
-    @include clearfix;
-
-    display: block;
-    float: right;
-  }
-
-  li {
-    font-size: 1.5em;
-    display: block;
-    margin: 0.5em;
-    float: left;
-
-    a:hover {
-      text-decoration: none;
-      color: #4c3150 !important;
-    }
-  }
-}
 
 #publications {
   .books {
