@@ -1,85 +1,82 @@
 .color {
-    background: var(--color);
-    display: inline-block;
+  background: var(--color);
+  display: inline-block;
 }
 
 p .color {
-    width: 0.8em;
-    height: 0.8em;
-    border-radius: 0.2ch;
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: 0.2ch;
 }
 
 table {
-    table-layout: auto;
+  table-layout: auto;
 
-    thead {
-        tr:not(:first-of-type) th {
-            font-weight: normal;
-            font-size: 0.5em;
-        }
+  thead {
+    tr:not(:first-of-type) th {
+      font-weight: normal;
+      font-size: 0.5em;
     }
+  }
 
-    td {
-        padding: 0.5em 0 !important;
-    }
+  td {
+    padding: 0.5em 0 !important;
+  }
 
-    .color {
-        width: 64px;
-        height: 64px;
-        border-radius: 8px;
-        display: block;
-        margin: 0 auto;
-    }
+  .color {
+    width: 64px;
+    height: 64px;
+    border-radius: 8px;
+    display: block;
+    margin: 0 auto;
+  }
 }
 
-
-
 td.dark {
-    background: #2c2a28
+  background: #2c2a28;
 }
 
 @media (prefers-color-scheme: dark) {
-    td.light {
-        background: #fefefe;
-    }
+  td.light {
+    background: #fefefe;
+  }
 }
 
 @media screen and (max-width: 768px) {
-    table td .color {
-        width: 32px;
-        height: 32px;
-        border-radius: 4px;
-    }
+  table td .color {
+    width: 32px;
+    height: 32px;
+    border-radius: 4px;
+  }
 }
 
 #fixed-colors {
-    display: grid;
-    grid-template-columns: 1fr 0 1fr;
+  display: grid;
+  grid-template-columns: 1fr 0 1fr;
 }
 
-
 @media screen and (min-width: 768px) {
-#semantic-colors {
+  #semantic-colors {
     column-count: 2;
     column-fill: balance;
 
     dl {
-        margin-top: 0;
-        padding-top: 0;
+      margin-top: 0;
+      padding-top: 0;
     }
 
     dt {
-        margin-top: 2em;
+      margin-top: 2em;
     }
 
     dd {
-        break-before: avoid;
-        break-inside: avoid;
-        -webkit-column-break-before: avoid;
-        margin-bottom: 0.5em;
-        &:before {
-            content: "• "
-        }
+      break-before: avoid;
+      break-inside: avoid;
+      -webkit-column-break-before: avoid;
+      margin-bottom: 0.5em;
+      &:before {
+        content: "• ";
+      }
     }
-}
+  }
 }
