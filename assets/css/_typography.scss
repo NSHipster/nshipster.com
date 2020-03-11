@@ -152,22 +152,15 @@ p > small {
   user-select: all;
 }
 
-a,
-p,
-li,
-dd,
-td {
+:matches(a, p, li, dd, td) {
   code {
     padding: 0.25em;
     font-size: smaller;
-    border-radius: 3px;
+    border-radius: 4px;
   }
 }
 
-p,
-li,
-dd,
-td {
+:matches(p, li, dd, td) {
   code {
     color: var(--code);
   }
