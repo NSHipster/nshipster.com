@@ -16,8 +16,8 @@ $mono-font-stack: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier,
 html,
 body {
   font-family: $serif-font-stack;
-  font-size: 15pt;
-  line-height: 1.5;
+  font-size: 16pt;
+  line-height: 21pt;
   font-weight: 300;
   font-kerning: normal;
   -webkit-font-kerning: normal;
@@ -289,7 +289,7 @@ h6 {
 }
 
 .tagline {
-  font-size: 1.5em;
+  font-size: 1.33em;
 }
 
 #latest,
