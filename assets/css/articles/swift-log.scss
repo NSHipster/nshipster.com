@@ -1,0 +1,39 @@
+#log-levels {
+  table-layout: auto;
+  tbody td:first-of-type {
+    background-color: var(--color);
+    code {
+      background-color: var(--background);
+      color: var(--text) !important;
+      display: block;
+    }
+  }
+}
+
+#log-level-trace {
+  --color: var(--gray);
+}
+
+#log-level-debug {
+  --color: var(--blue);
+}
+
+#log-level-info {
+  --color: var(--green);
+}
+
+#log-level-notice {
+  --color: var(--yellow);
+}
+
+#log-level-warning {
+  --color: var(--orange);
+}
+
+#log-level-error {
+  --color: var(--red);
+}
+
+#log-level-critical {
+  --color: black;
+}
