@@ -52,16 +52,20 @@ table {
   width: 100%;
 }
 
-th {
+thead th {
   border-bottom: 1px solid var(--separator-opaque);
   font-weight: bold;
   padding: 0.75em 0;
   text-align: left;
 }
 
-td {
+tbody td {
   border-bottom: 1px solid var(--separator);
   padding: 0.75em 0;
+}
+
+tbody tr:last-of-type td {
+  border-bottom: none;
 }
 
 tr,
@@ -681,6 +685,7 @@ article.translator {
 
   h3 {
     font-family: $serif-font-stack;
+    font-size: 1.25em;
     margin-bottom: 0.5em;
 
     a {
