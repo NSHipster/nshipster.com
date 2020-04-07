@@ -20,10 +20,6 @@ permalink: /
   </article>
 </section>
 
-{% if site.lang == "en-US" %}
-{% include promo.html book="nshipster" %}
-{% endif %}
-
 {% if sorted_posts.size > 3 %}
 <section id="recent">
   <h1>{% t recent_articles %}</h1>
