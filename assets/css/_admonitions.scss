@@ -12,6 +12,7 @@
 }
 
 .admonition {
+  --code: var(--link);
   font-family: $sans-serif-font-stack;
   border-left: 4px var(--separator) solid;
   padding: 5px 40px;
@@ -51,7 +52,6 @@
   }
 
   &.info {
-    --code: var(--blue);
     --link: var(--blue);
     --separator: var(--blue);
     --background: #edf5fa;
@@ -63,9 +63,8 @@
 
   &.warning {
     --background: #fcfaf6;
-    --code: var(--yellow);
-    --link: var(--yellow);
     --separator: var(--yellow);
+    --link: rgb(178, 129, 6);
 
     &:before {
       @include border-icon("warning");
@@ -74,7 +73,6 @@
 
   &.error {
     --background: #fcf2f6;
-    --code: var(--pink);
     --link: var(--pink);
     --separator: var(--pink);
 
