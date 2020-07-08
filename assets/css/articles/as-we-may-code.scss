@@ -1,0 +1,17 @@
+.nohighlight * {
+  color: var(--gray) !important;
+}
+
+p > code {
+  .kd {
+    color: var(--teal);
+  }
+
+  .nf {
+    color: var(--purple);
+  }
+
+  .p {
+    color: var(--gray);
+  }
+}

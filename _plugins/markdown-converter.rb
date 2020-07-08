@@ -95,6 +95,7 @@ module Jekyll
             language = case class_name
                        when /swift/ then 'Swift'
                        when /objc|objective-c/ then 'Objective-C'
+                       when /json-ld/ then 'JSON-LD'
                        when /json/ then 'JSON'
                        when /python/ then 'Python'
                        when /ruby/ then 'Ruby'
@@ -108,6 +109,11 @@ module Jekyll
                        when /fortran/ then 'FORTRAN'
                        when /cobol/ then 'COBOL'
                        when /xcconfig/ then 'Xcode Build Settings'
+                       when /turtle/ then 'Turtle'
+                       when /sparql/ then 'SPARQL'
+                       when /sql/ then 'SQL'
+                       when /cypher/ then 'Cypher'
+                       when /ntriples/ then 'N-Triples'
                        when nil then ''
                        else
                          class_name.gsub(/language-/, '')
@@ -122,7 +128,7 @@ module Jekyll
         end
 
         def consolidate_consecutive_code_listings!(doc)
-          doc.css('.highlight').each do |pre|
+          doc.css('pre.highlight').each do |pre|
             next if pre.parent['class'] == 'highlight-group'
 
             group = pre.wrap(%(<div class="highlight-group">)).parent
@@ -141,7 +147,7 @@ module Jekyll
             group.prepend_child('<div role="tablist" aria-label="Languages"/>')
             tablist = group.at('[role="tablist"]')
 
-            group.css('.highlight').each_with_index do |div, index|
+            group.css('pre.highlight').each_with_index do |div, index|
               language = div['data-lang'] || 'text'
 
               id = "code-listing-#{number}-#{language.downcase}"
@@ -180,7 +186,7 @@ module Jekyll
 
         def style_optional_placeholders!(doc)
           doc.css('var.placeholder').each do |var|
-            next unless var.text.match? /[\[\]]/
+            next unless var.text.match?(/[\[\]]/)
 
             var.add_class('optional')
             var['title'] = 'Optional'

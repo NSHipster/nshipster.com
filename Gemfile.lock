@@ -1,9 +1,9 @@
 GIT
   remote: https://github.com/NSHipster/rouge.git
-  revision: 58a12fa47f28dbc8bb2ddb798b2492a9fa982c55
+  revision: 1c1d8ad021b5353067878379e1fe1f1fb5a7d7fe
   branch: master
   specs:
-    rouge (3.16.0)
+    rouge (3.19.0)
 
 GIT
   remote: https://github.com/jekyll/jekyll.git
