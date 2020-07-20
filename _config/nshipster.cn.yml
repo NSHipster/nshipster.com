@@ -2,7 +2,7 @@ url: https://nshipster.cn
 lang: zh-Hans
 
 description: >-
-  **NSHipster** 关注被忽略的 Objective-C、Swift 和 Cocoa 特性。每周更新。
+  **NSHipster** 关注被忽略的 Objective-C、Swift 和 Cocoa 特性。
 timezone: Asia/Shanghai
 
 collections_dir: collections/zh-Hans

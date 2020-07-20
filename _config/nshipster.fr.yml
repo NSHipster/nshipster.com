@@ -3,7 +3,7 @@ lang: fr-FR
 
 description: >-
   **NSHipster** est une publication qui s'intéresse aux
-  parties obscures de l'Objective-C, de Swift et de Cocoa. Mise à jour hebdomadaire.
+  parties obscures de l'Objective-C, de Swift et de Cocoa.
 timezone: Europe/Paris
 
 collections_dir: collections/fr

@@ -3,7 +3,7 @@ lang: es-ES
 
 description: >-
   **NSHipster** es una publicación de los bits pasados por alto
-  en Objective-C, Swift y Cocoa. Actualización semanal.
+  en Objective-C, Swift y Cocoa.
 timezone: Europe/Madrid
 
 collections_dir: collections/es
