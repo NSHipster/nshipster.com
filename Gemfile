@@ -21,7 +21,8 @@ gem 'liquid-c'
 gem 'twitter_cldr'
 
 group :jekyll_plugins do
-  gem 'jekyll-assets'
+  gem 'jekyll-assets', git: 'https://github.com/envygeeks/jekyll-assets.git',
+                       branch: 'master'
   gem 'jekyll-include-cache'
   gem 'jekyll-scholar'
   gem 'jekyll-tidy'
