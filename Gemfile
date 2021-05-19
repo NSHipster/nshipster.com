@@ -2,7 +2,7 @@
 
 source 'https://rubygems.org'
 
-gem 'jekyll', git: 'https://github.com/jekyll/jekyll.git'
+gem 'jekyll'
 gem 'rack', '>= 2.0.6'
 
 gem 'sprockets', '~> 4.0.beta'
