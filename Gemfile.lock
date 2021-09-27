@@ -115,7 +115,9 @@ GEM
     mercenary (0.4.0)
     minitest (5.14.4)
     namae (1.1.1)
-    nokogiri (1.11.4-x86_64-darwin)
+    nokogiri (1.12.5-x86_64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.12.5-x86_64-linux)
       racc (~> 1.4)
     pathutil (0.16.2)
       forwardable-extended (~> 2.6)
@@ -148,6 +150,7 @@ GEM
 
 PLATFORMS
   x86_64-darwin-19
+  x86_64-linux
 
 DEPENDENCIES
   foreman
