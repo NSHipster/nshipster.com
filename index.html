@@ -35,18 +35,6 @@ permalink: /
 </section>
 {% endif %}
 
-{% if site.lang == "en-US" %}
-<section id="publications">
-  <h1>{% t publications %}</h1>
-
-  <div class="books">
-  {% include book.html book="flight-school-guide-to-swift-codable" %}
-  {% include book.html book="flight-school-guide-to-swift-numbers" %}
-  {% include book.html book="flight-school-guide-to-swift-strings" %}
-  </div>
-</section>
-{% endif %}
-
 <section id="archive" class="archive" role="navigation">
   {% for group in site.groups %}
     {% for category in site.categories %}
