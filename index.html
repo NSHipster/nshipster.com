@@ -48,27 +48,6 @@ permalink: /
 </section>
 {% endif %}
 
-{% if site.lang == "en-US" %}
-<section id="contributors">
-  <h1>{% t contributors %}</h1>
-
-  <ul>
-  {% for author in site.authors %}
-    <li class="author">
-      <a href="{{ author.url }}">
-        {% if author.image %}
-            <img class="avatar" alt="{{ author.name }}" src="{% asset "{{ author.image }}" @path %}" draggable="false"/>
-        {% else %}
-            <img class="avatar" src="//0.gravatar.com/avatar/{{ author.gravatar }}?size=300" draggable="false"/>
-        {% endif %}
-      </a>
-      <a href="{{ author.url }}">{{ author.name }}</a>
-    </li>
-  {% endfor %}
-  </ul>
-</section>
-{% endif %}
-
 <section id="archive" class="archive" role="navigation">
   {% for group in site.groups %}
     {% for category in site.categories %}
