@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/NSHipster/rouge.git
-  revision: 2b267245ed73191e8c953e201d4a524474b725da
+  revision: 7a84b097e0a6ac77ca9320b3d3fa81d57d5c1e8a
   branch: master
   specs:
     rouge (3.26.0)
