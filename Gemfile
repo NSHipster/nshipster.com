@@ -16,8 +16,6 @@ gem 'rouge', git: 'https://github.com/NSHipster/rouge.git',
 gem 'nokogiri'
 gem 'sassc'
 
-gem 'liquid-c'
-
 gem 'twitter_cldr'
 
 group :jekyll_plugins do
