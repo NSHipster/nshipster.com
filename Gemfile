@@ -15,6 +15,7 @@ gem 'rouge', git: 'https://github.com/NSHipster/rouge.git',
 
 gem 'nokogiri'
 gem 'sassc'
+gem 'ffi', '1.16.3'
 
 gem 'twitter_cldr'
 
