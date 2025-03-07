@@ -1,0 +1,85 @@
+ol {
+    list-style-type: decimal !important;
+}
+
+@media (min-width: 768px) {
+    dl {
+        margin-left: auto;
+        margin-right: auto;
+        width: 85%;
+    }
+
+    dt,
+    dd {
+        padding-left: 2rem;
+        padding-right: 2rem;
+    }
+}
+
+dl {
+    border: 1px solid #b7b7b7;
+    padding: 1rem;
+    margin-top: 0.25rem;
+    margin-bottom: 3rem;
+    font-size: 0.8rem;
+
+    dt,
+    dd {
+        padding-left: 1rem;
+        padding-right: 1rem;
+    }
+
+    dd {
+        margin-left: 0;
+    }
+
+    dt {
+        padding-top: 1rem;
+        margin-bottom: 0.125rem;
+
+        &:first-of-type {
+            padding-top: 0;
+        }
+    }
+}
+
+.user {
+    text-align: left;
+}
+
+.client {
+    text-align: center;
+}
+
+.assistant {
+    text-align: right;
+
+    blockquote {
+        text-align: right !important;
+        border-left: 0;
+    }
+}
+
+[role="article"] .content dl blockquote {
+    text-align: right !important;
+    border-left: 0 !important;
+    margin: 0;
+    font-style: italic;
+}
+
+span.big {
+    font-size: 2rem;
+    padding-top: 0.5rem;
+    display: inline-block;
+}
+
+picture img[src$=".svg"] {
+    filter: none !important;
+}
+
+#imcp-logo {
+    max-width: 480px;
+    display: block;
+    margin: 0 auto;
+    cursor: pointer;
+}
