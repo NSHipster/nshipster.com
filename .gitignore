@@ -11,5 +11,4 @@ nshipster.com/training
 .jekyll-metadata
 Procfile
 _functions/search/index.json
-vendor
 node_modules
