@@ -223,7 +223,7 @@ but I'm planning to have a something out by the end of the year.
 Stay tuned!
 
 > In the meantime,
-> check out [Flight School](https://flight.school).
+> check out [Flight School](https://flightdotschool.com).
 > It's a new, ongoing book series I'm working on
 > that's all about Swift.
 > Each book offers an in-depth look at essential topics

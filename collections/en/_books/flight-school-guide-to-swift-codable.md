@@ -8,7 +8,7 @@ summary: >-
   Make better apps with less code more quickly using Swift Codable.
 image: flight-school-guide-to-swift-codable.svg
 availability: http://schema.org/InStock
-book_url: https://flight.school/books/codable
+book_url: https://flightdotschool.com/books/codable
 price: 29.00
 number_of_pages: 140
 category: Media > Books > Non-Fiction > Technology Books

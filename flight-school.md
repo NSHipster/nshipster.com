@@ -13,16 +13,16 @@ status:
   swift: n/a
 ---
 
-[Flight School](https://flight.school)
+[Flight School](https://flightdotschool.com)
 is a book series for advanced Swift developers
 that explores essential topics in iOS and macOS development
 through concise, focused guides.
 
 Today, I'm excited to announce updates to our guides to
-[Swift Codable](https://flight.school/books/codable) and
-[Numbers](https://flight.school/books/numbers),
+[Swift Codable](https://flightdotschool.com/books/codable) and
+[Numbers](https://flightdotschool.com/books/numbers),
 as well as a brand new
-[Guide to Swift Strings](https://flight.school/books/strings).
+[Guide to Swift Strings](https://flightdotschool.com/books/strings).
 Everything is up-to-date with the latest from Swift 5 and Xcode 10.2,
 and now --- _for the first time_ --- available in print!
 
@@ -64,7 +64,7 @@ it may be hard to relate the theory of your coursework
 (what you can remember of it, anyway)
 to the realities of your day job.
 
-I'm writing [Flight School](https://flight.school)
+I'm writing [Flight School](https://flightdotschool.com)
 to explore important concepts in software development
 in a way that's informative, accessible, and entertaining.
 
@@ -73,7 +73,7 @@ Each book is short enough to be read over a weekend
 Each chapter is filled with practical information that's backed by examples
 that you can experiment with for yourself in Xcode Playgrounds.
 
-The forthcoming [_Guide to Strings_](https://flight.school/books/strings)
+The forthcoming [_Guide to Strings_](https://flightdotschool.com/books/strings)
 is our newest and most ambitious release yet,
 covering everything from the Unicode® standard and Swift 5 `String` internals
 to binary-to-text encoding, parser generators, and natural language processing.
