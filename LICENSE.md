@@ -1,4 +1,4 @@
-Copyright 2018 Read Evaluate Press, LLC
+Copyright 2012 – 2025 NSHipster (https://nshipster.com)
 
 Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the "Software"),
