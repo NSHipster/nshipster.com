@@ -353,6 +353,15 @@ aside.parenthetical {
   }
 }
 
+li aside.parenthetical {
+  display: inline-block;
+  padding-bottom: 0;
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
 .bibliography {
   font-size: smaller;
 }

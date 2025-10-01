@@ -1,0 +1,136 @@
+1
+00:00:02,500 --> 00:00:07,591
+Every kid knows the phrase, [kid sing-songy] "Trick or treat!" But have you
+
+2
+00:00:07,691 --> 00:00:11,882
+ever stopped to wonder — what kind of _"or"_ is that, exactly?
+
+3
+00:00:13,566 --> 00:00:20,150
+Let's start with the obvious interpretation: Two circles—two children. Orange means
+
+4
+00:00:20,250 --> 00:00:25,063
+treats, gray means tricks. This is inclusive OR: If any child
+
+5
+00:00:25,163 --> 00:00:29,976
+knocks, everyone gets candy. Only an empty porch gets tricks.
+
+6
+00:00:30,076 --> 00:00:33,306
+[quickly] [chuckles] Is this how Venn diagrams work? Not at all!
+
+7
+00:00:33,406 --> 00:00:36,323
+But hey, it's Halloween—logic gets to wear a costume, too.
+
+8
+00:00:37,323 --> 00:00:40,651
+[title] Trick AND Treat Both children must show up together, or
+
+9
+00:00:40,751 --> 00:00:44,459
+nobody gets treats. [sarcastic] One lonely kid? Sorry, that's a trick.
+
+10
+00:00:45,459 --> 00:00:50,925
+[title] Trick XOR Treat This house rewards exactly one visitor.
+
+11
+00:00:51,025 --> 00:00:55,077
+Too few or too many, and everyone gets tricked.
+
+12
+00:00:57,377 --> 00:01:00,878
+These three behaviors cover most houses on the block.
+
+13
+00:01:00,978 --> 00:01:04,140
+But De Morgan's laws hint at something more... a
+
+14
+00:01:04,240 --> 00:01:08,353
+theoretical complement to each. A spooky, inverted reflection.
+
+15
+00:01:08,953 --> 00:01:14,882
+[spooky] What cursed operations lurk in the penumbra of reason?
+
+16
+00:01:14,982 --> 00:01:19,380
+Let's face our fears and venture into the dark.
+
+17
+00:01:21,069 --> 00:01:24,576
+[title] Trick NOR Treat: the Halloween hater. This neighbor
+
+18
+00:01:24,676 --> 00:01:27,938
+only gives treats when nobody visits. [quick laugh] The
+
+19
+00:01:28,038 --> 00:01:29,955
+only winning move is not to play.
+
+20
+00:01:30,955 --> 00:01:36,134
+[title] Trick NAND Treat: NOT-AND—the reverse psychology neighbor. This
+
+21
+00:01:36,234 --> 00:01:40,521
+house gives treats to everyone... except pairs. Come alone?
+
+22
+00:01:40,621 --> 00:01:44,833
+Treats. Don't come at all? ...[chuckles] Also Treats. Come
+
+23
+00:01:44,933 --> 00:01:49,219
+together? [mischievous] That's the only way to get tricked.
+
+24
+00:01:50,219 --> 00:01:55,675
+[title] Trick XNOR Treat: the conformity enforcer—XOR inverted. This neighbor
+
+25
+00:01:55,775 --> 00:02:00,148
+rewards matching behavior. Both kids visit, or both stay home?
+
+26
+00:02:00,248 --> 00:02:03,755
+Treats. Just one kid? [judgmental] That's a trick.
+
+27
+00:02:06,555 --> 00:02:11,086
+These bottom-row operations are... deeply strange. They're the
+
+28
+00:02:11,186 --> 00:02:15,268
+kinds of houses you'd skip entirely. But mathematically?
+
+29
+00:02:15,368 --> 00:02:18,106
+They're just as valid as the classics.
+
+30
+00:02:18,705 --> 00:02:20,877
+So the next time a child asks [kid sing-songy]
+
+31
+00:02:20,977 --> 00:02:23,742
+"trick or treat?", you now have the mathematically correct
+
+32
+00:02:23,842 --> 00:02:27,940
+response: [annoying high-pitched nasal pedantic] "That depends—which logical operator
+
+33
+00:02:28,040 --> 00:02:31,249
+are you implementing?" [quick laugh] ...though I wouldn't recommend
+
+34
+00:02:31,349 --> 00:02:33,521
+it if you don't want your house getting egged.
+
