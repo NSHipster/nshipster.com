@@ -1,0 +1,20 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  // A static-assets-only Worker: no server rendering or database.
+  "name": "nshipster",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist",
+    // `/nscache/` serves `nscache/index.html`; `/status` serves `status.html`.
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page",
+  },
+  "env": {
+    // An isolated deployment for checking a build before production cutover.
+    "preview": {
+      "name": "nshipster-preview",
+      "workers_dev": true,
+      "routes": [],
+    },
+  },
+}

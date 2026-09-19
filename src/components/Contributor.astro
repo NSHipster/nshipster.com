@@ -1,0 +1,29 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Avatar from "./Avatar.astro";
+import { t } from "../lib/i18n.ts";
+
+interface Props {
+  author?: CollectionEntry<"authors"> | undefined;
+}
+
+const author = Astro.props.author?.data;
+---
+
+<div class="contributor">
+  <small>{t.writtenBy}</small>
+
+  {
+    author && (
+      <>
+        <Avatar name={author.name} image={author.image} gravatar={author.gravatar} />
+        <div class="details">
+          <span>
+            <a href={author.url}>{author.name}</a>
+          </span>
+          <Fragment set:html={author.bioHTML} />
+        </div>
+      </>
+    )
+  }
+</div>

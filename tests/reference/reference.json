@@ -1,0 +1,4526 @@
+{
+ "description": "Facts captured from the Jekyll build of NSHipster.com, used as the migration reference.",
+ "revisions": {
+  "site": "55b55723be84e8fb29aabb8c9de579cb4c0d63b9",
+  "articles": "b9414a879b0e0001778142e9cc459601d9308585"
+ },
+ "atomIDs": [
+  "https://nshipster.com/replay",
+  "https://nshipster.com/manim",
+  "https://nshipster.com/isolated-any",
+  "https://nshipster.com/uncertainty",
+  "https://nshipster.com/model-context-protocol",
+  "https://nshipster.com/ollama",
+  "https://nshipster.com/1password-cli",
+  "https://nshipster.com/as-we-may-code",
+  "https://nshipster.com/wwdc-2020",
+  "https://nshipster.com/language-server-protocol"
+ ],
+ "sitemapURLs": [
+  "https://nshipster.com",
+  "https://nshipster.com/replay/",
+  "https://nshipster.com/manim/",
+  "https://nshipster.com/isolated-any/",
+  "https://nshipster.com/uncertainty/",
+  "https://nshipster.com/model-context-protocol/",
+  "https://nshipster.com/ollama/",
+  "https://nshipster.com/1password-cli/",
+  "https://nshipster.com/as-we-may-code/",
+  "https://nshipster.com/wwdc-2020/",
+  "https://nshipster.com/cross-pollination/",
+  "https://nshipster.com/contact-tracing/",
+  "https://nshipster.com/swift-log/",
+  "https://nshipster.com/xcconfig/",
+  "https://nshipster.com/callable/",
+  "https://nshipster.com/rawrepresentable/",
+  "https://nshipster.com/at-compiler-directives/",
+  "https://nshipster.com/direct/",
+  "https://nshipster.com/available/",
+  "https://nshipster.com/bless/",
+  "https://nshipster.com/keyvaluepairs/",
+  "https://nshipster.com/secrets/",
+  "https://nshipster.com/message-id/",
+  "https://nshipster.com/device-identifiers/",
+  "https://nshipster.com/metrickit/",
+  "https://nshipster.com/swiftui-previews/",
+  "https://nshipster.com/ios-13/",
+  "https://nshipster.com/apns-device-tokens/",
+  "https://nshipster.com/dark-mode/",
+  "https://nshipster.com/identifiable/",
+  "https://nshipster.com/accessibility-keyboard/",
+  "https://nshipster.com/formatter/",
+  "https://nshipster.com/caemitterlayer/",
+  "https://nshipster.com/uistackview/",
+  "https://nshipster.com/propertywrapper/",
+  "https://nshipster.com/wwdc-2019/",
+  "https://nshipster.com/swift-format/",
+  "https://nshipster.com/image-resizing/",
+  "https://nshipster.com/optional-throws-result-async-await/",
+  "https://nshipster.com/cggeometry/",
+  "https://nshipster.com/guided-access/",
+  "https://nshipster.com/uitableviewheaderfooterview/",
+  "https://nshipster.com/xcode-source-extensions/",
+  "https://nshipster.com/swift-foundation-error-protocols/",
+  "https://nshipster.com/mapkit-js/",
+  "https://nshipster.com/javascriptcore/",
+  "https://nshipster.com/swift-api-pollution/",
+  "https://nshipster.com/swift-regular-expressions/",
+  "https://nshipster.com/expressiblebystringinterpolation/",
+  "https://nshipster.com/textoutputstream/",
+  "https://nshipster.com/swift-sh/",
+  "https://nshipster.com/import/",
+  "https://nshipster.com/bundles-and-packages/",
+  "https://nshipster.com/character-viewer/",
+  "https://nshipster.com/homebrew/",
+  "https://nshipster.com/simctl/",
+  "https://nshipster.com/vscode/",
+  "https://nshipster.com/customplaygrounddisplayconvertible/",
+  "https://nshipster.com/language-server-protocol/",
+  "https://nshipster.com/void/",
+  "https://nshipster.com/swiftsyntax/",
+  "https://nshipster.com/numericcast/",
+  "https://nshipster.com/timeinterval-date-dateinterval/",
+  "https://nshipster.com/macos-dynamic-desktop/",
+  "https://nshipster.com/uifieldbehavior/",
+  "https://nshipster.com/ios-12/",
+  "https://nshipster.com/cmmotionactivity/",
+  "https://nshipster.com/nsdataasset/",
+  "https://nshipster.com/swift-property-observers/",
+  "https://nshipster.com/hashable/",
+  "https://nshipster.com/nllanguagerecognizer/",
+  "https://nshipster.com/never/",
+  "https://nshipster.com/uitextinputpasswordrules/",
+  "https://nshipster.com/bug-reporting/",
+  "https://nshipster.com/swift-gyb/",
+  "https://nshipster.com/nshipster-quiz-8/",
+  "https://nshipster.com/uitextchecker/",
+  "https://nshipster.com/new-years-2016/",
+  "https://nshipster.com/guard-and-defer/",
+  "https://nshipster.com/uikeycommand/",
+  "https://nshipster.com/cloudkit/",
+  "https://nshipster.com/ios9/",
+  "https://nshipster.com/nshipster-quiz-7/",
+  "https://nshipster.com/mirror/",
+  "https://nshipster.com/xcplayground/",
+  "https://nshipster.com/swift-documentation/",
+  "https://nshipster.com/unmanaged/",
+  "https://nshipster.com/quick-look-debugging/",
+  "https://nshipster.com/nscalendar-additions/",
+  "https://nshipster.com/nsscanner/",
+  "https://nshipster.com/ibinspectable-ibdesignable/",
+  "https://nshipster.com/swift-objc-runtime/",
+  "https://nshipster.com/new-years-2015/",
+  "https://nshipster.com/nsundomanager/",
+  "https://nshipster.com/apple-pay/",
+  "https://nshipster.com/watchkit/",
+  "https://nshipster.com/uiprintinteractioncontroller/",
+  "https://nshipster.com/core-location-in-ios-8/",
+  "https://nshipster.com/uisplitviewcontroller/",
+  "https://nshipster.com/cmdevicemotion/",
+  "https://nshipster.com/inter-process-communication/",
+  "https://nshipster.com/swift-system-version-checking/",
+  "https://nshipster.com/uialertcontroller/",
+  "https://nshipster.com/equatable-and-comparable/",
+  "https://nshipster.com/optionset/",
+  "https://nshipster.com/swift-default-protocol-implementations/",
+  "https://nshipster.com/wkwebview/",
+  "https://nshipster.com/swift-literals/",
+  "https://nshipster.com/swift-operators/",
+  "https://nshipster.com/xctestcase/",
+  "https://nshipster.com/nsoperation/",
+  "https://nshipster.com/ios8/",
+  "https://nshipster.com/nshipster-quiz-6/",
+  "https://nshipster.com/cocoapods/",
+  "https://nshipster.com/benchmarking/",
+  "https://nshipster.com/nshipster-quiz-5/",
+  "https://nshipster.com/ibaction-iboutlet-iboutletcollection/",
+  "https://nshipster.com/mkgeodesicpolyline/",
+  "https://nshipster.com/uiactivityviewcontroller/",
+  "https://nshipster.com/xcode-plugins/",
+  "https://nshipster.com/configuration-profiles/",
+  "https://nshipster.com/avspeechsynthesizer/",
+  "https://nshipster.com/nsurl/",
+  "https://nshipster.com/empathy/",
+  "https://nshipster.com/dictionary-services/",
+  "https://nshipster.com/temporary-files/",
+  "https://nshipster.com/namespacing/",
+  "https://nshipster.com/method-swizzling/",
+  "https://nshipster.com/associated-objects/",
+  "https://nshipster.com/mktileoverlay-mkmapsnapshotter-mkdirections/",
+  "https://nshipster.com/stewardship/",
+  "https://nshipster.com/extended-file-attributes/",
+  "https://nshipster.com/nsrange/",
+  "https://nshipster.com/new-years-2014/",
+  "https://nshipster.com/launch-options/",
+  "https://nshipster.com/multipeer-connectivity/",
+  "https://nshipster.com/nsnotification-and-nsnotificationcenter/",
+  "https://nshipster.com/filemanager/",
+  "https://nshipster.com/nshipster-quiz-4/",
+  "https://nshipster.com/launch-arguments-and-environment-variables/",
+  "https://nshipster.com/nserror/",
+  "https://nshipster.com/key-value-observing/",
+  "https://nshipster.com/xcode-key-bindings-and-gestures/",
+  "https://nshipster.com/ios7/",
+  "https://nshipster.com/network-link-conditioner/",
+  "https://nshipster.com/xcode-snippets/",
+  "https://nshipster.com/equality/",
+  "https://nshipster.com/nshashtable-and-nsmaptable/",
+  "https://nshipster.com/random/",
+  "https://nshipster.com/objective-c-documentation/",
+  "https://nshipster.com/nshipster-quiz-3/",
+  "https://nshipster.com/uimenucontroller/",
+  "https://nshipster.com/nspredicate/",
+  "https://nshipster.com/nsexpression/",
+  "https://nshipster.com/enumerators/",
+  "https://nshipster.com/uuid-udid-unique-identifier/",
+  "https://nshipster.com/object-subscripting/",
+  "https://nshipster.com/nshipster-quiz-2/",
+  "https://nshipster.com/nsdatadetector/",
+  "https://nshipster.com/unit-testing/",
+  "https://nshipster.com/nscoding/",
+  "https://nshipster.com/mklocalsearch/",
+  "https://nshipster.com/nshipster-quiz-1/",
+  "https://nshipster.com/nssecurecoding/",
+  "https://nshipster.com/bool/",
+  "https://nshipster.com/icloud/",
+  "https://nshipster.com/search-kit/",
+  "https://nshipster.com/c-storage-classes/",
+  "https://nshipster.com/uiappearance/",
+  "https://nshipster.com/nsassertionhandler/",
+  "https://nshipster.com/nsurlcache/",
+  "https://nshipster.com/type-encodings/",
+  "https://nshipster.com/nsvalue/",
+  "https://nshipster.com/nslocalizedstring/",
+  "https://nshipster.com/__attribute__/",
+  "https://nshipster.com/nil/",
+  "https://nshipster.com/new-years-2013/",
+  "https://nshipster.com/instancetype/",
+  "https://nshipster.com/kvc-collection-operators/",
+  "https://nshipster.com/nsorderedset/",
+  "https://nshipster.com/ns_enum-ns_options/",
+  "https://nshipster.com/valuetransformer/",
+  "https://nshipster.com/nsurlprotocol/",
+  "https://nshipster.com/uilocalizedindexedcollation/",
+  "https://nshipster.com/nslinguistictagger/",
+  "https://nshipster.com/addressbookui/",
+  "https://nshipster.com/pragma/",
+  "https://nshipster.com/uicollectionview/",
+  "https://nshipster.com/characterset/",
+  "https://nshipster.com/uiaccessibility/",
+  "https://nshipster.com/locale/",
+  "https://nshipster.com/cfbag/",
+  "https://nshipster.com/cfstringtransform/",
+  "https://nshipster.com/datecomponents/",
+  "https://nshipster.com/nssortdescriptor/",
+  "https://nshipster.com/nscache/",
+  "https://nshipster.com/nsindexset/",
+  "https://nshipster.com/authors/croath-liu/",
+  "https://nshipster.com/authors/delisa-mason/",
+  "https://nshipster.com/authors/em-lazer-walker/",
+  "https://nshipster.com/authors/jack-flintermann/",
+  "https://nshipster.com/authors/jemmons/",
+  "https://nshipster.com/authors/jordan-morgan/",
+  "https://nshipster.com/authors/matt-massicotte/",
+  "https://nshipster.com/authors/mattt/",
+  "https://nshipster.com/authors/natasha-murashev/",
+  "https://nshipster.com/authors/nate-cook/",
+  "https://nshipster.com/authors/reda-lemeden/",
+  "https://nshipster.com/authors/zoe-smith/"
+ ],
+ "pages": {
+  "/1password-cli/": {
+   "canonical": "https://nshipster.com/1password-cli/",
+   "anchors": [
+    "the-problem-of-configuration",
+    "env-files-in-practice",
+    "enter-the-1password-cli-op",
+    "a-step-by-step-guide-to-using-the-1password-cli-in-env-files",
+    "step-1-install-and-configure-the-1password-cli",
+    "step-2-create-a-shared-vault",
+    "step-3-migrate-existing-secrets",
+    "step-4-update-your-env-file",
+    "step-5-update-your-development-script",
+    "advantages-over-traditional-env-files",
+    "potential-gotchas",
+    "driving-technical-change"
+   ],
+   "assets": [
+    "1password-api-credential.png",
+    "1password-authorize--dark.png",
+    "1password-authorize--light.png",
+    "1password-copy-uuid--dark.png",
+    "1password-copy-uuid--light.png",
+    "1password-create-vault--dark.png",
+    "1password-create-vault--light.png",
+    "1password-database.png",
+    "1password-password.png",
+    "1password-settings--dark.png",
+    "1password-settings--light.png",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/404": {
+   "canonical": "https://nshipster.com/404.html",
+   "anchors": [],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/__attribute__/": {
+   "canonical": "https://nshipster.com/__attribute__/",
+   "anchors": [
+    "gcc",
+    "format",
+    "nonnull",
+    "noreturn",
+    "pure-const",
+    "unused",
+    "llvm",
+    "availability",
+    "overloadable"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/accessibility-keyboard/": {
+   "canonical": "https://nshipster.com/accessibility-keyboard/",
+   "anchors": [
+    "customizing-and-creating-your-own-accessibility-keyboards",
+    "creating-an-ipa-keyboard",
+    "inspecting-the-accessibility-keyboard-file-format",
+    "additional-use-cases",
+    "templating-frequent-communications",
+    "generative-text",
+    "sound-board",
+    "world-domination"
+   ],
+   "assets": [
+    "accessibility-keyboard-custom-keyboard-ipa-chart.png",
+    "accessibility-keyboard-keyboard.png",
+    "accessibility-keyboard-menu-customize.png",
+    "accessibility-keyboard-panel-editor-sounds.png",
+    "accessibility-keyboard-panel-editor.png",
+    "accessibility-keyboard-system-preferences--dark.png",
+    "error.svg",
+    "facetime-picture-in-picture.png",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/addressbookui/": {
+   "canonical": "https://nshipster.com/addressbookui/",
+   "anchors": [],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/afnetworking-2/": {
+   "canonical": "https://nshipster.com/afnetworking-2/",
+   "robots": "noindex,nofollow",
+   "anchors": [
+    "afnetworkings-big-ideas",
+    "nsurlconnection-nsoperation",
+    "blocks",
+    "serialization-validation",
+    "introducing-afnetworking-20",
+    "motivations",
+    "meet-the-cast",
+    "nsurlconnection-components-ios-6-7",
+    "nsurlsession-components-ios-7",
+    "serialization",
+    "security",
+    "reachability",
+    "real-time",
+    "uikit-extensions",
+    "hit-the-ground-running"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/alamofire/": {
+   "canonical": "https://nshipster.com/alamofire/",
+   "robots": "noindex,nofollow",
+   "anchors": [
+    "chaining",
+    "trailing-closures",
+    "optional-arguments-flexible-method-signatures",
+    "parameterencoding-enums",
+    "lazy-properties",
+    "public-immutable-property-backed-by-private-mutable-property",
+    "and-much-much-more"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/apns-device-tokens/": {
+   "canonical": "https://nshipster.com/apns-device-tokens/",
+   "anchors": [
+    "a-push-notifications-primer",
+    "the-enduring-challenges-of-sending-device-tokens-back-to-the-server",
+    "back-in-my-day",
+    "nsdata-in-its-own-words",
+    "relitigating-the-past-with-swift-3",
+    "overturned-in-ios-13"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/apple-pay/": {
+   "canonical": "https://nshipster.com/apple-pay/",
+   "anchors": [
+    "obtaining-an-apple-merchant-id",
+    "making-your-first-charge",
+    "pkpaymentauthorizationviewcontrollerdelegate",
+    "dynamic-shipping-methods-and-pricing"
+   ],
+   "assets": [
+    "apple-pay-indicators.png",
+    "apple-pay-payment-authorization.png",
+    "apple-pay-select-shipping-method.png",
+    "error.svg",
+    "info.svg",
+    "jack-flintermann.jpg",
+    "warning.svg"
+   ]
+  },
+  "/as-we-may-code/": {
+   "canonical": "https://nshipster.com/as-we-may-code/",
+   "anchors": [
+    "web-10-the-web-of-documents",
+    "web-20-the-social-web",
+    "web-30-the-web-of-data",
+    "githubcom-present-day-the-spider-and-the-octocat",
+    "rdf-vocabularies-the-owl-and-the-turtle",
+    "defining-a-vocabulary",
+    "parsing-code-declarations",
+    "querying-the-results",
+    "answering-questions-about-your-code",
+    "future-applications-the-promise-of-what-lies-ahead",
+    "flexible-search-queries",
+    "linked-documentation",
+    "automatic-dependencies",
+    "code-generation",
+    "taking-ideas-seriously-the-shoemakers-children",
+    "postscript-reflection-and-metaprogramming"
+   ],
+   "assets": [
+    "articles/as-we-may-code.css",
+    "as-we-may-code-badges.png",
+    "error.svg",
+    "info.svg",
+    "swift-compilation-diagram.png",
+    "warning.svg"
+   ]
+  },
+  "/associated-objects/": {
+   "canonical": "https://nshipster.com/associated-objects/",
+   "anchors": [
+    "associative-object-behaviors",
+    "removing-values",
+    "patterns",
+    "adding-private-variables-to-facilitate-implementation-details",
+    "adding-public-properties-to-configure-category-behavior",
+    "creating-an-associated-observer-for-kvo",
+    "anti-patterns",
+    "storing-an-associated-object-when-the-value-is-not-needed",
+    "storing-an-associated-object-when-the-value-can-be-inferred",
+    "using-associated-objects-instead-of-x"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/at-compiler-directives/": {
+   "canonical": "https://nshipster.com/at-compiler-directives/",
+   "anchors": [
+    "interface-implementation",
+    "properties",
+    "property-attributes",
+    "forward-class-declarations",
+    "instance-variable-visibility",
+    "protocols",
+    "requirement-options",
+    "exception-handling",
+    "literals",
+    "object-literals",
+    "objective-c-literals",
+    "c-literals",
+    "optimizations",
+    "compatibility",
+    "availability"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/authors/croath-liu/": {
+   "canonical": "https://nshipster.com/authors/croath-liu/",
+   "anchors": [],
+   "assets": [
+    "croath-liu.jpg",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/authors/delisa-mason/": {
+   "canonical": "https://nshipster.com/authors/delisa-mason/",
+   "anchors": [],
+   "assets": [
+    "delisa-mason.jpg",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/authors/em-lazer-walker/": {
+   "canonical": "https://nshipster.com/authors/em-lazer-walker/",
+   "anchors": [],
+   "assets": [
+    "em-lazer-walker.jpg",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/authors/jack-flintermann/": {
+   "canonical": "https://nshipster.com/authors/jack-flintermann/",
+   "anchors": [],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "jack-flintermann.jpg",
+    "warning.svg"
+   ]
+  },
+  "/authors/jemmons/": {
+   "canonical": "https://nshipster.com/authors/jemmons/",
+   "anchors": [],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "jemmons.jpg",
+    "warning.svg"
+   ]
+  },
+  "/authors/jordan-morgan/": {
+   "canonical": "https://nshipster.com/authors/jordan-morgan/",
+   "anchors": [],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "jordan-morgan.jpg",
+    "warning.svg"
+   ]
+  },
+  "/authors/matt-massicotte/": {
+   "canonical": "https://nshipster.com/authors/matt-massicotte/",
+   "anchors": [],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "matt-massicotte.jpg",
+    "warning.svg"
+   ]
+  },
+  "/authors/mattt/": {
+   "canonical": "https://nshipster.com/authors/mattt/",
+   "anchors": [],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/authors/natasha-murashev/": {
+   "canonical": "https://nshipster.com/authors/natasha-murashev/",
+   "anchors": [],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "natasha-murashev.jpg",
+    "warning.svg"
+   ]
+  },
+  "/authors/nate-cook/": {
+   "canonical": "https://nshipster.com/authors/nate-cook/",
+   "anchors": [],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "nate-cook.jpg",
+    "warning.svg"
+   ]
+  },
+  "/authors/reda-lemeden/": {
+   "canonical": "https://nshipster.com/authors/reda-lemeden/",
+   "anchors": [],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "reda-lemeden.jpg",
+    "warning.svg"
+   ]
+  },
+  "/authors/zoe-smith/": {
+   "canonical": "https://nshipster.com/authors/zoe-smith/",
+   "anchors": [],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg",
+    "zoe-smith.jpg"
+   ]
+  },
+  "/available/": {
+   "canonical": "https://nshipster.com/available/",
+   "anchors": [
+    "available",
+    "platform-availability",
+    "shorthand-specification",
+    "introduced-deprecated-obsoleted-and-unavailable",
+    "swift-language-availability",
+    "available-1",
+    "working-with-unavailable-apis",
+    "annotating-availability-in-your-own-apis",
+    "availability-in-apps",
+    "availability-in-third-party-frameworks",
+    "availability-in-swift-packages",
+    "working-around-deprecation-warnings"
+   ],
+   "assets": [
+    "articles/availability.css",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/avspeechsynthesizer/": {
+   "canonical": "https://nshipster.com/avspeechsynthesizer/",
+   "anchors": [
+    "supported-languages",
+    "customizing-pronunciation",
+    "hooking-into-speech-events"
+   ],
+   "assets": [
+    "avspeechsynthesizer-example.gif",
+    "error.svg",
+    "info.svg",
+    "speech-pronunciation-replacement.png",
+    "warning.svg"
+   ]
+  },
+  "/backrow/": {
+   "canonical": "https://nshipster.com/backrow/",
+   "robots": "noindex,nofollow",
+   "anchors": [
+    "back-row-uikit",
+    "apple-tv-appliance-structure",
+    "points-of-interest",
+    "building-your-own-apple-tv-app"
+   ],
+   "assets": [
+    "backrow-home-screen.jpg",
+    "backrow-movie.jpg",
+    "backrow-youtube.jpg",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/benchmarking/": {
+   "canonical": "https://nshipster.com/benchmarking/",
+   "anchors": [
+    "benchmarking-performance-in-objective-c",
+    "first-pass-cacurrentmediatime",
+    "second-pass-dispatch_benchmark",
+    "man-dispatch_benchmark3",
+    "nsmutablearray-array-vs-arraywithcapacity-fight",
+    "results",
+    "common-sense-benchmarking-guidelines"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/bless/": {
+   "canonical": "https://nshipster.com/bless/",
+   "anchors": [],
+   "assets": [
+    "bless-startup-disk-preference-pane--dark.png",
+    "bless-startup-disk-preference-pane--light.png",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/bool/": {
+   "canonical": "https://nshipster.com/bool/",
+   "anchors": [
+    "the-wrong-answer-to-the-wrong-question",
+    "the-truth-about-nsnumber-and-bool"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/bug-reporting/": {
+   "canonical": "https://nshipster.com/bug-reporting/",
+   "anchors": [
+    "reporting-bugs-as-external-developers",
+    "apple-bug-reporter",
+    "feedback-assistant",
+    "third-party-bug-reporting-tools",
+    "open-radar",
+    "brisk",
+    "advice-for-writing-a-good-bug-report",
+    "one-problem-one-bug-report",
+    "choose-a-title-strategically",
+    "dont-be-antagonistic",
+    "how-to-signal-boost-bug-reports",
+    "duplicating-existing-radars",
+    "twitter",
+    "blogging"
+   ],
+   "assets": [
+    "apple-bug-reporter.png",
+    "brisk-app.png",
+    "error.svg",
+    "feedback-assistant.png",
+    "info.svg",
+    "open-radar.png",
+    "warning.svg"
+   ]
+  },
+  "/bundles-and-packages/": {
+   "canonical": "https://nshipster.com/bundles-and-packages/",
+   "anchors": [
+    "bundles",
+    "accessing-bundle-contents",
+    "getting-app-information",
+    "getting-localized-strings",
+    "packages",
+    "accessing-the-contents-of-a-package",
+    "determining-if-a-directory-is-a-package"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "packages-and-bundles-diagram.svg",
+    "show-package-contents.png",
+    "warning.svg"
+   ]
+  },
+  "/c-storage-classes/": {
+   "canonical": "https://nshipster.com/c-storage-classes/",
+   "anchors": [
+    "auto",
+    "register",
+    "static",
+    "static-singletons",
+    "extern",
+    "global-string-constants",
+    "appdelegateh",
+    "appdelegatem",
+    "public-functions",
+    "transactionstatemachineh",
+    "transactionstatemachinem"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/caemitterlayer/": {
+   "canonical": "https://nshipster.com/caemitterlayer/",
+   "anchors": [
+    "views-and-layers",
+    "particle-emitters",
+    "particle-emitter-cells",
+    "implementing-a-confetti-view-for-ios",
+    "creating-a-caemitterlayer-subclass",
+    "implementing-confettiview",
+    "adopting-the-caanimationdelegate-protocol",
+    "bonus-7-alternative-approaches-to-confetti",
+    "spritekit-particle-system",
+    "scenekit-particle-system",
+    "uikit-dynamics",
+    "hevc-video-with-alpha-channel",
+    "animated-pngs",
+    "webgl",
+    "emoji"
+   ],
+   "assets": [
+    "articles/caemitterlayer.css",
+    "articles/caemitterlayer.js",
+    "caemitterlayer-confetti.png",
+    "caemitterlayer-final-product.mp4",
+    "caemitterlayer-final-product.png",
+    "caemitterlayer-janitor.jpg",
+    "caemitterlayer-scenekit-scene-editor--dark.png",
+    "caemitterlayer-scenekit-scene-editor--light.png",
+    "caemitterlayer-spritekit-particle-emitter--dark.png",
+    "caemitterlayer-spritekit-particle-emitter--light.png",
+    "error.svg",
+    "info.svg",
+    "logo.png",
+    "warning.svg"
+   ]
+  },
+  "/callable/": {
+   "canonical": "https://nshipster.com/callable/",
+   "anchors": [
+    "syntactic-sugar-in-swift",
+    "the-calculus-and-speculative-computer-science-fiction",
+    "function-types-in-swift",
+    "closures",
+    "functions",
+    "methods",
+    "type-instance-member-static-dynamic",
+    "static-callable",
+    "dynamic-callable",
+    "dynamism-by-declaration-attributes",
+    "swift-_______",
+    "the-externalities-of-dynamism"
+   ],
+   "assets": [
+    "articles/callable.css",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/cfbag/": {
+   "canonical": "https://nshipster.com/cfbag/",
+   "anchors": [
+    "bags-in-the-abstract",
+    "working-with-cfmutablebag"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/cfstringtransform/": {
+   "canonical": "https://nshipster.com/cfstringtransform/",
+   "anchors": [
+    "strip-accents-and-diacritics",
+    "name-unicode-characters",
+    "transliterate-between-orthographies",
+    "normalize-user-generated-content"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/cggeometry/": {
+   "canonical": "https://nshipster.com/cggeometry/",
+   "anchors": [
+    "introspection",
+    "accessing-minimum-median-and-maximum-values",
+    "computing-the-center-of-a-rectangle",
+    "normalization",
+    "standardizing-rectangles",
+    "integrating-rectangles",
+    "transformations",
+    "translating-rectangles",
+    "contracting-and-expanding-rectangles",
+    "identities-and-special-values",
+    "relationships",
+    "intersection",
+    "union"
+   ],
+   "assets": [
+    "core-graphics-cgrect-min-mid-max.svg",
+    "core-graphics-coordinate-systems.svg",
+    "core-graphics-intersection.svg",
+    "core-graphics-primitives.svg",
+    "core-graphics-union.svg",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/character-viewer/": {
+   "canonical": "https://nshipster.com/character-viewer/",
+   "anchors": [
+    "a-quick-tour-of-character-viewer",
+    "copying-character-information",
+    "character-literal",
+    "unicode-code-point",
+    "utf-8-code-units",
+    "unicode-character-name",
+    "things-to-do-with-character-viewer",
+    "add-keyboard-shortcut-characters-to-favorites",
+    "demystify-unknown-characters",
+    "divest-your-cryptocurrency",
+    "explore-the-unicode-code-table"
+   ],
+   "assets": [
+    "character-viewer-add-to-favorites.png",
+    "character-viewer-apple-logo.png",
+    "character-viewer-collapsed.png",
+    "character-viewer-currency-symbols.png",
+    "character-viewer-expanded.png",
+    "character-viewer-unicode-code-chart.png",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/characterset/": {
+   "canonical": "https://nshipster.com/characterset/",
+   "anchors": [
+    "predefined-character-sets",
+    "trimming-leading-and-trailing-whitespace",
+    "predefined-url-component-character-sets",
+    "escaping-special-characters-in-urls",
+    "building-your-own",
+    "validating-user-input",
+    "caching-character-sets"
+   ],
+   "assets": [
+    "articles/characterset.css",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/clang-diagnostics/": {
+   "canonical": "https://nshipster.com/clang-diagnostics/",
+   "robots": "noindex,nofollow",
+   "anchors": [],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/cloudkit/": {
+   "canonical": "https://nshipster.com/cloudkit/",
+   "anchors": [
+    "what-is-cloudkit",
+    "get-into-cloudkit",
+    "enable-cloudkit",
+    "fundamental-cloudkit-objects",
+    "convenience-api",
+    "advanced-features",
+    "queries",
+    "subscriptions",
+    "more"
+   ],
+   "assets": [
+    "cloudkit-xcode.png",
+    "croath-liu.jpg",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/cmdevicemotion/": {
+   "canonical": "https://nshipster.com/cmdevicemotion/",
+   "anchors": [
+    "cmmotionmanager",
+    "checking-for-availability",
+    "push-vs-pull",
+    "starting-updates-to-pull-data",
+    "starting-updates-to-push-data",
+    "stopping-updates",
+    "accelerometer-in-action",
+    "adding-the-gyroscope",
+    "uiclunkcontroller",
+    "getting-an-attitude",
+    "finding-a-frame-of-reference",
+    "euler-angles",
+    "keep-it-to-yourself",
+    "further-reading",
+    "queueing-up"
+   ],
+   "assets": [
+    "cmdm-accelerometer.gif",
+    "cmdm-axes.png",
+    "cmdm-clunk.gif",
+    "cmdm-gravity.gif",
+    "cmdm-prompt.gif",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/cmmotionactivity/": {
+   "canonical": "https://nshipster.com/cmmotionactivity/",
+   "anchors": [
+    "feature-drivers",
+    "traveling-without-moving",
+    "combining-with-location-queries"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/cocoapods/": {
+   "canonical": "https://nshipster.com/cocoapods/",
+   "anchors": [
+    "a-look-back",
+    "objective-c-and-the-iphone",
+    "enter-cocoapods",
+    "using-cocoapods",
+    "installing-cocoapods",
+    "managing-dependencies",
+    "podfile",
+    "podfile-1",
+    "trying-out-a-cocoapod",
+    "creating-a-cocoapod",
+    "specification",
+    "nshipsterkitpodspec",
+    "podfile-2",
+    "publishing-a-cocoapod"
+   ],
+   "assets": [
+    "cocoapods-try-ono.png",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/configuration-profiles/": {
+   "canonical": "https://nshipster.com/configuration-profiles/",
+   "anchors": [
+    "use-cases",
+    "distributing-development-builds",
+    "installing-custom-fonts",
+    "enhancing-security",
+    "expanding-the-scope-of-in-app-purchases"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "ios-configurator-generate.png",
+    "warning.svg"
+   ]
+  },
+  "/contact-tracing/": {
+   "canonical": "https://nshipster.com/contact-tracing/",
+   "anchors": [
+    "what-is-contact-tracing",
+    "only-apple-and-google-can-do-this",
+    "what-are-apple-and-google-proposing-as-a-solution",
+    "cryptography",
+    "hardware",
+    "software",
+    "exposurenotification",
+    "calculating-risk-of-exposure",
+    "managing-permissions-and-disclosures",
+    "tracing-a-path-back-to-normal-life"
+   ],
+   "assets": [
+    "contact-tracing-equation.svg",
+    "contact-tracing-example-equation.png",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/core-data-libraries-and-utilities/": {
+   "canonical": "https://nshipster.com/core-data-libraries-and-utilities/",
+   "robots": "noindex,nofollow",
+   "anchors": [
+    "wrappers",
+    "ssdatakit",
+    "inspired-by-active-record",
+    "magical-record",
+    "objectiverecord",
+    "inspired-by-linq",
+    "ios-queryable",
+    "inspired-by-reactivecocoa",
+    "reactivecoredata",
+    "adapters",
+    "restkit",
+    "afincrementalstore",
+    "mmrecord",
+    "slrestfulcoredata",
+    "overcoat",
+    "mantle",
+    "synchronizers",
+    "ticoredatasync",
+    "ubiquitystoremanager",
+    "utilities",
+    "mogenerator"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/core-location-in-ios-8/": {
+   "canonical": "https://nshipster.com/core-location-in-ios-8/",
+   "anchors": [
+    "permissions",
+    "requesting-permission",
+    "descriptive-string",
+    "requesting-multiple-permissions",
+    "backwards-compatibility",
+    "building-user-trust",
+    "indoor-positional-tracking",
+    "clvisit",
+    "handling-visits",
+    "caveat-implementor"
+   ],
+   "assets": [
+    "core-location-always-authorization.png",
+    "core-location-settings-1.png",
+    "core-location-settings-2.png",
+    "core-location-settings-alert.png",
+    "core-location-when-in-use-authorization.png",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/cross-pollination/": {
+   "canonical": "https://nshipster.com/cross-pollination/",
+   "anchors": [
+    "the-dance-of-the-honey-bee",
+    "the-rose-that-grows-from-the-dunghill",
+    "us-vs-them",
+    "the-dream-of-purity"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/customplaygrounddisplayconvertible/": {
+   "canonical": "https://nshipster.com/customplaygrounddisplayconvertible/",
+   "anchors": [
+    "built-in-opaque-representations",
+    "structured-values",
+    "customizing-how-results-are-logged-in-playgrounds",
+    "relationship-to-customstringconvertible-and-customdebugstringconvertible",
+    "relationship-to-debug-quick-look"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "playground-custom-description-color.png",
+    "playground-custom-description-contact.png",
+    "playground-custom-description-geometry.png",
+    "warning.svg"
+   ]
+  },
+  "/dark-mode/": {
+   "canonical": "https://nshipster.com/dark-mode/",
+   "anchors": [
+    "adopting-dark-mode-on-ios",
+    "cancel-color-literals",
+    "nix-uicolor-hexadecimal-initializers",
+    "find-replace-fixed-colors",
+    "use-semantic-colors",
+    "upgrade-homegrown-semantic-color-palettes",
+    "manage-colors-with-an-asset-catalog",
+    "replace-instances-of-custom-color-in-xibs-and-storyboards",
+    "xib-anatomy",
+    "finding-all-custom-colors",
+    "finding-each-distinct-custom-color",
+    "replacing-custom-colors"
+   ],
+   "assets": [
+    "articles/dark-mode.css",
+    "dark-mode-apple-banner.png",
+    "dark-mode-color-asset--dark.png",
+    "dark-mode-color-asset--light.png",
+    "dark-mode-color-asset-attributes-inspector--dark.png",
+    "dark-mode-color-asset-attributes-inspector--light.png",
+    "dark-mode-interface-builder-named-color--dark.png",
+    "dark-mode-interface-builder-named-color--light.png",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/datecomponents/": {
+   "canonical": "https://nshipster.com/datecomponents/",
+   "anchors": [
+    "date-components-as-a-representation-of-a-calendar-date",
+    "extracting-components-from-a-date",
+    "era-and-year",
+    "quarter",
+    "weekday-weekday-ordinal-and-week-of-month",
+    "week-of-year-and-year-for-week-of-year",
+    "creating-a-date-from-date-components",
+    "getting-the-range-of-a-calendar-unit",
+    "date-components-as-a-representation-of-a-duration-of-time",
+    "calculating-the-distance-between-two-dates",
+    "adding-components-to-dates"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/device-identifiers/": {
+   "canonical": "https://nshipster.com/device-identifiers/",
+   "anchors": [
+    "the-cynicism-of-marketing-and-advertising-technology",
+    "apple-sanctioned-identifiers",
+    "universal-identifiers-udid",
+    "vendor-identifiers-idfv",
+    "advertising-identifiers-idfa",
+    "devicecheck",
+    "fingerprinting-in-todays-ios",
+    "locale-information-36-bits",
+    "accessibility-10-bits",
+    "hardware-information-5-or-6-bits",
+    "cellular-network-2-bits",
+    "communication-preferences-2-bits",
+    "additional-sources-of-identifying-information",
+    "geoip-and-relative-network-speeds",
+    "battery-health",
+    "and-so-on"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/dictionary-services/": {
+   "canonical": "https://nshipster.com/dictionary-services/",
+   "anchors": [
+    "unix",
+    "macos",
+    "getting-the-definition-of-words",
+    "setting-active-dictionaries",
+    "exploring-private-apis",
+    "getting-available-dictionaries",
+    "getting-definition-for-word",
+    "ios"
+   ],
+   "assets": [
+    "dictionary.png",
+    "error.svg",
+    "info.svg",
+    "uireferencelibraryviewcontroller-1.png",
+    "uireferencelibraryviewcontroller-2.png",
+    "warning.svg"
+   ]
+  },
+  "/direct/": {
+   "canonical": "https://nshipster.com/direct/",
+   "anchors": [
+    "object-oriented-programming",
+    "dynamic-dispatch-and-the-objective-c-runtime",
+    "direct-dispatch-with-a-c-function",
+    "direct-methods",
+    "objc_direct-propertydirect-and-objc_direct_members",
+    "hidden-motives"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/empathy/": {
+   "canonical": "https://nshipster.com/empathy/",
+   "anchors": [],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/enumerators/": {
+   "canonical": "https://nshipster.com/enumerators/",
+   "anchors": [
+    "c-loops-forwhile",
+    "list-comprehension-forin",
+    "nsfastenumeration",
+    "nsfastenumerationstate",
+    "nsenumerator",
+    "enumerate-with-blocks",
+    "nsenumerationoptions"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/equality/": {
+   "canonical": "https://nshipster.com/equality/",
+   "anchors": [
+    "equality-identity",
+    "value-vs-reference-semantics",
+    "string-interning",
+    "tagged-pointers",
+    "hashing",
+    "best-practices-when-implementing-value-types",
+    "implementing-isequaltoclassname",
+    "implementing-isequal",
+    "implementing-hash"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/equatable-and-comparable/": {
+   "canonical": "https://nshipster.com/equatable-and-comparable/",
+   "anchors": [
+    "equatable",
+    "the-benefits-of-being-equal",
+    "the-limits-of-automatic-synthesis",
+    "conditional-conformance-to-equality",
+    "equality-by-reference",
+    "comparable",
+    "incomparable-limitations-with-no-equal",
+    "comparable-benefits"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/expressiblebystringinterpolation/": {
+   "canonical": "https://nshipster.com/expressiblebystringinterpolation/",
+   "anchors": [
+    "expressiblebystringinterpolation",
+    "extending-default-string-interpolation",
+    "implementing-a-custom-string-interpolation-type"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/extended-file-attributes/": {
+   "canonical": "https://nshipster.com/extended-file-attributes/",
+   "anchors": [],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/filemanager/": {
+   "canonical": "https://nshipster.com/filemanager/",
+   "anchors": [
+    "paths-and-file-urls",
+    "locating-files-and-directories",
+    "determining-whether-a-file-exists",
+    "getting-information-about-a-file",
+    "listing-files-in-a-directory",
+    "recursively-enumerating-files-in-a-directory",
+    "creating-a-directory",
+    "deleting-a-file-or-directory",
+    "filemanagerdelegate"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/flight-school/": {
+   "canonical": "https://nshipster.com/flight-school/",
+   "anchors": [
+    "why-im-writing-flight-school"
+   ],
+   "assets": [
+    "error.svg",
+    "flight-school-guide-to-swift-codable.svg",
+    "flight-school-guide-to-swift-numbers.svg",
+    "flight-school-guide-to-swift-strings.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/formatter/": {
+   "canonical": "https://nshipster.com/formatter/",
+   "anchors": [
+    "formatting-numbers-and-quantities",
+    "numberformatter",
+    "number-styles",
+    "rounding-significant-digits",
+    "locale-awareness",
+    "measurementformatter",
+    "configuring-the-underlying-number-formatter",
+    "changing-which-unit-is-displayed",
+    "formatting-dates-times-and-durations",
+    "dateformatter",
+    "date-and-time-styles",
+    "iso8601dateformatter",
+    "dateintervalformatter",
+    "date-interval-styles",
+    "datecomponentsformatter",
+    "date-components-unit-styles",
+    "formatting-context",
+    "relativedatetimeformatter",
+    "styles",
+    "using-named-relative-date-times",
+    "formatting-people-and-places",
+    "personnamecomponentsformatter",
+    "cnpostaladdressformatter",
+    "styling-formatted-attributed-strings",
+    "formatting-lists-and-items",
+    "listformatter",
+    "lists-of-formatted-values"
+   ],
+   "assets": [
+    "articles/formatter.css",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/gpuimage/": {
+   "canonical": "https://nshipster.com/gpuimage/",
+   "robots": "noindex,nofollow",
+   "anchors": [
+    "gpu-vs-cpu",
+    "oh-so-its-like-instagram",
+    "rendering-pipeline"
+   ],
+   "assets": [
+    "error.svg",
+    "gpuimage-pipeline.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/guard-and-defer/": {
+   "canonical": "https://nshipster.com/guard-and-defer/",
+   "anchors": [
+    "guard",
+    "guarding-against-excessive-indentation-and-errors",
+    "dont-not-guard-against-double-negatives",
+    "defer",
+    "deferring-frequently",
+    "deferring-judgement",
+    "deferring-demurely",
+    "any-other-defer-considered-harmful"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/guided-access/": {
+   "canonical": "https://nshipster.com/guided-access/",
+   "anchors": [
+    "what-is-guided-access",
+    "why-is-guided-access-useful",
+    "kid-proof-mode-sharing-devices-with-children",
+    "adult-proof-mode-sharing-devices-with-other-adults",
+    "crowd-proof-mode-displaying-a-device-in-kiosk-mode",
+    "you-proof-mode-focus-your-attention-on-a-device",
+    "setting-up-guided-access",
+    "starting-a-guided-access-session",
+    "detecting-when-guided-access-is-enabled",
+    "adding-custom-guided-access-restrictions-to-your-app",
+    "defining-custom-guided-access-restrictions",
+    "adopting-the-uiguidedaccessrestrictiondelegate-protocol",
+    "responding-to-changes-in-custom-guided-access-restrictions"
+   ],
+   "assets": [
+    "error.svg",
+    "guided-access-restrictions.jpg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/hashable/": {
+   "canonical": "https://nshipster.com/hashable/",
+   "anchors": [
+    "hashable",
+    "automatic-synthesis-of-hashable-conformance",
+    "hasher",
+    "customizing-hash-function",
+    "guarding-against-hash-flooding"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/homebrew/": {
+   "canonical": "https://nshipster.com/homebrew/",
+   "anchors": [
+    "creating-a-makefile",
+    "writing-a-homebrew-formula",
+    "testing-a-homebrew-formula-locally",
+    "publishing-a-tap",
+    "installing-a-formula-from-a-tap"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/ibaction-iboutlet-iboutletcollection/": {
+   "canonical": "https://nshipster.com/ibaction-iboutlet-iboutletcollection/",
+   "anchors": [
+    "ibaction",
+    "naming-ibaction-methods",
+    "iboutlet",
+    "when-to-use-property-or-ivar",
+    "when-to-use-weak-or-strong",
+    "iboutletcollection"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/ibinspectable-ibdesignable/": {
+   "canonical": "https://nshipster.com/ibinspectable-ibdesignable/",
+   "anchors": [
+    "ibinspectable",
+    "making-existing-types-inspectable",
+    "ibdesignable",
+    "ibcalculatorconstructorset"
+   ],
+   "assets": [
+    "IBInspectable-CCS.gif",
+    "IBInspectable-designable.png",
+    "IBInspectable-inspectable.png",
+    "IBInspectable-runtime-attributes.png",
+    "error.svg",
+    "info.svg",
+    "nate-cook.jpg",
+    "warning.svg"
+   ]
+  },
+  "/icloud/": {
+   "canonical": "https://nshipster.com/icloud/",
+   "anchors": [
+    "key-value-storage-in-the-cloud",
+    "document-storage-in-the-cloud",
+    "core-data-storage-in-the-cloud"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/identifiable/": {
+   "canonical": "https://nshipster.com/identifiable/",
+   "anchors": [
+    "identifiable-vs-equatable",
+    "identifiable-vs-hashable",
+    "choosing-id-types",
+    "int-as-id",
+    "uuid-as-id",
+    "string-as-id",
+    "url-as-id",
+    "creating-custom-identifier-id-types",
+    "three-forms-of-id-requirements"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/image-resizing/": {
+   "canonical": "https://nshipster.com/image-resizing/",
+   "anchors": [
+    "when-and-why-to-scale-images",
+    "image-resizing-techniques",
+    "technique-1-drawing-to-a-uigraphicsimagerenderer",
+    "technique-2-drawing-to-a-core-graphics-context",
+    "technique-3-creating-a-thumbnail-with-image-io",
+    "technique-4-lanczos-resampling-with-core-image",
+    "technique-5-image-scaling-with-vimage",
+    "performance-benchmarks",
+    "conclusions"
+   ],
+   "assets": [
+    "error.svg",
+    "image-resizing-app-screenshot.png",
+    "image-resizing-earth.jpg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/import/": {
+   "canonical": "https://nshipster.com/import/",
+   "anchors": [
+    "importing-individual-declarations",
+    "resolving-symbol-name-collisions",
+    "clarifying-and-minimizing-scope",
+    "importing-a-submodule"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/": {
+   "canonical": "https://nshipster.com/",
+   "anchors": [],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/instancetype/": {
+   "canonical": "https://nshipster.com/instancetype/",
+   "anchors": [
+    "further-implications"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/inter-process-communication/": {
+   "canonical": "https://nshipster.com/inter-process-communication/",
+   "anchors": [
+    "mach-ports",
+    "distributed-notifications",
+    "distributed-objects",
+    "appleevents-applescript",
+    "cocoa-scripting-bridge",
+    "pasteboard",
+    "xpc",
+    "registering-services",
+    "process-types-and-contention-behavior"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/ios-12/": {
+   "canonical": "https://nshipster.com/ios-12/",
+   "anchors": [
+    "prioritizing-network-traffic-for-important-requests",
+    "reading-nfc-tags-in-the-background",
+    "matching-contacts-on-phone-number-and-email-address",
+    "updating-location-while-airborne",
+    "detecting-flat-device-orientation",
+    "auto-filling-new-passwords-and-one-time-codes-in-text-fields"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/ios-13/": {
+   "canonical": "https://nshipster.com/ios-13/",
+   "anchors": [
+    "generate-rich-representations-of-urls",
+    "perform-on-device-speech-recognition",
+    "send-and-receive-web-socket-messages",
+    "do-more-with-maps",
+    "keep-promises-in-javascript",
+    "respond-to-objective-c-associated-objects",
+    "tame-activity-items",
+    "format-lists-and-relative-times",
+    "track-the-progress-of-enqueued-operations",
+    "manage-background-tasks-with-ease",
+    "annotate-text-content-types-for-better-accessibility",
+    "remove-implicitly-unwrapped-optionals-from-view-controllers-initialized-from-storyboards"
+   ],
+   "assets": [
+    "articles/ios-13.css",
+    "error.svg",
+    "info.svg",
+    "ios-13-link-view--dark.png",
+    "ios-13-link-view--light.png",
+    "ios-13-share-actions.png",
+    "warning.svg"
+   ]
+  },
+  "/ios7/": {
+   "canonical": "https://nshipster.com/ios7/",
+   "anchors": [
+    "nsdata-nsdatabase64encoding",
+    "nsurlcomponents-nscharacterset-nsurlutilities",
+    "nsprogress",
+    "nsarray-firstobject",
+    "cidetectorsmile-cidetectoreyeblink",
+    "avcapturemetadataoutput",
+    "ssreadinglist",
+    "avspeechsynthesizer",
+    "mkdistanceformatter"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/ios8/": {
+   "canonical": "https://nshipster.com/ios8/",
+   "anchors": [
+    "nsprocessinfo-isoperatingsystematleastversion",
+    "new-nsformatter-subclasses",
+    "nsenergyformatter",
+    "nsmassformatter",
+    "nslengthformatter",
+    "cmpedometer",
+    "cmaltimeter",
+    "clfloor",
+    "hkstatistics",
+    "nsstream-getstreamstohostwithname",
+    "nsstring-localizedcaseinsensitivecontainsstring",
+    "ctrubyannotationref",
+    "new-calendar-identifiers",
+    "nsurlcredentialstorage",
+    "kuttypetodoitem",
+    "kcgimagemetadatashouldexcludegps",
+    "wtfplatformios",
+    "wkwebview",
+    "nsqualityofservice",
+    "localauthentication"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/ios9/": {
+   "canonical": "https://nshipster.com/ios9/",
+   "anchors": [
+    "string-transformations",
+    "transliteration",
+    "unicode-names",
+    "normalizing-user-input",
+    "cllocationmanagerrequestlocation",
+    "swiftification",
+    "nsformatter-additions",
+    "nsnumberformatter",
+    "nsdateformatter"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "nate-cook.jpg",
+    "warning.svg"
+   ]
+  },
+  "/isolated-any/": {
+   "canonical": "https://nshipster.com/isolated-any/",
+   "anchors": [
+    "but-change-to-where-exactly",
+    "using-isolatedany",
+    "how-isolatedany-affects-callers",
+    "scheduling",
+    "isolatedall",
+    "isolatedsome"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "matt-massicotte.jpg",
+    "warning.svg"
+   ]
+  },
+  "/javascriptcore/": {
+   "canonical": "https://nshipster.com/javascriptcore/",
+   "anchors": [
+    "handling-exceptions",
+    "managing-multiple-virtual-machines-and-contexts",
+    "getting-javascript-context-values-from-swift",
+    "setting-swift-values-on-a-javascript-context",
+    "passing-functions-between-swift-and-javascript",
+    "passing-swift-objects-between-swift-and-javascript",
+    "declaring-the-exported-javascript-interface",
+    "conforming-to-the-exported-javascript-interface",
+    "registering-the-class-in-the-javascript-context",
+    "instantiating-swift-classes-from-javascript",
+    "showing-off-with-mustache"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/key-value-observing/": {
+   "canonical": "https://nshipster.com/key-value-observing/",
+   "anchors": [
+    "subscribing",
+    "nskeyvalueobservingoptions",
+    "responding",
+    "correct-context-declarations",
+    "better-key-paths",
+    "unsubscribing",
+    "safe-unsubscribe-with-try-catch",
+    "automatic-property-notifications"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/keyvaluepairs/": {
+   "canonical": "https://nshipster.com/keyvaluepairs/",
+   "anchors": [
+    "keyvaluepairs-as-expressible-by-dictionary-literal",
+    "keyvaluepairs-as-random-access-collection",
+    "keyvaluepairs-in-the-wild",
+    "working-with-keyvaluepairs-values",
+    "converting-to-arrays",
+    "converting-to-dictionaries"
+   ],
+   "assets": [
+    "articles/keyvaluepairs.css",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/kvc-collection-operators/": {
+   "canonical": "https://nshipster.com/kvc-collection-operators/",
+   "anchors": [
+    "simple-collection-operators",
+    "object-operators",
+    "array-and-set-operators",
+    "this-is-probably-a-terrible-idea"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/language-server-protocol/": {
+   "canonical": "https://nshipster.com/language-server-protocol/",
+   "anchors": [
+    "how-language-server-protocol-works",
+    "language-server-protocol-support-in-clang-llvm",
+    "getting-started-with-language-server-protocol",
+    "potential-consequences-of-apples-support-of-language-server-protocol",
+    "swift-becomes-more-appealing-as-a-general-purpose-programming-language",
+    "xcode-gets-better",
+    "xcode-eventually-becomes-more-capable"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "lsp-jump-to-definition.gif",
+    "lsp-languages-plus-editors.svg",
+    "lsp-languages-times-editors.svg",
+    "lsp-llvm-ir.svg",
+    "warning.svg"
+   ]
+  },
+  "/launch-arguments-and-environment-variables/": {
+   "canonical": "https://nshipster.com/launch-arguments-and-environment-variables/",
+   "anchors": [
+    "arguments-passed-on-launch",
+    "localization",
+    "nsdoublelocalizedstrings",
+    "nsshownonlocalizedstrings",
+    "applelanguages",
+    "core-data",
+    "sql-debug",
+    "syntax-colored-logging",
+    "migration-debug",
+    "environment-variables",
+    "zombies",
+    "memory-allocator",
+    "io-buffering"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "launch-arguments-edit-scheme-panel.png",
+    "launch-arguments-edit-scheme.png",
+    "launch-arguments-nsdoublelocalizedstrings.png",
+    "warning.svg"
+   ]
+  },
+  "/launch-options/": {
+   "canonical": "https://nshipster.com/launch-options/",
+   "anchors": [
+    "opening-from-url",
+    "responding-to-notification",
+    "remote-notification",
+    "local-notification",
+    "location-event",
+    "newsstand",
+    "bluetooth"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/locale/": {
+   "canonical": "https://nshipster.com/locale/",
+   "anchors": [
+    "terra-cognita",
+    "si-fueris-romae",
+    "vox-populi"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "locale-languages.png",
+    "locale-preferences.png",
+    "warning.svg"
+   ]
+  },
+  "/long-live-cocoa/": {
+   "canonical": "https://nshipster.com/long-live-cocoa/",
+   "robots": "noindex,nofollow",
+   "anchors": [
+    "hand-in-hand",
+    "getting-better-all-the-time"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "nate-cook.jpg",
+    "warning.svg"
+   ]
+  },
+  "/macos-dynamic-desktop/": {
+   "canonical": "https://nshipster.com/macos-dynamic-desktop/",
+   "anchors": [
+    "digging-deeper-with-coregraphics",
+    "shining-light-on-solar",
+    "calculating-solar-position",
+    "extending-our-understanding-of-xmp",
+    "creating-our-own-dynamic-desktop",
+    "writing-to-an-image-destination",
+    "automatically-generating-a-dynamic-desktop-from-photos",
+    "shooting-a-time-lapse-on-your-iphone",
+    "generating-landscapes-from-gis-data",
+    "downloading-pre-made-dynamic-desktops"
+   ],
+   "assets": [
+    "desktop-and-screen-saver-preference-pane.png",
+    "error.svg",
+    "go-to-library-desktop-pictures.png",
+    "info.svg",
+    "mojave-dynamic-desktop-images.png",
+    "mojave-heic-preview-info.png",
+    "mojave-heic.png",
+    "solar-position-watch-faces.jpg",
+    "warning.svg"
+   ]
+  },
+  "/manim/": {
+   "canonical": "https://nshipster.com/manim/",
+   "anchors": [
+    "0-to-1",
+    "an-opinionated-setup-guide-for-manim-on-macos-in-2026",
+    "setting-the-scene",
+    "enter-the-development-loop",
+    "voiceover"
+   ],
+   "assets": [
+    "TrickORTreat-poster.png",
+    "TrickORTreat.mp4",
+    "TrickXORTreat-poster.png",
+    "TrickXORTreat.mp4",
+    "TrickXORTreat.srt",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/mapkit-js/": {
+   "canonical": "https://nshipster.com/mapkit-js/",
+   "anchors": [
+    "setting-up-mapkit-js",
+    "step-1-register-a-maps-id",
+    "step-2-create-a-new-mapkit-js-key",
+    "step-3-download-the-key",
+    "p8-pem-asn1",
+    "json-web-tokens",
+    "signing-mapkit-js-tokens",
+    "serving-tokens-with-a-web-application",
+    "initializing-mapkit-in-javascript",
+    "at-last-a-map"
+   ],
+   "assets": [
+    "articles/mapkit-js.css",
+    "articles/mapkit-js.js",
+    "error.svg",
+    "info.svg",
+    "mapkit-js-create-a-new-key.png",
+    "mapkit-js-download-key.png",
+    "mapkit-js-register-maps-id.png",
+    "warning.svg"
+   ]
+  },
+  "/message-id/": {
+   "canonical": "https://nshipster.com/message-id/",
+   "anchors": [
+    "mail-and-calendar-integrations-on-apple-platforms",
+    "message-id",
+    "generating-a-random-message-id",
+    "generating-a-deterministic-message-id",
+    "mobile-deep-linking",
+    "generating-a-mail-deep-link-with-message-id",
+    "opening-a-mail-deep-link"
+   ],
+   "assets": [
+    "articles/message-id.css",
+    "error.svg",
+    "info.svg",
+    "message-id-mcmailerrordomain-error-1030--dark.png",
+    "message-id-mcmailerrordomain-error-1030--light.png",
+    "warning.svg"
+   ]
+  },
+  "/method-swizzling/": {
+   "canonical": "https://nshipster.com/method-swizzling/",
+   "anchors": [
+    "load-vs-initialize",
+    "dispatch_once",
+    "selectors-methods-implementations",
+    "invoking-_cmd",
+    "considerations",
+    "always-invoke-the-original-implementation-of-a-method-unless-you-have-a-good-reason-not-to",
+    "avoid-collisions",
+    "understand-whats-going-on",
+    "proceed-with-caution"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/metrickit/": {
+   "canonical": "https://nshipster.com/metrickit/",
+   "anchors": [
+    "understanding-app-metrics",
+    "battery-usage",
+    "performance",
+    "using-metrickit",
+    "annotating-critical-code-sections-with-signposts",
+    "creating-a-self-hosted-web-service-for-collecting-app-metrics",
+    "storing-and-querying-metrics-with-postgresql",
+    "advanced-creating-views",
+    "creating-a-web-service",
+    "sending-metrics-as-json"
+   ],
+   "assets": [
+    "articles/metrickit.css",
+    "error.svg",
+    "info.svg",
+    "metrickit-battery-usage--dark.png",
+    "metrickit-battery-usage--light.png",
+    "metrickit-diagram--dark.png",
+    "metrickit-diagram--light.png",
+    "warning.svg"
+   ]
+  },
+  "/mirror/": {
+   "canonical": "https://nshipster.com/mirror/",
+   "anchors": [
+    "conforming-to-customreflectable",
+    "introspecting-the-custom-mirror",
+    "customizing-the-display-of-a-custom-mirror",
+    "labeled-children",
+    "unlabeled-children",
+    "reflection-and-class-hierarchies",
+    "option-1-conform-to-customleafreflectable",
+    "option-2-encode-type-in-superclass-mirror",
+    "option-3-avoid-classes-altogether"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/mkgeodesicpolyline/": {
+   "canonical": "https://nshipster.com/mkgeodesicpolyline/",
+   "anchors": [
+    "creating-an-mkgeodesicpolyline",
+    "rendering-mkgeodesicpolyline-on-an-mkmapview",
+    "animating-an-mkannotationview-on-a-mkgeodesicpolyline",
+    "rotating-an-mkannotationview-along-a-path"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "mkgeodesicpolyline-airplane-animate-rotate.gif",
+    "mkgeodesicpolyline-airplane-animate.gif",
+    "mkgeodesicpolyline-with-directions.jpg",
+    "mkgeodesicpolyline.jpg",
+    "warning.svg"
+   ]
+  },
+  "/mklocalsearch/": {
+   "canonical": "https://nshipster.com/mklocalsearch/",
+   "anchors": [
+    "wheres-the-beef",
+    "where-do-we-go-from-here"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/mktileoverlay-mkmapsnapshotter-mkdirections/": {
+   "canonical": "https://nshipster.com/mktileoverlay-mkmapsnapshotter-mkdirections/",
+   "anchors": [
+    "mktileoverlay",
+    "setting-custom-map-view-tile-overlay",
+    "implementing-custom-behavior-with-mktileoverlay-subclass",
+    "mkmapsnapshotter",
+    "creating-a-map-view-snapshot",
+    "drawing-annotations-on-map-view-snapshot",
+    "mkdirections",
+    "getting-snapshots-for-each-step-of-directions-on-a-map-view"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/model-context-protocol/": {
+   "canonical": "https://nshipster.com/model-context-protocol/",
+   "anchors": [
+    "tool-use-agents",
+    "the-new-m-n-problem",
+    "how-model-context-protocol-works",
+    "how-do-i-start",
+    "imcp",
+    "mcp-swift-sdk",
+    "hype",
+    "emcee"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "model-context-protocol-emcee.png",
+    "model-context-protocol-imcp--dark.svg",
+    "model-context-protocol-imcp--light.svg",
+    "model-context-protocol-now-form-a-band.webp",
+    "warning.svg"
+   ]
+  },
+  "/multipeer-connectivity/": {
+   "canonical": "https://nshipster.com/multipeer-connectivity/",
+   "anchors": [
+    "advertising-discovering",
+    "advertising",
+    "creating-a-session",
+    "discovering",
+    "sending-receiving-information",
+    "messages",
+    "streams",
+    "resources"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/namespacing/": {
+   "canonical": "https://nshipster.com/namespacing/",
+   "anchors": [
+    "types-in-c-objective-c",
+    "prefixes",
+    "class-prefixes",
+    "3rd-party-class-prefixes",
+    "method-prefixes",
+    "swizzling",
+    "do-we-really-need-namespaces"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/network-link-conditioner/": {
+   "canonical": "https://nshipster.com/network-link-conditioner/",
+   "anchors": [
+    "installation",
+    "controlling-bandwidth-latency-and-packet-loss",
+    "enabling-network-link-conditioner-on-ios-devices"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "network-link-conditioner-dmg--dark.png",
+    "network-link-conditioner-dmg--light.png",
+    "network-link-conditioner-install--dark.png",
+    "network-link-conditioner-install--light.png",
+    "network-link-conditioner-installation-error--dark.png",
+    "network-link-conditioner-installation-error--light.png",
+    "network-link-conditioner-ios.png",
+    "network-link-conditioner-preference-pane--light.png",
+    "network-link-conditioner-preset.png",
+    "warning.svg"
+   ]
+  },
+  "/never/": {
+   "canonical": "https://nshipster.com/never/",
+   "anchors": [
+    "uninhabited-types",
+    "eliminating-impossible-states-in-generic-types",
+    "never-as-a-bottom-type",
+    "unwrap-or-die",
+    "expressive-throw",
+    "typed-throws"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/new-years-2013/": {
+   "canonical": "https://nshipster.com/new-years-2013/",
+   "anchors": [
+    "associated-objects-in-categories",
+    "nsobjectindiebandnameh",
+    "nsobjectindiebandnamem",
+    "lldb-view-hierarchy-dump",
+    "lldbinit",
+    "lldb-print-contents-of-a-cgpathref",
+    "use-initialize-not-load",
+    "xcode-snippets",
+    "macro-for-measuring-execution-time",
+    "block-enumeration-methods",
+    "reverse-engineered-implementation-of-nsstring-equality-methods",
+    "animate-nslayoutconstraintconstant",
+    "printing-nscache-usage"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/new-years-2014/": {
+   "canonical": "https://nshipster.com/new-years-2014/",
+   "anchors": [
+    "gcc-code-block-evaluation-c-extension",
+    "default-values-with-gnu-style-ternary",
+    "import",
+    "customizing-mkmapview-tiles",
+    "thoughtbots-blog-post-on-mapkit-performance",
+    "nsattributedstring-html-in-ios-7",
+    "launch-arguments-user-defaults",
+    "woes-of-a-missing-uiviewanimationcurve-value",
+    "injecting-analytics-on-outgoing-links",
+    "reviving-the-look-and-feel-of-ios-6-in-your-app-with-one-weird-trick-ui-designers-hate-it",
+    "detecting-category-method-collisions",
+    "a-plist-of-emoji-grouped-by-category",
+    "quickly-determining-the-type-of-image-data",
+    "print-kvo-context",
+    "creating-a-keypath-from-selectors",
+    "nomad-cli-utilities"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/new-years-2015/": {
+   "canonical": "https://nshipster.com/new-years-2015/",
+   "anchors": [
+    "the-secret-lives-of-member-functions",
+    "for-boxing-c-strings",
+    "amibeingdebugged",
+    "use-lazy-variables",
+    "accessing-child-controllers-inserted-into-storyboard-container-views",
+    "re-run-without-re-building",
+    "quick-access-to-playground-resources",
+    "cocoapods-exposed",
+    "create_infoplist_section_in_binary",
+    "stop-dylib-hooking",
+    "nsbundle-preferredlocalizations",
+    "preserve-sdk-headers",
+    "inspecting-void-instance-variables",
+    "nsdateformatter-dateformatfromtemplateoptionslocale",
+    "deriving-internal-constants-with-the-debugger",
+    "diy-weak-associated-objects"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/new-years-2016/": {
+   "canonical": "https://nshipster.com/new-years-2016/",
+   "anchors": [
+    "swifts-defer-in-objective-c",
+    "swift-protocol-extensions",
+    "public-read-only-variables",
+    "swift-where-everywhere",
+    "improved-optional-binding",
+    "unbuffered-xcodebuild-output",
+    "multiline-labels-in-a-table-view",
+    "amirunningasanextension",
+    "beyond-breakpoints",
+    "fix-console-po-frame-printing",
+    "avoiding-ddebug-in-swift",
+    "checking-for-null-blocks",
+    "swiftier-gcd",
+    "_objectivecbridgeable",
+    "phantom-types",
+    "easier-configuration"
+   ],
+   "assets": [
+    "2016-breakpoint.png",
+    "2016-po-frame-fail.png",
+    "2016-po-frame-win.png",
+    "error.svg",
+    "info.svg",
+    "nate-cook.jpg",
+    "warning.svg"
+   ]
+  },
+  "/nil/": {
+   "canonical": "https://nshipster.com/nil/",
+   "anchors": [
+    "null",
+    "nil",
+    "nil-1",
+    "nsnull"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nllanguagerecognizer/": {
+   "canonical": "https://nshipster.com/nllanguagerecognizer/",
+   "anchors": [
+    "recognizing-the-language-of-natural-language-text",
+    "getting-multiple-language-hypotheses",
+    "checking-misspelled-words",
+    "synthesizing-speech"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/ns_enum-ns_options/": {
+   "canonical": "https://nshipster.com/ns_enum-ns_options/",
+   "anchors": [
+    "ns_enum",
+    "ns_options"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nsassertionhandler/": {
+   "canonical": "https://nshipster.com/nsassertionhandler/",
+   "anchors": [
+    "foundation-assertion-handling",
+    "using-nsassertionhandler",
+    "loggingassertionhandlerh",
+    "loggingassertionhandlerm",
+    "appdelegatem"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nscache/": {
+   "canonical": "https://nshipster.com/nscache/",
+   "anchors": [],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nscalendar-additions/": {
+   "canonical": "https://nshipster.com/nscalendar-additions/",
+   "anchors": [
+    "convenient-component-access",
+    "date-comparison",
+    "date-interpolation",
+    "nscalendaroptions",
+    "enumerating-interpolated-dates",
+    "working-for-the-weekend",
+    "localized-calendar-symbols",
+    "your-weekly-swiftification"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "nate-cook.jpg",
+    "warning.svg"
+   ]
+  },
+  "/nscalendarunityear/": {
+   "canonical": "https://nshipster.com/nscalendarunityear/",
+   "robots": "noindex,nofollow",
+   "anchors": [
+    "a-dramatization-of-the-perils-of-shiny-swift-features"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nscoding/": {
+   "canonical": "https://nshipster.com/nscoding/",
+   "anchors": [
+    "file-system",
+    "archiving",
+    "unarchiving",
+    "nsuserdefaults",
+    "archiving-1",
+    "unarchiving-1"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nsdataasset/": {
+   "canonical": "https://nshipster.com/nsdataasset/",
+   "anchors": [
+    "how-to-store-and-retrieve-data-with-asset-catalog",
+    "step-1-add-new-data-set-to-asset-catalog",
+    "step-2-add-a-data-file",
+    "step-3-access-data-using-nsdataasset",
+    "mixing-it-up",
+    "keeping-it-fresh",
+    "wrapping-it-up"
+   ],
+   "assets": [
+    "add-new-data-set.png",
+    "asset-catalog-any-any-universal.png",
+    "error.svg",
+    "info.svg",
+    "select-color-gamut.png",
+    "warning.svg"
+   ]
+  },
+  "/nsdatadetector/": {
+   "canonical": "https://nshipster.com/nsdatadetector/",
+   "anchors": [
+    "discerning-information-from-results",
+    "data-detector-data-points",
+    "detect-rough-edges"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nserror/": {
+   "canonical": "https://nshipster.com/nserror/",
+   "anchors": [
+    "code-domain",
+    "userinfo",
+    "using-nserror",
+    "consuming",
+    "producing",
+    "nsurlerrordomain-cfnetworkerrors",
+    "socks4-errors",
+    "socks5-errors",
+    "ftp-errors",
+    "http-errors",
+    "cfurlconnection-cfurlprotocol-errors",
+    "file-errors",
+    "ssl-errors",
+    "download-and-file-io-errors",
+    "cookie-errors",
+    "cfnetservices-errors"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nsexpression/": {
+   "canonical": "https://nshipster.com/nsexpression/",
+   "anchors": [
+    "evaluating-math",
+    "functions",
+    "statistics",
+    "basic-arithmetic",
+    "advanced-arithmetic",
+    "bounding-functions",
+    "functions-shadowing-mathh-functions",
+    "random-functions",
+    "binary-arithmetic",
+    "date-functions",
+    "string-functions",
+    "no-op",
+    "custom-functions"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nshashtable-and-nsmaptable/": {
+   "canonical": "https://nshipster.com/nshashtable-and-nsmaptable/",
+   "anchors": [
+    "nshashtable",
+    "usage",
+    "nsmaptable",
+    "usage-1",
+    "subscripting"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nshipster-quiz-1/": {
+   "canonical": "https://nshipster.com/nshipster-quiz-1/",
+   "anchors": [
+    "round-1-general-knowledge",
+    "round-2-apis",
+    "round-3-picture-round",
+    "round-4-name-that-framework",
+    "answers",
+    "round-1-general-knowledge-1",
+    "round-2-apis-1",
+    "round-3-picture-round-1",
+    "round-4-name-that-framework-1"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "quiz-1/question-1.jpg",
+    "quiz-1/question-10.jpg",
+    "quiz-1/question-2.jpg",
+    "quiz-1/question-3.jpg",
+    "quiz-1/question-4.jpg",
+    "quiz-1/question-5.jpg",
+    "quiz-1/question-6.jpg",
+    "quiz-1/question-7.jpg",
+    "quiz-1/question-8.jpg",
+    "quiz-1/question-9.jpg",
+    "warning.svg"
+   ]
+  },
+  "/nshipster-quiz-2/": {
+   "canonical": "https://nshipster.com/nshipster-quiz-2/",
+   "anchors": [
+    "round-1-general-knowledge",
+    "round-2-before-after",
+    "round-3-picture-round",
+    "round-4-name-that-framework",
+    "answers",
+    "round-1-general-knowledge-1",
+    "round-2-before-after-1",
+    "round-3-picture-round-1",
+    "round-4-name-that-framework-1"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "quiz-2/question-1.jpg",
+    "quiz-2/question-10.jpg",
+    "quiz-2/question-2.jpg",
+    "quiz-2/question-3.jpg",
+    "quiz-2/question-4.jpg",
+    "quiz-2/question-5.jpg",
+    "quiz-2/question-6.jpg",
+    "quiz-2/question-7.jpg",
+    "quiz-2/question-8.jpg",
+    "quiz-2/question-9.jpg",
+    "warning.svg"
+   ]
+  },
+  "/nshipster-quiz-3/": {
+   "canonical": "https://nshipster.com/nshipster-quiz-3/",
+   "anchors": [
+    "round-1-general-knowledge",
+    "round-2-public-private-or-fake",
+    "round-3-picture-round-name-that-app",
+    "round-4-redacted",
+    "answers",
+    "round-1-general-knowledge-1",
+    "round-2-public-private-or-fake-1",
+    "round-3-picture-round-name-that-app-1",
+    "round-4-redacted-1"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "quiz-3/question-1.png",
+    "quiz-3/question-10.png",
+    "quiz-3/question-2.png",
+    "quiz-3/question-3.png",
+    "quiz-3/question-4.png",
+    "quiz-3/question-5.png",
+    "quiz-3/question-6.png",
+    "quiz-3/question-7.png",
+    "quiz-3/question-8.png",
+    "quiz-3/question-9.png",
+    "warning.svg"
+   ]
+  },
+  "/nshipster-quiz-4/": {
+   "canonical": "https://nshipster.com/nshipster-quiz-4/",
+   "anchors": [
+    "round-1-general-knowledge",
+    "round-2-foundation-potpourri",
+    "round-3-picture-round-indie-devs",
+    "round-4-nsanagram",
+    "answers",
+    "round-1-general-knowledge-1",
+    "round-2-foundation-potpourri-1",
+    "round-3-picture-round",
+    "round-4-nsanagram-1"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "quiz-4/nshipster-quiz-4-question-1.png",
+    "quiz-4/nshipster-quiz-4-question-10.png",
+    "quiz-4/nshipster-quiz-4-question-2.png",
+    "quiz-4/nshipster-quiz-4-question-3.png",
+    "quiz-4/nshipster-quiz-4-question-4.png",
+    "quiz-4/nshipster-quiz-4-question-5.png",
+    "quiz-4/nshipster-quiz-4-question-6.png",
+    "quiz-4/nshipster-quiz-4-question-7.png",
+    "quiz-4/nshipster-quiz-4-question-8.png",
+    "quiz-4/nshipster-quiz-4-question-9.png",
+    "warning.svg"
+   ]
+  },
+  "/nshipster-quiz-5/": {
+   "canonical": "https://nshipster.com/nshipster-quiz-5/",
+   "anchors": [
+    "round-1-general-knowledge",
+    "round-2-core-potpourri",
+    "activity-sheet-nsanagram",
+    "answers",
+    "round-1-general-knowledge-1",
+    "round-2-core-potpourri-1",
+    "round-3-nsanagram"
+   ],
+   "assets": [
+    "NSShowMe.tiff",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nshipster-quiz-6/": {
+   "canonical": "https://nshipster.com/nshipster-quiz-6/",
+   "anchors": [
+    "round-1-general-knowledge",
+    "round-2-so-you-think-you-can-swift",
+    "round-3-music-round",
+    "answers",
+    "round-1-general-knowledge-1",
+    "round-2-so-you-think-you-can-swift-1",
+    "round-3-music-round-1"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nshipster-quiz-7/": {
+   "canonical": "https://nshipster.com/nshipster-quiz-7/",
+   "anchors": [
+    "round-1-general-knowledge",
+    "round-2-name-that-framework",
+    "round-3-picture-round",
+    "round-4-anagrammable",
+    "answers",
+    "round-1-general-knowledge-1",
+    "round-2-name-that-framework-1",
+    "round-3-picture-round-1",
+    "round-4-anagrammable-1"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "nate-cook.jpg",
+    "quiz-7/nshipster-quiz7-1.jpg",
+    "quiz-7/nshipster-quiz7-10.png",
+    "quiz-7/nshipster-quiz7-2.jpg",
+    "quiz-7/nshipster-quiz7-3.png",
+    "quiz-7/nshipster-quiz7-4.png",
+    "quiz-7/nshipster-quiz7-5.png",
+    "quiz-7/nshipster-quiz7-6.png",
+    "quiz-7/nshipster-quiz7-7.png",
+    "quiz-7/nshipster-quiz7-8.png",
+    "quiz-7/nshipster-quiz7-9.png",
+    "warning.svg"
+   ]
+  },
+  "/nshipster-quiz-8/": {
+   "canonical": "https://nshipster.com/nshipster-quiz-8/",
+   "anchors": [
+    "round-1-general-knowledge",
+    "round-2-name-that-framework",
+    "round-3-who-is-that",
+    "round-4-easy-as-1-2-3",
+    "answers",
+    "round-1-general-knowledge-1",
+    "round-2-name-that-framework-1",
+    "round-3-who-is-that-1",
+    "round-4-easy-as-1-2-3-1"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "nate-cook.jpg",
+    "warning.svg"
+   ]
+  },
+  "/nsincrementalstore/": {
+   "canonical": "https://nshipster.com/nsincrementalstore/",
+   "robots": "noindex,nofollow",
+   "anchors": [
+    "at-last-a-foothold-into-core-data",
+    "implementing-an-nsincrementalstore-subclass",
+    "type-and-initialize",
+    "loadmetadata",
+    "executerequestwithcontexterror",
+    "request-type-nsfetchrequesttype",
+    "request-type-nssaverequesttype",
+    "newvaluesforobjectwithidwithcontexterror",
+    "newvalueforrelationshipforobjectwithid-withcontexterror",
+    "obtainpermanentidsforobjectserror",
+    "roll-your-own-core-data-backend"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nsindexset/": {
+   "canonical": "https://nshipster.com/nsindexset/",
+   "anchors": [],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nslinguistictagger/": {
+   "canonical": "https://nshipster.com/nslinguistictagger/",
+   "anchors": [
+    "tagging-schemes",
+    "tagging-options"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nslocalizedstring/": {
+   "canonical": "https://nshipster.com/nslocalizedstring/",
+   "anchors": [
+    "nslocalizedstring-co",
+    "localizablestrings",
+    "no-madlibs"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nsnotification-and-nsnotificationcenter/": {
+   "canonical": "https://nshipster.com/nsnotification-and-nsnotificationcenter/",
+   "anchors": [
+    "adding-observers",
+    "removing-observers",
+    "posting-notifications",
+    "kvo-nsnotificationcenter",
+    "key-value-observing",
+    "nsnotificationcenter"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nsoperation/": {
+   "canonical": "https://nshipster.com/nsoperation/",
+   "anchors": [
+    "nsoperationqueue",
+    "state",
+    "cancellation",
+    "priority",
+    "nsoperationqueuepriority",
+    "quality-of-service",
+    "nsqualityofservice",
+    "asynchronous-operations",
+    "dependencies",
+    "completionblock",
+    "when-to-use-grand-central-dispatch",
+    "when-to-use-nsoperation"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nsorderedset/": {
+   "canonical": "https://nshipster.com/nsorderedset/",
+   "anchors": [],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "nsorderedset-case-1.svg",
+    "nsorderedset-case-2.svg",
+    "warning.svg"
+   ]
+  },
+  "/nspredicate/": {
+   "canonical": "https://nshipster.com/nspredicate/",
+   "anchors": [
+    "using-nspredicate-with-collections",
+    "using-nspredicate-with-core-data",
+    "predicate-syntax",
+    "substitutions",
+    "basic-comparisons",
+    "basic-compound-predicates",
+    "string-comparisons",
+    "aggregate-operations",
+    "relational-operations",
+    "array-operations",
+    "boolean-value-predicates",
+    "nscompoundpredicate",
+    "nscomparisonpredicate",
+    "parameters",
+    "nscomparisonpredicate-types",
+    "nscomparisonpredicate-options",
+    "block-predicates"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nsrange/": {
+   "canonical": "https://nshipster.com/nsrange/",
+   "anchors": [
+    "rangejs",
+    "rangem",
+    "usage",
+    "strings",
+    "arrays",
+    "index-sets",
+    "functions",
+    "creating-an-nsrange",
+    "querying-information",
+    "set-operations",
+    "converting-between-nsstring-nsrange",
+    "foundationnsrangeh",
+    "nsrangepointer",
+    "foundationnsrangeh-1",
+    "cfrange"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nsscanner/": {
+   "canonical": "https://nshipster.com/nsscanner/",
+   "anchors": [
+    "extracting-substrings-and-numeric-values",
+    "1-string-scanners",
+    "2-numeric-scanners",
+    "localizedscannerwithstring-locale",
+    "example-parsing-svg-path-data",
+    "swift-friendly-scanning"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "nate-cook.jpg",
+    "nsscanner-rendered.gif",
+    "warning.svg"
+   ]
+  },
+  "/nssecurecoding/": {
+   "canonical": "https://nshipster.com/nssecurecoding/",
+   "anchors": [],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nssortdescriptor/": {
+   "canonical": "https://nshipster.com/nssortdescriptor/",
+   "anchors": [],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nsundomanager/": {
+   "canonical": "https://nshipster.com/nsundomanager/",
+   "anchors": [
+    "undo-operations",
+    "registering-a-simple-undo-operation",
+    "registering-a-complex-undo-operation-with-nsinvocation",
+    "performing-an-undo",
+    "responding-to-the-shake-gesture-on-ios",
+    "customizing-the-undo-stack",
+    "grouping-actions-together",
+    "clearing-the-stack",
+    "caveats"
+   ],
+   "assets": [
+    "delisa-mason.jpg",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nsurl/": {
+   "canonical": "https://nshipster.com/nsurl/",
+   "anchors": [
+    "url-components",
+    "nsurlcomponents",
+    "percent-encoding",
+    "bookmark-urls"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "nsurl.png",
+    "warning.svg"
+   ]
+  },
+  "/nsurlcache/": {
+   "canonical": "https://nshipster.com/nsurlcache/",
+   "anchors": [
+    "nsurlrequestcachepolicy",
+    "http-cache-semantics",
+    "request-cache-headers",
+    "response-cache-headers",
+    "nsurlconnectiondelegate",
+    "caveats"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nsurlprotocol/": {
+   "canonical": "https://nshipster.com/nsurlprotocol/",
+   "anchors": [
+    "subclassing-nsurlprotocol",
+    "determining-if-a-subclass-can-handle-a-request",
+    "providing-a-canonical-version-of-a-request",
+    "getting-and-setting-properties-on-requests",
+    "loading-requests",
+    "nsurlprotocolclient",
+    "registering-the-subclass-with-the-url-loading-system"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/nsvalue/": {
+   "canonical": "https://nshipster.com/nsvalue/",
+   "anchors": [
+    "valuewithbytesobjctype",
+    "valuewithnonretainedobject"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/numericcast/": {
+   "canonical": "https://nshipster.com/numericcast/",
+   "anchors": [
+    "thinking-literally-thinking-critically",
+    "the-cost-of-being-right",
+    "random-acts-of-compiling"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/object-subscripting/": {
+   "canonical": "https://nshipster.com/object-subscripting/",
+   "anchors": [
+    "custom-indexed-subscripting",
+    "custom-keyed-subscripting",
+    "custom-subscripting-as-dsl"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/objective-c-documentation/": {
+   "canonical": "https://nshipster.com/objective-c-documentation/",
+   "anchors": [
+    "guidelines-for-writing-objective-c-documentation"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/ollama/": {
+   "canonical": "https://nshipster.com/ollama/",
+   "anchors": [
+    "what-is-ollama",
+    "whats-the-big-deal-about-running-models-locally",
+    "building-macos-apps-with-ollama",
+    "text-completions",
+    "chat-completions",
+    "generating-text-embeddings",
+    "building-a-rag-system",
+    "nominateapp",
+    "looking-ahead"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "ollama-nominate-screen-recording.mov",
+    "warning.svg"
+   ]
+  },
+  "/optional-throws-result-async-await/": {
+   "canonical": "https://nshipster.com/optional-throws-result-async-await/",
+   "anchors": [
+    "getting-results",
+    "threes-a-crowd",
+    "falling-flat",
+    "errors-ups-and-downs",
+    "stop-me-if-youve-heard-this-one",
+    "awaiting-the-future"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "jemmons.jpg",
+    "warning.svg"
+   ]
+  },
+  "/optionset/": {
+   "canonical": "https://nshipster.com/optionset/",
+   "anchors": [
+    "working-with-imported-option-set-types",
+    "declaring-your-own-option-set-types",
+    "a-fresh-take-on-an-old-classic"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/phimagemanager/": {
+   "canonical": "https://nshipster.com/phimagemanager/",
+   "robots": "noindex,nofollow",
+   "anchors": [
+    "requesting-asset-images",
+    "batch-pre-caching-asset-images",
+    "phimagerequestoptions",
+    "phimagerequestoptionsdeliverymode",
+    "cropping-asset-to-detected-faces-using-2-phase-image-request"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/pragma/": {
+   "canonical": "https://nshipster.com/pragma/",
+   "anchors": [
+    "organizing-your-code",
+    "inhibiting-warnings"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "pragma-xcode-sections.png",
+    "warning.svg"
+   ]
+  },
+  "/propertywrapper/": {
+   "canonical": "https://nshipster.com/propertywrapper/",
+   "anchors": [
+    "about-property-delegates-wrappers",
+    "constraining-values",
+    "implementing-a-value-clamping-property-wrapper",
+    "related-ideas",
+    "transforming-values-on-property-assignment",
+    "implementing-a-property-wrapper-that-trims-whitespace-from-string-values",
+    "related-ideas-1",
+    "changing-synthesized-equality-and-comparison-semantics",
+    "implementing-a-case-insensitive-property-wrapper",
+    "related-ideas-2",
+    "auditing-property-access",
+    "implementing-a-property-value-versioning",
+    "related-ideas-3",
+    "limitations",
+    "properties-cant-participate-in-error-handling",
+    "wrapped-properties-cant-be-aliased",
+    "property-wrappers-are-difficult-to-compose",
+    "property-wrappers-arent-first-class-dependent-types",
+    "property-wrappers-are-difficult-to-document",
+    "property-wrappers-further-complicate-swift"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/quick-look-debugging/": {
+   "canonical": "https://nshipster.com/quick-look-debugging/",
+   "anchors": [
+    "built-in-types",
+    "custom-types"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "nate-cook.jpg",
+    "quicklook-color.gif",
+    "quicklook-debug.gif",
+    "quicklook-spiral.gif",
+    "warning.svg"
+   ]
+  },
+  "/random/": {
+   "canonical": "https://nshipster.com/random/",
+   "anchors": [
+    "how-do-i-generate-a-random-number-in-objective-c",
+    "random-int-between-0-and-n-1",
+    "random-int-between-1-and-n",
+    "random-double-between-0-and-1",
+    "how-do-i-pick-a-random-element-from-an-nsarray",
+    "how-do-i-randomly-order-an-nsarray",
+    "how-do-i-generate-a-random-string",
+    "generate-a-random-lowercase-nsstring",
+    "pick-a-random-character-from-an-nsstring",
+    "why-should-i-use-arc4random3-instead-of-rand3-or-random3",
+    "what-are-rand3-random3-and-arc4random3-and-where-do-they-come-from"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/rawrepresentable/": {
+   "canonical": "https://nshipster.com/rawrepresentable/",
+   "anchors": [
+    "rawrepresentable-with-c-raw-value-types",
+    "rawrepresentable-and-associated-values",
+    "rawrepresentable-as-raw-values-for-another-enumeration",
+    "rawrepresentable-with-metatype-raw-values"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/reactivecocoa/": {
+   "canonical": "https://nshipster.com/reactivecocoa/",
+   "robots": "noindex,nofollow",
+   "anchors": [
+    "conventional",
+    "reactivecocoa",
+    "overview",
+    "racsignal",
+    "racsequence",
+    "precedents-in-cocoa",
+    "rac-vs-kvo",
+    "rac-vs-bindings"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/replay/": {
+   "canonical": "https://nshipster.com/replay/",
+   "anchors": [
+    "for-auld-lang-syne",
+    "how-replay-works",
+    "the-recording-workflow",
+    "whats-in-a-har-file",
+    "handling-sensitive-data",
+    "flexible-matching",
+    "inline-stubs"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/return/": {
+   "canonical": "https://nshipster.com/return/",
+   "robots": "noindex,nofollow",
+   "anchors": [
+    "what-to-expect",
+    "new-articles-every-monday",
+    "updated-articles-every-wednesday",
+    "trivia-questions-every-friday",
+    "whats-different-right-now",
+    "upgraded-site-infrastructure",
+    "removed-site-search",
+    "retired-content",
+    "more-things-to-look-forward-to",
+    "cfhipsterref-update-and-print-edition",
+    "new-books",
+    "more-tools-and-experiments",
+    "conferences-and-meetups-near-you"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/search-kit/": {
+   "canonical": "https://nshipster.com/search-kit/",
+   "anchors": [
+    "search-101",
+    "extract",
+    "filter",
+    "reduce",
+    "index",
+    "using-search-kit",
+    "creating-an-index",
+    "adding-documents-to-an-index",
+    "searching"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/secrets/": {
+   "canonical": "https://nshipster.com/secrets/",
+   "anchors": [
+    "normal-brain-hard-code-secrets-in-source-code",
+    "big-brain-store-secrets-in-xcode-configuration-and-infoplist",
+    "cosmic-brain-obfuscate-secrets-using-code-generation",
+    "galaxy-brain-dont-store-secrets-on-device",
+    "universe-brain-client-secrecy-is-impossible"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/simctl/": {
+   "canonical": "https://nshipster.com/simctl/",
+   "anchors": [
+    "managing-simulator-devices",
+    "copying-pasting-between-desktop-and-simulator",
+    "opening-urls-in-simulator",
+    "add-to-photo-stream",
+    "capture-video-recording-from-simulator",
+    "setting-simulator-locale"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/status": {
+   "canonical": "https://nshipster.com/status",
+   "robots": "noindex,nofollow",
+   "anchors": [],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/stewardship/": {
+   "canonical": "https://nshipster.com/stewardship/",
+   "anchors": [
+    "creating",
+    "readme",
+    "license",
+    "screenshot",
+    "demo",
+    "distribution",
+    "nshipsterkitpodspec",
+    "podfile",
+    "maintaining",
+    "versioning",
+    "answering-questions",
+    "transitioning",
+    "recruiting-delegating",
+    "sunsetting"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/swift-1.2/": {
+   "canonical": "https://nshipster.com/swift-1.2/",
+   "robots": "noindex,nofollow",
+   "anchors": [
+    "improved-optional-binding",
+    "nullability-annotations",
+    "nullability-in-action",
+    "ns_assume_nonnull_beginend",
+    "not-just-for-swift"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "nate-cook.jpg",
+    "warning.svg"
+   ]
+  },
+  "/swift-api-pollution/": {
+   "canonical": "https://nshipster.com/swift-api-pollution/",
+   "anchors": [
+    "module-pollution",
+    "operator-overloading",
+    "function-shadowing",
+    "string-interpolation-pollution",
+    "strategies-for-api-consumers",
+    "add-hints-to-the-compiler",
+    "scoped-import-declarations",
+    "fork-dependencies",
+    "strategies-for-api-provider",
+    "be-more-discerning-with-generic-constraints",
+    "isolate-core-functionality-from-convenience",
+    "avoid-collisions-altogether"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/swift-collection-protocols/": {
+   "canonical": "https://nshipster.com/swift-collection-protocols/",
+   "robots": "noindex,nofollow",
+   "anchors": [
+    "sequencetype-generatortype",
+    "collectiontype-mutablecollectiontype",
+    "sliceable-mutablesliceable",
+    "extensiblecollectiontype-rangereplaceablecollectiontype",
+    "sorting-out-the-oscars"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "nate-cook.jpg",
+    "warning.svg"
+   ]
+  },
+  "/swift-default-protocol-implementations/": {
+   "canonical": "https://nshipster.com/swift-default-protocol-implementations/",
+   "anchors": [
+    "default-implementation-of-methods"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/swift-documentation/": {
+   "canonical": "https://nshipster.com/swift-documentation/",
+   "anchors": [
+    "documentation-comments-swift-flavored-markdown",
+    "basic-markup",
+    "summary-description",
+    "parameters-return-values",
+    "additional-fields",
+    "code-blocks",
+    "documentation-is-my-new-bicycle",
+    "mark-todo-fixme",
+    "jazzy"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "swift-documentation-initializer-declaration.png",
+    "swift-documentation-method-declaration.png",
+    "swift-documentation-xcode-source-navigator.png",
+    "warning.svg"
+   ]
+  },
+  "/swift-format/": {
+   "canonical": "https://nshipster.com/swift-format/",
+   "anchors": [
+    "what-is-code-formatting",
+    "formatter-tool-comparison",
+    "swiftformat",
+    "installation",
+    "usage",
+    "example-output",
+    "performance",
+    "swiftlint",
+    "installation-1",
+    "usage-1",
+    "example-output-1",
+    "performance-1",
+    "swift-format",
+    "installation-2",
+    "usage-2",
+    "example-output-2",
+    "flexible-output",
+    "columns",
+    "columns-1",
+    "columns-2",
+    "columns-3",
+    "columns-4",
+    "performance",
+    "conclusion-you-dont-need-to-wait-to-start-using-a-code-formatting-tool"
+   ],
+   "assets": [
+    "articles/swift-format.css",
+    "articles/swift-format.js",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/swift-foundation-error-protocols/": {
+   "canonical": "https://nshipster.com/swift-foundation-error-protocols/",
+   "anchors": [
+    "communicating-errors-to-the-user",
+    "adopting-the-localizederror-protocol",
+    "communicating-errors-on-macos",
+    "recovering-from-errors",
+    "modernizing-error-recovery-with-recoverableerror",
+    "supplementing-recoverableerror-with-additional-types",
+    "improving-interoperability-with-cocoa-error-handling-system"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "swift-foundation-error-appkit-default-modal.png",
+    "swift-foundation-error-appkit-fixed-modal.png",
+    "swift-foundation-error-appkit-unrefined-modal.png",
+    "swift-foundation-error-uikit-alert-modal.png",
+    "warning.svg"
+   ]
+  },
+  "/swift-gyb/": {
+   "canonical": "https://nshipster.com/swift-gyb/",
+   "anchors": [
+    "how-gyb-works",
+    "installing-gyb",
+    "using-gyb-in-xcode",
+    "when-to-use-gyb",
+    "generating-formulaic-code",
+    "generating-code-derived-from-data"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/swift-literals/": {
+   "canonical": "https://nshipster.com/swift-literals/",
+   "anchors": [
+    "standard-literals",
+    "playground-literals",
+    "how-literals-work",
+    "supporting-literal-initialization-for-custom-types",
+    "future-developments",
+    "raw-string-literals",
+    "literal-initialization-via-coercion"
+   ],
+   "assets": [
+    "color-literal-picker.png",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/swift-log/": {
+   "canonical": "https://nshipster.com/swift-log/",
+   "anchors": [
+    "adopting-swiftlog-in-your-swift-program",
+    "add-swift-log-as-a-package-dependency",
+    "create-a-shared-global-logger",
+    "replacing-print-statements-with-logging-statements",
+    "using-multiple-logging-handlers-at-once",
+    "xi-logs",
+    "creating-a-custom-log-handler",
+    "conditional-boostrapping",
+    "testing-custom-log-handlers"
+   ],
+   "assets": [
+    "articles/swift-log.css",
+    "error.svg",
+    "github-actions-ui.png",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/swift-objc-runtime/": {
+   "canonical": "https://nshipster.com/swift-objc-runtime/",
+   "anchors": [
+    "associated-objects",
+    "method-swizzling",
+    "load-vs-initialize-swift-edition"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "nate-cook.jpg",
+    "warning.svg"
+   ]
+  },
+  "/swift-operators/": {
+   "canonical": "https://nshipster.com/swift-operators/",
+   "anchors": [
+    "operator-precedence-and-associativity",
+    "swift-operators",
+    "infix-operators",
+    "bitwiseshiftprecedence",
+    "multiplicationprecedence",
+    "additionprecedence",
+    "rangeformationprecedence",
+    "castingprecedence",
+    "nilcoalescingprecedence",
+    "comparisonprecedence",
+    "logicalconjunctionprecedence",
+    "logicaldisjunctionprecedence",
+    "defaultprecedence",
+    "assignmentprecedence",
+    "unary-operators",
+    "prefix-operators",
+    "postfix-operators",
+    "ternary-operators",
+    "operator-overloading",
+    "defining-custom-operators",
+    "use-of-mathematical-symbols"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "swift-operators-one-plus-two-plus-three.svg",
+    "swift-operators-one-plus-two-times-three.svg",
+    "swift-operators-one-plus-two.svg",
+    "warning.svg"
+   ]
+  },
+  "/swift-property-observers/": {
+   "canonical": "https://nshipster.com/swift-property-observers/",
+   "anchors": [
+    "properties-in-objective-c",
+    "validating-normalizing-values",
+    "propagating-dependent-state"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/swift-regular-expressions/": {
+   "canonical": "https://nshipster.com/swift-regular-expressions/",
+   "anchors": [
+    "regular-expressions-without-nsregularexpression",
+    "matching-strings-against-patterns",
+    "searching-and-retrieving-matches",
+    "finding-and-replacing-matches",
+    "regular-expressions-with-nsregularexpression",
+    "enumerating-matches-with-positional-capture-groups",
+    "matching-multi-line-patterns-with-named-capture-groups"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/swift-sh/": {
+   "canonical": "https://nshipster.com/swift-sh/",
+   "anchors": [
+    "installation-and-setup",
+    "example-usage",
+    "importing-dependencies",
+    "recruiting-players",
+    "shuffling-and-dealing-the-deck",
+    "running-the-card-game",
+    "making-an-executable",
+    "converting-scripts-to-packages",
+    "current-limitations",
+    "dependency-on-github",
+    "module-names-must-match-repository-names",
+    "lack-of-support-for-import-declaration-syntax"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/swift-system-version-checking/": {
+   "canonical": "https://nshipster.com/swift-system-version-checking/",
+   "anchors": [
+    "processinfo",
+    "isoperatingsystematleast",
+    "operatingsystemversion",
+    "uidevice-systemversion",
+    "nsappkitversion"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/swiftsyntax/": {
+   "canonical": "https://nshipster.com/swiftsyntax/",
+   "anchors": [
+    "how-does-it-work",
+    "demystifying-the-ast",
+    "working-around-file-system-constraints",
+    "what-can-you-do-with-it",
+    "writing-swift-code-the-hard-way",
+    "rewriting-swift-code",
+    "highlighting-swift-code"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "swift-compilation-diagram.png",
+    "swiftsyntaxhightlighter-example-output.png",
+    "warning.svg"
+   ]
+  },
+  "/swiftui-previews/": {
+   "canonical": "https://nshipster.com/swiftui-previews/",
+   "anchors": [
+    "previewing-multiple-states",
+    "previewing-dark-mode",
+    "previewing-dynamic-type-size-categories",
+    "previewing-different-locales",
+    "previewing-view-controllers-on-different-devices"
+   ],
+   "assets": [
+    "articles/swiftui-previews.css",
+    "error.svg",
+    "info.svg",
+    "swiftui-preview-color-schemes.png",
+    "swiftui-preview-content-size-categories.png",
+    "swiftui-preview-devices.png",
+    "swiftui-preview-favorite-unfavorite.png",
+    "swiftui-preview-follow.png",
+    "swiftui-preview-locales.png",
+    "warning.svg"
+   ]
+  },
+  "/temporary-files/": {
+   "canonical": "https://nshipster.com/temporary-files/",
+   "anchors": [
+    "creating-a-temporary-directory",
+    "creating-a-temporary-file",
+    "writing-to-a-temporary-file",
+    "writing-data-to-a-url",
+    "writing-data-to-a-file-handle",
+    "writing-data-to-an-output-stream",
+    "moving-or-deleting-the-temporary-file"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/textoutputstream/": {
+   "canonical": "https://nshipster.com/textoutputstream/",
+   "anchors": [
+    "implementing-a-custom-text-output-stream-type",
+    "ideas-for-using-custom-text-output-streams",
+    "logging-to-standard-error",
+    "writing-output-to-a-file",
+    "escaping-streamed-output"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/the-death-of-cocoa/": {
+   "canonical": "https://nshipster.com/the-death-of-cocoa/",
+   "robots": "noindex,nofollow",
+   "anchors": [
+    "numbers",
+    "strings",
+    "uri-url-and-urn",
+    "data-structures",
+    "dates-times",
+    "interchange-formats",
+    "regular-expressions",
+    "errors",
+    "appkit-uikit",
+    "thinking-further"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/timeinterval-date-dateinterval/": {
+   "canonical": "https://nshipster.com/timeinterval-date-dateinterval/",
+   "anchors": [
+    "date-and-time",
+    "date-intervals-and-time-intervals",
+    "getting-the-date-interval-of-a-calendar-unit",
+    "calculating-intersections-of-date-intervals"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/type-encodings/": {
+   "canonical": "https://nshipster.com/type-encodings/",
+   "anchors": [
+    "method-encodings"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/uiaccessibility/": {
+   "canonical": "https://nshipster.com/uiaccessibility/",
+   "anchors": [
+    "enabling-accessibility",
+    "label-hint",
+    "guidelines-for-creating-labels",
+    "guidelines-for-creating-hints",
+    "traits",
+    "frame-activation-point",
+    "value"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "uiaccessibility-voiceover.png",
+    "warning.svg"
+   ]
+  },
+  "/uiactivityviewcontroller/": {
+   "canonical": "https://nshipster.com/uiactivityviewcontroller/",
+   "anchors": [
+    "uiactivitycategoryaction",
+    "uiactivitycategoryshare",
+    "creating-a-custom-uiactivity",
+    "defining-a-custom-activity-type",
+    "creating-a-uiactivity-subclass",
+    "determining-which-items-are-actionable",
+    "preparing-for-action",
+    "performing-the-activity",
+    "showing-the-results",
+    "providing-a-custom-activity-to-users"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "jony-ive-mustache.png",
+    "jony-ive-unstache.png",
+    "uiactivity-addToReadingList.png",
+    "uiactivity-airDrop.png",
+    "uiactivity-assignToContact.png",
+    "uiactivity-copyToPasteboard.png",
+    "uiactivity-icon-file.svg",
+    "uiactivity-icon-image.svg",
+    "uiactivity-icon-string.svg",
+    "uiactivity-icon-url.svg",
+    "uiactivity-mail.png",
+    "uiactivity-message.png",
+    "uiactivity-postToFacebook.png",
+    "uiactivity-postToFlickr.png",
+    "uiactivity-postToTencentWeibo.png",
+    "uiactivity-postToTwitter.png",
+    "uiactivity-postToVimeo.png",
+    "uiactivity-postToWeibo.png",
+    "uiactivity-print.png",
+    "uiactivity-saveToCameraRoll.png",
+    "uiactivityviewcontroller-custom-action.png",
+    "uiactivityviewcontroller.png",
+    "warning.svg"
+   ]
+  },
+  "/uialertcontroller/": {
+   "canonical": "https://nshipster.com/uialertcontroller/",
+   "anchors": [
+    "comparing-the-old-and-new-ways-to-alerts",
+    "a-standard-alert",
+    "the-old-way-uialertview",
+    "the-new-way-uialertcontroller",
+    "a-standard-action-sheet",
+    "uiactionsheet",
+    "uialertcontroller",
+    "new-functionality",
+    "alert-with-destructive-button",
+    "alert-with-2-buttons",
+    "creating-a-login-form",
+    "creating-a-sign-up-form",
+    "caveats"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "uialertcontroller-action-sheet-automatic-style.png",
+    "uialertcontroller-alert-cancel-destroy.png",
+    "uialertcontroller-alert-defautl-style.png",
+    "uialertcontroller-alert-one-two-three-cancel.png",
+    "uialertcontroller-alert-sign-up.png",
+    "uialertcontroller-alert-username-password-login-forgot-password-cancel.png",
+    "warning.svg"
+   ]
+  },
+  "/uiappearance/": {
+   "canonical": "https://nshipster.com/uiappearance/",
+   "anchors": [
+    "determining-which-properties-work-with-uiappearance",
+    "implementing-uiappearance-in-custom-uiview-subclasses"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/uicollectionview/": {
+   "canonical": "https://nshipster.com/uicollectionview/",
+   "anchors": [
+    "cell-views",
+    "supplementary-views",
+    "decoration-views",
+    "layouts-and-layout-attributes"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/uifieldbehavior/": {
+   "canonical": "https://nshipster.com/uifieldbehavior/",
+   "anchors": [
+    "understanding-field-behaviors",
+    "face-to-face-with-spring-fields",
+    "debugging-physics",
+    "aggregating-behaviors"
+   ],
+   "assets": [
+    "error.svg",
+    "facetime-picture-in-picture.png",
+    "game-center-felt.jpg",
+    "info.svg",
+    "jordan-morgan.jpg",
+    "uidynamicanimator-debug.jpg",
+    "uifieldbehavior-demo.mp4",
+    "uifieldbehavior-demo.png",
+    "warning.svg"
+   ]
+  },
+  "/uikeycommand/": {
+   "canonical": "https://nshipster.com/uikeycommand/",
+   "anchors": [
+    "uikeycommand",
+    "responding-to-key-commands",
+    "context-sensitivity"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "nate-cook.jpg",
+    "uikeycommand-discoverability.png",
+    "warning.svg"
+   ]
+  },
+  "/uilocalizedindexedcollation/": {
+   "canonical": "https://nshipster.com/uilocalizedindexedcollation/",
+   "anchors": [
+    "uitableviewindexsearch"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "uilocalizedindexedcollation-example.png",
+    "warning.svg"
+   ]
+  },
+  "/uimenucontroller/": {
+   "canonical": "https://nshipster.com/uimenucontroller/",
+   "anchors": [
+    "copy-cut-paste-delete-select",
+    "uimenucontroller",
+    "uiresponderstandardeditactions",
+    "handling-copy-cut-delete-and-paste-commands",
+    "handling-selection-commands",
+    "uimenuitem"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/uiprintinteractioncontroller/": {
+   "canonical": "https://nshipster.com/uiprintinteractioncontroller/",
+   "anchors": [
+    "printing-is-a-job",
+    "uiprintinfo",
+    "uiprintinteractioncontroller-settings",
+    "formatting-your-content",
+    "printing-with-printitems",
+    "uiprintformatter",
+    "1-uitextview",
+    "2-uiwebview",
+    "3-mkmapview",
+    "uiprintpagerenderer",
+    "printing-via-a-share-sheet",
+    "skipping-the-printing-ui"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "nate-cook.jpg",
+    "uiprintinteractioncontroller-hardware-io-tools-download.png",
+    "uiprintinteractioncontroller-html-print.png",
+    "uiprintinteractioncontroller-image-print.png",
+    "uiprintinteractioncontroller-mapview-print.png",
+    "uiprintinteractioncontroller-printer-simulator-app.png",
+    "uiprintinteractioncontroller-printersimulator-load-paper.pnd.png",
+    "uiprintinteractioncontroller-renderer-print.png",
+    "uiprintinteractioncontroller-textview-print.png",
+    "uiprintinteractioncontroller-webview-print.png",
+    "warning.svg"
+   ]
+  },
+  "/uisplitviewcontroller/": {
+   "canonical": "https://nshipster.com/uisplitviewcontroller/",
+   "anchors": [
+    "split-view-controller-from-start-to-finish",
+    "the-storyboard-layout",
+    "master-detail",
+    "show-detail",
+    "double-navigation-controllers",
+    "adding-a-display-mode-button",
+    "collapse-detail-view-controller"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "ipad-navigation-bar-with-button.jpg",
+    "ipad-navigation-bar-with-button.mov",
+    "ipad-split-view-no-navigation-bar.jpg",
+    "ipad-split-view-no-navigation-bar.mov",
+    "iphone-displayModeButtonItem.jpg",
+    "iphone-displayModeButtonItem.mov",
+    "iphone-primary-view-controller-rotation.jpg",
+    "iphone-primary-view-controller-rotation.mov",
+    "natasha-murashev.jpg",
+    "split-view-demo.jpg",
+    "split-view-demo.mov",
+    "split-view-zoomed-demo.jpg",
+    "split-view-zoomed-demo.mov",
+    "uisplitviewcontroller-master-detail-storyboard.png",
+    "uisplitviewcontroller-no-detail-navigation-controller.png",
+    "uisplitviewcontroller-no-navigation-bar.png",
+    "uisplitviewcontroller-relationship-segue.png",
+    "uisplitviewcontroller-show-detail-segue.png",
+    "uisplitviewcontroller-storyboard-layout.png",
+    "warning.svg"
+   ]
+  },
+  "/uistackview/": {
+   "canonical": "https://nshipster.com/uistackview/",
+   "anchors": [
+    "hors-doeuvres-conceptual-overview",
+    "appetizer-uistackview-essentials",
+    "managing-subviews",
+    "toggling-subview-visibility",
+    "arranging-subviews-horizontally-and-vertically",
+    "entree-configuring-the-layout",
+    "the-main-axis-distribution",
+    "the-cross-axis-alignment",
+    "palate-cleanser-background-color",
+    "dessert-spacing-auto-layout",
+    "laddition-sil-vous-plait",
+    "after-dinner-mint-swiftui-stacks"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "reda-lemeden.jpg",
+    "warning.svg"
+   ]
+  },
+  "/uitableviewheaderfooterview/": {
+   "canonical": "https://nshipster.com/uitableviewheaderfooterview/",
+   "anchors": [
+    "uitableview-review",
+    "creating-a-section-header-view",
+    "option-1-constructing-the-view-programmatically",
+    "option-2-designing-the-view-in-interface-builder",
+    "implementing-uitableviewdelegate-methods",
+    "self-sizing-header-and-footer-views"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "uitableviewheaderfooterview-custom-view.png",
+    "uitableviewheaderfooterview-new-xib.png",
+    "uitableviewheaderfooterview-storyboard.png",
+    "warning.svg"
+   ]
+  },
+  "/uitextchecker/": {
+   "canonical": "https://nshipster.com/uitextchecker/",
+   "anchors": [
+    "spell-checking",
+    "learning-new-words",
+    "suggesting-completions"
+   ],
+   "assets": [
+    "croath-liu.jpg",
+    "error.svg",
+    "info.svg",
+    "uitextchecker-hipstar.png",
+    "warning.svg"
+   ]
+  },
+  "/uitextinputpasswordrules/": {
+   "canonical": "https://nshipster.com/uitextinputpasswordrules/",
+   "anchors": [
+    "automatic-strong-passwords",
+    "password-rules",
+    "keys",
+    "character-classes",
+    "specifying-password-rules",
+    "generating-password-rules-in-swift"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "password-rules-validation-tool.png",
+    "warning.svg"
+   ]
+  },
+  "/uncertainty/": {
+   "canonical": "https://nshipster.com/uncertainty/",
+   "anchors": [
+    "picking-the-right-abstraction",
+    "the-monte-carlo-method",
+    "beyond-simple-distributions",
+    "putting-theory-to-practice"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "uncertainty-screenshot--dark.png",
+    "uncertainty-screenshot--light.png",
+    "warning.svg"
+   ]
+  },
+  "/unit-testing/": {
+   "canonical": "https://nshipster.com/unit-testing/",
+   "anchors": [
+    "ocunit",
+    "open-source-libraries",
+    "automated-testing",
+    "jenkins",
+    "travis",
+    "travisyml"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/unmanaged/": {
+   "canonical": "https://nshipster.com/unmanaged/",
+   "anchors": [
+    "automatic-reference-counting",
+    "managing-unmanaged",
+    "better-off-without"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "nate-cook.jpg",
+    "unmanaged-arc.png",
+    "warning.svg"
+   ]
+  },
+  "/uuid-udid-unique-identifier/": {
+   "canonical": "https://nshipster.com/uuid-udid-unique-identifier/",
+   "anchors": [
+    "vendor-identifier",
+    "advertising-identifier",
+    "nsuuid-cfuuidref"
+   ],
+   "assets": [
+    "ad-support-limit-ad-tracking.png",
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/valuetransformer/": {
+   "canonical": "https://nshipster.com/valuetransformer/",
+   "anchors": [
+    "making-business-logic-more-functional",
+    "thinking-forwards-and-backwards",
+    "configuring-functionality",
+    "transforming-your-core-data-stack"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/void/": {
+   "canonical": "https://nshipster.com/void/",
+   "anchors": [
+    "something-for-nothing",
+    "no-things-being-equal",
+    "ghost-in-the-shell",
+    "the-phantom-type",
+    "trying-to-return-from-the-void",
+    "things-that-go-clang-in-the-night",
+    "a-hollow-victory"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/vscode/": {
+   "canonical": "https://nshipster.com/vscode/",
+   "anchors": [
+    "step-0-install-xcode",
+    "step-1-install-visual-studio-code",
+    "step-2-install-node-and-npm",
+    "step-3-build-and-install-sourcekit-lsp-extension-for-visual-studio-code"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "vscode-banner.png",
+    "vscode-swift-lsp-screenshot.png",
+    "warning.svg",
+    "xcode-select-window.png"
+   ]
+  },
+  "/watchkit/": {
+   "canonical": "https://nshipster.com/watchkit/",
+   "anchors": [
+    "comparison-to-uikit",
+    "wkinterfacecontroller",
+    "wkinterfaceobject",
+    "wkinterfacebutton",
+    "wkinterfacetable",
+    "wkinterfacelabel",
+    "wkinterfacedate-wkinterfacetimer",
+    "wkinterfaceslider-wkinterfaceswitch"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/wkwebview/": {
+   "canonical": "https://nshipster.com/wkwebview/",
+   "anchors": [
+    "migrating-from-uiwebview-webview-to-wkwebview",
+    "loading",
+    "history",
+    "javascript-evaluation",
+    "miscellaneous",
+    "pagination",
+    "refactored-into-wkwebviewconfiguration",
+    "javascript-swift-communication",
+    "injecting-behavior-with-user-scripts",
+    "message-handlers",
+    "content-blocking-rules",
+    "snapshots"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/wwdc-2019/": {
+   "canonical": "https://nshipster.com/wwdc-2019/",
+   "anchors": [
+    "swiftui-swift-and-open-source",
+    "apples-language",
+    "swiftui-catalyst-and-the-long-term-viability-of-apple-platforms",
+    "what-about-javascript",
+    "thinking-outside-the-app-store",
+    "apple-politics-and-the-global-economy",
+    "mind-the-enthusiasm-gap",
+    "silver-bullets-and-universal-truths"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg",
+    "wwdc-2019.jpg",
+    "wwdc-twitter-app--dark.png",
+    "wwdc-twitter-app--light.png"
+   ]
+  },
+  "/wwdc-2020/": {
+   "canonical": "https://nshipster.com/wwdc-2020/",
+   "anchors": [
+    "excitement",
+    "trivial-pursuit",
+    "temperance"
+   ],
+   "assets": [
+    "articles/wwdc-2020.js",
+    "error.svg",
+    "info.svg",
+    "warning.svg",
+    "wwdc-2020-apple-executives-dancing.mp4",
+    "wwdc-2020-banner.jpg"
+   ]
+  },
+  "/xcconfig/": {
+   "canonical": "https://nshipster.com/xcconfig/",
+   "anchors": [
+    "retaining-existing-values",
+    "referencing-values",
+    "setting-fallback-values-for-referenced-build-settings",
+    "conditionalizing-build-settings",
+    "including-build-settings-from-other-configuration-files",
+    "creating-build-configuration-files",
+    "customizing-app-name-and-icon-for-internal-builds",
+    "managing-constants-across-different-environments",
+    "accessing-build-settings-from-swift"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg",
+    "xcconfig-new-file--dark.png",
+    "xcconfig-new-file--light.png",
+    "xcconfig-project-build-settings--dark.png",
+    "xcconfig-project-build-settings--light.png",
+    "xcconfig-project-configurations--dark.png",
+    "xcconfig-project-configurations--light.png",
+    "xcconfig-project-info-plist--dark.png",
+    "xcconfig-project-info-plist--light.png"
+   ]
+  },
+  "/xcode-key-bindings-and-gestures/": {
+   "canonical": "https://nshipster.com/xcode-key-bindings-and-gestures/",
+   "anchors": [
+    "open-quickly-o",
+    "quick-documentation-on-symbol-three-finger-tap-open-documentation-on-symbol",
+    "jump-to-definition-on-symbol",
+    "jump-to-next-counterpart-three-finger-vertical-swipe",
+    "comment-selection-current-line",
+    "show-standard-editor-show-assistant-editor-show-version-editor",
+    "showhide-navigator-panel-0",
+    "select-navigator-1-8",
+    "showhide-utilities-panel-0",
+    "select-utilities-panel-1-2",
+    "source-file",
+    "interface-builder",
+    "show-hide-debug-area-y-activate-console-c",
+    "find-f-find-replace-f-find-in-project-f-find-replace-in-project-f",
+    "spelling-grammar"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg",
+    "xcode-shortcuts-assistant-editor-position.png",
+    "xcode-shortcuts-comment.gif",
+    "xcode-shortcuts-counterpart.gif",
+    "xcode-shortcuts-debug-area.gif",
+    "xcode-shortcuts-editors.gif",
+    "xcode-shortcuts-find.gif",
+    "xcode-shortcuts-panels.gif",
+    "xcode-shortcuts-preferences.png",
+    "xcode-shortcuts-quick-documentation.gif",
+    "xcode-shortcuts-quick-open.png",
+    "xcode-shortcuts-spelling-and-grammar.png"
+   ]
+  },
+  "/xcode-plugins/": {
+   "canonical": "https://nshipster.com/xcode-plugins/",
+   "anchors": [
+    "making-xcode-more-like-x",
+    "vim",
+    "sublimetext",
+    "atom",
+    "fixing-xcode",
+    "add-line-breaks-to-issue-navigator",
+    "dismiss-debugging-console-when-typing",
+    "add-ansi-color-support-to-debugging-console",
+    "hide-property-methods-in-source-navigator",
+    "blow-away-deriveddata-folder",
+    "turbocharging-xcode",
+    "autocomplete-switch-statements",
+    "autocomplete-documentation",
+    "formatting-xcode",
+    "code-formatting-with-clangformat",
+    "statement-alignment",
+    "extending-xcode",
+    "inspect-nscolor-uicolor-instances",
+    "autocomplete-images-from-project-bundle",
+    "semantics-highlighting",
+    "localization"
+   ],
+   "assets": [
+    "bbudebuggertuckaway.gif",
+    "bbufullissuenavigator.png",
+    "colorsense.png",
+    "error.svg",
+    "info.svg",
+    "ksimagenamed.gif",
+    "lin-1.png",
+    "lin-2.png",
+    "polychromatic.png",
+    "scxcodeminimap.png",
+    "scxcodeswitchexpander.gif",
+    "showingithub.png",
+    "vvdocumenter.gif",
+    "warning.svg",
+    "xalign.gif",
+    "xcodecolors.png"
+   ]
+  },
+  "/xcode-snippets/": {
+   "canonical": "https://nshipster.com/xcode-snippets/",
+   "anchors": [
+    "using-xcode-snippets",
+    "creating-xcode-snippets",
+    "placeholder-tokens",
+    "third-party-xcode-snippets"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg",
+    "xcode-snippet-create.gif",
+    "xcode-snippet-drag-and-drop.gif",
+    "xcode-snippet-editor.png",
+    "xcode-snippet-text-completion-shortcut.gif",
+    "xcode-snippet-token.png",
+    "xcode-snippet-utilities-divider.png",
+    "xcode-snippet-utilties-panel.png"
+   ]
+  },
+  "/xcode-source-extensions/": {
+   "canonical": "https://nshipster.com/xcode-source-extensions/",
+   "anchors": [
+    "source-editor-extensions",
+    "creating-a-source-editor-extension",
+    "display-names",
+    "menu-items",
+    "inputs-and-outputs",
+    "development-tips",
+    "debugging",
+    "extension-scheme-setup",
+    "testing-xcodekit",
+    "using-pluginkit",
+    "features-and-caveats",
+    "transforming-source-code",
+    "context-free-source-code",
+    "output",
+    "heavyweight-architecture-lightweight-results",
+    "the-handwavy-bit"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg",
+    "xcode-source-editor-add-extension-target.png",
+    "xcode-source-editor-dark-xcode-dock.png",
+    "xcode-source-editor-extension-installation-flow.png",
+    "xcode-source-editor-extension-target-default-executable.png",
+    "xcode-source-editor-extension-target-launch-arguments.png",
+    "xcode-source-editor-test-target-build-settings.png",
+    "zoe-smith.jpg"
+   ]
+  },
+  "/xcplayground/": {
+   "canonical": "https://nshipster.com/xcplayground/",
+   "anchors": [
+    "sources",
+    "importing-frameworks",
+    "resources",
+    "local",
+    "shared",
+    "captured-values",
+    "asynchronous-execution",
+    "documentation"
+   ],
+   "assets": [
+    "XCPlayground.playground.zip",
+    "alert.gif",
+    "error.svg",
+    "info.svg",
+    "nate-cook.jpg",
+    "warning.svg",
+    "xcplayground-capture.png",
+    "xcplayground-documentation.png",
+    "xcplayground-sources.png"
+   ]
+  },
+  "/xctestcase/": {
+   "canonical": "https://nshipster.com/xctestcase/",
+   "anchors": [
+    "xctestcase",
+    "setup-teardown",
+    "functional-testing",
+    "all-of-the-xctest-assertions-you-really-need-to-know",
+    "fundamental-test",
+    "boolean-tests",
+    "equality-tests",
+    "nil-tests",
+    "unconditional-failure",
+    "performance-testing",
+    "xctestexpectation",
+    "mocking-in-swift"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg"
+   ]
+  },
+  "/xctool/": {
+   "canonical": "https://nshipster.com/xctool/",
+   "robots": "noindex,nofollow",
+   "anchors": [
+    "aesthetics-style-points",
+    "reporters",
+    "build-system-integration",
+    "travis-ci",
+    "travisyml",
+    "oclint"
+   ],
+   "assets": [
+    "error.svg",
+    "info.svg",
+    "warning.svg",
+    "xctool-example.gif"
+   ]
+  }
+ }
+}

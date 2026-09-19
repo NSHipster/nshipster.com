@@ -1,0 +1,200 @@
+---
+import type { CollectionEntry } from "astro:content";
+import Base from "./Base.astro";
+import Contributor from "../components/Contributor.astro";
+import JsonLd from "../components/JsonLd.astro";
+import { authorNamed, type Post } from "../lib/collections.ts";
+import { DATE_FORMAT, strftime, xmlschema, zoned } from "../lib/dates.ts";
+import { t } from "../lib/i18n.ts";
+import { absoluteURL, site } from "../lib/site.ts";
+import { camelBreak, plainText, stripHTML } from "../lib/text.ts";
+
+interface Props {
+  entry: CollectionEntry<"posts"> | CollectionEntry<"pages">;
+  /** Whether the entry is an article, as opposed to a page with the article layout. */
+  isArticle: boolean;
+  next?: Post | undefined;
+  previous?: Post | undefined;
+  /** The article to suggest reading next. */
+  continueWith?: Post | undefined;
+}
+
+const { entry, isArticle, next, previous, continueWith } = Astro.props;
+const post = entry.data;
+const author = await authorNamed(post.author);
+const coauthors = await Promise.all(post.authors.map(async (name) => ({ name, author: await authorNamed(name) })));
+const title = camelBreak(stripHTML(post.title));
+const published = zoned(post.date);
+const modified = zoned(post.updatedOn);
+const shown = post.lastRevisedOn ? zoned(post.lastRevisedOn) : published;
+const swift = post.status?.swift;
+const hasSwiftVersion = swift && swift !== "t.b.c." && swift !== "n/a";
+const description = plainText(post.excerptHTML);
+---
+
+<Base
+  title={post.title}
+  path={post.url}
+  document={isArticle
+    ? {
+        description,
+        category: post.category,
+        categories: post.category ? [post.category] : [],
+        published: xmlschema(published),
+        modified: xmlschema(modified),
+      }
+    : undefined}
+  article={isArticle
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: stripHTML(post.title).trim(),
+        description,
+        image: absoluteURL("/logo.png"),
+        datePublished: xmlschema(published),
+        dateModified: xmlschema(modified),
+        mainEntityOfPage: { "@type": "WebPage", "@id": absoluteURL(post.url) },
+        author: { "@type": "Person", name: author?.data.name ?? post.author ?? "Mattt" },
+        publisher: {
+          "@type": "Organization",
+          name: "NSHipster",
+          logo: { "@type": "ImageObject", url: absoluteURL("/logo.png") },
+        },
+        speakable: {
+          "@type": "SpeakableSpecification",
+          xpath: ["/html/head/title", "/html/head/meta[@name='description']/@content"],
+        },
+      }
+    : undefined}
+  next={next?.data.url}
+  previous={previous?.data.url}
+  noindex={post.retired}
+>
+  <article role="article">
+    <header role="heading">
+      <h1 class="title">
+        <a href={post.url}>{title}</a>
+      </h1>
+
+      <div class="byline">
+        {
+          coauthors.length > 0 ? (
+            <>
+              {t.writtenBy}{" "}
+              <span class="authors">
+                {coauthors.map(({ name, author }, index) => (
+                  <>
+                    {index === coauthors.length - 1 && "& "}
+                    <a rel="author" class="author" href={author?.data.url}>
+                      {author?.data.name ?? name}
+                    </a>{" "}
+                  </>
+                ))}
+              </span>
+              <wbr />
+            </>
+          ) : author ? (
+            <>
+              {t.writtenBy}{" "}
+              <span class="authors">
+                <a class="author" href={author.data.url}>{author.data.name}</a>
+              </span>
+            </>
+          ) : (
+            post.author && (
+              <>
+                {t.writtenBy} <span class="authors">{post.author}</span>
+              </>
+            )
+          )
+        }
+
+        {" "}<time datetime={xmlschema(shown)} set:html={strftime(shown, DATE_FORMAT)} />{" "}
+
+        {
+          post.revisions.length > 0 &&
+            (post.commitHistoryURL ? (
+              <>
+                (<a href={encodeURI(post.commitHistoryURL)} rel="noopener noreferrer">{t.revised}</a>)
+              </>
+            ) : (
+              <>({t.revised})</>
+            ))
+        }
+      </div>
+    </header>
+
+    <div class="content">
+      <slot />
+    </div>
+
+    <footer role="complementary">
+      {
+        (post.revisions.length > 0 || post.status) && (
+          <section id="revisions">
+            <small>NSMutableHipster</small>
+
+            <p>
+              Questions? Corrections? <a href="https://github.com/NSHipster/articles/issues">Issues</a> and{" "}
+              <a href={`https://github.com/NSHipster/articles/blob/master/${post.sourcePath}`}>pull requests</a> are always
+              welcome.
+            </p>
+
+            <p class="status">
+              {
+                hasSwiftVersion ? (
+                  <>
+                    {post.status?.reviewed ? (
+                      <em>
+                        This article uses Swift version {swift} and was last reviewed on {post.status.reviewed}.
+                      </em>
+                    ) : (
+                      <em>This article uses Swift version {swift}.</em>
+                    )}{" "}
+                    Find status information for all articles on the <a href="/status">status page</a>.
+                  </>
+                ) : (
+                  post.status?.reviewed && <em>This article was last reviewed on {post.status.reviewed}.</em>
+                )
+              }
+            </p>
+          </section>
+        )
+      }
+
+      <section id="attribution">
+        <Contributor author={author} />
+      </section>
+
+      <section>
+        {
+          continueWith && continueWith.data.url !== post.url && (
+            <div id="continue">
+              <small>{t.nextArticle}</small>
+              <article>
+                <h1 class="title">
+                  <a rel="next" href={continueWith.data.url}>
+                    {camelBreak(stripHTML(continueWith.data.title))}
+                  </a>
+                </h1>
+
+                <Fragment set:html={continueWith.data.excerptHTML} />
+              </article>
+            </div>
+          )
+        }
+      </section>
+    </footer>
+  </article>
+
+  <JsonLd
+    data={{
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        { "@type": "ListItem", position: 1, item: { "@id": site.url, name: "Articles" } },
+        { "@type": "ListItem", position: 2, item: { "@id": absoluteURL(post.url), name: stripHTML(post.title) } },
+      ],
+    }}
+  />
+</Base>

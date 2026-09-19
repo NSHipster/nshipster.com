@@ -68,6 +68,20 @@ exclude:
   - _functions/
   - vendor/
   - node_modules
+  # Astro site for NSHipster.com
+  - src/
+  - scripts/
+  - tests/
+  - dist/
+  - package.json
+  - package-lock.json
+  - astro.config.ts
+  - vite.config.ts
+  - tsconfig.json
+  - mise.toml
+  - wrangler.jsonc
+  - .conductor/
+  - .github/
 
 assets:
   source_maps: false

@@ -658,7 +658,7 @@ article.translator {
 #promotion {
   article {
     background-color: rgba(255, 128, 0, 0.2);
-    background-color: color(p3 1 0.5 0 0.2);
+    background-color: unquote("color(p3 1 0.5 0 0.2)");
     margin-left: -1em;
     margin-right: -1em;
     margin-top: 0.5em;

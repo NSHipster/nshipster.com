@@ -1,0 +1,32 @@
+---
+import { getCollection, render } from "astro:content";
+import Article from "../../layouts/Article.astro";
+import { postsOldestFirst } from "../../lib/collections.ts";
+
+export async function getStaticPaths() {
+  const posts = await postsOldestFirst();
+  const newest = posts.at(-1);
+
+  const articles = posts.map((entry, index) => {
+    const next = posts[index + 1];
+    const previous = posts[index - 1];
+    // Suggest the following article, or the newest one if there is none or it is retired.
+    const continueWith = !next || next.data.retired ? newest : next;
+    return { params: { slug: entry.data.slug }, props: { entry, isArticle: true, next, previous, continueWith } };
+  });
+
+  const pages = (await getCollection("pages")).map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry, isArticle: false, next: undefined, previous: undefined, continueWith: newest },
+  }));
+
+  return [...articles, ...pages];
+}
+
+const { entry, isArticle, next, previous, continueWith } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<Article entry={entry} isArticle={isArticle} next={next} previous={previous} continueWith={continueWith}>
+  <Content />
+</Article>
