@@ -125,6 +125,12 @@ const sitemapURLs = [...sitemap.matchAll(/<loc>([^<]*)<\/loc>/g)].map((match) =>
 const missingSitemapURLs = reference.sitemapURLs.filter((url) => !sitemapURLs.includes(url));
 if (missingSitemapURLs.length) report(`Sitemap URLs are missing: ${missingSitemapURLs.join(", ")}`);
 
+const feed = readFileSync(path.join(DIST, "feed.xml"), "utf8");
+const atomIDs = [...feed.matchAll(/<entry>[\s\S]*?<id>([^<]*)<\/id>/g)].map((match) => match[1]!);
+if (!sameList(atomIDs, reference.atomIDs)) {
+  report(`Atom entry IDs differ (expected: ${reference.atomIDs.join(", ")}; actual: ${atomIDs.join(", ")})`);
+}
+
 /** Compares the text and element counts of each page's main content. */
 function compareContent(site: string): void {
   const normalize = (text: string) =>

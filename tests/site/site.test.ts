@@ -80,6 +80,11 @@ describe("routing", () => {
     );
     expect((await fetchManual("/robots.txt")).headers.get("content-type")).toMatch(/^text\/plain/);
     expect((await fetchManual("/.well-known/favicon.ico")).status).toBe(200);
+    expect(await (await fetch(url("/robots.txt"))).text()).toContain("Sitemap: https://nshipster.com/sitemap.xml");
+    const humans = await (await fetch(url("/humans.txt"))).text();
+    expect(humans).toContain("Language: en-US");
+    expect(humans).not.toContain("---");
+    expect(humans).not.toContain("{{");
   });
 
   it("redirects asset URLs from the previous site", async () => {
@@ -102,6 +107,11 @@ describe("routing", () => {
 });
 
 describe("pages", () => {
+  it("includes the article author's Twitter handle", async () => {
+    const html = await (await fetch(url("/replay/"))).text();
+    expect(html).toContain('<meta name="twitter:creator" content="@mattt">');
+  });
+
   it("loads representative pages without errors", async () => {
     for (const pathname of [
       "/",

@@ -19,7 +19,7 @@ describe("article rendering", () => {
   it("links citations to a bibliography in citation order", async () => {
     const { html, citations } = await render(fixture("citations"));
     expect(citations).toEqual(["meli_2019", "de_montjoye_2013"]);
-    expect(html).toContain('<a class="citation" href="#meli_2019" rel="noopener noreferrer">(Meli et al., 2019)</a>');
+    expect(html).toContain('<a class="citation" href="#meli_2019">(Meli et al., 2019)</a>');
     expect(html.indexOf('id="meli_2019"')).toBeLessThan(html.indexOf('id="de_montjoye_2013"'));
     await expect(html).toMatchFileSnapshot(snapshot("citations"));
   });
@@ -101,6 +101,21 @@ describe("article rendering", () => {
     expect(html).toContain('<var class="placeholder">Turtle object</var>');
     expect(html).toContain('<var class="placeholder">variables</var>');
     expect(html).not.toContain("NSHIPSTER_PLACEHOLDER");
+  });
+
+  it("escapes fenced language labels", async () => {
+    const { html } = await render('```unknown" onclick="alert(1)\ncode\n```');
+    expect(html).toContain('data-lang="unknown&quot;"');
+    expect(html).not.toContain('onclick="alert(1)"');
+  });
+
+  it("secures links based on their parsed origin", async () => {
+    const { html } = await render(
+      "[same origin](https://nshipster.com/example) [external](https://attacker.example/nshipster.com/) [protocol relative](//attacker.example/)",
+    );
+    expect(html).toContain('<a href="https://nshipster.com/example">same origin</a>');
+    expect(html).toContain('<a href="https://attacker.example/nshipster.com/" rel="noopener noreferrer">external</a>');
+    expect(html).toContain('<a href="//attacker.example/" rel="noopener noreferrer">protocol relative</a>');
   });
 
   it("keeps footnote labels and gives repeated references unique IDs", async () => {

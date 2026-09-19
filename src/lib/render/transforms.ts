@@ -3,6 +3,7 @@ import { fromHtml } from "hast-util-from-html";
 import { selectAll, select } from "hast-util-select";
 import { toHtml } from "hast-util-to-html";
 import { toString } from "hast-util-to-string";
+import { site } from "../site.ts";
 import { EMPTY_HEADER } from "./kramdown.ts";
 import { parameterize } from "./markdown.ts";
 
@@ -52,9 +53,14 @@ function removeProprietaryAttributes(tree: Root): void {
 }
 
 function secureCrossOriginLinks(tree: Root): void {
+  const origin = new URL(site.url).origin;
   for (const a of selectAll("a[href]", tree)) {
     const href = String(a.properties.href);
-    if (href.startsWith("/") || href.includes("nshipster.com")) continue;
+    try {
+      if (new URL(href, site.url).origin === origin) continue;
+    } catch {
+      // Treat malformed links as external.
+    }
     a.properties.rel = ["noopener", "noreferrer"];
   }
 }

@@ -66,6 +66,7 @@ const description = plainText(post.excerptHTML);
         },
       }
     : undefined}
+  creator={isArticle ? author?.data.twitter : undefined}
   next={next?.data.url}
   previous={previous?.data.url}
   noindex={post.retired}

@@ -239,6 +239,7 @@ function splitDefinitionParagraph(paragraph: Paragraph): { node: RootContent; it
 }
 
 const escapeHTML = (text: string) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+const escapeHTMLAttribute = (text: string) => escapeHTML(text).replace(/"/g, "&quot;");
 
 /** Highlights fenced and indented code blocks, producing the site's code listing markup. */
 export const remarkHighlightCode: Plugin<[], Root> = () => async (tree) => {
@@ -262,7 +263,7 @@ export const remarkHighlightCode: Plugin<[], Root> = () => async (tree) => {
     });
     const html: Html = {
       type: "html",
-      value: `<pre class="highlight" data-lang="${label}"><code>${code}</code></pre>`,
+      value: `<pre class="highlight" data-lang="${escapeHTMLAttribute(label)}"><code>${code}</code></pre>`,
     };
     parent.children[index] = html;
   }

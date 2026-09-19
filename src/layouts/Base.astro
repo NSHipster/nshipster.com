@@ -24,13 +24,15 @@ interface Props {
   };
   /** Article structured data. */
   article?: Record<string, unknown>;
+  /** Article author's Twitter handle, without the leading `@`. */
+  creator?: string;
   next?: string;
   previous?: string;
   noindex?: boolean;
   home?: { prerender?: string };
 }
 
-const { title, path, document, article, next, previous, noindex, home } = Astro.props;
+const { title, path, document, article, creator, next, previous, noindex, home } = Astro.props;
 const assets = assetManifest();
 const siteDescription = "NSHipster is a journal of the overlooked bits in Objective-C, Swift, and Cocoa.";
 const plainTitle = stripHTML(title).trim();
@@ -88,6 +90,7 @@ const stylesheet = `<style>${assets.text("screen.css")}</style>`;
 
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:site" content="@NSHipster" />
+    {creator && <meta name="twitter:creator" content={`@${creator}`} />}
     {
       document ? (
         <>
