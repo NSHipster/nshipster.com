@@ -507,6 +507,8 @@ article.translator {
   user-select: none;
   max-width: 200px;
   max-height: 200px;
+  // Size the height from the width, even when the image has a height attribute.
+  height: auto;
   border-radius: 50%;
   pointer-events: none;
   user-select: none;
