@@ -34,6 +34,7 @@ export const PAGE_REDIRECTS: ReadonlyArray<readonly [string, string]> = [
   ["/nsformatter", "/formatter/"],
   ["/clang-diagnostics", "/pragma/"],
   ["/propertyWrapper", "/propertywrapper/"],
+  ["/CocoaPods", "/cocoapods/"],
 ];
 
 /** Redirects to other hosts. */

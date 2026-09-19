@@ -60,6 +60,7 @@ describe("routing", () => {
       ["/nsformatter/", "/formatter/"],
       ["/authors/mattt-thompson", "/authors/mattt/"],
       ["/propertyWrapper", "/propertywrapper/"],
+      ["/CocoaPods/", "/cocoapods/"],
     ]) {
       const response = await fetchManual(from!);
       expect(response.status, from).toBe(301);
