@@ -32,7 +32,7 @@ run = "npx astro build"
 
 [tasks.check]
 description = "Check formatting, lint, and types with Vite+ and Astro"
-run = ["npx vp check", "npx astro check"]
+run = ["npx astro sync", "npx vp check", "npx astro check"]
 
 [tasks."check:site"]
 description = "Check the built site for broken links, duplicate IDs, and feed problems"
