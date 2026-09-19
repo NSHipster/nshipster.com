@@ -7,7 +7,7 @@ import { escapeXML, smartify, stripHTML } from "../lib/text.ts";
 /** The ten most recently published or revised articles, as an Atom feed. */
 export const GET: APIRoute = async () => {
   const posts = (await postsByUpdate()).slice(0, 10);
-  const updated = posts.reduce((latest, post) => Math.max(latest, post.data.updatedOn.getTime()), 0);
+  const updated = new Date();
 
   const entries = await Promise.all(
     posts.map(async (post) => {
@@ -40,7 +40,7 @@ ${categories.map((term) => `    <category term="${escapeXML(term)}" />`).join("\
 <feed xmlns="http://www.w3.org/2005/Atom" xml:lang="${site.lang}">
   <link href="${absoluteURL("/feed.xml")}" rel="self" type="application/atom+xml" />
   <link href="${absoluteURL("/")}" rel="alternate" type="text/html" hreflang="${site.lang}" />
-  <updated>${xmlschema(zoned(new Date(updated)))}</updated>
+  <updated>${xmlschema(zoned(updated))}</updated>
   <id>${absoluteURL("/feed.xml")}</id>
   <title>${escapeXML(site.title)}</title>
   <subtitle>NSHipster is a journal of the overlooked bits in Objective-C, Swift, and Cocoa.</subtitle>

@@ -69,7 +69,7 @@ export async function renderDocument(body: string, options: RenderOptions): Prom
       const book = books.find((candidate) => candidate.name === parameters.book);
       if (!book) throw new Error(`Unknown book "${String(parameters.book)}"`);
       environment.dependencies.add(book.image);
-      return bookHTML(book, options.assets.url(book.image));
+      return bookHTML(book, options.assets.url(book.image), await environment.markdownify(book.summary));
     },
   };
 

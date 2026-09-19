@@ -6,7 +6,7 @@ const escape = (value: string) =>
 const stripTags = (value: string) => value.replace(/<[^>]*>/g, "").trim();
 
 /** Structured data for a book, shared by articles and page components. */
-export function bookJSONLD(book: BookData, image: string, summaryHTML = book.summary): Record<string, unknown> {
+export function bookJSONLD(book: BookData, image: string, summaryHTML: string): Record<string, unknown> {
   return {
     "@context": "https://schema.org",
     "@type": "Book",
@@ -36,13 +36,13 @@ export function jsonLD(data: unknown): string {
 }
 
 /** The `book.html` include used by `flight-school.md`. */
-export function bookHTML(book: BookData, image: string): string {
+export function bookHTML(book: BookData, image: string, summaryHTML: string): string {
   return [
     `<div id="${escape(book.name)}" class="book">`,
     `<a href="${escape(book.bookURL ?? "")}" title="${escape(book.title)}" rel="noopener noreferrer" target="_blank">`,
     `<img src="${escape(image)}" class="cover" alt="${escape(book.title)}">`,
     `</a>`,
-    `<script type="application/ld+json">${jsonLD(bookJSONLD(book, image))}</script>`,
+    `<script type="application/ld+json">${jsonLD(bookJSONLD(book, image, summaryHTML))}</script>`,
     `</div>`,
   ].join("\n");
 }

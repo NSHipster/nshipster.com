@@ -85,6 +85,9 @@ describe("routing", () => {
     expect(humans).toContain("Language: en-US");
     expect(humans).not.toContain("---");
     expect(humans).not.toContain("{{");
+    const feed = await (await fetch(url("/feed.xml"))).text();
+    const updated = feed.match(/<feed[\s\S]*?<updated>([^<]+)<\/updated>/)?.[1];
+    expect(Date.now() - new Date(updated!).getTime()).toBeLessThan(10 * 60 * 1000);
   });
 
   it("redirects asset URLs from the previous site", async () => {
@@ -110,6 +113,8 @@ describe("pages", () => {
   it("includes the article author's Twitter handle", async () => {
     const html = await (await fetch(url("/replay/"))).text();
     expect(html).toContain('<meta name="twitter:creator" content="@mattt">');
+    const authorHTML = await (await fetch(url("/authors/mattt/"))).text();
+    expect(authorHTML).toContain('<meta name="twitter:creator" content="@mattt">');
   });
 
   it("loads representative pages without errors", async () => {

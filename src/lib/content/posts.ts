@@ -112,7 +112,13 @@ export function normalizePost(document: ParsedDocument, options: NormalizeOption
     authors: list(data.authors),
     category: string(data.category) ?? "",
     tags: list(data.tag, data.tags),
-    excerpt: string(data.excerpt) ?? "",
+    excerpt:
+      string(data.excerpt) ??
+      document.body
+        .trimStart()
+        .split(/\n\s*\n/, 1)[0]
+        ?.trim() ??
+      "",
     status: status
       ? {
           // Keep version numbers as written: `5.0` must not become `5`.

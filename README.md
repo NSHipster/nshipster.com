@@ -108,17 +108,18 @@ NSHipster.com is served by
 `wrangler.jsonc` configures trailing-slash handling and the 404 page;
 the build writes `_redirects` and `_headers` into `dist/`.
 
-After CI passes on `master`,
-the Deploy workflow publishes the site to production.
-To check a build first,
-run the Deploy workflow for the `preview` environment,
-or deploy from your machine:
+The Cloudflare Git integration builds and deploys `master` to production.
+It creates preview deployments for other branches.
+The GitHub Actions workflow runs checks but does not deploy the site.
+
+To deploy to the separate preview Worker from your machine, run:
 
 ```terminal
 $ mise run deploy:preview
 ```
 
-Deployment requires the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` secrets.
+Manual deployment requires the `CLOUDFLARE_API_TOKEN`
+and `CLOUDFLARE_ACCOUNT_ID` environment variables.
 
 ## Contact
 

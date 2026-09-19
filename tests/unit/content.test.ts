@@ -69,6 +69,15 @@ describe("front matter", () => {
     expect(data.retired).toBe(true);
   });
 
+  it("derives a missing excerpt from the first body paragraph", () => {
+    const document = parseFrontMatter(
+      "---\ntitle: X\n---\n\nFirst paragraph with *emphasis*.\nContinued.\n\nSecond paragraph.",
+      "2020-01-01-x.md",
+    );
+    const data = normalizePost(document, { file: "2020-01-01-x.md" });
+    expect(data.excerpt).toBe("First paragraph with *emphasis*.\nContinued.");
+  });
+
   it("detects unpublished articles", () => {
     expect(isUnpublished(parseFrontMatter("---\npublished: false\n---\n", "x.md"))).toBe(true);
     expect(isUnpublished(parseFrontMatter("---\ntitle: X\n---\n", "x.md"))).toBe(false);

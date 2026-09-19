@@ -103,6 +103,16 @@ describe("article rendering", () => {
     expect(html).not.toContain("NSHIPSTER_PLACEHOLDER");
   });
 
+  it("uses the rendered book summary in structured data", async () => {
+    const { html } = await render('{% include book.html book="cfhipsterref" %}');
+    expect(html).toContain(
+      '"description": "Perfect for intermediate and expert developers wanting to take a deeper dive into advanced topics, CFHipsterRef: Low-Level Programming on iOS &amp; OS X covers',
+    );
+    expect(html).not.toContain(
+      '"description": "Perfect for intermediate and expert developers wanting to take a deeper dive into advanced topics, _CFHipsterRef',
+    );
+  });
+
   it("escapes fenced language labels", async () => {
     const { html } = await render('```unknown" onclick="alert(1)\ncode\n```');
     expect(html).toContain('data-lang="unknown&quot;"');

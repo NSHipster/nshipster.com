@@ -20,6 +20,7 @@ const latest = posts[0] ? zoned(posts[0].data.updatedOn) : undefined;
 <Base
   title={author.data.title}
   path={author.data.url}
+  creator={author.data.twitter}
   document={{
     description: author.data.description,
     published: latest ? xmlschema(latest) : "",
