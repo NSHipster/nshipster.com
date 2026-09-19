@@ -33,6 +33,23 @@ describe("article rendering", () => {
     await expect(html).toMatchFileSnapshot(snapshot("raw-liquid"));
   });
 
+  it("keeps text after an inline Liquid comment", async () => {
+    const source = [
+      "{% comment %}Inline comment{% endcomment %}Text after the comment.",
+      "",
+      "{% comment %}",
+      "A later full-line comment.",
+      "{% endcomment %}",
+      "",
+      "Text after both comments.",
+    ].join("\n");
+    const { html } = await render(source);
+    expect(html).toContain("Text after the comment.");
+    expect(html).toContain("Text after both comments.");
+    expect(html).not.toContain("Inline comment");
+    expect(html).not.toContain("A later full-line comment.");
+  });
+
   it("parses Markdown inside HTML the way Kramdown did", async () => {
     const { html } = await render(fixture("markdown-in-html"));
     expect(html).toContain("<code>uv</code>");
@@ -63,6 +80,37 @@ describe("article rendering", () => {
     expect(html).toContain('id="code-listing-1-xcode-build-settings"');
     expect(html).toContain('<a id="get-on-with-it"></a>');
     await expect(html).toMatchFileSnapshot(snapshot("code"));
+  });
+
+  it("restores placeholders after highlighting structured data", async () => {
+    const source = [
+      "```json",
+      '{ "value": "<#JSON value#>" }',
+      "```",
+      "",
+      "```turtle",
+      ":subject :predicate <#Turtle object#> .",
+      "```",
+      "",
+      "```sparql",
+      "SELECT <#variables#> WHERE {}",
+      "```",
+    ].join("\n");
+    const { html } = await render(source);
+    expect(html).toContain('<var class="placeholder">JSON value</var>');
+    expect(html).toContain('<var class="placeholder">Turtle object</var>');
+    expect(html).toContain('<var class="placeholder">variables</var>');
+    expect(html).not.toContain("NSHIPSTER_PLACEHOLDER");
+  });
+
+  it("keeps footnote labels and gives repeated references unique IDs", async () => {
+    const source = "First[^note-2]. One[^a], two[^a].\n\n[^note-2]: Numbered label.\n[^a]: Repeated.";
+    const { html } = await render(source);
+    expect(html).toContain('id="fnref:note-2"');
+    expect(html).toContain('id="fn:note-2"');
+    expect(html).toContain('id="fnref:a"');
+    expect(html).toContain('id="fnref:a:1"');
+    expect(html).toContain('href="#fnref:a:1"');
   });
 
   it("names the source file for a missing asset", async () => {

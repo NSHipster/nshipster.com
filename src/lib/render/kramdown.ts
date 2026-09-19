@@ -132,7 +132,7 @@ export function continueQuotedFences(lines: string[]): string[] {
 export function linkDestinationsWithSpaces(lines: Line[]): void {
   for (const line of lines) {
     if (line.code) continue;
-    line.text = line.text.replace(/\]\(([^()<>"\s]+(?: [^()<>"\s]+)+)\)/g, "](<$1>)");
+    line.text = line.text.replace(/\]\(([^()<>"'\s]+(?: [^()<>"'\s]+)+)\)/g, "](<$1>)");
   }
 }
 
@@ -157,10 +157,14 @@ export function headerlessTables(lines: Line[]): Line[] {
     const line = lines[index]!;
     const startsTable = isRow(line) && !isRow(lines[index - 1]) && !isSeparator(lines[index - 1]);
     if (startsTable && !isSeparator(lines[index + 1])) {
-      const columns = line.text
-        .trim()
-        .replace(/^\||\|$/g, "")
-        .split("|").length;
+      const row = line.text.trim().slice(1, -1);
+      let columns = 1;
+      for (let cursor = 0; cursor < row.length; cursor++) {
+        if (row[cursor] !== "|") continue;
+        let escapes = 0;
+        while (cursor - escapes - 1 >= 0 && row[cursor - escapes - 1] === "\\") escapes++;
+        if (escapes % 2 === 0) columns++;
+      }
       const indent = line.text.match(/^\s*/)![0];
       if (result.length > 0 && result.at(-1)!.text.trim() !== "") result.push({ text: "", code: false });
       result.push({ text: `${indent}|${` ${EMPTY_HEADER} |`.repeat(columns)}`, code: false });
@@ -200,6 +204,11 @@ export function openHTMLBlocks(lines: Line[]): Line[] {
       if (end < result.length && /<\/p>\s*$/.test(result[end]!.text) && !result[end]!.code) {
         result[end] = { text: result[end]!.text.replace(/<\/p>\s*$/, ""), code: false };
         result[index] = { text: result[index]!.text.replace(/^(\s*)<p>/, "$1"), code: false };
+        const outdent = paragraph[1]!.length;
+        for (let cursor = index; cursor <= end; cursor++) {
+          const entry = result[cursor]!;
+          result[cursor] = { ...entry, text: entry.text.slice(Math.min(outdent, indentation(entry.text))) };
+        }
         result.splice(end + 1, 0, { text: "", code: false });
         result.splice(index, 0, { text: "", code: false });
         index++;
@@ -258,8 +267,9 @@ const inlineProcessor = unified()
 export function renderInline(markdown: string): string {
   const leading = markdown.match(/^\s*/)![0];
   const trailing = markdown.match(/\s*$/)![0];
-  const html = String(inlineProcessor.processSync(markdown.trim())).trim();
-  return leading + html.replace(/^<p>([\s\S]*)<\/p>$/, "$1") + trailing;
+  const sentinel = "\uE003";
+  const html = String(inlineProcessor.processSync(sentinel + markdown.trim())).trim();
+  return leading + html.replace(/^<p>([\s\S]*)<\/p>$/, "$1").replace(sentinel, "") + trailing;
 }
 
 const INLINE_MARKDOWN = /`[^`]+`|\*\*[^*]+\*\*|(?:^|\s)_[^_\s][^_]*_(?=\s|$|[.,;:!?)])|\[[^\]]+\]\([^)]+\)/;

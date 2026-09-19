@@ -1,6 +1,6 @@
 import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
-import { existsSync, readFileSync, readdirSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import type { Loader, LoaderContext } from "astro/loaders";
 import { assetManifest, resetAssetManifest } from "../assets.ts";
@@ -28,22 +28,21 @@ const RENDER_SOURCES = [
   "src/lib/content",
   "src/lib/assets.ts",
   "src/lib/dates.ts",
+  "src/lib/scalar.ts",
   "src/lib/site.ts",
+  "src/lib/text.ts",
+  paths.books,
 ];
 
 function hashFiles(entries: string[]): string {
   const hash = createHash("sha256");
   const visit = (file: string) => {
     if (!existsSync(file)) return;
-    if (file.endsWith(".ts")) {
+    if (statSync(file).isFile()) {
       hash.update(file).update(readFileSync(file));
       return;
     }
-    try {
-      for (const entry of readdirSync(file).sort()) visit(path.join(file, entry));
-    } catch {
-      // Not a directory.
-    }
+    for (const entry of readdirSync(file).sort()) visit(path.join(file, entry));
   };
   for (const entry of entries) visit(path.join(ROOT, entry));
   return hash.digest("hex");

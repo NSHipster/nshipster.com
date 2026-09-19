@@ -213,24 +213,39 @@ function convertFootnotes(tree: Root): void {
   const section = select("section[data-footnotes]", tree);
   if (!section) return;
   indexParents(tree);
-  const name = (href: string) =>
-    decodeURIComponent(href.replace(/^#?user-content-fn(?:ref)?-/, "")).replace(/-\d+$/, "");
+  const name = (target: string) => decodeURIComponent(target.replace(/^#?user-content-fn(?:ref)?-/, ""));
+  const references = new Map<string, number>();
 
   for (const ref of selectAll("a[data-footnote-ref]", tree)) {
     const label = name(String(ref.properties.href));
+    const occurrence = references.get(label) ?? 0;
+    references.set(label, occurrence + 1);
+    const referenceID = `fnref:${label}${occurrence > 0 ? `:${occurrence}` : ""}`;
     const sup = parents?.get(ref);
     ref.properties = { href: `#fn:${label}`, className: ["footnote"], rel: ["footnote"] };
     if (sup && sup.type === "element" && sup.tagName === "sup") {
-      sup.properties = { id: `fnref:${label}`, role: "doc-noteref" };
+      sup.properties = { id: referenceID, role: "doc-noteref" };
     }
   }
   for (const item of selectAll("li[id]", section)) {
     const label = name(String(item.properties.id));
     item.properties = { id: `fn:${label}`, role: "doc-endnote" };
-    for (const back of selectAll("a[data-footnote-backref]", item)) {
-      back.properties = { href: `#fnref:${label}`, className: ["reversefootnote"], role: "doc-backlink" };
+    selectAll("a[data-footnote-backref]", item).forEach((back, index) => {
+      back.properties = {
+        href: `#fnref:${label}${index > 0 ? `:${index}` : ""}`,
+        className: ["reversefootnote"],
+        role: "doc-backlink",
+      };
       back.children = [{ type: "text", value: "↩" }];
-    }
+      if (index > 0) {
+        back.children.push({
+          type: "element",
+          tagName: "sup",
+          properties: {},
+          children: [{ type: "text", value: String(index + 1) }],
+        });
+      }
+    });
   }
   const list = select("ol", section)!;
   section.tagName = "div";

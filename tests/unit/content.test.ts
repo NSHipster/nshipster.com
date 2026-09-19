@@ -105,9 +105,15 @@ describe("asset tags", () => {
     expect([...args.flags]).toEqual(["inline"]);
   });
 
-  it("keeps attribute text with inner quotes", () => {
+  it("keeps apostrophes and inner quotes in attribute text", () => {
     expect(parseAssetArguments('dictionary.png alt="Entry for "apple" in Dictionary.app"').attributes).toEqual([
-      ["alt", "Entry for apple in Dictionary.app"],
+      ["alt", 'Entry for "apple" in Dictionary.app'],
+    ]);
+    expect(parseAssetArguments("uitextchecker.png alt=\"Autocorrecting 'hipstar'\"").attributes).toEqual([
+      ["alt", "Autocorrecting 'hipstar'"],
+    ]);
+    expect(parseAssetArguments('test.png alt="The test target\'s settings"').attributes).toEqual([
+      ["alt", "The test target's settings"],
     ]);
   });
 });

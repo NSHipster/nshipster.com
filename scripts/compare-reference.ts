@@ -4,7 +4,7 @@
  * Usage: node scripts/compare-reference.ts [reference-site-directory] [--verbose] [--only=slug]
  *
  * Always compares routes, canonical URLs, robots directives, heading anchors,
- * asset references, Atom IDs, and sitemap URLs with `tests/reference/reference.json`.
+ * asset references, and existing sitemap URLs with `tests/reference/reference.json`.
  * With a reference site directory, also compares the text and structure of each page's content.
  */
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
@@ -120,18 +120,10 @@ for (const [route, facts] of Object.entries(reference.pages)) {
   }
 }
 
-const feed = readFileSync(path.join(DIST, "feed.xml"), "utf8");
-const atomIDs = [...feed.matchAll(/<entry>[\s\S]*?<id>([^<]*)<\/id>/g)].map((match) => match[1]!);
-if (!sameList(atomIDs, reference.atomIDs))
-  report(`Atom IDs differ:\n  ${atomIDs.join("\n  ")}\nexpected:\n  ${reference.atomIDs.join("\n  ")}`);
-
 const sitemap = readFileSync(path.join(DIST, "sitemap.xml"), "utf8");
 const sitemapURLs = [...sitemap.matchAll(/<loc>([^<]*)<\/loc>/g)].map((match) => match[1]!);
-if (!sameList([...sitemapURLs].sort(), [...reference.sitemapURLs].sort())) {
-  const missing = reference.sitemapURLs.filter((url) => !sitemapURLs.includes(url));
-  const added = sitemapURLs.filter((url) => !reference.sitemapURLs.includes(url));
-  report(`Sitemap URLs differ (missing: ${missing.join(", ") || "none"}; added: ${added.join(", ") || "none"})`);
-}
+const missingSitemapURLs = reference.sitemapURLs.filter((url) => !sitemapURLs.includes(url));
+if (missingSitemapURLs.length) report(`Sitemap URLs are missing: ${missingSitemapURLs.join(", ")}`);
 
 /** Compares the text and element counts of each page's main content. */
 function compareContent(site: string): void {

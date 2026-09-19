@@ -48,12 +48,12 @@ const escapeAttribute = (value: string) => value.replace(/&/g, "&amp;").replace(
 export function parseAssetArguments(input: string) {
   const unquote = (value: string) => value.replace(/^(["'])([\s\S]*)\1$/, "$2");
   // A quoted value ends at the last quote before the next argument,
-  // so values like `alt="Entry for "apple""` keep their text; inner quotes are dropped.
+  // so values like `alt="Entry for "apple""` keep their inner quotes.
   const pattern =
     /([\w-]+)=(?:"([\s\S]*?)"|'([\s\S]*?)')(?=\s+[\w-]+=|\s+[@!]|\s*$)|([\w-]+)=([^\s"']+)|"([^"]*)"|'([^']*)'|(\S+)/g;
   const tokens: Array<{ key?: string; value: string }> = [];
   for (const match of input.trim().matchAll(pattern)) {
-    if (match[1]) tokens.push({ key: match[1], value: (match[2] ?? match[3] ?? "").replace(/["']/g, "") });
+    if (match[1]) tokens.push({ key: match[1], value: match[2] ?? match[3] ?? "" });
     else if (match[4]) tokens.push({ key: match[4], value: match[5]! });
     else tokens.push({ value: match[6] ?? match[7] ?? match[8]! });
   }
@@ -298,7 +298,10 @@ export async function renderLiquid(
   const liquid = liquidEngine();
   // A comment that fills its lines is removed with them, so that it leaves no
   // whitespace-only line behind to end an HTML block early.
-  const uncommented = source.replace(/^[ \t]*\{%-?\s*comment\s*-?%\}[\s\S]*?\{%-?\s*endcomment\s*-?%\}[ \t]*\n/gm, "");
+  const uncommented = source.replace(
+    /^[ \t]*\{%-?\s*comment\s*-?%\}(?:(?!\{%-?\s*endcomment\s*-?%\})[\s\S])*?\{%-?\s*endcomment\s*-?%\}[ \t]*(?:\n|$)/gm,
+    "",
+  );
   try {
     const templates = liquid.parse(uncommented, file);
     return await liquid.render(templates, { ...scope, [ENVIRONMENT]: env });

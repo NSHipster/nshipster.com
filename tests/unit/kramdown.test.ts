@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vite-plus/test";
-import { preprocessKramdown } from "../../src/lib/render/kramdown.ts";
+import { EMPTY_HEADER, preprocessKramdown, renderInline } from "../../src/lib/render/kramdown.ts";
 import { markdown } from "./helpers.ts";
 
 describe("Kramdown compatibility", () => {
@@ -31,6 +31,29 @@ describe("Kramdown compatibility", () => {
     expect(preprocessKramdown("[Tweet](http://twitter.com/share?text=Hello World)")).toBe(
       "[Tweet](<http://twitter.com/share?text=Hello World>)",
     );
+  });
+
+  it("leaves a single-quoted link title outside the destination", async () => {
+    const source = "[Example](https://example.com 'A title')";
+    expect(preprocessKramdown(source)).toBe(source);
+    expect(await markdown(source)).toContain('<a href="https://example.com" title="A title">Example</a>');
+  });
+
+  it("does not turn indented HTML paragraphs into code blocks", async () => {
+    const source = "    <p>Paragraph with `code`.</p>";
+    const html = await markdown(preprocessKramdown(source));
+    expect(html).toContain("<p>Paragraph with <code>code</code>.</p>");
+    expect(html).not.toContain("<pre>");
+  });
+
+  it("renders Markdown in span-level elements without block markup", () => {
+    expect(renderInline("1. `First`")).toBe("1. <code>First</code>");
+    expect(renderInline("# **Heading text**")).toBe("# <strong>Heading text</strong>");
+  });
+
+  it("does not count an escaped table pipe as a column", () => {
+    const source = preprocessKramdown("| a \\| b | c |");
+    expect(source.match(new RegExp(EMPTY_HEADER, "g"))).toHaveLength(2);
   });
 
   it("wraps a lone image in a paragraph", () => {

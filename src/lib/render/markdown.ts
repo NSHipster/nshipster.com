@@ -249,17 +249,17 @@ export const remarkHighlightCode: Plugin<[], Root> = () => async (tree) => {
   for (const { node, index, parent } of blocks) {
     const fence = node.lang ?? undefined;
     const label = languageLabel(fence);
-    // Placeholder tokens like `<# name #>` become identifiers while highlighting,
-    // so that each one stays within a single highlighted token.
+    // Replace each placeholder with one private-use character while highlighting.
+    // Some grammars split an ASCII sentinel across several highlighted tokens.
     const placeholders: string[] = [];
     const source = node.value.replace(/<#\s*([\s\S]*?)\s*#>/g, (_, name: string) => {
       placeholders.push(name);
-      return `__NSHIPSTER_PLACEHOLDER_${placeholders.length - 1}__`;
+      return String.fromCodePoint(0xf0000 + placeholders.length - 1);
     });
-    const code = (await highlight(source, fence)).replace(
-      /__NSHIPSTER_PLACEHOLDER_(\d+)__/g,
-      (_, index: string) => `<var class="placeholder">${escapeHTML(placeholders[Number(index)]!)}</var>`,
-    );
+    let code = await highlight(source, fence);
+    placeholders.forEach((name, index) => {
+      code = code.replace(String.fromCodePoint(0xf0000 + index), `<var class="placeholder">${escapeHTML(name)}</var>`);
+    });
     const html: Html = {
       type: "html",
       value: `<pre class="highlight" data-lang="${label}"><code>${code}</code></pre>`,
