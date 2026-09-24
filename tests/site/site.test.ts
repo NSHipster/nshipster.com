@@ -140,7 +140,12 @@ describe("pages", () => {
   it("is readable with JavaScript disabled", async () => {
     const { page, context } = await open("/addressbookui/", { javaScriptEnabled: false });
     await expect(page.locator("article .content p").first().isVisible()).resolves.toBe(true);
-    await expect(page.locator(".highlight-group pre:not([hidden])").first().isVisible()).resolves.toBe(true);
+    // Tabs can't switch listings without JavaScript, so every listing is shown instead.
+    const group = page.locator(".highlight-group").first();
+    await expect(group.locator('[role="tablist"]').isVisible()).resolves.toBe(false);
+    for (const panel of await group.locator('[role="tabpanel"]').all()) {
+      await expect(panel.isVisible()).resolves.toBe(true);
+    }
     await context.close();
   });
 

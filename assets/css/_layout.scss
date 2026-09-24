@@ -679,6 +679,31 @@ article.translator {
   margin-top: 0.25em;
 }
 
+// Without JavaScript, the tabs can't switch listings,
+// so every listing is shown with its language above it.
+@media (scripting: none) {
+  .highlight-group {
+    [role="tablist"] {
+      display: none;
+    }
+
+    // Overrides the `[hidden]` rule below.
+    [role="tabpanel"][hidden] {
+      display: block !important;
+    }
+
+    [role="tabpanel"][data-lang]::before {
+      content: attr(data-lang);
+      display: block;
+      margin-bottom: 0.5em;
+      color: var(--fill);
+      font-family: $sans-serif-font-stack;
+      font-weight: bold;
+      text-align: right;
+    }
+  }
+}
+
 #promotion {
   article {
     background-color: rgba(255, 128, 0, 0.2);
