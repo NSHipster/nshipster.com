@@ -1,21 +1,21 @@
 <svg xmlns="http://www.w3.org/2000/svg" class="bob" font-size="14" viewbox="0 0 920 736" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" fill="none">
     <defs>
-        <marker id="triangle" markerheight="8" markerwidth="8" orient="auto" refx="4" refy="2" viewbox="0 0 8 4">
+        <marker id="string-protocols-triangle" markerheight="8" markerwidth="8" orient="auto" refx="4" refy="2" viewbox="0 0 8 4">
             <polygon fill="black" points="0,0 0,4 8,2 0,0"/>
         </marker>
-        <marker id="clear_triangle" markerheight="10" markerwidth="10" orient="auto" refx="1" refy="7" viewbox="0 0 20 14">
+        <marker id="string-protocols-clear_triangle" markerheight="10" markerwidth="10" orient="auto" refx="1" refy="7" viewbox="0 0 20 14">
             <polygon fill="none" points="2,2 2,12 18,7 2,2" stroke="black" stroke-width="2"/>
         </marker>
-        <marker id="circle" markerheight="5" markerwidth="5" orient="auto" refx="10" refy="10" viewbox="0 0 20 20">
+        <marker id="string-protocols-circle" markerheight="5" markerwidth="5" orient="auto" refx="10" refy="10" viewbox="0 0 20 20">
             <circle cx="10" cy="10" fill="black" r="8"/>
         </marker>
-        <marker id="square" markerheight="5" markerwidth="5" orient="auto" refx="10" refy="10" viewbox="0 0 20 20">
+        <marker id="string-protocols-square" markerheight="5" markerwidth="5" orient="auto" refx="10" refy="10" viewbox="0 0 20 20">
             <rect fill="black" width="20" height="20" viewbox="0 0 20 20" x="0" y="0"/>
         </marker>
-        <marker id="open_circle" markerheight="10" markerwidth="10" orient="auto" refx="10" refy="10" viewbox="0 0 20 20">
+        <marker id="string-protocols-open_circle" markerheight="10" markerwidth="10" orient="auto" refx="10" refy="10" viewbox="0 0 20 20">
             <circle cx="10" cy="10" fill="white" r="4" stroke="black" stroke-width="2"/>
         </marker>
-        <marker id="big_open_circle" markerheight="20" markerwidth="20" orient="auto" refx="20" refy="20" viewbox="0 0 40 40">
+        <marker id="string-protocols-big_open_circle" markerheight="20" markerwidth="20" orient="auto" refx="20" refy="20" viewbox="0 0 40 40">
             <circle cx="20" cy="20" fill="white" r="6" stroke="black" stroke-width="2"/>
         </marker>
     </defs>
@@ -36,7 +36,7 @@
     </g>
     <g>
         <line x1="132" x2="272" y1="536" y2="536"/>
-        <line marker-start="url(#open_circle)" x1="132" x2="132" y1="280" y2="536"/>
+        <line marker-start="url(#string-protocols-open_circle)" x1="132" x2="132" y1="280" y2="536"/>
     </g>
     <g>
         <line x1="148" x2="148" y1="360" y2="392"/>
@@ -63,10 +63,10 @@
         <line x1="324" x2="324" y1="40" y2="72"/>
     </g>
     <g>
-        <line marker-end="url(#triangle)" x1="236" x2="236" y1="176" y2="164"/>
+        <line marker-end="url(#string-protocols-triangle)" x1="236" x2="236" y1="176" y2="164"/>
     </g>
     <g>
-        <line marker-end="url(#triangle)" x1="276" x2="276" y1="96" y2="84"/>
+        <line marker-end="url(#string-protocols-triangle)" x1="276" x2="276" y1="96" y2="84"/>
         <line x1="276" x2="276" y1="96" y2="112"/>
     </g>
     <g>
@@ -93,30 +93,30 @@
         <path d="M 448 552 A 8 8 0 0 0 454 548" fill="none"/>
     </g>
     <g>
-        <line marker-end="url(#triangle)" x1="308" x2="308" y1="176" y2="164"/>
+        <line marker-end="url(#string-protocols-triangle)" x1="308" x2="308" y1="176" y2="164"/>
         <line x1="308" x2="308" y1="176" y2="200"/>
         <line x1="308" x2="412" y1="200" y2="200"/>
         <line x1="412" x2="412" y1="200" y2="224"/>
     </g>
     <g>
-        <line marker-end="url(#triangle)" x1="352" x2="348" y1="376" y2="376"/>
+        <line marker-end="url(#string-protocols-triangle)" x1="352" x2="348" y1="376" y2="376"/>
         <line x1="352" x2="364" y1="376" y2="376"/>
         <line x1="364" x2="364" y1="376" y2="408"/>
         <line x1="364" x2="364" y1="408" y2="440"/>
         <line x1="364" x2="396" y1="408" y2="408"/>
     </g>
     <g>
-        <line marker-end="url(#triangle)" x1="352" x2="348" y1="440" y2="440"/>
+        <line marker-end="url(#string-protocols-triangle)" x1="352" x2="348" y1="440" y2="440"/>
         <line x1="352" x2="364" y1="440" y2="440"/>
     </g>
     <g>
         <line x1="372" x2="372" y1="472" y2="512"/>
         <line x1="372" x2="420" y1="472" y2="472"/>
-        <line marker-start="url(#open_circle)" x1="420" x2="420" y1="440" y2="472"/>
+        <line marker-start="url(#string-protocols-open_circle)" x1="420" x2="420" y1="440" y2="472"/>
     </g>
     <g>
         <line x1="372" x2="372" y1="560" y2="696"/>
-        <line marker-end="url(#open_circle)" x1="372" x2="484" y1="696" y2="696"/>
+        <line marker-end="url(#string-protocols-open_circle)" x1="372" x2="484" y1="696" y2="696"/>
     </g>
     <g>
         <line x1="396" x2="396" y1="392" y2="424"/>
@@ -132,7 +132,7 @@
         <line x1="454" x2="456" y1="548" y2="544"/>
     </g>
     <g>
-        <line marker-end="url(#triangle)" x1="468" x2="468" y1="288" y2="276"/>
+        <line marker-end="url(#string-protocols-triangle)" x1="468" x2="468" y1="288" y2="276"/>
         <line x1="468" x2="468" y1="288" y2="384"/>
     </g>
     <g>
@@ -161,19 +161,19 @@
     </g>
     <g>
         <line x1="524" x2="524" y1="296" y2="384"/>
-        <line marker-end="url(#triangle)" x1="524" x2="548" y1="296" y2="296"/>
+        <line marker-end="url(#string-protocols-triangle)" x1="524" x2="548" y1="296" y2="296"/>
     </g>
     <g>
         <line x1="524" x2="524" y1="432" y2="472"/>
         <line x1="524" x2="628" y1="472" y2="472"/>
-        <line marker-end="url(#triangle)" x1="628" x2="628" y1="472" y2="508"/>
+        <line marker-end="url(#string-protocols-triangle)" x1="628" x2="628" y1="472" y2="508"/>
     </g>
     <g>
         <line x1="548" x2="596" y1="408" y2="408"/>
         <line x1="596" x2="596" y1="376" y2="408"/>
-        <line marker-end="url(#triangle)" x1="596" x2="636" y1="376" y2="376"/>
+        <line marker-end="url(#string-protocols-triangle)" x1="596" x2="636" y1="376" y2="376"/>
         <line x1="596" x2="596" y1="408" y2="440"/>
-        <line marker-end="url(#triangle)" x1="596" x2="636" y1="440" y2="440"/>
+        <line marker-end="url(#string-protocols-triangle)" x1="596" x2="636" y1="440" y2="440"/>
     </g>
     <g>
         <line x1="556" x2="556" y1="40" y2="72"/>
@@ -194,10 +194,10 @@
         <line x1="844" x2="844" y1="200" y2="232"/>
     </g>
     <g>
-        <line marker-end="url(#triangle)" x1="628" x2="628" y1="560" y2="588"/>
+        <line marker-end="url(#string-protocols-triangle)" x1="628" x2="628" y1="560" y2="588"/>
     </g>
     <g>
-        <line marker-end="url(#triangle)" x1="628" x2="628" y1="656" y2="644"/>
+        <line marker-end="url(#string-protocols-triangle)" x1="628" x2="628" y1="656" y2="644"/>
         <line x1="628" x2="628" y1="656" y2="672"/>
     </g>
     <g>
@@ -213,22 +213,22 @@
         <line x1="748" x2="748" y1="424" y2="456"/>
     </g>
     <g>
-        <line marker-end="url(#triangle)" x1="708" x2="708" y1="96" y2="84"/>
+        <line marker-end="url(#string-protocols-triangle)" x1="708" x2="708" y1="96" y2="84"/>
         <line x1="708" x2="708" y1="96" y2="112"/>
     </g>
     <g>
-        <line marker-end="url(#triangle)" x1="708" x2="708" y1="176" y2="164"/>
+        <line marker-end="url(#string-protocols-triangle)" x1="708" x2="708" y1="176" y2="164"/>
         <line x1="708" x2="708" y1="176" y2="192"/>
     </g>
     <g>
-        <line marker-end="url(#triangle)" x1="708" x2="708" y1="256" y2="244"/>
+        <line marker-end="url(#string-protocols-triangle)" x1="708" x2="708" y1="256" y2="244"/>
         <line x1="708" x2="708" y1="256" y2="272"/>
     </g>
     <g>
         <line x1="748" x2="772" y1="376" y2="376"/>
         <line x1="772" x2="772" y1="344" y2="376"/>
         <line x1="772" x2="852" y1="344" y2="344"/>
-        <line marker-end="url(#triangle)" x1="852" x2="852" y1="344" y2="380"/>
+        <line marker-end="url(#string-protocols-triangle)" x1="852" x2="852" y1="344" y2="380"/>
     </g>
     <g>
         <line x1="748" x2="772" y1="440" y2="440"/>
@@ -243,7 +243,7 @@
         <line x1="908" x2="908" y1="392" y2="424"/>
     </g>
     <g>
-        <line marker-end="url(#triangle)" x1="852" x2="852" y1="448" y2="436"/>
+        <line marker-end="url(#string-protocols-triangle)" x1="852" x2="852" y1="448" y2="436"/>
     </g>
     <g>
         <text x="17" y="252">RangeReplaceableCollection</text>
