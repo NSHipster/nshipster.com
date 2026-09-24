@@ -163,6 +163,22 @@ describe("pages", () => {
     await context.close();
   });
 
+  it("underlines links and darkens the link color when more contrast is requested", async () => {
+    const linkStyle = async (contrast: "more" | "no-preference") => {
+      const { page, context } = await open("/nscache/", { contrast, colorScheme: "light" });
+      const style = await page
+        .locator("#revisions a")
+        .first()
+        .evaluate((link) => ({ color: getComputedStyle(link).color, line: getComputedStyle(link).textDecorationLine }));
+      await context.close();
+      return style;
+    };
+    const standard = await linkStyle("no-preference");
+    const more = await linkStyle("more");
+    expect(more.line).toBe("underline");
+    expect(more.color).not.toBe(standard.color);
+  });
+
   it("switches code tabs with the keyboard and remembers the language across pages", async () => {
     const { page, context } = await open("/addressbookui/");
     const firstTab = page.locator('[role="tab"]').first();
