@@ -269,9 +269,14 @@ describe("pages", () => {
     const resting = await underline();
     expect(resting.color).not.toBe(resting.text);
     await link.hover();
-    const hovered = await underline();
-    expect(hovered.color).toBe(hovered.text);
-    expect(hovered.thickness).toBe("2px");
+    // The underline color fades in over 0.1 seconds.
+    await expect
+      .poll(async () => {
+        const { color, text } = await underline();
+        return color === text;
+      })
+      .toBe(true);
+    await expect(underline().then(({ thickness }) => thickness)).resolves.toBe("2px");
     await context.close();
   });
 
@@ -361,6 +366,21 @@ describe("pages", () => {
         page.evaluate(() => document.documentElement.dataset.viewTransition),
         reducedMotion,
       ).resolves.toBe(String(expected));
+      await context.close();
+    }
+  });
+
+  it("uses transitions unless the reader prefers reduced motion", async () => {
+    for (const [reducedMotion, expected] of [
+      ["no-preference", "0.5s"],
+      ["reduce", "1e-05s"],
+    ] as const) {
+      const { page, context } = await open("/addressbookui/", { reducedMotion });
+      const duration = await page
+        .locator('[role="tab"]')
+        .first()
+        .evaluate((tab) => getComputedStyle(tab).transitionDuration);
+      expect(duration, reducedMotion).toBe(expected);
       await context.close();
     }
   });
