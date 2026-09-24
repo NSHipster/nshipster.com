@@ -186,9 +186,6 @@ html[lang="ko-KR"] [role="banner"] {
     display: block;
     -webkit-touch-callout: none;
     -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
     user-select: none;
     font-size: 1em;
     height: 6em;
@@ -264,7 +261,6 @@ html[lang="ko-KR"] [role="banner"] {
         font-size: smaller;
         display: -webkit-box;
         overflow: hidden;
-        max-lines: 8;
         -webkit-line-clamp: 8;
         -webkit-box-orient: vertical;
         text-overflow: ellipsis;
@@ -316,7 +312,6 @@ article.translator {
 
   table {
     overflow: scroll;
-    -webkit-overflow-scrolling: touch;
     margin: 2em 0;
 
     caption {
@@ -535,9 +530,6 @@ article.translator {
 .avatar {
   -webkit-touch-callout: none;
   -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
   user-select: none;
   max-width: 200px;
   max-height: 200px;
@@ -849,10 +841,8 @@ details {
   summary {
     cursor: pointer;
     margin-bottom: 1em;
-    user-select: none;
-    -ms-user-select: none;
-    -moz-user-select: none;
     -webkit-user-select: none;
+    user-select: none;
   }
 }
 

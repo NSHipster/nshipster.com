@@ -72,7 +72,7 @@ td.dark {
     dd {
       break-before: avoid;
       break-inside: avoid;
-      -webkit-column-break-before: avoid;
+      break-before: avoid-column;
       margin-bottom: 0.5em;
       &:before {
         content: "• ";
