@@ -12,3 +12,10 @@ nshipster.com/training
 Procfile
 _functions/search/index.json
 node_modules
+
+# Astro
+dist
+.astro
+.wrangler
+.context
+tests/**/__screenshots__

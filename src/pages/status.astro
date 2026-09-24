@@ -1,0 +1,68 @@
+---
+import Page from "../layouts/Page.astro";
+import { postsNewestFirst } from "../lib/collections.ts";
+import { byCodeUnit } from "../lib/content/posts.ts";
+import { DATE_FORMAT, parseDate, strftime, zoned } from "../lib/dates.ts";
+import { camelBreak } from "../lib/text.ts";
+
+// Emitted as `status.html`, so its canonical URL is `/status`.
+const posts = (await postsNewestFirst()).sort((a, b) => byCodeUnit(a.data.title, b.data.title));
+const lastReview = (post: (typeof posts)[number]) => {
+  const reviewed = post.data.status?.reviewed ? parseDate(post.data.status.reviewed) : undefined;
+  return strftime(reviewed ?? zoned(post.data.date), DATE_FORMAT);
+};
+---
+
+<Page title="Article Status" path="/status" noindex>
+  <p>
+    The common swift (<em>Apus apus</em>) can travel at speeds over 100km/h. The Swift programming language — true to its
+    name and namesake — is similarly fast-moving, frequently introducing new language features and syntax rules. As a
+    result, some of our articles may become incorrect or outdated over time.
+  </p>
+
+  <p>
+    We do our best to keep things fresh, with new updates to existing articles made every week, and invite you to help
+    us find and correct any mistakes you find by
+    <a href="https://github.com/NSHipster/articles/issues/new" rel="noopener noreferrer">opening a new issue on our GitHub repository</a>.
+  </p>
+
+  <p>
+    In the meantime, please consult the table below for guidance on when each of our articles was last updated, and
+    which version of Swift it’s targeting:
+  </p>
+
+  <table id="status">
+    <caption>
+      “t.b.c.” indicates that an article has not yet been translated to Swift<br />
+      “n/a” notes that a Swift translation would not be useful or appropriate.
+    </caption>
+    <thead>
+      <tr>
+        <th>Article</th>
+        <th>Swift Version</th>
+        <th>Last Review</th>
+      </tr>
+    </thead>
+    <tbody>
+      {
+        posts.map((post) => (
+          <tr>
+            <td>
+              <a href={post.data.url} set:html={camelBreak(post.data.title)} />
+            </td>
+            <td class="version">
+              {post.data.status?.swift === "n/a" ? (
+                <em>n/a</em>
+              ) : post.data.status?.swift === "t.b.c." ? (
+                <strong>t.b.c.</strong>
+              ) : (
+                post.data.status?.swift
+              )}
+            </td>
+            <td set:html={lastReview(post)} />
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</Page>

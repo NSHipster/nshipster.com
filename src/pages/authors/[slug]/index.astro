@@ -1,0 +1,68 @@
+---
+import { getCollection } from "astro:content";
+import Avatar from "../../../components/Avatar.astro";
+import Base from "../../../layouts/Base.astro";
+import { postsNewestFirst } from "../../../lib/collections.ts";
+import { DATE_FORMAT, strftime, xmlschema, zoned } from "../../../lib/dates.ts";
+import { t } from "../../../lib/i18n.ts";
+import { absoluteURL } from "../../../lib/site.ts";
+
+export async function getStaticPaths() {
+  return (await getCollection("authors")).map((author) => ({ params: { slug: author.data.slug }, props: { author } }));
+}
+
+const { author } = Astro.props;
+const { name } = author.data;
+const posts = (await postsNewestFirst()).filter((post) => post.data.author === name || post.data.authors.includes(name));
+const latest = posts[0] ? zoned(posts[0].data.updatedOn) : undefined;
+---
+
+<Base
+  title={author.data.title}
+  path={author.data.url}
+  creator={author.data.twitter}
+  document={{
+    description: author.data.description,
+    published: latest ? xmlschema(latest) : "",
+    modified: latest ? xmlschema(latest) : "",
+  }}
+  article={{
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    mainEntity: {
+      "@type": "Person",
+      name,
+      url: absoluteURL(author.data.url),
+      ...(author.data.website ? { sameAs: [author.data.website] } : {}),
+    },
+  }}
+>
+  <article class="author">
+    <header role="heading">
+      <Avatar name={name} image={author.data.image} gravatar={author.data.gravatar} />
+      <h1>{name}</h1>
+
+      <Fragment set:html={author.data.bioHTML} />
+    </header>
+
+    <section class="archive">
+      <h1>{t.articles}</h1>
+
+      <ol>
+        {
+          posts.map((post) => {
+            const date = zoned(post.data.date);
+            return (
+              <li>
+                <a href={post.data.url} title={post.data.title} class="title" set:html={post.data.title} />
+                <time datetime={xmlschema(date)} set:html={strftime(date, DATE_FORMAT)} />
+
+                <Fragment set:html={post.data.excerptHTML} />
+              </li>
+            );
+          })
+        }
+      </ol>
+    </section>
+  </article>
+</Base>

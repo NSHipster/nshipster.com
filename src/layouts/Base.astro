@@ -1,0 +1,209 @@
+---
+import JsonLd from "../components/JsonLd.astro";
+import { assetManifest } from "../lib/assets.ts";
+import { renderAssetTag } from "../lib/render/liquid.ts";
+import { absoluteURL, site } from "../lib/site.ts";
+import { t } from "../lib/i18n.ts";
+import { stripHTML } from "../lib/text.ts";
+
+interface Props {
+  /** The page title, which may contain HTML. */
+  title: string;
+  /** The canonical path, e.g. `/nscache/` or `/status`. */
+  path: string;
+  /**
+   * Metadata for documents (articles and author pages).
+   * Other pages use the site title and description.
+   */
+  document?: {
+    description: string;
+    category?: string;
+    categories?: string[];
+    published: string;
+    modified: string;
+  };
+  /** Article structured data. */
+  article?: Record<string, unknown>;
+  /** Article author's Twitter handle, without the leading `@`. */
+  creator?: string;
+  next?: string;
+  previous?: string;
+  noindex?: boolean;
+  home?: { prerender?: string };
+}
+
+const { title, path, document, article, creator, next, previous, noindex, home } = Astro.props;
+const assets = assetManifest();
+const siteDescription = "NSHipster is a journal of the overlooked bits in Objective-C, Swift, and Cocoa.";
+const plainTitle = stripHTML(title).trim();
+const logo = renderAssetTag(assets, {
+  name: "logo.svg",
+  attributes: [["role", "img"], ["aria-hidden", "true"]],
+  flags: new Set(["inline"]),
+});
+const fonts = ["Merriweather-Regular.woff2", "Merriweather-Bold.woff2", "Merriweather-Italic.woff2", "CreativeCommonsSymbols.woff2"];
+const stylesheet = `<style>${assets.text("screen.css")}</style>`;
+---
+
+<!doctype html>
+<html lang={site.lang}>
+  <head>
+    <meta charset="utf-8" />
+    {
+      document ? (
+        <>
+          <title>{plainTitle} - {site.title}</title>
+          <meta name="description" content={document.description} />
+          <meta name="revisit-after" content="1 month" />
+        </>
+      ) : (
+        <>
+          <title>{plainTitle}</title>
+          <meta name="description" content={siteDescription} />
+          <meta name="revisit-after" content="7 days" />
+        </>
+      )
+    }
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="color-scheme" content="light dark" />
+
+    <link rel="alternate" type="application/atom+xml" title={`${site.title} Atom Feed`} href="/feed.xml" />
+
+    {fonts.map((font) => <link rel="preload" type="font/woff2" as="font" href={assets.url(font)} crossorigin="anonymous" />)}
+
+    <Fragment set:html={stylesheet} />
+
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#292724" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="NSHipster" />
+    <meta name="application-name" content="NSHipster" />
+    <meta name="msapplication-TileColor" content="#f8f7f5" />
+    <meta name="theme-color" content="#f8f7f5" />
+
+    <link rel="author" type="text/plain" href="/humans.txt" />
+    <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@NSHipster" />
+    {creator && <meta name="twitter:creator" content={`@${creator}`} />}
+    {
+      document ? (
+        <>
+          <meta name="twitter:title" content={title} />
+          <meta name="twitter:description" content={document.description} />
+          <meta name="twitter:label1" content="Category" />
+          <meta name="twitter:data1" content={document.category ?? ""} />
+        </>
+      ) : (
+        <>
+          <meta name="twitter:title" content={site.title} />
+          <meta name="twitter:description" content={siteDescription} />
+        </>
+      )
+    }
+    <meta name="twitter:account_id" content={site.twitter} />
+
+    <meta property="og:site_name" content={site.title} />
+    <meta property="og:image" content={absoluteURL("/logo.png")} />
+    {
+      document ? (
+        <>
+          <meta property="og:type" content="article" />
+          <meta property="og:title" content={title} />
+          <meta property="og:url" content={absoluteURL(path)} />
+          <meta property="og:description" content={document.description} />
+          <meta property="article:published_time" content={document.published} />
+          <meta property="article:modified_time" content={document.modified} />
+          <meta property="article:tag" content={(document.categories ?? []).join(",")} />
+          <meta property="article:publisher" content="https://www.facebook.com/NSHipster" />
+        </>
+      ) : (
+        <>
+          <meta property="og:title" content={site.title} />
+          <meta property="og:url" content={site.url} />
+          <meta property="og:description" content={siteDescription} />
+        </>
+      )
+    }
+
+    <link rel="canonical" href={absoluteURL(path)} />
+    <link rel="alternate" hreflang="x-default" href={absoluteURL(path)} />
+
+    {home?.prerender && <link rel="prerender" href={absoluteURL(home.prerender)} />}
+    {next && <link rel="next" href={absoluteURL(next)} />}
+    {previous && <link rel="prev" href={absoluteURL(previous)} />}
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+  </head>
+
+  <body>
+    <div class="container">
+      <header role="banner">
+        <a id="logo" href="/" title="NSHipster" aria-label="NSHipster">
+          <Fragment set:html={logo} />
+        </a>
+
+        {
+          home && (
+            <h2 class="tagline">
+              <strong>NSHipster</strong> is a journal of the overlooked bits in Objective-C, Swift, and Cocoa.
+            </h2>
+          )
+        }
+      </header>
+
+      <main>
+        <slot />
+      </main>
+
+      <footer role="contentinfo">
+        <section class="credits colophon">
+          <p>
+            <i aria-hidden="true" class="icon-cc" title="Creative Commons">&#x1F16D;</i>
+            <i aria-hidden="true" class="icon-by" title="Attribution">&#x1F16F;</i>
+            <i aria-hidden="true" class="icon-nc" title="Non-Commercial">&#x1F10F;</i>
+            <Fragment set:html={t.license} />
+          </p>
+        </section>
+      </footer>
+    </div>
+
+    <script>
+      import "../scripts/application.ts";
+    </script>
+
+    {article && <JsonLd data={article} />}
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        name: "NSHipster",
+        legalName: "NSHipster, LLC",
+        url: "https://nshipster.com",
+        logo: { "@type": "ImageObject", url: absoluteURL("/logo.png") },
+        foundingDate: "2012-07-07",
+        founders: [{ "@type": "Person", name: "Mattt" }],
+        sameAs: ["https://twitter.com/nshipster", "https://github.com/nshipster"],
+      }}
+    />
+    <JsonLd
+      data={{
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        url: site.url,
+        name: site.title,
+        author: { "@type": "Person", name: "Mattt" },
+        description: siteDescription,
+        publisher: {
+          "@type": "Organization",
+          name: "NSHipster",
+          logo: { "@type": "ImageObject", url: absoluteURL("/logo.png") },
+        },
+      }}
+    />
+  </body>
+</html>

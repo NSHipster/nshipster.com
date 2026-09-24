@@ -1,0 +1,80 @@
+---
+import Base from "../layouts/Base.astro";
+import { postsByUpdate, postsNewestFirst } from "../lib/collections.ts";
+import { byCodeUnit } from "../lib/content/posts.ts";
+import { t } from "../lib/i18n.ts";
+import { site } from "../lib/site.ts";
+import { camelBreak, stripHTML } from "../lib/text.ts";
+
+const posts = await postsNewestFirst();
+const sorted = await postsByUpdate();
+const [latest, ...rest] = sorted;
+const recent = rest.slice(0, 6);
+const title = (value: string) => camelBreak(stripHTML(value));
+
+// Categories appear in the configured order, if they have any articles.
+const archive = site.groups
+  .map((group) => ({ group, posts: posts.filter((post) => post.data.category === group) }))
+  .filter(({ posts }) => posts.length > 0)
+  .map(({ group, posts }) => ({
+    group,
+    posts: posts.sort((a, b) => byCodeUnit(a.data.title, b.data.title)).filter((post) => !post.data.retired),
+  }));
+---
+
+<Base title="NSHipster" path="/" home={{ prerender: posts[0]?.data.url }}>
+  {
+    latest && (
+      <section id="latest">
+        <article>
+          <header>
+            <h1 class="title">
+              <a href={latest.data.url}>{title(latest.data.title)}</a>
+            </h1>
+          </header>
+
+          <Fragment set:html={latest.data.excerptHTML} />
+
+          <a class="readmore" href={latest.data.url}>
+            {t.continueReading}
+          </a>
+        </article>
+      </section>
+    )
+  }
+
+  {
+    sorted.length > 3 && (
+      <section id="recent">
+        <h1>{t.recentArticles}</h1>
+
+        <ul>
+          {recent.map((post) => (
+            <li>
+              <a class="title" href={post.data.url}>
+                {title(post.data.title)}
+              </a>
+
+              <Fragment set:html={post.data.excerptHTML} />
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  <section id="archive" class="archive" role="navigation">
+    {
+      archive.map(({ group, posts }) => (
+        <dl>
+          <dt>{group}</dt>
+          {posts.map((post) => (
+            <dd>
+              <a href={post.data.url}>{title(post.data.title)}</a>
+            </dd>
+          ))}
+        </dl>
+      ))
+    }
+  </section>
+</Base>

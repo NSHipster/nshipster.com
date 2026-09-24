@@ -1,0 +1,153 @@
+{
+  "description": "Differences from the Jekyll reference that were reviewed and accepted. Most are Kramdown or Rouge defects that the new build corrects.",
+  "accepted": [
+    {
+      "difference": "/accessibility-keyboard/: asset references differ (missing: facetime-picture-in-picture; added: accessibility-keyboard-system-preferences--light)",
+      "reason": "The Jekyll build emitted the wrong image (facetime-picture-in-picture.png) for this picture element."
+    },
+    {
+      "difference": "/callable/: heading anchors differ (missing: swift-_______; added: swift-___________________)",
+      "reason": "Kramdown misread a run of underscores in a heading as emphasis."
+    },
+    {
+      "difference": "/ios8/: heading anchors differ (missing: wtfplatformios; added: wtf_platform_ios)",
+      "reason": "Kramdown misread WTF_PLATFORM_IOS as emphasis; the heading now shows the underscores."
+    },
+    {
+      "difference": "/swift-format/: heading anchors differ (missing: none; added: performance-2)",
+      "reason": "A repeated \"performance\" heading ID is now unique; the first keeps its ID."
+    },
+    {
+      "difference": "/1password-cli/: content text differs",
+      "reason": "Inline CSS is compiled by Dart Sass, which writes 0.1 as .1."
+    },
+    {
+      "difference": "/as-we-may-code/: element counts differ: p 98→99",
+      "reason": "Paragraph wrapping differs around a lone image in an HTML element."
+    },
+    {
+      "difference": "/associated-objects/: element counts differ: p 22→21",
+      "reason": "An embedded tweet is not wrapped in a paragraph."
+    },
+    {
+      "difference": "/callable/: content text differs",
+      "reason": "Kramdown misread a run of underscores in a heading as emphasis."
+    },
+    {
+      "difference": "/contact-tracing/: content text differs",
+      "reason": "Kramdown printed a stray closing tag as text."
+    },
+    {
+      "difference": "/device-identifiers/: content text differs",
+      "reason": "The bibliography now formats a corrected BibTeX name and includes the proceedings series."
+    },
+    {
+      "difference": "/filemanager/: content text differs",
+      "reason": "Placeholders in Objective-C listings are now styled like those in Swift listings."
+    },
+    {
+      "difference": "/filemanager/: element counts differ: var 7→9",
+      "reason": "Placeholders in Objective-C listings are now styled like those in Swift listings."
+    },
+    {
+      "difference": "/flight-school/: content text differs",
+      "reason": "Book structured data uses an ISO date instead of a Ruby timestamp."
+    },
+    {
+      "difference": "/ibinspectable-ibdesignable/: element counts differ: p 22→21",
+      "reason": "A lone <br> is not wrapped in a paragraph."
+    },
+    {
+      "difference": "/ios8/: content text differs",
+      "reason": "Kramdown printed a stray closing tag as text."
+    },
+    {
+      "difference": "/ios8/: element counts differ: p 47→46",
+      "reason": "Kramdown printed a stray closing tag as text."
+    },
+    {
+      "difference": "/ios9/: content text differs",
+      "reason": "\"new-_ish_\" is now rendered with emphasis, as intended."
+    },
+    {
+      "difference": "/manim/: content text differs",
+      "reason": "\"nice-_ish_\" is now rendered with emphasis, as intended."
+    },
+    {
+      "difference": "/mapkit-js/: content text differs",
+      "reason": "The Rouge JWT lexer repeated the header in place of the payload and signature; the token is now shown as written."
+    },
+    {
+      "difference": "/model-context-protocol/: content text differs",
+      "reason": "Inline CSS is compiled by Dart Sass, which writes 0.25 as .25."
+    },
+    {
+      "difference": "/new-years-2013/: content text differs",
+      "reason": "Placeholders in Objective-C listings are now styled like those in Swift listings."
+    },
+    {
+      "difference": "/new-years-2013/: element counts differ: var 0→2",
+      "reason": "Placeholders in Objective-C listings are now styled like those in Swift listings."
+    },
+    {
+      "difference": "/new-years-2015/: content text differs",
+      "reason": "Kramdown printed a stray closing tag as text and did not wrap an embedded tweet."
+    },
+    {
+      "difference": "/new-years-2015/: element counts differ: p 60→59",
+      "reason": "Kramdown printed a stray closing tag as text and did not wrap an embedded tweet."
+    },
+    {
+      "difference": "/nscalendarunityear/: element counts differ: p 26→27",
+      "reason": "An inline SVG is wrapped in a paragraph."
+    },
+    {
+      "difference": "/nshipster-quiz-2/: content text differs",
+      "reason": "A line of underscores in a block quote is a thematic break in CommonMark."
+    },
+    {
+      "difference": "/nshipster-quiz-7/: element counts differ: p 20→17",
+      "reason": "Lone <br> elements are not wrapped in paragraphs."
+    },
+    {
+      "difference": "/nsurl/: content text differs",
+      "reason": "Kramdown printed a mismatched closing tag as text."
+    },
+    {
+      "difference": "/secrets/: content text differs",
+      "reason": "The bibliography includes the proceedings series from the BibTeX entry."
+    },
+    {
+      "difference": "/temporary-files/: content text differs",
+      "reason": "Placeholders in Objective-C listings are now styled like those in Swift listings."
+    },
+    {
+      "difference": "/temporary-files/: element counts differ: var 4→8",
+      "reason": "Placeholders in Objective-C listings are now styled like those in Swift listings."
+    },
+    {
+      "difference": "/uifieldbehavior/: element counts differ: p 48→49",
+      "reason": "Paragraph wrapping differs around a lone <br> and a video."
+    },
+    {
+      "difference": "/watchkit/: content text differs",
+      "reason": "A code span that spans a line break is rendered as code instead of a literal backtick."
+    },
+    {
+      "difference": "/watchkit/: element counts differ: code 101→102",
+      "reason": "A code span that spans a line break is rendered as code instead of a literal backtick."
+    },
+    {
+      "difference": "/wkwebview/: content text differs",
+      "reason": "Placeholders in JavaScript listings are now styled like those in Swift listings."
+    },
+    {
+      "difference": "/wkwebview/: element counts differ: var 1→2",
+      "reason": "Placeholders in JavaScript listings are now styled like those in Swift listings."
+    },
+    {
+      "difference": "/xcplayground/: content text differs",
+      "reason": "A code listing shows an asset URL, which now has a new digest."
+    }
+  ]
+}

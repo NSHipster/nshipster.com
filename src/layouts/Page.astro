@@ -1,0 +1,26 @@
+---
+import Base from "./Base.astro";
+import { camelBreak } from "../lib/text.ts";
+
+interface Props {
+  title: string;
+  path: string;
+  noindex?: boolean;
+}
+
+const { title, path, noindex } = Astro.props;
+---
+
+<Base title={title} path={path} noindex={noindex}>
+  <article role="article">
+    <header role="heading">
+      <h1 class="title">
+        <a href={path}>{camelBreak(title)}</a>
+      </h1>
+    </header>
+
+    <div class="content">
+      <slot />
+    </div>
+  </article>
+</Base>

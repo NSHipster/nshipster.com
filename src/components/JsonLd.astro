@@ -1,0 +1,11 @@
+---
+import { jsonLD } from "../lib/render/partials.ts";
+
+interface Props {
+  data: unknown;
+}
+
+const markup = `<script type="application/ld+json">${jsonLD(Astro.props.data)}</script>`;
+---
+
+<Fragment set:html={markup} />

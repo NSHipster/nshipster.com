@@ -1,0 +1,17 @@
+"$schema" = "https://conductor.build/schemas/settings.repo.schema.json"
+
+[scripts]
+# Requires mise (`brew install mise`). Safe to run again.
+setup = "mise trust --quiet && mise run setup"
+run_mode = "concurrent"
+
+[scripts.run.dev]
+available_in = ["local"]
+command = "mise run dev"
+default = true
+icon = "play"
+
+[scripts.run.preview]
+available_in = ["local"]
+command = "mise run preview"
+icon = "cloud"

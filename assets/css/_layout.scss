@@ -507,6 +507,8 @@ article.translator {
   user-select: none;
   max-width: 200px;
   max-height: 200px;
+  // Size the height from the width, even when the image has a height attribute.
+  height: auto;
   border-radius: 50%;
   pointer-events: none;
   user-select: none;
@@ -658,7 +660,7 @@ article.translator {
 #promotion {
   article {
     background-color: rgba(255, 128, 0, 0.2);
-    background-color: color(p3 1 0.5 0 0.2);
+    background-color: unquote("color(p3 1 0.5 0 0.2)");
     margin-left: -1em;
     margin-right: -1em;
     margin-top: 0.5em;

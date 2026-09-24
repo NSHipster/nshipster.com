@@ -1,0 +1,29 @@
+---
+import { readFileSync } from "node:fs";
+import path from "node:path";
+import Base from "../layouts/Base.astro";
+import { assetManifest } from "../lib/assets.ts";
+import { parseFrontMatter } from "../lib/content/frontmatter.ts";
+import { renderDocument } from "../lib/render/index.ts";
+import { markdownProcessor } from "../lib/render/markdown.ts";
+import { ROOT } from "../lib/site.ts";
+
+// The error page shares its source with the translated Jekyll sites.
+const file = "404.md";
+const document = parseFrontMatter(readFileSync(path.join(ROOT, file), "utf8"), file);
+const renderer = await markdownProcessor().createRenderer({ syntaxHighlight: false });
+const { html } = await renderDocument(document.body, {
+  file,
+  page: { title: document.data.title, url: "/404.html" },
+  assets: assetManifest(),
+  markdown: async (markdown) => (await renderer.render(`\n${markdown}`)).code,
+});
+---
+
+<Base title="NSError 404 - NSHipster" path="/404.html">
+  <article role="article">
+    <h1 class="title">NSError</h1>
+
+    <div class="content" set:html={html} />
+  </article>
+</Base>
