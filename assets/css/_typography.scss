@@ -250,6 +250,7 @@ h6 {
 }
 
 .title {
+  --link: var(--orange);
   font-family: $sans-serif-font-stack;
   font-weight: 700;
 }

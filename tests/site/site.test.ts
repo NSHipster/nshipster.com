@@ -168,6 +168,32 @@ describe("pages", () => {
     await context.close();
   });
 
+  it("keeps the brand orange for titles and makes text links readable", async () => {
+    const styles = async (colorScheme: "light" | "dark") => {
+      const { page, context } = await open("/addressbookui/", { colorScheme });
+      const style = (selector: string) =>
+        page
+          .locator(selector)
+          .first()
+          .evaluate((element) => ({
+            color: getComputedStyle(element).color,
+            line: getComputedStyle(element).textDecorationLine,
+          }));
+      const result = { title: await style("h1.title a"), text: await style(".content p a") };
+      await context.close();
+      return result;
+    };
+    // The light background needs a darker orange for text; titles keep the brand orange.
+    const light = await styles("light");
+    expect(light.text.color).not.toBe(light.title.color);
+    expect(light.text.line).toBe("none");
+    // In dark mode, orange text links are underlined to stand out from white text.
+    const dark = await styles("dark");
+    expect(dark.text.color).toBe(dark.title.color);
+    expect(dark.text.line).toBe("underline");
+    expect(dark.title.line).toBe("none");
+  });
+
   it("underlines links and darkens the link color when more contrast is requested", async () => {
     const linkStyle = async (contrast: "more" | "no-preference") => {
       const { page, context } = await open("/nscache/", { contrast, colorScheme: "light" });
