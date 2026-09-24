@@ -13,6 +13,8 @@
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page",
   },
+  // Pull request builds run `wrangler preview`, which requires this block.
+  "previews": {},
   "env": {
     // An isolated deployment for checking a build before it reaches production.
     "preview": {
