@@ -62,7 +62,8 @@
 
 @media (prefers-contrast: more) {
   a {
-    text-decoration: underline;
+    --link-underline: currentColor;
+    text-decoration-line: underline;
   }
 
   // Every tab is fully opaque, and the selected tab is underlined.

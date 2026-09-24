@@ -119,8 +119,13 @@ p {
 }
 
 a {
-  transition: color 0.1s linear;
+  --link-underline: color-mix(in srgb, currentColor 40%, transparent);
+  transition:
+    color 0.1s linear,
+    text-decoration-color 0.1s linear;
   text-decoration: none;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.2em;
 
   &,
   &:visited {
@@ -128,7 +133,13 @@ a {
   }
 
   &:hover {
-    text-decoration: underline;
+    text-decoration-line: underline;
+    text-decoration-color: currentColor;
+    text-decoration-thickness: 2px;
+  }
+
+  &:active {
+    background-color: color-mix(in srgb, currentColor 20%, transparent);
   }
 
   code {
@@ -139,8 +150,13 @@ a {
 
 // Links in running text are underlined to set them apart from the text around them.
 // Titles, the archive, and the status table list only links, so they aren't underlined.
-:is(p, li, dd, td, th, blockquote, figcaption, .byline) a:not(.title, .title a, .archive a, #status a) {
-  text-decoration: underline;
+// The underline is faint until hover, when it becomes solid.
+:is(p, li, dd, td, th, blockquote, figcaption, .byline) a:not(:where(.title, .title a, .archive a, #status a)) {
+  text-decoration-line: underline;
+
+  &:not(:hover) {
+    text-decoration-color: var(--link-underline);
+  }
 }
 
 p > small {

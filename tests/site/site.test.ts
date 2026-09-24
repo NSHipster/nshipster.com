@@ -192,6 +192,25 @@ describe("pages", () => {
     await context.close();
   });
 
+  it("makes the underline of a text link solid on hover", async () => {
+    const { page, context } = await open("/addressbookui/");
+    const link = page.locator(".content p a").first();
+    const underline = () =>
+      link.evaluate((element) => ({
+        color: getComputedStyle(element).textDecorationColor,
+        thickness: getComputedStyle(element).textDecorationThickness,
+        text: getComputedStyle(element).color,
+      }));
+    await page.mouse.move(0, 0);
+    const resting = await underline();
+    expect(resting.color).not.toBe(resting.text);
+    await link.hover();
+    const hovered = await underline();
+    expect(hovered.color).toBe(hovered.text);
+    expect(hovered.thickness).toBe("2px");
+    await context.close();
+  });
+
   it("underlines links and darkens the link color when more contrast is requested", async () => {
     const linkStyle = async (contrast: "more" | "no-preference") => {
       const { page, context } = await open("/nscache/", { contrast, colorScheme: "light" });
