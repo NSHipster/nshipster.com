@@ -306,6 +306,31 @@ describe("pages", () => {
     await context.close();
   });
 
+  it("sizes article titles to the header width without JavaScript", async () => {
+    for (const [width, expected] of [
+      [375, 33.2],
+      [1280, 72],
+    ] as const) {
+      const { page, context } = await open("/nscache/", { javaScriptEnabled: false, viewport: { width, height: 800 } });
+      const size = await page
+        .locator('[role="heading"] h1.title')
+        .evaluate((title) => Number.parseFloat(getComputedStyle(title).fontSize));
+      expect(size, `${width}px`).toBeCloseTo(expected, 0);
+      await context.close();
+    }
+  });
+
+  it("prefetches the latest article when a reader hovers over its link", async () => {
+    const { page, context, errors } = await open("/");
+    const latest = page.locator("#latest h1 a");
+    const path = new URL((await latest.getAttribute("href"))!, server.url).pathname;
+    const request = page.waitForRequest((candidate) => new URL(candidate.url()).pathname === path);
+    await latest.hover();
+    await expect(request).resolves.toBeTruthy();
+    expect(errors).toEqual([]);
+    await context.close();
+  });
+
   it("animates the logo on touch devices only without reduced motion", async () => {
     const touch = { hasTouch: true, isMobile: true, viewport: { width: 375, height: 812 } };
     const moving = await open("/", { ...touch, reducedMotion: "no-preference" });
@@ -317,6 +342,27 @@ describe("pages", () => {
     await still.page.waitForTimeout(1200);
     await expect(still.page.locator("#logo svg.animated").count()).resolves.toBe(0);
     await still.context.close();
+  });
+
+  it("cross-fades between pages unless the reader prefers reduced motion", async () => {
+    for (const [reducedMotion, expected] of [
+      ["no-preference", true],
+      ["reduce", false],
+    ] as const) {
+      const { page, context } = await open("/", { reducedMotion });
+      await page.addInitScript(() => {
+        addEventListener("pagereveal", (event) => {
+          document.documentElement.dataset.viewTransition = String(Boolean(event.viewTransition));
+        });
+      });
+      await page.locator("#latest h1 a").click();
+      await page.waitForLoadState("load");
+      await expect(
+        page.evaluate(() => document.documentElement.dataset.viewTransition),
+        reducedMotion,
+      ).resolves.toBe(String(expected));
+      await context.close();
+    }
   });
 
   it("hides article navigation in print", async () => {
@@ -338,8 +384,14 @@ describe("article demos", () => {
   it("shows the swift-format listing that fits the container width", async () => {
     const { page, context, errors } = await open("/swift-format/", { viewport: { width: 1280, height: 900 } });
     await page.waitForTimeout(300);
-    const visible = await page.locator(".variable-width [data-width]:not([hidden])").count();
-    expect(visible).toBe(1);
+    const shown = page.locator(".variable-width [data-width]:not([hidden])");
+    await expect(shown.count()).resolves.toBe(1);
+    await expect(shown.getAttribute("data-width")).resolves.toBe("40");
+    // Readers resize the container by hand; the native ResizeObserver then shows a wider listing.
+    await page.locator(".variable-width").evaluate((container: HTMLElement) => (container.style.width = "100%"));
+    await page.waitForTimeout(300);
+    await expect(shown.count()).resolves.toBe(1);
+    await expect(shown.getAttribute("data-width")).resolves.toBe("90");
     expect(errors).toEqual([]);
     await context.close();
   });

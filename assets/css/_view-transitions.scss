@@ -1,0 +1,12 @@
+// Navigations between pages cross-fade in browsers that support
+// cross-document view transitions. Other browsers, and readers who
+// prefer reduced motion, navigate without a transition.
+@media (prefers-reduced-motion: no-preference) {
+  @view-transition {
+    navigation: auto;
+  }
+
+  ::view-transition-group(root) {
+    animation-duration: 0.2s;
+  }
+}

@@ -1,3 +1,5 @@
+@use "font-stacks";
+
 @mixin border-icon($name) {
   content: " ";
   background-image: asset_url($name + ".svg");
@@ -13,7 +15,7 @@
 
 .admonition {
   --code: var(--link);
-  font-family: $sans-serif-font-stack;
+  font-family: font-stacks.$sans-serif;
   border-left: 4px var(--separator) solid;
   padding: 5px 40px;
   margin: 1.5em 0;

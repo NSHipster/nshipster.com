@@ -1,8 +1,8 @@
-@import "../functions";
+@use "mixins";
 
 @media screen and (min-width: 768px) {
   aside {
-    @include clearfix;
+    @include mixins.clearfix;
 
     figure {
       float: right;

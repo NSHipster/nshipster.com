@@ -1,7 +1,4 @@
-@media (monochrome),
-  print and (not (color)),
-  (prefers-contrast: high),
-  screen and (-ms-high-contrast: active) {
+@media (monochrome), print and (not (color)) {
   :root {
     --red: black;
     --yellow: black;

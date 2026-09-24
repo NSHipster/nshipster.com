@@ -1,5 +1,3 @@
-//= require vendor/resize-observer.min.js
-
 "use strict";
 
 function getComputedWidthInEm(element) {

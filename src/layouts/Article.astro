@@ -174,7 +174,7 @@ const description = plainText(post.excerptHTML);
               <small>{t.nextArticle}</small>
               <article>
                 <h1 class="title">
-                  <a rel="next" href={continueWith.data.url}>
+                  <a rel="next" href={continueWith.data.url} data-astro-prefetch>
                     {camelBreak(stripHTML(continueWith.data.title))}
                   </a>
                 </h1>

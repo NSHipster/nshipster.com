@@ -22,20 +22,22 @@ const archive = site.groups
   }));
 ---
 
-<Base title="NSHipster" path="/" home={{ prerender: posts[0]?.data.url }}>
+<Base title="NSHipster" path="/" home>
   {
     latest && (
       <section id="latest">
         <article>
           <header>
             <h1 class="title">
-              <a href={latest.data.url}>{title(latest.data.title)}</a>
+              <a href={latest.data.url} data-astro-prefetch>
+                {title(latest.data.title)}
+              </a>
             </h1>
           </header>
 
           <Fragment set:html={latest.data.excerptHTML} />
 
-          <a class="readmore" href={latest.data.url}>
+          <a class="readmore" href={latest.data.url} data-astro-prefetch>
             {t.continueReading}
           </a>
         </article>

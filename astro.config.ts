@@ -62,6 +62,8 @@ export default defineConfig({
   ],
   integrations: [staticFiles()],
   devToolbar: { enabled: false },
+  // Prefetch links marked with `data-astro-prefetch` when a reader hovers over or focuses them.
+  prefetch: { prefetchAll: false, defaultStrategy: "hover" },
   vite: {
     build: {
       // Keep scripts external: the Content-Security-Policy blocks inline scripts.
