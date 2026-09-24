@@ -320,6 +320,17 @@ describe("pages", () => {
     }
   });
 
+  it("prefetches the latest article when a reader hovers over its link", async () => {
+    const { page, context, errors } = await open("/");
+    const latest = page.locator("#latest h1 a");
+    const path = new URL((await latest.getAttribute("href"))!, server.url).pathname;
+    const request = page.waitForRequest((candidate) => new URL(candidate.url()).pathname === path);
+    await latest.hover();
+    await expect(request).resolves.toBeTruthy();
+    expect(errors).toEqual([]);
+    await context.close();
+  });
+
   it("animates the logo on touch devices only without reduced motion", async () => {
     const touch = { hasTouch: true, isMobile: true, viewport: { width: 375, height: 812 } };
     const moving = await open("/", { ...touch, reducedMotion: "no-preference" });

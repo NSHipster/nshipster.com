@@ -30,7 +30,8 @@ interface Props {
   next?: string;
   previous?: string;
   noindex?: boolean;
-  home?: { prerender?: string };
+  /** Whether the page is the home page, which shows the tagline. */
+  home?: boolean;
 }
 
 const { title, path, document, article, creator, next, previous, noindex, home } = Astro.props;
@@ -135,7 +136,6 @@ const logo = renderAssetTag(assets, {
     <link rel="canonical" href={absoluteURL(path)} />
     <link rel="alternate" hreflang="x-default" href={absoluteURL(path)} />
 
-    {home?.prerender && <link rel="prerender" href={absoluteURL(home.prerender)} />}
     {next && <link rel="next" href={absoluteURL(next)} />}
     {previous && <link rel="prev" href={absoluteURL(previous)} />}
     {noindex && <meta name="robots" content="noindex,nofollow" />}
