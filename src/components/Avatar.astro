@@ -1,6 +1,6 @@
 ---
 import { Image } from "astro:assets";
-import { layoutImage } from "../lib/images.ts";
+import { portrait } from "../lib/images.ts";
 
 interface Props {
   name: string;
@@ -13,7 +13,7 @@ const { name, image, gravatar } = Astro.props;
 
 {
   image ? (
-    <Image class="avatar" alt={name} src={layoutImage(image)} width={300} draggable="false" />
+    <Image class="avatar" alt={name} src={portrait(image)} width={300} draggable="false" />
   ) : (
     <img class="avatar" alt={name} src={`https://0.gravatar.com/avatar/${gravatar ?? ""}?size=300`} draggable="false" />
   )

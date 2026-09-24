@@ -64,6 +64,7 @@ function rootFiles(time = new Date()): Map<string, Buffer | string> {
 
 /**
  * Publishes `assets/` with content-hashed names under `/assets/`,
+ * along with smaller copies of the images in `src/data/responsive-images.json`,
  * copies root and `.well-known` files, and writes Cloudflare routing files.
  */
 export function staticFiles(): AstroIntegration {
@@ -72,7 +73,9 @@ export function staticFiles(): AstroIntegration {
     hooks: {
       "astro:config:setup": ({ updateConfig, command }) => {
         if (command !== "dev") return;
-        let manifest: Map<string, { contents: Buffer }> | undefined;
+        let manifest: AssetManifest | undefined;
+        let outputs: Map<string, { contents: Buffer }> | undefined;
+        let variants: Promise<Map<string, { contents: Buffer }>> | undefined;
         updateConfig({
           vite: {
             plugins: [
@@ -81,24 +84,36 @@ export function staticFiles(): AstroIntegration {
                 configureServer(server) {
                   server.watcher.add(path.join(ROOT, paths.assets));
                   server.watcher.on("all", (_event, file) => {
-                    if (file.startsWith(path.join(ROOT, paths.assets))) manifest = undefined;
+                    if (file.startsWith(path.join(ROOT, paths.assets))) {
+                      manifest = undefined;
+                      outputs = undefined;
+                      variants = undefined;
+                    }
                   });
                   const files = rootFiles();
                   server.middlewares.use((request, response, next) => {
                     const pathname = decodeURIComponent(new URL(request.url ?? "/", "http://localhost").pathname);
-                    let contents: Buffer | undefined;
+                    const send = (contents: Buffer | undefined) => {
+                      if (!contents) return next();
+                      response.setHeader(
+                        "Content-Type",
+                        CONTENT_TYPES[path.extname(pathname)] ?? "application/octet-stream",
+                      );
+                      response.end(contents);
+                    };
                     if (pathname.startsWith("/assets/")) {
-                      manifest ??= new AssetManifest().outputs();
-                      contents = manifest.get(pathname)?.contents;
+                      manifest ??= new AssetManifest();
+                      outputs ??= manifest.outputs();
+                      const contents = outputs.get(pathname)?.contents;
+                      if (contents) return send(contents);
+                      // Smaller copies of responsive images are made on first request.
+                      variants ??= manifest.variantOutputs();
+                      variants.then((map) => send(map.get(pathname)?.contents), next);
                     } else if (files.has(pathname)) {
-                      contents = Buffer.from(files.get(pathname)!);
+                      send(Buffer.from(files.get(pathname)!));
+                    } else {
+                      next();
                     }
-                    if (!contents) return next();
-                    response.setHeader(
-                      "Content-Type",
-                      CONTENT_TYPES[path.extname(pathname)] ?? "application/octet-stream",
-                    );
-                    response.end(contents);
                   });
                 },
               },
@@ -106,7 +121,7 @@ export function staticFiles(): AstroIntegration {
           },
         });
       },
-      "astro:build:done": ({ dir, logger }) => {
+      "astro:build:done": async ({ dir, logger }) => {
         const output = fileURLToPath(dir);
         const write = (pathname: string, contents: Buffer | string) => {
           const destination = path.join(output, pathname);
@@ -117,6 +132,8 @@ export function staticFiles(): AstroIntegration {
         const manifest = new AssetManifest();
         const outputs = manifest.outputs();
         for (const [url, { contents }] of outputs) write(url, contents);
+        const variants = await manifest.variantOutputs();
+        for (const [url, { contents }] of variants) write(url, contents);
         for (const [pathname, contents] of rootFiles()) write(pathname, contents);
 
         // Compare names exactly: Cloudflare paths are case-sensitive, but file systems may not be.
@@ -137,7 +154,9 @@ export function staticFiles(): AstroIntegration {
         const rules = redirects(manifest, exists);
         write("/_redirects", rules.map(({ from, to, status }) => `${from} ${to} ${status}`).join("\n") + "\n");
         write("/_headers", headers());
-        logger.info(`Wrote ${outputs.size} assets and ${rules.length} redirects`);
+        logger.info(
+          `Wrote ${outputs.size} assets, ${variants.size} smaller copies of large images, and ${rules.length} redirects`,
+        );
       },
     },
   };

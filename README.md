@@ -74,6 +74,20 @@ from `_bibliography/references.bib`.
 
 Files in `assets/` are published under `/assets/` with content-hashed names.
 Use them in articles with the `{% asset %}` tag, as before.
+Fonts and author portraits are the exceptions.
+Merriweather and the Creative Commons symbols are configured
+with Astro's fonts API in `astro.config.ts`,
+and Astro resizes author portraits,
+so each one is imported in `src/lib/images.ts`.
+
+Images in articles get their width and height,
+and every image after the first one loads lazily.
+The images listed in `src/data/responsive-images.json`
+also get copies 800 and 1200 pixels wide in `srcset`;
+the original keeps its URL.
+To find large images for that list,
+run `mise run audit:weight`,
+which reports the heaviest pages and the largest images.
 
 ### Comparing with the Jekyll Site
 

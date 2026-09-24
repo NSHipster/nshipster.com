@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vite-plus/test";
+import { assetManifest } from "../../src/lib/assets.ts";
 import { render } from "./helpers.ts";
 
 const fixture = (name: string) => readFileSync(new URL(`../fixtures/${name}.md`, import.meta.url), "utf8");
@@ -138,6 +139,45 @@ describe("article rendering", () => {
     expect(html).toContain('id="fnref:a"');
     expect(html).toContain('id="fnref:a:1"');
     expect(html).toContain('href="#fnref:a:1"');
+  });
+
+  it("sizes images, loads images after the first lazily, and lists smaller copies", async () => {
+    const assets = assetManifest();
+    const url = (name: string) => assets.url(name);
+    const source = [
+      "{% asset uiactivity-airDrop.png %}",
+      "",
+      "![Banner]({% asset wwdc-2019.jpg @path %})",
+      "",
+      '<img src="{% asset wwdc-twitter-app--light.png @path %}" alt="Twitter App" width="600">',
+      "",
+      "<picture>",
+      '<source srcset="{% asset uncertainty-screenshot--dark.png @path %}" media="(prefers-color-scheme: dark)">',
+      '<img src="{% asset uncertainty-screenshot--light.png @path %}" alt="Screenshot">',
+      "</picture>",
+    ].join("\n");
+    const { html } = await render(source);
+    const images = [...html.matchAll(/<img [^>]*>/g)].map((match) => match[0]);
+
+    expect(images[0]).toContain(`src="${url("uiactivity-airDrop.png")}"`);
+    expect(images[0]).not.toContain("loading=");
+    expect(images[1]).toContain('loading="lazy"');
+    expect(images[1]).toContain('width="1632" height="691"');
+    expect(images[1]).not.toContain("srcset=");
+
+    // The height follows from the article's width and the image's aspect ratio.
+    expect(images[2]).toContain('width="600"');
+    expect(images[2]).toContain('height="519"');
+    const [small, medium] = await assets.variants(assets.resolve("wwdc-twitter-app--light.png"));
+    expect(images[2]).toContain(
+      `srcset="${small!.url} 800w, ${medium!.url} 1200w, ${url("wwdc-twitter-app--light.png")} 1520w"`,
+    );
+    expect(images[2]).toContain('sizes="(min-width: 643px) 600px, calc(100vw - 43px)"');
+
+    expect(images[3]).toContain('sizes="(min-width: 918px) 875px, calc(100vw - 43px)"');
+    const dark = html.match(/<source [^>]*>/)![0];
+    expect(dark).toContain(`${url("uncertainty-screenshot--dark.png")} 2916w"`);
+    expect(dark).toContain('sizes="(min-width: 918px) 875px, calc(100vw - 43px)"');
   });
 
   it("names the source file for a missing asset", async () => {

@@ -21,6 +21,8 @@ hr {
 img {
   margin: 0;
   max-width: 100%;
+  // Keep the aspect ratio when `max-width` narrows an image that has `width` and `height` attributes.
+  height: auto;
 }
 
 video {

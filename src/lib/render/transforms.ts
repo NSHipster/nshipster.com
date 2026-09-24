@@ -1,9 +1,10 @@
-import type { Element, ElementContent, Root, RootContent, Text } from "hast";
+import type { Element, ElementContent, Properties, Root, RootContent, Text } from "hast";
 import { fromHtml } from "hast-util-from-html";
 import { selectAll, select } from "hast-util-select";
 import { toHtml } from "hast-util-to-html";
 import { toString } from "hast-util-to-string";
 import { site } from "../site.ts";
+import type { ImageDescription } from "./images.ts";
 import { EMPTY_HEADER } from "./kramdown.ts";
 import { parameterize } from "./markdown.ts";
 
@@ -17,6 +18,12 @@ const PLACEHOLDER = "￼";
 export interface TransformOptions {
   /** Add the `get-on-with-it` anchor after the first rule or second-level heading. */
   delineate?: boolean;
+  /**
+   * The document's image assets, keyed by URL.
+   * When given, images get their sizes and responsive copies,
+   * and images after the first load lazily.
+   */
+  images?: Map<string, ImageDescription>;
 }
 
 export function transformHTML(html: string, options: TransformOptions = {}): string {
@@ -35,6 +42,7 @@ export function transformHTML(html: string, options: TransformOptions = {}): str
   improveAccessibility(tree);
   styleOptionalPlaceholders(tree);
   if (options.delineate !== false) delineateFlimFlam(tree);
+  if (options.images) addImageAttributes(tree, options.images);
 
   return toHtml(tree, {
     allowDangerousHtml: true,
@@ -351,6 +359,72 @@ function improveAccessibility(tree: Root): void {
     if (String(img.properties.src ?? "").endsWith(".svg")) img.properties.role = "img";
     if (img.properties.alt === undefined) img.properties.alt = "";
   }
+}
+
+/** The width of an article's content at wide viewports, in CSS pixels. */
+const CONTENT_WIDTH = 875;
+/** The page padding around an article's content at narrow viewports, in CSS pixels. */
+const PAGE_PADDING = 43;
+
+const isPixels = (value: Properties[string]): boolean =>
+  typeof value === "number" || (typeof value === "string" && /^\d+(\.\d+)?$/.test(value));
+
+/**
+ * Gives images their width and height so the page doesn't shift as they load,
+ * loads the images after the first one lazily,
+ * and lists the smaller copies of large images in `srcset`.
+ * Width and height that the article sets are kept,
+ * and a missing one is calculated from the image's aspect ratio.
+ */
+function addImageAttributes(tree: Root, images: Map<string, ImageDescription>): void {
+  const displayWidths = new Map<Element, number>();
+  selectAll("img", tree).forEach((img, index) => {
+    // The first image can be in view when the page loads.
+    if (index > 0) img.properties.loading ??= "lazy";
+    const src = String(img.properties.src ?? "");
+    const image = images.get(src);
+    if (!image) return;
+    const { width, height } = img.properties;
+    if (width === undefined && height === undefined) {
+      img.properties.width = image.width;
+      img.properties.height = image.height;
+    } else if (height === undefined && isPixels(width)) {
+      img.properties.height = Math.round((Number(width) * image.height) / image.width);
+    } else if (width === undefined && isPixels(height)) {
+      img.properties.width = Math.round((Number(height) * image.width) / image.height);
+    }
+    const displayWidth = isPixels(img.properties.width) ? Number(img.properties.width) : image.width;
+    displayWidths.set(img, displayWidth);
+    if (image.variants.length > 0 && img.properties.srcSet === undefined) {
+      img.properties.srcSet = srcset(src, image);
+      img.properties.sizes = sizes(displayWidth);
+    }
+  });
+
+  // `<source>` elements give the dark mode versions of screenshots.
+  for (const picture of selectAll("picture", tree)) {
+    const img = select("img", picture);
+    const displayWidth = img && displayWidths.get(img);
+    if (!displayWidth) continue;
+    for (const source of selectAll("source", picture)) {
+      // Only a `srcset` with a single URL and no descriptor is replaced.
+      const url = String(source.properties.srcSet ?? "").trim();
+      const image = images.get(url);
+      if (!image || image.variants.length === 0) continue;
+      source.properties.srcSet = srcset(url, image);
+      source.properties.sizes = sizes(displayWidth);
+    }
+  }
+}
+
+function srcset(url: string, image: ImageDescription): string {
+  return [...image.variants.map((variant) => `${variant.url} ${variant.width}w`), `${url} ${image.width}w`].join(", ");
+}
+
+/** The width that an image takes up at each viewport width, for `sizes`. */
+function sizes(displayWidth: number): string {
+  const width = Math.min(displayWidth, CONTENT_WIDTH);
+  return `(min-width: ${width + PAGE_PADDING}px) ${width}px, calc(100vw - ${PAGE_PADDING}px)`;
 }
 
 function styleOptionalPlaceholders(tree: Root): void {
