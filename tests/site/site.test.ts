@@ -338,8 +338,14 @@ describe("article demos", () => {
   it("shows the swift-format listing that fits the container width", async () => {
     const { page, context, errors } = await open("/swift-format/", { viewport: { width: 1280, height: 900 } });
     await page.waitForTimeout(300);
-    const visible = await page.locator(".variable-width [data-width]:not([hidden])").count();
-    expect(visible).toBe(1);
+    const shown = page.locator(".variable-width [data-width]:not([hidden])");
+    await expect(shown.count()).resolves.toBe(1);
+    await expect(shown.getAttribute("data-width")).resolves.toBe("40");
+    // Readers resize the container by hand; the native ResizeObserver then shows a wider listing.
+    await page.locator(".variable-width").evaluate((container: HTMLElement) => (container.style.width = "100%"));
+    await page.waitForTimeout(300);
+    await expect(shown.count()).resolves.toBe(1);
+    await expect(shown.getAttribute("data-width")).resolves.toBe("90");
     expect(errors).toEqual([]);
     await context.close();
   });
