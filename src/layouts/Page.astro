@@ -13,7 +13,7 @@ const { title, path, noindex } = Astro.props;
 
 <Base title={title} path={path} noindex={noindex}>
   <article role="article">
-    <header role="heading">
+    <header>
       <h1 class="title">
         <a href={path}>{camelBreak(title)}</a>
       </h1>
