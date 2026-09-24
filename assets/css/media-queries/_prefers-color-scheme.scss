@@ -1,6 +1,5 @@
 @media (prefers-color-scheme: dark) {
   :root {
-    --link: var(--orange);
     --red: rgb(255, 69, 58);
     --yellow: rgb(255, 214, 10);
     --green: rgb(48, 209, 88);
@@ -87,11 +86,5 @@
 
   kbd {
     box-shadow: 0 1px 0 rgba(255, 255, 255, 0.2), 0 0 0 2px #222 inset;
-  }
-
-  // Orange links have too little contrast with white text,
-  // so links in running text are also underlined.
-  :is(p, li, dd, td, th, blockquote, figcaption) a:not(.title, .title a) {
-    text-decoration: underline;
   }
 }

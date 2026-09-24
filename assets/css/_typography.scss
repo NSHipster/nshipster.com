@@ -137,6 +137,11 @@ a {
   }
 }
 
+// Links in running text are underlined to set them apart from the text around them.
+:is(p, li, dd, td, th, blockquote, figcaption, .byline) a:not(.title, .title a) {
+  text-decoration: underline;
+}
+
 p > small {
   font-size: inherit;
   font-variant: small-caps;
@@ -250,7 +255,6 @@ h6 {
 }
 
 .title {
-  --link: var(--orange);
   font-family: $sans-serif-font-stack;
   font-weight: 700;
 }

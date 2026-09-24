@@ -338,11 +338,6 @@ article.translator {
         white-space: nowrap;
       }
 
-      // No link color contrasts enough with both the byline text and the background.
-      a {
-        text-decoration: underline;
-      }
-
       .authors,
       .translators {
         &:after {
