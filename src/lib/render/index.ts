@@ -2,6 +2,7 @@ import type { AssetManifest } from "../assets.ts";
 import { readBooks } from "../content/books.ts";
 import { zoned } from "../dates.ts";
 import { CitationContext } from "./citations.ts";
+import { describeImages } from "./images.ts";
 import { preprocessKramdown } from "./kramdown.ts";
 import { renderLiquid, siteScope, type RenderEnvironment } from "./liquid.ts";
 import { bookHTML } from "./partials.ts";
@@ -90,8 +91,9 @@ export async function renderDocument(body: string, options: RenderOptions): Prom
     });
   }
 
+  const images = await describeImages(options.assets, environment.dependencies);
   return {
-    html: transformHTML(html),
+    html: transformHTML(html, { images }),
     assets: [...environment.dependencies],
     citations: citations.cited,
   };

@@ -105,6 +105,18 @@ describe("routing", () => {
     expect(target.status).toBe(200);
   });
 
+  it("keeps the original URL of an image with smaller copies", async () => {
+    const aliases = (await import("../../src/data/legacy-assets.json", { with: { type: "json" } })).default as Record<
+      string,
+      string
+    >;
+    const legacy = Object.keys(aliases).find((alias) => aliases[alias] === "uncertainty-screenshot--light.png")!;
+    const location = (await fetchManual(legacy)).headers.get("location")!;
+    const html = await (await fetch(url("/uncertainty/"))).text();
+    expect(html).toContain(`<img src="${location}"`);
+    expect(html).toContain(`${location} 2916w"`);
+  });
+
   it("sends security headers", async () => {
     const response = await fetchManual("/");
     expect(response.headers.get("content-security-policy")).toContain("default-src 'self'");
@@ -135,6 +147,54 @@ describe("pages", () => {
       expect(errors, pathname).toEqual([]);
       await context.close();
     }
+  });
+
+  it("links the shared stylesheet and preloads only the body font", async () => {
+    const { page, context } = await open("/nscache/");
+    await expect(page.locator("style").count()).resolves.toBe(0);
+    const stylesheet = await page.locator('link[rel="stylesheet"]').getAttribute("href");
+    expect(stylesheet).toMatch(/^\/assets\/screen-[0-9a-f]+\.css$/);
+    expect((await fetch(url(stylesheet!))).headers.get("cache-control")).toContain("immutable");
+    const preloads = await page
+      .locator('link[rel="preload"]')
+      .evaluateAll((links) => links.map((link) => (link as HTMLLinkElement).href));
+    expect(preloads).toHaveLength(1);
+    expect(preloads[0]).toMatch(/\/Merriweather-Light-[0-9a-f]+\.woff2$/);
+    await expect(
+      page
+        .locator("article .content p")
+        .first()
+        .evaluate((p) => getComputedStyle(p).fontWeight),
+    ).resolves.toBe("300");
+    await context.close();
+  });
+
+  it("loads a smaller copy of a large screenshot on a narrow screen", async () => {
+    const currentSource = async (options: BrowserContextOptions) => {
+      const { page, context } = await open("/uncertainty/", options);
+      const image = page.locator("article .content img").first();
+      const source = await image.evaluate((img) => (img as HTMLImageElement).currentSrc);
+      await context.close();
+      return new URL(source).pathname;
+    };
+    const phone = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 };
+    expect(await currentSource(phone)).toMatch(/^\/assets\/uncertainty-screenshot--light-800w-/);
+    expect(await currentSource({ ...phone, colorScheme: "dark" })).toMatch(
+      /^\/assets\/uncertainty-screenshot--dark-800w-/,
+    );
+    expect(await currentSource({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2 })).toMatch(
+      /^\/assets\/uncertainty-screenshot--light-[0-9a-f]+\.png$/,
+    );
+  });
+
+  it("loads images after the first one lazily", async () => {
+    const html = await (await fetch(url("/character-viewer/"))).text();
+    const content = html.slice(html.indexOf('<div class="content">'), html.indexOf('<footer role="complementary">'));
+    const images = [...content.matchAll(/<img [^>]*>/g)].map((match) => match[0]);
+    expect(images.length).toBeGreaterThan(1);
+    expect(images[0]).not.toContain('loading="lazy"');
+    for (const image of images.slice(1)) expect(image).toContain('loading="lazy"');
+    for (const image of images) expect(image).toMatch(/ width="\d+" height="\d+"| height="\d+".* width="\d+"/);
   });
 
   it("is readable with JavaScript disabled", async () => {

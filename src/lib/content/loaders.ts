@@ -31,6 +31,7 @@ const RENDER_SOURCES = [
   "src/lib/scalar.ts",
   "src/lib/site.ts",
   "src/lib/text.ts",
+  "src/data/responsive-images.json",
   paths.books,
 ];
 

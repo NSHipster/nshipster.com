@@ -1,7 +1,9 @@
 import { createHash } from "node:crypto";
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
+import { imageMetadata } from "astro/assets/utils";
 import * as sass from "sass";
+import sharp from "sharp";
 import { ROOT, paths } from "./site.ts";
 
 /**
@@ -41,6 +43,30 @@ const KINDS: Record<string, AssetKind> = {
 
 export class AssetError extends Error {}
 
+export interface ImageSize {
+  width: number;
+  height: number;
+}
+
+/** A smaller copy of an image, for `srcset`. */
+export interface ImageVariant {
+  url: string;
+  width: number;
+}
+
+/**
+ * Widths of the smaller copies made for the images listed in `src/data/responsive-images.json`.
+ * An image gets a copy at each width that is less than its own.
+ */
+export const RESPONSIVE_WIDTHS = [800, 1200] as const;
+
+/**
+ * Sharp's PNG and JPEG settings for the smaller copies.
+ * The PNG copies use a 256-color palette, as many of the original screenshots do.
+ * These settings are part of each copy's hashed URL.
+ */
+const VARIANT_ENCODING = { png: { palette: true, compressionLevel: 9, effort: 10 }, jpeg: { quality: 82 } } as const;
+
 /**
  * Indexes the files in `assets/`, compiles Sass,
  * and assigns content-hashed public URLs under `/assets/`.
@@ -49,6 +75,8 @@ export class AssetManifest {
   readonly #assets = new Map<string, Asset>();
   readonly #stems = new Map<string, Asset>();
   readonly #built = new Map<string, { url: string; contents: Buffer }>();
+  readonly #sizes = new Map<string, Promise<ImageSize | undefined>>();
+  readonly #responsive: Set<string>;
   readonly root: string;
 
   constructor(root = ROOT) {
@@ -65,6 +93,10 @@ export class AssetManifest {
         this.#stems.set(logical.replace(/\.[^./]+$/, ""), asset);
       }
     }
+    const responsive = path.join(root, "src/data/responsive-images.json");
+    this.#responsive = new Set(
+      existsSync(responsive) ? (JSON.parse(readFileSync(responsive, "utf8")) as string[]) : [],
+    );
   }
 
   /** All assets, keyed by logical path. */
@@ -108,15 +140,72 @@ export class AssetManifest {
     return this.build(this.resolve(name)).url;
   }
 
-  /** The text of an asset, e.g. an inline SVG or compiled stylesheet. */
-  text(name: string): string {
-    return this.build(this.resolve(name)).contents.toString("utf8");
-  }
-
   /** A digest of an asset's output, used to invalidate rendered content. */
   digest(name: string): string {
     const asset = this.find(name);
     return asset ? this.build(asset).url : `missing:${name}`;
+  }
+
+  /** The width and height of an image in pixels, or `undefined` if they are unknown. */
+  size(asset: Asset): Promise<ImageSize | undefined> {
+    let size = this.#sizes.get(asset.logical);
+    if (!size) {
+      const { contents } = this.build(asset);
+      size = asset.logical.endsWith(".svg")
+        ? Promise.resolve(svgSize(contents.toString("utf8")))
+        : imageMetadata(contents, asset.logical).then(
+            ({ width, height }) => ({ width, height }),
+            () => undefined,
+          );
+      this.#sizes.set(asset.logical, size);
+    }
+    return size;
+  }
+
+  /** The images listed in `src/data/responsive-images.json`. */
+  get responsiveImages(): Asset[] {
+    return [...this.#responsive].map((name) => this.resolve(name));
+  }
+
+  /**
+   * The smaller copies of an image listed in `src/data/responsive-images.json`, narrowest first.
+   * Other images have none.
+   */
+  async variants(asset: Asset): Promise<ImageVariant[]> {
+    if (!this.#responsive.has(asset.logical)) return [];
+    const size = await this.size(asset);
+    if (!size) throw new AssetError(`Responsive image "${asset.logical}" has no known size`);
+    const extension = path.extname(asset.logical);
+    const stem = asset.logical.slice(0, asset.logical.length - extension.length);
+    const source = this.build(asset).url;
+    return RESPONSIVE_WIDTHS.filter((width) => width < size.width).map((width) => {
+      const digest = createHash("sha256")
+        .update(JSON.stringify([source, width, VARIANT_ENCODING]))
+        .digest("hex")
+        .slice(0, 16);
+      return { url: `/assets/${stem}-${width}w-${digest}${extension}`, width };
+    });
+  }
+
+  /** Makes the smaller copies of the images in `src/data/responsive-images.json`, keyed by URL. */
+  async variantOutputs(): Promise<Map<string, { asset: Asset; contents: Buffer }>> {
+    const outputs = new Map<string, { asset: Asset; contents: Buffer }>();
+    await Promise.all(
+      this.responsiveImages.map(async (asset) => {
+        const { contents } = this.build(asset);
+        for (const { url, width } of await this.variants(asset)) {
+          const image = sharp(contents).resize({ width });
+          const resized = asset.logical.endsWith(".png")
+            ? image.png(VARIANT_ENCODING.png)
+            : asset.logical.endsWith(".jpg")
+              ? image.jpeg(VARIANT_ENCODING.jpeg)
+              : undefined;
+          if (!resized) throw new AssetError(`Responsive image "${asset.logical}" must be a PNG or JPEG file`);
+          outputs.set(url, { asset, contents: await resized.toBuffer() });
+        }
+      }),
+    );
+    return outputs;
   }
 
   /** Maps each hashed URL to its asset, for serving and writing output files. */
@@ -175,6 +264,22 @@ export class AssetManifest {
     });
     return result.css.replace(/^\uFEFF/, "");
   }
+}
+
+/**
+ * The size given by the `width` and `height` attributes of an SVG file's root element.
+ * A size from the `viewBox` alone is not used:
+ * without width and height, the browser sizes the image to fit its container.
+ */
+function svgSize(svg: string): ImageSize | undefined {
+  const root = svg.match(/<svg\b[^>]*>/i)?.[0] ?? "";
+  const length = (name: string) => {
+    const value = root.match(new RegExp(`\\s${name}\\s*=\\s*["']\\s*([\\d.]+)(?:px)?\\s*["']`, "i"))?.[1];
+    return value ? Number(value) : undefined;
+  };
+  const width = length("width");
+  const height = length("height");
+  return width && height ? { width, height } : undefined;
 }
 
 function* walk(directory: string): Generator<string> {

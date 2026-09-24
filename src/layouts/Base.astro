@@ -41,8 +41,8 @@ const logo = renderAssetTag(assets, {
   attributes: [["role", "img"], ["aria-hidden", "true"]],
   flags: new Set(["inline"]),
 });
-const fonts = ["Merriweather-Regular.woff2", "Merriweather-Bold.woff2", "Merriweather-Italic.woff2", "CreativeCommonsSymbols.woff2"];
-const stylesheet = `<style>${assets.text("screen.css")}</style>`;
+// Body text uses Merriweather Light. Other fonts load when the page uses them.
+const bodyFont = assets.url("Merriweather-Light.woff2");
 ---
 
 <!doctype html>
@@ -70,9 +70,9 @@ const stylesheet = `<style>${assets.text("screen.css")}</style>`;
 
     <link rel="alternate" type="application/atom+xml" title={`${site.title} Atom Feed`} href="/feed.xml" />
 
-    {fonts.map((font) => <link rel="preload" type="font/woff2" as="font" href={assets.url(font)} crossorigin="anonymous" />)}
+    <link rel="preload" type="font/woff2" as="font" href={bodyFont} crossorigin="anonymous" />
 
-    <Fragment set:html={stylesheet} />
+    <link rel="stylesheet" href={assets.url("screen.css")} />
 
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
