@@ -103,14 +103,26 @@ The Cloudflare Git integration builds and deploys `master` to production.
 It creates preview deployments for other branches.
 The GitHub Actions workflow runs checks but does not deploy the site.
 
+The build settings for the `nshipster` Worker
+are configured in the Cloudflare dashboard:
+
+| Setting        | Value                         |
+| -------------- | ----------------------------- |
+| Build command  | `npm ci && npm run build`     |
+| Deploy command | `npx wrangler deploy`         |
+| Build variable | `SKIP_DEPENDENCY_INSTALL = 1` |
+
+The build image uses its default Node.js version
+and doesn't read `mise.toml`.
+
 To deploy to the separate preview Worker from your machine, run:
 
 ```terminal
 $ mise run deploy:preview
 ```
 
-Manual deployment requires the `CLOUDFLARE_API_TOKEN`
-and `CLOUDFLARE_ACCOUNT_ID` environment variables.
+Manual deployment uses your Wrangler login (`npx wrangler login`)
+or the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` environment variables.
 
 ## Contact
 
