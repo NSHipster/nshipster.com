@@ -244,9 +244,6 @@ export class AssetManifest {
     const result = sass.compile(file, {
       style: "compressed",
       loadPaths: [path.join(this.root, paths.assets, "css")],
-      silenceDeprecations: ["import", "global-builtin", "color-functions", "slash-div", "mixed-decls"],
-      quietDeps: true,
-      logger: sass.Logger.silent,
       functions: {
         "font_path($name)": (args) => {
           const name = args[0]!.assertString("name").text;

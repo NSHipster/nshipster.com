@@ -1,8 +1,7 @@
-@import "colors";
-@import "functions";
+@use "mixins";
 
 .conversation {
-  @include clearfix;
+  @include mixins.clearfix;
 
   margin: 1em auto;
   max-width: 650px;

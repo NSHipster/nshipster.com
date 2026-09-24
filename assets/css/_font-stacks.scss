@@ -1,0 +1,8 @@
+// Astro's fonts configuration defines Merriweather and its fallbacks.
+$serif: var(--font-merriweather), "Apple Color Emoji", "Segoe UI Emoji",
+  "Segoe UI Symbol";
+
+$sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+  Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+
+$mono: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;

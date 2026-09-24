@@ -1,4 +1,5 @@
-@import "functions";
+@use "font-stacks";
+@use "mixins";
 
 html,
 body {
@@ -109,7 +110,7 @@ dl {
   padding: 0.5em 1em;
   border-radius: 4px;
   background-color: var(--secondary-background);
-  font-family: $sans-serif-font-stack;
+  font-family: font-stacks.$sans-serif;
   text-decoration: underline;
 
   &,
@@ -128,7 +129,7 @@ dl {
 }
 
 .container {
-  @include clearfix;
+  @include mixins.clearfix;
 
   max-width: 100%;
   margin-left: auto;
@@ -138,7 +139,7 @@ dl {
   padding: 2em;
 
   section {
-    @include clearfix;
+    @include mixins.clearfix;
 
     display: block;
     max-width: 100%;
@@ -329,7 +330,7 @@ article.translator {
     margin-bottom: 3em;
 
     .byline {
-      font-family: $serif-font-stack;
+      font-family: font-stacks.$serif;
       font-style: italic;
       font-weight: 300;
       color: var(--secondary-text);
@@ -508,7 +509,7 @@ article.translator {
       font-weight: 700;
       color: var(--secondary-text);
       text-transform: lowercase;
-      font-family: $sans-serif-font-stack;
+      font-family: font-stacks.$sans-serif;
       font-variant: small-caps;
       margin-bottom: 1em;
     }
@@ -699,7 +700,7 @@ article.translator {
       display: block;
       margin-bottom: 0.5em;
       color: var(--fill);
-      font-family: $sans-serif-font-stack;
+      font-family: font-stacks.$sans-serif;
       font-weight: bold;
       text-align: right;
     }
@@ -709,7 +710,7 @@ article.translator {
 #promotion {
   article {
     background-color: rgba(255, 128, 0, 0.2);
-    background-color: unquote("color(p3 1 0.5 0 0.2)");
+    background-color: color(display-p3 1 0.5 0 / 0.2);
     margin-left: -1em;
     margin-right: -1em;
     margin-top: 0.5em;
@@ -717,7 +718,7 @@ article.translator {
   }
 
   .book {
-    @include disable-selection;
+    @include mixins.disable-selection;
     float: left;
     width: 500px;
     margin-left: -150px;
@@ -735,7 +736,7 @@ article.translator {
   }
 
   h3 {
-    font-family: $serif-font-stack;
+    font-family: font-stacks.$serif;
     font-size: 1.25em;
     margin-bottom: 0.5em;
 
@@ -745,7 +746,7 @@ article.translator {
   }
 
   h4 {
-    font-family: $serif-font-stack;
+    font-family: font-stacks.$serif;
     font-style: italic;
     font-weight: 300;
     margin-bottom: 1em;
@@ -764,7 +765,7 @@ article.translator {
     background: var(--orange);
     border-radius: 10px;
     color: white !important;
-    font-family: $sans-serif-font-stack;
+    font-family: font-stacks.$sans-serif;
     font-weight: 700;
     margin-top: 1em;
     padding: 0.5em 1.5em;
