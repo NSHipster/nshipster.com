@@ -1,3 +1,4 @@
+import { readFileSync } from "node:fs";
 import { afterAll, beforeAll, describe, expect, it } from "vite-plus/test";
 import { chromium, type Browser, type BrowserContextOptions } from "playwright";
 import { startPreview, type PreviewServer } from "./server.ts";
@@ -151,7 +152,9 @@ describe("pages", () => {
 
   it("links the shared stylesheet and preloads only the body font", async () => {
     const { page, context } = await open("/nscache/");
-    await expect(page.locator("style").count()).resolves.toBe(0);
+    // Astro's <Font> component inlines only the @font-face rules.
+    const inline = await page.locator("style").allTextContents();
+    for (const style of inline) expect(style).toMatch(/^@font-face\{/);
     const stylesheet = await page.locator('link[rel="stylesheet"]').getAttribute("href");
     expect(stylesheet).toMatch(/^\/assets\/screen-[0-9a-f]+\.css$/);
     expect((await fetch(url(stylesheet!))).headers.get("cache-control")).toContain("immutable");
@@ -159,7 +162,8 @@ describe("pages", () => {
       .locator('link[rel="preload"]')
       .evaluateAll((links) => links.map((link) => (link as HTMLLinkElement).href));
     expect(preloads).toHaveLength(1);
-    expect(preloads[0]).toMatch(/\/Merriweather-Light-[0-9a-f]+\.woff2$/);
+    const preloaded = Buffer.from(await (await fetch(preloads[0]!)).arrayBuffer());
+    expect(preloaded.equals(readFileSync("assets/fonts/Merriweather-Light.woff2"))).toBe(true);
     await expect(
       page
         .locator("article .content p")

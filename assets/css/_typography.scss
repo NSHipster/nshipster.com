@@ -1,9 +1,8 @@
-@import "fonts/merriweather";
 @import "fonts/batang";
-@import "fonts/cc";
 @import "colors";
 
-$serif-font-stack: "Merriweather", Georgia, serif, "Apple Color Emoji",
+// Astro's fonts configuration defines Merriweather and its fallbacks.
+$serif-font-stack: var(--font-merriweather), "Apple Color Emoji",
   "Segoe UI Emoji", "Segoe UI Symbol";
 
 $sans-serif-font-stack: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -388,6 +387,6 @@ del {
 }
 
 [role="contentinfo"] i {
-  font-family: "Creative Commons Symbols";
+  font-family: var(--font-creative-commons);
   font-style: normal;
 }

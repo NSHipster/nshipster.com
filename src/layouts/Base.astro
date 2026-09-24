@@ -1,4 +1,5 @@
 ---
+import { Font } from "astro:assets";
 import JsonLd from "../components/JsonLd.astro";
 import { assetManifest } from "../lib/assets.ts";
 import { renderAssetTag } from "../lib/render/liquid.ts";
@@ -41,8 +42,6 @@ const logo = renderAssetTag(assets, {
   attributes: [["role", "img"], ["aria-hidden", "true"]],
   flags: new Set(["inline"]),
 });
-// Body text uses Merriweather Light. Other fonts load when the page uses them.
-const bodyFont = assets.url("Merriweather-Light.woff2");
 ---
 
 <!doctype html>
@@ -70,7 +69,9 @@ const bodyFont = assets.url("Merriweather-Light.woff2");
 
     <link rel="alternate" type="application/atom+xml" title={`${site.title} Atom Feed`} href="/feed.xml" />
 
-    <link rel="preload" type="font/woff2" as="font" href={bodyFont} crossorigin="anonymous" />
+    {/* Body text uses Merriweather Light. Other faces load when the page uses them. */}
+    <Font cssVariable="--font-merriweather" preload={[{ weight: 300, style: "normal" }]} />
+    <Font cssVariable="--font-creative-commons" />
 
     <link rel="stylesheet" href={assets.url("screen.css")} />
 

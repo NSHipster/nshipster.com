@@ -74,8 +74,11 @@ from `_bibliography/references.bib`.
 
 Files in `assets/` are published under `/assets/` with content-hashed names.
 Use them in articles with the `{% asset %}` tag, as before.
-Author portraits are the exception:
-Astro resizes them, so each one is imported in `src/lib/images.ts`.
+Fonts and author portraits are the exceptions.
+Merriweather and the Creative Commons symbols are configured
+with Astro's fonts API in `astro.config.ts`,
+and Astro resizes author portraits,
+so each one is imported in `src/lib/images.ts`.
 
 Images in articles get their width and height,
 and every image after the first one loads lazily.
