@@ -71,6 +71,6 @@ depends = ["build"]
 run = "npx wrangler deploy"
 
 [tasks."deploy:preview"]
-description = "Build and deploy to the isolated preview Worker on Cloudflare"
+description = "Build and create a Preview of the current branch on Cloudflare"
 depends = ["build"]
-run = "npx wrangler deploy --env preview"
+run = "npx wrangler preview"
