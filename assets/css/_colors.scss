@@ -1,3 +1,4 @@
+// Browsers without light-dark() use the light palette in sRGB.
 :root {
   --red: rgb(255, 59, 48);
   --orange: rgb(255, 128, 0);
@@ -28,33 +29,37 @@
   --secondary-background: rgb(255, 255, 255);
 }
 
-@supports (color: color(display-p3 1 1 1)) {
+// Each color has a light and a dark value in Display P3,
+// and light-dark() uses the one for the reader's color scheme.
+@supports (color: light-dark(#000, #fff)) {
   :root {
-    --red: color(display-p3 1 0.2314 0.1882);
-    --orange: color(display-p3 1 0.5 0);
-    --yellow: color(display-p3 1 0.8 0);
-    --green: color(display-p3 0.2039 0.7804 0.349);
-    --teal: color(display-p3 0.3529 0.7843 0.9804);
-    --blue: color(display-p3 0 0.4784 1);
-    --indigo: color(display-p3 0.3451 0.3373 0.8392);
-    --purple: color(display-p3 0.6863 0.3216 0.8706);
-    --pink: color(display-p3 1 0.1765 0.3333);
-    --gray: color(display-p3 0.5569 0.5569 0.5765);
-    --gray2: color(display-p3 0.6824 0.6824 0.698);
-    --gray3: color(display-p3 0.7804 0.7804 0.8);
-    --gray4: color(display-p3 0.8196 0.8196 0.8392);
-    --gray5: color(display-p3 0.898 0.898 0.9176);
-    --gray6: color(display-p3 0.949 0.949 0.9686);
+    color-scheme: light dark;
 
-    --text: color(display-p3 0 0 0);
-    --secondary-text: color(display-p3 0.2353 0.2353 0.2627);
-    --placeholder-text: color(display-p3 0.2353 0.2353 0.2627);
-    --separator: color(display-p3 0.2353 0.2353 0.2627);
-    --opaque-separator: color(display-p3 0.7765 0.7765 0.7843);
+    --red: light-dark(color(display-p3 1 0.2314 0.1882), color(display-p3 1 0.4118 0.3804));
+    --orange: color(display-p3 1 0.5 0);
+    --yellow: light-dark(color(display-p3 1 0.8 0), color(display-p3 1 0.8314 0.149));
+    --green: light-dark(color(display-p3 0.2039 0.7804 0.349), color(display-p3 0.1882 0.8588 0.3569));
+    --teal: light-dark(color(display-p3 0.3529 0.7843 0.9804), color(display-p3 0.4392 0.8431 1));
+    --blue: light-dark(color(display-p3 0 0.4784 1), color(display-p3 0.251 0.6118 1));
+    --indigo: light-dark(color(display-p3 0.3451 0.3373 0.8392), color(display-p3 0.4902 0.4784 1));
+    --purple: light-dark(color(display-p3 0.6863 0.3216 0.8706), color(display-p3 0.8549 0.5608 1));
+    --pink: light-dark(color(display-p3 1 0.1765 0.3333), color(display-p3 1 0.3922 0.5098));
+    --gray: light-dark(color(display-p3 0.5569 0.5569 0.5765), color(display-p3 0.6824 0.6824 0.698));
+    --gray2: light-dark(color(display-p3 0.6824 0.6824 0.698), color(display-p3 0.4863 0.4863 0.502));
+    --gray3: light-dark(color(display-p3 0.7804 0.7804 0.8), color(display-p3 0.3294 0.3294 0.3373));
+    --gray4: light-dark(color(display-p3 0.8196 0.8196 0.8392), color(display-p3 0.2667 0.2667 0.2745));
+    --gray5: light-dark(color(display-p3 0.898 0.898 0.9176), color(display-p3 0.2118 0.2118 0.2196));
+    --gray6: light-dark(color(display-p3 0.949 0.949 0.9686), color(display-p3 0.1412 0.1412 0.149));
+
+    --text: light-dark(color(display-p3 0 0 0), color(display-p3 1 1 1));
+    --secondary-text: light-dark(color(display-p3 0.2353 0.2353 0.2627), color(display-p3 0.9216 0.9216 0.9608));
+    --placeholder-text: light-dark(color(display-p3 0.2353 0.2353 0.2627), color(display-p3 0.9216 0.9216 0.9608));
+    --separator: light-dark(color(display-p3 0.2353 0.2353 0.2627), color(display-p3 0.3294 0.3294 0.3451));
+    --opaque-separator: light-dark(color(display-p3 0.7765 0.7765 0.7843), color(display-p3 0.2196 0.2196 0.2275));
     --fill: color(display-p3 0.4706 0.4706 0.502);
     --secondary-fill: color(display-p3 0.4706 0.4706 0.502);
-    --background: color(display-p3 0.949 0.949 0.9686);
-    --secondary-background: color(display-p3 1 1 1);
+    --background: light-dark(color(display-p3 0.949 0.949 0.9686), color(display-p3 0.0706 0.0706 0.075));
+    --secondary-background: light-dark(color(display-p3 1 1 1), color(display-p3 0.1412 0.1412 0.149));
   }
 }
 
