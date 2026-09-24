@@ -140,8 +140,48 @@ describe("pages", () => {
   it("is readable with JavaScript disabled", async () => {
     const { page, context } = await open("/addressbookui/", { javaScriptEnabled: false });
     await expect(page.locator("article .content p").first().isVisible()).resolves.toBe(true);
-    await expect(page.locator(".highlight-group pre:not([hidden])").first().isVisible()).resolves.toBe(true);
+    // Tabs can't switch listings without JavaScript, so every listing is shown instead.
+    const group = page.locator(".highlight-group").first();
+    await expect(group.locator('[role="tablist"]').isVisible()).resolves.toBe(false);
+    for (const panel of await group.locator('[role="tabpanel"]').all()) {
+      await expect(panel.isVisible()).resolves.toBe(true);
+    }
     await context.close();
+  });
+
+  it("starts keyboard navigation with a link that skips to the main content", async () => {
+    const { page, context } = await open("/nscache/");
+    const skipLink = page.locator(".skip-link");
+    await expect(skipLink.boundingBox().then((box) => box!.width)).resolves.toBeLessThanOrEqual(1);
+    await page.keyboard.press("Tab");
+    await expect(page.evaluate(() => document.activeElement?.className)).resolves.toBe("skip-link");
+    await expect(skipLink.boundingBox().then((box) => box!.width)).resolves.toBeGreaterThan(1);
+    await expect(skipLink.evaluate((link) => getComputedStyle(link).outlineStyle)).resolves.toBe("solid");
+    await page.keyboard.press("Enter");
+    expect(new URL(page.url()).hash).toBe("#main");
+    await context.close();
+  });
+
+  it("keeps heading anchors out of the tab order", async () => {
+    const { page, context } = await open("/dark-mode/");
+    await expect(page.locator('a.anchor:not([tabindex="-1"])').count()).resolves.toBe(0);
+    await context.close();
+  });
+
+  it("underlines links and darkens the link color when more contrast is requested", async () => {
+    const linkStyle = async (contrast: "more" | "no-preference") => {
+      const { page, context } = await open("/nscache/", { contrast, colorScheme: "light" });
+      const style = await page
+        .locator("#revisions a")
+        .first()
+        .evaluate((link) => ({ color: getComputedStyle(link).color, line: getComputedStyle(link).textDecorationLine }));
+      await context.close();
+      return style;
+    };
+    const standard = await linkStyle("no-preference");
+    const more = await linkStyle("more");
+    expect(more.line).toBe("underline");
+    expect(more.color).not.toBe(standard.color);
   });
 
   it("switches code tabs with the keyboard and remembers the language across pages", async () => {

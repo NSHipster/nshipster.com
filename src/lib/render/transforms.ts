@@ -208,7 +208,8 @@ function addHeadingAnchors(tree: Root): void {
     heading.children.unshift({
       type: "element",
       tagName: "a",
-      properties: { className: ["anchor"], ariaHidden: "true", id: anchor, href: `#${anchor}` },
+      // Hidden from assistive technology, so also kept out of the keyboard tab order.
+      properties: { className: ["anchor"], ariaHidden: "true", tabIndex: -1, id: anchor, href: `#${anchor}` },
       children: [],
     });
   }

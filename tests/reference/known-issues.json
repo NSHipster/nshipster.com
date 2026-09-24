@@ -1,16 +1,4 @@
 {
   "description": "Problems in the article sources that also exist in the Jekyll build. Fix them in NSHipster/articles, then remove them here.",
-  "issues": [
-    "/as-we-may-code/: missing fragment #skip",
-    "/dark-mode/: missing fragment #color-assets",
-    "/message-id/: broken link /character-set/",
-    "/metrickit/: duplicate id \"battery-usage\" (2 times)",
-    "/propertywrapper/: duplicate id \"triangle\" (2 times)",
-    "/propertywrapper/: duplicate id \"clear_triangle\" (2 times)",
-    "/propertywrapper/: duplicate id \"circle\" (2 times)",
-    "/propertywrapper/: duplicate id \"square\" (2 times)",
-    "/propertywrapper/: duplicate id \"open_circle\" (2 times)",
-    "/propertywrapper/: duplicate id \"big_open_circle\" (2 times)",
-    "/type-encodings/: duplicate id \"method-encodings\" (2 times)"
-  ]
+  "issues": []
 }

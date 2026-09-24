@@ -1,6 +1,9 @@
-@media (prefers-contrast: high), screen and (-ms-high-contrast: active) {
+// The dark palette already has high contrast,
+// so these colors apply only to the light palette.
+@media (prefers-contrast: more) and (prefers-color-scheme: light) {
   :root {
     --red: rgb(215, 0, 21);
+    --orange: rgb(160, 80, 0);
     --yellow: rgb(179, 98, 0);
     --green: rgb(36, 138, 61);
     --teal: rgb(0, 113, 164);
@@ -29,6 +32,7 @@
   @supports (color: color(display-p3 1 1 1)) {
     :root {
       --red: color(display-p3 0.8431 0 0.08235);
+      --orange: color(display-p3 0.62 0.31 0);
       --yellow: color(display-p3 0.702 0.3843 0);
       --green: color(display-p3 0.1412 0.5412 0.2392);
       --teal: color(display-p3 0 0.4431 0.6431);
@@ -52,6 +56,23 @@
       --secondary-fill: color(display-p3 0.4706 0.4706 0.502);
       --background: color(display-p3 0.9216 0.9216 0.9412);
       --secondary-background: color(display-p3 1 1 1);
+    }
+  }
+}
+
+@media (prefers-contrast: more) {
+  a {
+    text-decoration: underline;
+  }
+
+  // Every tab is fully opaque, and the selected tab is underlined.
+  [role="tablist"] button {
+    &:not([aria-selected="true"]) {
+      opacity: 1;
+    }
+
+    &[aria-selected="true"] {
+      text-decoration: underline;
     }
   }
 }

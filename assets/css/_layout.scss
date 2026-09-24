@@ -94,6 +94,37 @@ dl {
   }
 }
 
+:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.5em;
+  left: 0.5em;
+  z-index: 1000;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  background-color: var(--secondary-background);
+  font-family: $sans-serif-font-stack;
+  text-decoration: underline;
+
+  &,
+  &:visited {
+    color: var(--text);
+  }
+
+  &:not(:focus) {
+    clip-path: inset(50%);
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+
 .container {
   @include clearfix;
 
@@ -641,19 +672,35 @@ article.translator {
     &.active {
       opacity: 1;
     }
-
-    &:focus {
-      outline: thin dotted;
-      outline-offset: 2px;
-    }
   }
 }
 
 [role="tabpanel"] {
   margin-top: 0.25em;
+}
 
-  &:focus {
-    outline: 0;
+// Without JavaScript, the tabs can't switch listings,
+// so every listing is shown with its language above it.
+@media (scripting: none) {
+  .highlight-group {
+    [role="tablist"] {
+      display: none;
+    }
+
+    // Overrides the `[hidden]` rule below.
+    [role="tabpanel"][hidden] {
+      display: block !important;
+    }
+
+    [role="tabpanel"][data-lang]::before {
+      content: attr(data-lang);
+      display: block;
+      margin-bottom: 0.5em;
+      color: var(--fill);
+      font-family: $sans-serif-font-stack;
+      font-weight: bold;
+      text-align: right;
+    }
   }
 }
 
