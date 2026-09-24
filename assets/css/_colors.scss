@@ -19,9 +19,7 @@
   --secondary-text: rgb(60, 60, 67);
   --placeholder-text: rgb(60, 60, 67);
   --code: var(--purple);
-  // The brand orange has too little contrast for text on the light background,
-  // so links use a darker orange. Titles keep the brand orange.
-  --link: rgb(170, 85, 0);
+  --link: var(--orange);
   --separator: rgb(60, 60, 67);
   --opaque-separator: rgb(198, 198, 200);
   --fill: rgb(120, 120, 128);

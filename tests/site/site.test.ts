@@ -168,30 +168,47 @@ describe("pages", () => {
     await context.close();
   });
 
-  it("keeps the brand orange for titles and makes text links readable", async () => {
-    const styles = async (colorScheme: "light" | "dark") => {
+  it("underlines links in running text but not titles", async () => {
+    for (const colorScheme of ["light", "dark"] as const) {
       const { page, context } = await open("/addressbookui/", { colorScheme });
-      const style = (selector: string) =>
+      const line = (selector: string) =>
         page
           .locator(selector)
           .first()
-          .evaluate((element) => ({
-            color: getComputedStyle(element).color,
-            line: getComputedStyle(element).textDecorationLine,
-          }));
-      const result = { title: await style("h1.title a"), text: await style(".content p a") };
+          .evaluate((element) => getComputedStyle(element).textDecorationLine);
+      await expect(line(".content p a"), colorScheme).resolves.toBe("underline");
+      await expect(line(".byline a"), colorScheme).resolves.toBe("underline");
+      await expect(line("h1.title a"), colorScheme).resolves.toBe("none");
       await context.close();
-      return result;
-    };
-    // The light background needs a darker orange for text; titles keep the brand orange.
-    const light = await styles("light");
-    expect(light.text.color).not.toBe(light.title.color);
-    expect(light.text.line).toBe("none");
-    // In dark mode, orange text links are underlined to stand out from white text.
-    const dark = await styles("dark");
-    expect(dark.text.color).toBe(dark.title.color);
-    expect(dark.text.line).toBe("underline");
-    expect(dark.title.line).toBe("none");
+    }
+    // Lists of links alone have nothing to set the links apart from.
+    const { page, context } = await open("/");
+    await expect(
+      page
+        .locator(".archive dd a")
+        .first()
+        .evaluate((link) => getComputedStyle(link).textDecorationLine),
+    ).resolves.toBe("none");
+    await context.close();
+  });
+
+  it("makes the underline of a text link solid on hover", async () => {
+    const { page, context } = await open("/addressbookui/");
+    const link = page.locator(".content p a").first();
+    const underline = () =>
+      link.evaluate((element) => ({
+        color: getComputedStyle(element).textDecorationColor,
+        thickness: getComputedStyle(element).textDecorationThickness,
+        text: getComputedStyle(element).color,
+      }));
+    await page.mouse.move(0, 0);
+    const resting = await underline();
+    expect(resting.color).not.toBe(resting.text);
+    await link.hover();
+    const hovered = await underline();
+    expect(hovered.color).toBe(hovered.text);
+    expect(hovered.thickness).toBe("2px");
+    await context.close();
   });
 
   it("underlines links and darkens the link color when more contrast is requested", async () => {
