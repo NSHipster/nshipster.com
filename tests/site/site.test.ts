@@ -144,6 +144,25 @@ describe("pages", () => {
     await context.close();
   });
 
+  it("starts keyboard navigation with a link that skips to the main content", async () => {
+    const { page, context } = await open("/nscache/");
+    const skipLink = page.locator(".skip-link");
+    await expect(skipLink.boundingBox().then((box) => box!.width)).resolves.toBeLessThanOrEqual(1);
+    await page.keyboard.press("Tab");
+    await expect(page.evaluate(() => document.activeElement?.className)).resolves.toBe("skip-link");
+    await expect(skipLink.boundingBox().then((box) => box!.width)).resolves.toBeGreaterThan(1);
+    await expect(skipLink.evaluate((link) => getComputedStyle(link).outlineStyle)).resolves.toBe("solid");
+    await page.keyboard.press("Enter");
+    expect(new URL(page.url()).hash).toBe("#main");
+    await context.close();
+  });
+
+  it("keeps heading anchors out of the tab order", async () => {
+    const { page, context } = await open("/dark-mode/");
+    await expect(page.locator('a.anchor:not([tabindex="-1"])').count()).resolves.toBe(0);
+    await context.close();
+  });
+
   it("switches code tabs with the keyboard and remembers the language across pages", async () => {
     const { page, context } = await open("/addressbookui/");
     const firstTab = page.locator('[role="tab"]').first();

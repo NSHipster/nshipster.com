@@ -94,6 +94,37 @@ dl {
   }
 }
 
+:focus-visible {
+  outline: 2px solid var(--text);
+  outline-offset: 2px;
+}
+
+.skip-link {
+  position: absolute;
+  top: 0.5em;
+  left: 0.5em;
+  z-index: 1000;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  background-color: var(--secondary-background);
+  font-family: $sans-serif-font-stack;
+  text-decoration: underline;
+
+  &,
+  &:visited {
+    color: var(--text);
+  }
+
+  &:not(:focus) {
+    clip-path: inset(50%);
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+}
+
 .container {
   @include clearfix;
 
@@ -641,20 +672,11 @@ article.translator {
     &.active {
       opacity: 1;
     }
-
-    &:focus {
-      outline: thin dotted;
-      outline-offset: 2px;
-    }
   }
 }
 
 [role="tabpanel"] {
   margin-top: 0.25em;
-
-  &:focus {
-    outline: 0;
-  }
 }
 
 #promotion {

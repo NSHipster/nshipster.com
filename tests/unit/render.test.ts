@@ -74,7 +74,9 @@ describe("article rendering", () => {
     expect(html).toContain('data-lang="plaintext"');
     expect(html).toContain("Plain text &lt;b>not bold&lt;/b>");
     expect(html).toContain('<code><var class="placeholder">…</var></code>');
-    expect(html).toContain('<a class="anchor" aria-hidden="true" id="code-listings" href="#code-listings"></a>');
+    expect(html).toContain(
+      '<a class="anchor" aria-hidden="true" tabindex="-1" id="code-listings" href="#code-listings"></a>',
+    );
     // Repeated headings get Kramdown's GFM suffixes.
     expect(html).toContain('id="code-listings-1"');
     expect(html).toContain('id="code-listing-1-xcode-build-settings"');
