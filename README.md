@@ -93,13 +93,16 @@ in `tests/reference/accepted-differences.json`.
 ## Translations
 
 The translated sites (NSHipster.cn, NSHipster.es, and others)
-are still built with Jekyll,
+are still built with Jekyll and Ruby 2.7.5,
 using the configuration files in `_config/`:
 
 ```terminal
-$ bundle install
-$ bundle exec jekyll serve --config _config/default.yml,_config/$DOMAIN.yml
+$ mise exec ruby@2.7.5 -- bundle install
+$ mise exec ruby@2.7.5 -- bundle exec jekyll serve --config _config/default.yml,_config/$DOMAIN.yml
 ```
+
+Ruby isn't pinned in the repository
+because Cloudflare's build image would install it for every build of the English site.
 
 ## Deploying
 
