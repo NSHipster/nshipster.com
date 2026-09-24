@@ -81,7 +81,9 @@ Use them in articles with the `{% asset %}` tag, as before.
 its routes, canonical URLs, feed entry IDs, heading anchors, and asset references.
 `mise run reference:compare` checks the Astro build against them.
 To also compare the text and structure of every page,
-build the Jekyll site and pass its output directory:
+build the Jekyll site from commit `55b5572`,
+the last version deployed with Jekyll,
+and pass its output directory:
 
 ```terminal
 $ node scripts/compare-reference.ts path/to/jekyll/_site
