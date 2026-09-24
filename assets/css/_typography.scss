@@ -138,7 +138,8 @@ a {
 }
 
 // Links in running text are underlined to set them apart from the text around them.
-:is(p, li, dd, td, th, blockquote, figcaption, .byline) a:not(.title, .title a) {
+// Titles, the archive, and the status table list only links, so they aren't underlined.
+:is(p, li, dd, td, th, blockquote, figcaption, .byline) a:not(.title, .title a, .archive a, #status a) {
   text-decoration: underline;
 }
 

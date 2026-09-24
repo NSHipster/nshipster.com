@@ -181,6 +181,15 @@ describe("pages", () => {
       await expect(line("h1.title a"), colorScheme).resolves.toBe("none");
       await context.close();
     }
+    // Lists of links alone have nothing to set the links apart from.
+    const { page, context } = await open("/");
+    await expect(
+      page
+        .locator(".archive dd a")
+        .first()
+        .evaluate((link) => getComputedStyle(link).textDecorationLine),
+    ).resolves.toBe("none");
+    await context.close();
   });
 
   it("underlines links and darkens the link color when more contrast is requested", async () => {
