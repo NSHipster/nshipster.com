@@ -193,7 +193,7 @@ describe("pages", () => {
 
   it("loads images after the first one lazily", async () => {
     const html = await (await fetch(url("/character-viewer/"))).text();
-    const content = html.slice(html.indexOf('<div class="content">'), html.indexOf('<footer role="complementary">'));
+    const content = html.slice(html.indexOf('<div class="content">'), html.indexOf("<footer>"));
     const images = [...content.matchAll(/<img [^>]*>/g)].map((match) => match[0]);
     expect(images.length).toBeGreaterThan(1);
     expect(images[0]).not.toContain('loading="lazy"');
@@ -318,7 +318,7 @@ describe("pages", () => {
     ] as const) {
       const { page, context } = await open("/nscache/", { javaScriptEnabled: false, viewport: { width, height: 800 } });
       const size = await page
-        .locator('[role="heading"] h1.title')
+        .locator('[role="article"] > header h1.title')
         .evaluate((title) => Number.parseFloat(getComputedStyle(title).fontSize));
       expect(size, `${width}px`).toBeCloseTo(expected, 0);
       await context.close();
@@ -388,7 +388,7 @@ describe("pages", () => {
   it("hides article navigation in print", async () => {
     const { page, context } = await open("/nscache/");
     await page.emulateMedia({ media: "print" });
-    await expect(page.locator('[role="complementary"]').isVisible()).resolves.toBe(false);
+    await expect(page.locator('[role="article"] > footer').isVisible()).resolves.toBe(false);
     await context.close();
   });
 });
