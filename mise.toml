@@ -10,8 +10,7 @@ ASTRO_TELEMETRY_DISABLED = "1"
 [tasks.setup]
 description = "Install tools, the English articles at their recorded revision, and locked dependencies"
 run = [
-  # Only Node.js: `.tool-versions` pins Ruby for the legacy Jekyll build.
-  "mise install node",
+  "mise install",
   # Check out the recorded revision; `content:update` fetches newer articles.
   "git submodule sync --quiet collections/en/_posts",
   "git submodule update --init collections/en/_posts",
