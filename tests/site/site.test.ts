@@ -344,6 +344,27 @@ describe("pages", () => {
     await still.context.close();
   });
 
+  it("cross-fades between pages unless the reader prefers reduced motion", async () => {
+    for (const [reducedMotion, expected] of [
+      ["no-preference", true],
+      ["reduce", false],
+    ] as const) {
+      const { page, context } = await open("/", { reducedMotion });
+      await page.addInitScript(() => {
+        addEventListener("pagereveal", (event) => {
+          document.documentElement.dataset.viewTransition = String(Boolean(event.viewTransition));
+        });
+      });
+      await page.locator("#latest h1 a").click();
+      await page.waitForLoadState("load");
+      await expect(
+        page.evaluate(() => document.documentElement.dataset.viewTransition),
+        reducedMotion,
+      ).resolves.toBe(String(expected));
+      await context.close();
+    }
+  });
+
   it("hides article navigation in print", async () => {
     const { page, context } = await open("/nscache/");
     await page.emulateMedia({ media: "print" });
