@@ -300,6 +300,22 @@ h6 {
   }
 }
 
+// Article titles scale with the width of the header, from 16px to 72px.
+// Browsers without container query units use the fixed size above.
+article [role="heading"] {
+  container-type: inline-size;
+
+  h1.title {
+    font-size: clamp(0.75rem, 10cqi, 3.375rem);
+
+    // A container's margins don't collapse with its children's,
+    // so a title without a byline below it drops its own margin.
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+}
+
 #archive {
   dd {
     font-size: smaller;

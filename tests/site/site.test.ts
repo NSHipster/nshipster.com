@@ -306,6 +306,20 @@ describe("pages", () => {
     await context.close();
   });
 
+  it("sizes article titles to the header width without JavaScript", async () => {
+    for (const [width, expected] of [
+      [375, 33.2],
+      [1280, 72],
+    ] as const) {
+      const { page, context } = await open("/nscache/", { javaScriptEnabled: false, viewport: { width, height: 800 } });
+      const size = await page
+        .locator('[role="heading"] h1.title')
+        .evaluate((title) => Number.parseFloat(getComputedStyle(title).fontSize));
+      expect(size, `${width}px`).toBeCloseTo(expected, 0);
+      await context.close();
+    }
+  });
+
   it("animates the logo on touch devices only without reduced motion", async () => {
     const touch = { hasTouch: true, isMobile: true, viewport: { width: 375, height: 812 } };
     const moving = await open("/", { ...touch, reducedMotion: "no-preference" });
