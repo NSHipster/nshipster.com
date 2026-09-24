@@ -27,7 +27,6 @@ export default defineConfig({
           "**/_site/**",
           "**/.jekyll-cache/**",
           "**/vendor/**",
-          "**/collections/{es,fr,ko,ru,zh-Hans}/**",
         ],
       },
     },
