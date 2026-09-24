@@ -88,6 +88,9 @@ describe("routing", () => {
     const feed = await (await fetch(url("/feed.xml"))).text();
     const updated = feed.match(/<feed[\s\S]*?<updated>([^<]+)<\/updated>/)?.[1];
     expect(Date.now() - new Date(updated!).getTime()).toBeLessThan(10 * 60 * 1000);
+    // Feed readers don't load the site's styles, so code keeps its line breaks and indentation (#81).
+    const blocks = feed.match(/&lt;pre class=&quot;highlight&quot;[\s\S]*?&lt;\/pre&gt;/g) ?? [];
+    expect(blocks.some((block) => /\n {2,}\S/.test(block))).toBe(true);
   });
 
   it("redirects asset URLs from the previous site", async () => {
