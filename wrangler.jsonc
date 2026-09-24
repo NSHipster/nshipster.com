@@ -3,18 +3,16 @@
   // A static-assets-only Worker: no server rendering or database.
   "name": "nshipster",
   "compatibility_date": "2026-09-01",
+  "routes": [{ "pattern": "nshipster.com", "custom_domain": true }],
+  // Keep the workers.dev URL and Preview URLs, which Wrangler enables by default.
+  "workers_dev": true,
+  "preview_urls": true,
   "assets": {
     "directory": "./dist",
     // `/nscache/` serves `nscache/index.html`; `/status` serves `status.html`.
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page",
   },
-  "env": {
-    // An isolated deployment for checking a build before production cutover.
-    "preview": {
-      "name": "nshipster-preview",
-      "workers_dev": true,
-      "routes": [],
-    },
-  },
+  // Pull request builds run `wrangler preview`, which requires this block.
+  "previews": {},
 }

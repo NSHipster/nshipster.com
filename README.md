@@ -115,7 +115,9 @@ are configured in the Cloudflare dashboard:
 The build image uses its default Node.js version
 and doesn't read `mise.toml`.
 
-To deploy to the separate preview Worker from your machine, run:
+Previews serve the site at a `workers.dev` URL,
+but they return a plain 404 response instead of the custom 404 page.
+To create a Preview of your current branch from your machine, run:
 
 ```terminal
 $ mise run deploy:preview
