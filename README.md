@@ -4,7 +4,7 @@
 Swift, Objective-C and Cocoa.
 
 This repository hosts the source code that generates and deploys
-[NSHipster.com](https://nshipster.com) and its translations.
+[NSHipster.com](https://nshipster.com).
 For the articles themselves,
 see [this repository](https://github.com/nshipster/articles).
 
@@ -81,7 +81,9 @@ Use them in articles with the `{% asset %}` tag, as before.
 its routes, canonical URLs, feed entry IDs, heading anchors, and asset references.
 `mise run reference:compare` checks the Astro build against them.
 To also compare the text and structure of every page,
-build the Jekyll site and pass its output directory:
+build the Jekyll site from commit `55b5572`,
+the last version deployed with Jekyll,
+and pass its output directory:
 
 ```terminal
 $ node scripts/compare-reference.ts path/to/jekyll/_site
@@ -89,20 +91,6 @@ $ node scripts/compare-reference.ts path/to/jekyll/_site
 
 Reviewed differences are listed with their reasons
 in `tests/reference/accepted-differences.json`.
-
-## Translations
-
-The translated sites (NSHipster.cn, NSHipster.es, and others)
-are still built with Jekyll and Ruby 2.7.5,
-using the configuration files in `_config/`:
-
-```terminal
-$ mise exec ruby@2.7.5 -- bundle install
-$ mise exec ruby@2.7.5 -- bundle exec jekyll serve --config _config/default.yml,_config/$DOMAIN.yml
-```
-
-Ruby isn't pinned in the repository
-because Cloudflare's build image would install it for every build of the English site.
 
 ## Deploying
 

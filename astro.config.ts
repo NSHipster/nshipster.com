@@ -22,13 +22,7 @@ export default defineConfig({
     },
     server: {
       watch: {
-        ignored: [
-          "**/.context/**",
-          "**/_site/**",
-          "**/.jekyll-cache/**",
-          "**/vendor/**",
-          "**/collections/{es,fr,ko,ru,zh-Hans}/**",
-        ],
+        ignored: ["**/.context/**"],
       },
     },
   },
