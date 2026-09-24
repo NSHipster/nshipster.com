@@ -1,34 +1,6 @@
 // The dark palette already has high contrast,
 // so these colors apply only to the light palette.
 @media (prefers-contrast: more) and (prefers-color-scheme: light) {
-  :root {
-    --red: rgb(215, 0, 21);
-    --orange: rgb(160, 80, 0);
-    --yellow: rgb(179, 98, 0);
-    --green: rgb(36, 138, 61);
-    --teal: rgb(0, 113, 164);
-    --blue: rgb(0, 64, 221);
-    --indigo: rgb(54, 52, 163);
-    --purple: rgb(137, 68, 171);
-    --pink: rgb(211, 15, 69);
-    --gray: rgb(108, 108, 112);
-    --gray2: rgb(142, 142, 147);
-    --gray3: rgb(174, 174, 178);
-    --gray4: rgb(188, 188, 192);
-    --gray5: rgb(216, 216, 220);
-    --gray6: rgb(235, 235, 240);
-
-    --text: rgb(0, 0, 0);
-    --secondary-text: rgb(60, 60, 67);
-    --placeholder-text: rgb(60, 60, 67);
-    --separator: rgb(60, 60, 67);
-    --opaque-separator: rgb(198, 198, 200);
-    --fill: rgb(120, 120, 128);
-    --secondary-fill: rgb(120, 120, 128);
-    --background: rgb(235, 235, 240);
-    --secondary-background: rgb(255, 255, 255);
-  }
-
   @supports (color: color(display-p3 1 1 1)) {
     :root {
       --red: color(display-p3 0.8431 0 0.08235);
