@@ -1,5 +1,4 @@
 @use "font-stacks";
-@use "fonts/batang";
 
 html,
 body {
@@ -10,46 +9,6 @@ body {
   font-kerning: normal;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-}
-
-html[lang="ko-KR"] {
-  body {
-    font-family: "Batang", font-stacks.$serif;
-    font-weight: lighter;
-  }
-}
-
-html[lang="ko-KR"],
-html[lang="zh-Hans"] {
-  a.readmore,
-  section > h1,
-  article p em,
-  article p dfn,
-  cite {
-    font-style: normal;
-    font-weight: bold;
-  }
-
-  [role="article"] header .byline {
-    font-style: normal;
-  }
-
-  .archive {
-    ol li time,
-    ul li time {
-      font-style: normal;
-      font-weight: bold;
-    }
-  }
-
-  #promotion h4 {
-    font-style: normal;
-    font-weight: bold;
-  }
-
-  .highlight span {
-    font-style: normal !important;
-  }
 }
 
 h1,
@@ -156,7 +115,7 @@ p > small {
   user-select: all;
 }
 
-:matches(a, p, li, dd, td) {
+:is(a, p, li, dd, td) {
   code {
     padding: 0.25em;
     font-size: smaller;
@@ -164,7 +123,7 @@ p > small {
   }
 }
 
-:matches(p, li, dd, td) {
+:is(p, li, dd, td) {
   code {
     color: var(--code);
   }
@@ -282,8 +241,7 @@ h6 {
   font-size: 1.33em;
 }
 
-#latest,
-#announcement {
+#latest {
   small {
     font-style: italic;
   }

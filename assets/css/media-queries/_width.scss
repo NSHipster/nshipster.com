@@ -1,8 +1,7 @@
 @media screen and (max-width: 768px) {
   [role="article"] header {
     .byline {
-      .authors,
-      .translators {
+      .authors {
         &:after {
           content: " ";
           display: block;
@@ -62,33 +61,10 @@
   }
 
   [role="complementary"] {
-    #continue,
-    #related {
+    #continue {
       width: 100%;
     }
 
-    #related {
-      margin-top: 1em;
-
-      li {
-        font-size: 1em;
-      }
-    }
-  }
-
-  #contributors ul li {
-    flex-basis: 33%;
-  }
-
-  #recent article {
-    float: none;
-    display: block;
-    width: 100%;
-
-    &:last-child,
-    &:nth-of-type(2n) {
-      margin-right: 0;
-    }
   }
 
   .archive dl {
@@ -141,13 +117,7 @@
     font-size: smaller;
   }
 
-  #announcement {
-    margin-left: 0;
-    margin-right: 0;
-  }
-
-  article.author,
-  article.translator {
+  article.author {
     header {
       display: block;
 
@@ -158,67 +128,6 @@
 
       h1 {
         text-align: center;
-      }
-    }
-  }
-}
-
-@media screen and (max-width: 768px) {
-  #promotion {
-    padding-top: 3em;
-
-    small {
-      position: relative;
-      top: 60px;
-    }
-
-    article {
-      padding-top: 80px;
-    }
-
-    .book {
-      img {
-        width: 350px;
-        margin: -86px auto 0 280px;
-        position: absolute;
-      }
-    }
-
-    .buy {
-      width: 100%;
-    }
-  }
-}
-
-@media screen and (max-width: 480px) {
-  #promotion {
-    padding-top: 0;
-
-    small {
-      text-align: center;
-      display: block;
-    }
-
-    article {
-      overflow: hidden;
-    }
-
-    h3 {
-      padding-right: 3em;
-    }
-
-    .book {
-      margin: -30px 0 0 0;
-      img {
-        width: 320px;
-        margin: 0;
-        padding: 0;
-        position: relative;
-        left: -10px;
-      }
-
-      & + div {
-        clear: both;
       }
     }
   }
