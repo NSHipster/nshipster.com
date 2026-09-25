@@ -1,7 +1,8 @@
 /**
- * Page behavior: code listing tabs and the logo animation.
+ * Page behavior: code listing tabs, scrollable code listings, and the logo animation.
  */
 import { setUpTabs } from "./code-tabs.ts";
+import { setUpScrollableCode } from "./scrollable-code.ts";
 
 function setUpLogo(): void {
   setTimeout(() => {
@@ -16,4 +17,5 @@ function setUpLogo(): void {
 }
 
 setUpTabs();
+setUpScrollableCode();
 setUpLogo();

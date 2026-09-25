@@ -226,6 +226,27 @@ describe("pages", () => {
     await context.close();
   });
 
+  it("lets keyboard users focus and scroll code listings that overflow", async () => {
+    const { page, context } = await open("/dark-mode/", { viewport: { width: 375, height: 800 } });
+    const listings = page.locator('pre:not([role="tabpanel"])');
+    // Only listings that scroll are in the tab order.
+    const states = await listings.evaluateAll((elements) =>
+      elements.map((listing) => ({
+        scrolls: listing.scrollWidth > listing.clientWidth || listing.scrollHeight > listing.clientHeight,
+        focusable: listing.getAttribute("tabindex") === "0",
+      })),
+    );
+    expect(states.every(({ scrolls, focusable }) => scrolls === focusable)).toBe(true);
+    expect(states.some(({ scrolls }) => scrolls)).toBe(true);
+    expect(states.some(({ scrolls }) => !scrolls)).toBe(true);
+
+    const overflowing = page.locator('pre[tabindex="0"]:not([role="tabpanel"])').first();
+    await overflowing.focus();
+    await page.keyboard.press("ArrowRight");
+    await expect.poll(() => overflowing.evaluate((listing) => listing.scrollLeft)).toBeGreaterThan(0);
+    await context.close();
+  });
+
   it("keeps heading anchors out of the tab order", async () => {
     const { page, context } = await open("/dark-mode/");
     await expect(page.locator('a.anchor:not([tabindex="-1"])').count()).resolves.toBe(0);
