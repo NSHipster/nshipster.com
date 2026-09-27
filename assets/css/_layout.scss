@@ -466,7 +466,7 @@ article.author {
   }
 }
 
-[role="complementary"] {
+[role="article"] > footer {
   border-top: 1px #ddd solid;
   padding-top: 2em;
 }

@@ -260,7 +260,7 @@ h6 {
 
 // Article titles scale with the width of the header, from 16px to 72px.
 // Browsers without container query units use the fixed size above.
-article [role="heading"] {
+[role="article"] > header {
   container-type: inline-size;
 
   h1.title {

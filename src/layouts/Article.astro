@@ -72,7 +72,7 @@ const description = plainText(post.excerptHTML);
   noindex={post.retired}
 >
   <article role="article">
-    <header role="heading">
+    <header>
       <h1 class="title">
         <a href={post.url}>{title}</a>
       </h1>
@@ -129,7 +129,7 @@ const description = plainText(post.excerptHTML);
       <slot />
     </div>
 
-    <footer role="complementary">
+    <footer>
       {
         (post.revisions.length > 0 || post.status) && (
           <section id="revisions">
