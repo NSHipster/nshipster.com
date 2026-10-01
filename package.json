@@ -50,7 +50,7 @@
     "sharp": "^0.35.4",
     "typescript": "^6.0.3",
     "vite-plus": "^0.3.3",
-    "wrangler": "^4.135.0"
+    "wrangler": "^4.145.0"
   },
   "engines": {
     "node": ">=24"
