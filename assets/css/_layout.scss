@@ -164,6 +164,10 @@ dl {
     height: 6em;
     margin: 0.25em 6em 0 0;
 
+    &:active {
+      background-color: transparent;
+    }
+
     a {
       display: block;
     }
