@@ -1,0 +1,134 @@
+@layer layout {
+  @media (max-width: 60em) {
+    [role="banner"] {
+      display: block;
+      margin-block-end: 0;
+      padding-block-end: 0;
+
+      #logo {
+        margin: 0 !important;
+        block-size: auto;
+        padding-block-end: 0.5em;
+
+        svg {
+          inline-size: 25vw;
+          display: block;
+          margin-block-start: 0;
+          margin-block-end: 1.5em;
+          margin-inline: auto;
+        }
+      }
+
+      .tagline {
+        font-size: 4.4vw;
+        padding-block-end: 2em;
+      }
+    }
+
+    #recent {
+      ul {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    .anchor {
+      font-size: smaller;
+    }
+
+    article.author {
+      header {
+        display: block;
+
+        .avatar {
+          margin-block-start: 0;
+          margin-block-end: 1em;
+          margin-inline: auto;
+          display: block;
+        }
+
+        h1 {
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 48em) {
+    [role="article"] header {
+      .byline {
+        .authors {
+          &::after {
+            content: " ";
+            display: block;
+          }
+        }
+      }
+    }
+
+    .container {
+      padding: 1em;
+    }
+
+    #recent {
+      ul {
+        display: block;
+
+        li {
+          min-block-size: auto;
+          margin-block-end: 2em;
+
+          .title {
+            display: block;
+            min-block-size: auto;
+            padding-block-end: 0.5rem;
+          }
+        }
+      }
+    }
+
+    [role="article"] {
+      font-size: smaller;
+
+      .content {
+        overflow: hidden;
+
+        blockquote {
+          margin-block: 1em;
+          margin-inline: 0;
+        }
+      }
+
+      footer .contributor {
+        inline-size: 100%;
+        margin-block-end: 1em;
+
+        .avatar {
+          padding: 0;
+        }
+
+        .details {
+          margin-block-start: 0;
+        }
+      }
+    }
+
+    [role="article"] > footer {
+      #continue {
+        inline-size: 100%;
+      }
+    }
+
+    .archive {
+      grid-template-columns: 1fr;
+
+      dl dt {
+        margin-block: 2em 0.5em;
+        margin-inline: 0;
+      }
+    }
+
+    #archive dd {
+      min-block-size: 30px;
+    }
+  }
+}

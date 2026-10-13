@@ -109,6 +109,11 @@ describe("routing", () => {
     expect(response.status).toBe(301);
     const target = await fetch(url(response.headers.get("location")!));
     expect(target.status).toBe(200);
+    const legacyCSS = Object.keys(aliases).find((alias) => alias.includes("/screen-"))!;
+    const cssResponse = await fetchManual(legacyCSS);
+    expect(cssResponse.status).toBe(301);
+    const cssTarget = await fetch(url(cssResponse.headers.get("location")!));
+    expect(cssTarget.status).toBe(200);
   });
 
   it("keeps the original URL of an image with smaller copies", async () => {
@@ -161,7 +166,7 @@ describe("pages", () => {
     const inline = await page.locator("style").allTextContents();
     for (const style of inline) expect(style).toMatch(/^@font-face\{/);
     const stylesheet = await page.locator('link[rel="stylesheet"]').getAttribute("href");
-    expect(stylesheet).toMatch(/^\/assets\/screen-[0-9a-f]+\.css$/);
+    expect(stylesheet).toMatch(/^\/_astro\/Base\.[0-9a-zA-Z_-]+\.css$/);
     expect((await fetch(url(stylesheet!))).headers.get("cache-control")).toContain("immutable");
     const preloads = await page
       .locator('link[rel="preload"]')

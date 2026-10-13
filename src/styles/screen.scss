@@ -1,0 +1,58 @@
+@charset "UTF-8";
+
+@use "colors";
+@use "animations";
+@use "typography";
+@use "admonitions";
+@use "layout";
+@use "code";
+@use "inputs";
+@use "view-transitions";
+
+@use "media-queries/width";
+@use "media-queries/hover";
+@use "media-queries/inverted-colors";
+@use "media-queries/monochrome";
+@use "media-queries/prefers-color-scheme";
+@use "media-queries/prefers-contrast";
+@use "media-queries/prefers-reduced-motion";
+@use "media-queries/print";
+
+@layer reset, tokens, base, layout, components, utilities;
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+}
+
+@layer base {
+  #type-encodings tr > td:first-child,
+  #method-encodings-table tr > td:first-child {
+    inline-size: 12em;
+    padding-inline-start: 3em;
+  }
+
+  table {
+    &.core-data-versus-nskeyedarchiver td {
+      text-align: center;
+
+      &:first-child {
+        text-align: start;
+        font-weight: bold;
+      }
+    }
+
+    &#xcode-key-bindings-modifiers {
+      inline-size: 100%;
+
+      td,
+      th {
+        inline-size: 20%;
+        text-align: center;
+      }
+    }
+  }
+}

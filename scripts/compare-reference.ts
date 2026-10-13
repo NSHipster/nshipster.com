@@ -90,11 +90,10 @@ const normalizeAssets = (assets: string[]) =>
   [...new Set(assets.filter((asset) => !avatars.has(asset)).map(withoutExtension))].sort();
 const assetURLs = (text: string) => [...text.matchAll(/["'(](\/assets\/[^"')\s]+)/g)].map((match) => match[1]!);
 // Jekyll pages included the site stylesheet inline, so its images counted as page assets.
-const stylesheet = manifest.build(manifest.resolve("screen.css"));
-const stylesheetAssets = assetURLs(stylesheet.contents.toString("utf8"));
+const stylesheetAssets = ["error.svg", "info.svg", "warning.svg"];
 const logicalAssets = (html: string) =>
   normalizeAssets(
-    [...assetURLs(html), ...(html.includes(`href="${stylesheet.url}"`) ? stylesheetAssets : [])]
+    [...assetURLs(html), ...(html.includes('rel="stylesheet"') ? stylesheetAssets : [])]
       .map((url) => logicalByURL.get(url) ?? url)
       .filter((asset) => !/\.(woff2?)$/.test(asset) && !/^(application\.js|screen\.css)$/.test(asset)),
   );

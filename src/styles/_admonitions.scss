@@ -1,0 +1,94 @@
+@use "font-stacks";
+
+@layer components {
+  @mixin border-icon($name) {
+    content: " ";
+    background-image: url("../../assets/images/#{$name}.svg");
+    background-size: 24px 24px;
+    inline-size: 24px;
+    block-size: 24px;
+    position: absolute;
+    display: block;
+    margin-inline-start: -54px;
+    margin-block-start: 10px;
+    z-index: 100;
+  }
+
+  .admonition {
+    --code: var(--link);
+    font-family: font-stacks.$sans-serif;
+    border-inline-start: 4px var(--separator) solid;
+    padding-block: 5px;
+    padding-inline: 40px;
+    margin-block: 1.5em;
+    margin-inline: 0;
+    display: block;
+    clear: both;
+    overflow: visible;
+    font-size: smaller;
+    background-color: var(--_bg, transparent);
+
+    a {
+      text-decoration: underline;
+    }
+
+    p {
+      margin-block: 0.5em;
+    }
+
+    dl {
+      padding-block: 0.5em;
+      margin-block-end: 1em;
+    }
+
+    pre code {
+      font-size: small;
+      line-height: 1;
+    }
+
+    th,
+    td {
+      padding: 0.5em;
+    }
+
+    blockquote {
+      margin-inline-start: 0;
+      margin-block: 0.25em;
+      border-inline-start-color: var(--separator);
+    }
+
+    ins {
+      background: transparent;
+    }
+
+    &.info {
+      --_bg: light-dark(#edf5fa, #333c44);
+      --link: var(--blue);
+      --separator: var(--blue);
+
+      &::before {
+        @include border-icon("info");
+      }
+    }
+
+    &.warning {
+      --_bg: light-dark(#fcfaf6, #484131);
+      --separator: var(--yellow);
+      --link: rgb(178, 129, 6);
+
+      &::before {
+        @include border-icon("warning");
+      }
+    }
+
+    &.error {
+      --_bg: light-dark(#fcf2f6, #592e41);
+      --link: var(--pink);
+      --separator: var(--pink);
+
+      &::before {
+        @include border-icon("error");
+      }
+    }
+  }
+}
