@@ -99,7 +99,11 @@ export class RoutingError extends Error {}
  * A redirect whose source is now a page is omitted, as Netlify did for existing files.
  * A redirect to a missing page is an error.
  */
-export function redirects(assets: AssetManifest, exists: (pathname: string) => boolean): Redirect[] {
+export function redirects(
+  assets: AssetManifest,
+  exists: (pathname: string) => boolean,
+  stylesheetURL?: string,
+): Redirect[] {
   const rules: Redirect[] = [];
   for (const [from, to] of PAGE_REDIRECTS) {
     if (exists(from)) continue;
@@ -112,6 +116,11 @@ export function redirects(assets: AssetManifest, exists: (pathname: string) => b
     rules.push({ from, to, status: 301 });
   }
   for (const [legacy, logical] of Object.entries(legacyAssetAliases()).sort(([a], [b]) => (a < b ? -1 : 1))) {
+    if (logical === "application.js") continue;
+    if (logical === "screen.css") {
+      if (stylesheetURL) rules.push({ from: legacy, to: stylesheetURL, status: 301 });
+      continue;
+    }
     // The Jekyll pipeline sometimes changed extensions, e.g. `.m4v` to `.mp4`.
     const asset = assets.find(logical) ?? assets.find(logical.replace(/\.[^./]+$/, ""));
     if (!asset) throw new RoutingError(`Legacy asset ${legacy} refers to missing asset "${logical}"`);
