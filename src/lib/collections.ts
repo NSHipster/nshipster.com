@@ -3,6 +3,8 @@ import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import type { PostEntryData } from "./content/loaders.ts";
 import { mdxPostData } from "./content/mdx.ts";
 import { chronological } from "./content/posts.ts";
+import { withCitations } from "./render/citations.ts";
+import { site } from "./site.ts";
 
 /** A published article, from either the legacy Markdown loader or Markdoc. */
 export interface Post {
@@ -81,8 +83,13 @@ let container: Promise<AstroContainer> | undefined;
 export async function postHTML(post: Post): Promise<string> {
   if (!post.markdoc) return post.html ?? "";
   const { Content } = await render(post.entry as CollectionEntry<"articles">);
-  container ??= AstroContainer.create();
-  return (await container).renderToString(Content);
+  container ??= AstroContainer.create({
+    astroConfig: {
+      site: site.url,
+    },
+  });
+  const c = await container;
+  return withCitations(() => c.renderToString(Content));
 }
 
 export async function authorNamed(name: string | undefined): Promise<Author | undefined> {

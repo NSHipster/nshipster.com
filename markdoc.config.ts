@@ -5,17 +5,20 @@ import { unescapeHTML } from "astro/runtime/server/index.js";
 const escapeHTML = (text: string) =>
   text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
 import { languageLabel } from "./src/lib/render/highlight.ts";
-import { highlightCodeBlock } from "./src/lib/render/markdown.ts";
+import { gfmHeaderID, highlightCodeBlock } from "./src/lib/render/markdown.ts";
 
 /**
  * Consolidates consecutive code fences in an AST node's children into a codeGroup tag,
- * matching the legacy pipeline's tabbed code listings.
+ * matching the legacy pipeline's tabbed code listings. Traverses nested nodes recursively
+ * while sharing the page-level group counter.
  */
-function consolidateFences(children: Node[]): Node[] {
+function consolidateFences(children: Node[], state = { groupNumber: 1 }): Node[] {
   const result: Node[] = [];
-  let groupNumber = 1;
   for (let i = 0; i < children.length; i++) {
     const child = children[i]!;
+    if (child.children && child.children.length > 0) {
+      child.children = consolidateFences(child.children, state);
+    }
     if (child.type !== "fence") {
       result.push(child);
       continue;
@@ -25,6 +28,9 @@ function consolidateFences(children: Node[]): Node[] {
     while (nextIndex < children.length) {
       const next = children[nextIndex]!;
       if (next.type === "fence") {
+        if (next.children && next.children.length > 0) {
+          next.children = consolidateFences(next.children, state);
+        }
         group.push(next);
         i = nextIndex;
         nextIndex++;
@@ -35,10 +41,22 @@ function consolidateFences(children: Node[]): Node[] {
     if (group.length === 1) {
       result.push(child);
     } else {
-      result.push(new Markdoc.Ast.Node("tag", { number: groupNumber++ }, group, "codeGroup"));
+      result.push(new Markdoc.Ast.Node("tag", { number: state.groupNumber++ }, group, "codeGroup"));
     }
   }
   return result;
+}
+
+function getTextContent(childNodes: RenderableTreeNodes[]): string {
+  let text = "";
+  for (const node of childNodes) {
+    if (typeof node === "string" || typeof node === "number") {
+      text += node;
+    } else if (node && typeof node === "object" && Tag.isTag(node)) {
+      text += getTextContent(node.children);
+    }
+  }
+  return text;
 }
 
 function isDivider(c: Node): boolean {
@@ -72,6 +90,20 @@ function delineateFlimFlam(children: Node[]): void {
   children.splice(dividerIndex + 1, 0, new Markdoc.Ast.Node("tag", {}, [], "flimflamAnchor"));
 }
 
+interface MarkdocRuntimeConfig {
+  ctx?: {
+    headingCounter?: Map<string, number>;
+    [key: string]: unknown;
+  };
+}
+
+function headingCounter(config: unknown): Map<string, number> {
+  const cfg = config as MarkdocRuntimeConfig;
+  cfg.ctx ??= {};
+  cfg.ctx.headingCounter ??= new Map<string, number>();
+  return cfg.ctx.headingCounter;
+}
+
 /**
  * Markdoc tags and nodes for converted articles.
  * Tags mirror the legacy Liquid tags and render through the same components as MDX.
@@ -83,6 +115,7 @@ export default defineMarkdocConfig({
       ...nodes.document,
       render: undefined,
       transform(node, config) {
+        headingCounter(config).clear();
         node.children = consolidateFences(node.children);
         delineateFlimFlam(node.children);
         return node.transformChildren(config);
@@ -91,6 +124,21 @@ export default defineMarkdocConfig({
     heading: {
       ...nodes.heading,
       render: component("./src/components/articles/Heading.astro"),
+      transform(node, config) {
+        const { level = 1, ...attributes } = node.transformAttributes(config);
+        const children = node.transformChildren(config);
+        const counter = headingCounter(config);
+        const slug =
+          attributes.id && typeof attributes.id === "string"
+            ? attributes.id
+            : gfmHeaderID((attributes.content as string) ?? getTextContent(children), counter);
+        const render = config.nodes?.heading?.render ?? `h${level}`;
+        const tagProps =
+          typeof render === "string"
+            ? { ...attributes, id: slug }
+            : { ...attributes, id: slug, __collectHeading: true, level };
+        return new Tag(render, tagProps, children);
+      },
     },
     link: {
       ...nodes.link,

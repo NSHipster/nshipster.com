@@ -1,6 +1,9 @@
 import { readFileSync } from "node:fs";
+import Markdoc from "@markdoc/markdoc";
 import { describe, expect, it } from "vite-plus/test";
+import markdocConfig from "../../markdoc.config.ts";
 import { assetManifest } from "../../src/lib/assets.ts";
+import { currentCitedKeys, recordCitations, withCitations } from "../../src/lib/render/citations.ts";
 import { render } from "./helpers.ts";
 
 const fixture = (name: string) => readFileSync(new URL(`../fixtures/${name}.md`, import.meta.url), "utf8");
@@ -194,5 +197,39 @@ describe("article rendering", () => {
 
   it("names the source file for unsupported Liquid", async () => {
     await expect(render("{% unknown_tag %}", "2020-01-01-unknown.md")).rejects.toThrow(/2020-01-01-unknown\.md/);
+  });
+
+  it("isolates citation tracking between concurrent execution scopes", async () => {
+    await Promise.all([
+      withCitations(async () => {
+        recordCitations(["key_a"]);
+        await new Promise((resolve) => setTimeout(resolve, 5));
+        expect(currentCitedKeys()).toEqual(["key_a"]);
+      }),
+      withCitations(async () => {
+        recordCitations(["key_b"]);
+        await new Promise((resolve) => setTimeout(resolve, 5));
+        expect(currentCitedKeys()).toEqual(["key_b"]);
+      }),
+    ]);
+  });
+
+  it("normalizes heading IDs using legacy ASCII transliteration", () => {
+    const ast = Markdoc.parse("## L’addition s’il vous plaît\n\n## L’addition s’il vous plaît");
+    const content = Markdoc.transform(ast, markdocConfig as any) as any[];
+    const headings = content.filter((c: any) => c?.attributes?.__collectHeading);
+    expect(headings[0].attributes.id).toBe("laddition-sil-vous-plait");
+    expect(headings[1].attributes.id).toBe("laddition-sil-vous-plait-1");
+  });
+
+  it("recursively consolidates consecutive fences inside nested tags", async () => {
+    const ast = Markdoc.parse("{% info %}\n```swift\nlet x = 1\n```\n```objc\nint x = 1;\n```\n{% /info %}");
+    const transformed = Markdoc.transform(ast, markdocConfig as any);
+    const content = (transformed instanceof Promise ? await transformed : transformed) as any[];
+    const infoTag = content[0];
+    expect(infoTag.name.path).toContain("Info.astro");
+    const html = String(infoTag.children[0]);
+    expect(html).toContain('<div class="highlight-group">');
+    expect(html).toContain('id="code-listing-1-swift"');
   });
 });
