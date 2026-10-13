@@ -90,6 +90,25 @@ export class CitationContext {
   }
 }
 
+let currentCitations: string[] = [];
+
+/** Clears the current page's tracked citations before rendering. */
+export function resetCitations(): void {
+  currentCitations = [];
+}
+
+/** Records cited keys in citation order for the current page. */
+export function recordCitations(keys: string[]): void {
+  for (const key of keys) {
+    if (!currentCitations.includes(key)) currentCitations.push(key);
+  }
+}
+
+/** Returns the citations accumulated during the current page render. */
+export function currentCitedKeys(): string[] {
+  return [...currentCitations];
+}
+
 function escapeText(text: string): string {
   return text.trim().replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 }

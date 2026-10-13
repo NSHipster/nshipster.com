@@ -9,6 +9,7 @@
     "check": "astro check"
   },
   "dependencies": {
+    "@astrojs/markdoc": "^2.0.11",
     "@astrojs/markdown-remark": "^7.3.1",
     "@astrojs/mdx": "^8.0.3",
     "@citation-js/core": "^0.9.0",

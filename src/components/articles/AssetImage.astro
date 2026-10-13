@@ -4,7 +4,8 @@ import { imageSizes, imageSrcset } from "../../lib/render/transforms.ts";
 
 interface Props {
   /** The logical asset name, as in the legacy `{% asset %}` tag. */
-  name: string;
+  name?: string;
+  primary?: string;
   alt?: string;
   width?: number;
   height?: number;
@@ -14,9 +15,10 @@ interface Props {
   [attribute: string]: unknown;
 }
 
-const { name, alt = "", width, height, eager = false, role: suppliedRole, ...rest } = Astro.props;
+const { name, primary, alt = "", width, height, eager = false, role: suppliedRole, ...rest } = Astro.props;
+const assetName = name ?? (typeof primary === "string" ? primary : "");
 const assets = assetManifest();
-const asset = assets.resolve(name);
+const asset = assets.resolve(assetName);
 const { url } = assets.build(asset);
 const size = await assets.size(asset);
 const variants = size ? await assets.variants(asset) : [];

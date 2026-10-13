@@ -9,14 +9,16 @@ import { processorRenderer } from "../../lib/render/renderer.ts";
 
 interface Props {
   /** The book name from `src/content/books`, such as `flight-school-guide-to-swift-codable`. */
-  name: string;
+  name?: string;
+  primary?: string;
   /** Set for the first cover on a page. Other covers load lazily. */
   eager?: boolean;
 }
 
-const { name, eager = false } = Astro.props;
-const book = readBooks().find((candidate) => candidate.name === name);
-if (!book) throw new Error(`Unknown book "${name}"`);
+const { name, primary, eager = false } = Astro.props;
+const bookName = name ?? (typeof primary === "string" ? primary : "");
+const book = readBooks().find((candidate) => candidate.name === bookName);
+if (!book) throw new Error(`Unknown book "${bookName}"`);
 const summaryHTML = await renderFragment(book.summary, await processorRenderer());
 ---
 

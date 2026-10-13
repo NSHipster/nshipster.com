@@ -1,12 +1,18 @@
 ---
-import { bibliographyHTML } from "../../lib/render/citations.ts";
+import { bibliographyHTML, currentCitedKeys } from "../../lib/render/citations.ts";
 
 interface Props {
-  /** The cited bibliography keys, in the order they appear in the article. */
-  keys: string[];
+  /** The cited bibliography keys, in citation order, as a list or a comma-separated string. */
+  keys?: string | string[];
+  primary?: string;
+  cited?: boolean;
 }
 
-const html = bibliographyHTML(Astro.props.keys);
+const { keys, primary, cited = false } = Astro.props;
+const raw = keys ?? primary ?? "";
+const list = (Array.isArray(raw) ? raw : raw.split(/[,\s]+/)).filter(Boolean);
+const resolvedKeys = cited || list.length === 0 ? currentCitedKeys() : list;
+const html = bibliographyHTML(resolvedKeys);
 ---
 
 <Fragment set:html={html} />

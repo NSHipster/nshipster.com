@@ -6,11 +6,12 @@ interface Props {
 }
 
 const { level, id, ...rest } = Astro.props;
-// The legacy pipeline moves each heading ID onto an empty anchor inside the heading,
-// and the processor marks those IDs so other headings stay plain. Mirror that here.
-const marked = "data-kramdown-id" in rest || "dataKramdownId" in rest;
+// The legacy pipeline moves each heading ID onto an empty anchor inside the heading.
+// The Markdown processor marks the IDs it assigns, and Markdoc collects every heading. Mirror that here.
+const marked = "data-kramdown-id" in rest || "dataKramdownId" in rest || "__collectHeading" in rest;
 delete rest["data-kramdown-id"];
 delete rest.dataKramdownId;
+delete rest.__collectHeading;
 const Tag = `h${level}` as "h2" | "h3" | "h4";
 ---
 
