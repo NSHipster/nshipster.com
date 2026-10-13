@@ -3,9 +3,8 @@ import { getCollection } from "astro:content";
 import Avatar from "../../../components/Avatar.astro";
 import Base from "../../../layouts/Base.astro";
 import { postsNewestFirst } from "../../../lib/collections.ts";
-import { DATE_FORMAT, strftime, xmlschema, zoned } from "../../../lib/dates.ts";
+import { formatDate } from "../../../lib/dates.ts";
 import { t } from "../../../lib/i18n.ts";
-import { absoluteURL } from "../../../lib/site.ts";
 
 export async function getStaticPaths() {
   return (await getCollection("authors")).map((author) => ({ params: { slug: author.data.slug }, props: { author } }));
@@ -14,7 +13,7 @@ export async function getStaticPaths() {
 const { author } = Astro.props;
 const { name } = author.data;
 const posts = (await postsNewestFirst()).filter((post) => post.data.author === name || post.data.authors.includes(name));
-const latest = posts[0] ? zoned(posts[0].data.updatedOn) : undefined;
+const latest = posts[0]?.data.updatedOn;
 ---
 
 <Base
@@ -23,8 +22,8 @@ const latest = posts[0] ? zoned(posts[0].data.updatedOn) : undefined;
   creator={author.data.twitter}
   document={{
     description: author.data.description,
-    published: latest ? xmlschema(latest) : "",
-    modified: latest ? xmlschema(latest) : "",
+    published: latest?.toISOString() ?? "",
+    modified: latest?.toISOString() ?? "",
   }}
   article={{
     "@context": "https://schema.org",
@@ -32,7 +31,7 @@ const latest = posts[0] ? zoned(posts[0].data.updatedOn) : undefined;
     mainEntity: {
       "@type": "Person",
       name,
-      url: absoluteURL(author.data.url),
+      url: new URL(author.data.url, Astro.site).href,
       ...(author.data.website ? { sameAs: [author.data.website] } : {}),
     },
   }}
@@ -51,11 +50,10 @@ const latest = posts[0] ? zoned(posts[0].data.updatedOn) : undefined;
       <ol>
         {
           posts.map((post) => {
-            const date = zoned(post.data.date);
             return (
               <li>
                 <a href={post.data.url} title={post.data.title} class="title" set:html={post.data.title} />
-                <time datetime={xmlschema(date)} set:html={strftime(date, DATE_FORMAT)} />
+                <time datetime={post.data.date.toISOString()} set:html={formatDate(post.data.date)} />
 
                 <Fragment set:html={post.data.excerptHTML} />
               </li>

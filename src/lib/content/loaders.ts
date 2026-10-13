@@ -9,7 +9,6 @@ import { resetBibliography } from "../render/citations.ts";
 import { renderDocument, renderFragment, type MarkdownRenderer } from "../render/index.ts";
 import { ROOT, paths } from "../site.ts";
 import { plainText } from "../text.ts";
-import { readBooks } from "./books.ts";
 import { parseFrontMatter } from "./frontmatter.ts";
 import { isUnpublished, normalizePost, type PostData } from "./posts.ts";
 import { scalarText } from "../scalar.ts";
@@ -282,22 +281,6 @@ export function authorsLoader(): Loader {
         context.store.set({ id: slug, data, filePath: relative });
       }
       context.watcher?.add(directory);
-    },
-  };
-}
-
-/** Loads book promotions and renders their summaries. */
-export function booksLoader(): Loader {
-  return {
-    name: "nshipster-books",
-    load: async (context) => {
-      const render = markdownRenderer(context);
-      context.store.clear();
-      for (const book of readBooks()) {
-        const summaryHTML = await renderFragment(book.summary, render);
-        const data = await context.parseData({ id: book.name, data: { ...book, summaryHTML } });
-        context.store.set({ id: book.name, data });
-      }
     },
   };
 }

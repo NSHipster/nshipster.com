@@ -4,9 +4,8 @@ import Base from "./Base.astro";
 import Contributor from "../components/Contributor.astro";
 import JsonLd from "../components/JsonLd.astro";
 import { authorNamed, type Post } from "../lib/collections.ts";
-import { DATE_FORMAT, strftime, xmlschema, zoned } from "../lib/dates.ts";
+import { formatDate } from "../lib/dates.ts";
 import { t } from "../lib/i18n.ts";
-import { absoluteURL, site } from "../lib/site.ts";
 import { camelBreak, plainText, stripHTML } from "../lib/text.ts";
 
 interface Props {
@@ -24,9 +23,8 @@ const post = entry.data;
 const author = await authorNamed(post.author);
 const coauthors = await Promise.all(post.authors.map(async (name) => ({ name, author: await authorNamed(name) })));
 const title = camelBreak(stripHTML(post.title));
-const published = zoned(post.date);
-const modified = zoned(post.updatedOn);
-const shown = post.lastRevisedOn ? zoned(post.lastRevisedOn) : published;
+const absolute = (path: string) => new URL(path, Astro.site).href;
+const shown = post.lastRevisedOn ?? post.date;
 const swift = post.status?.swift;
 const hasSwiftVersion = swift && swift !== "t.b.c." && swift !== "n/a";
 const description = plainText(post.excerptHTML);
@@ -40,8 +38,8 @@ const description = plainText(post.excerptHTML);
         description,
         category: post.category,
         categories: post.category ? [post.category] : [],
-        published: xmlschema(published),
-        modified: xmlschema(modified),
+        published: post.date.toISOString(),
+        modified: post.updatedOn.toISOString(),
       }
     : undefined}
   article={isArticle
@@ -50,15 +48,15 @@ const description = plainText(post.excerptHTML);
         "@type": "Article",
         headline: stripHTML(post.title).trim(),
         description,
-        image: absoluteURL("/logo.png"),
-        datePublished: xmlschema(published),
-        dateModified: xmlschema(modified),
-        mainEntityOfPage: { "@type": "WebPage", "@id": absoluteURL(post.url) },
+        image: absolute("/logo.png"),
+        datePublished: post.date.toISOString(),
+        dateModified: post.updatedOn.toISOString(),
+        mainEntityOfPage: { "@type": "WebPage", "@id": absolute(post.url) },
         author: { "@type": "Person", name: author?.data.name ?? post.author ?? "Mattt" },
         publisher: {
           "@type": "Organization",
           name: "NSHipster",
-          logo: { "@type": "ImageObject", url: absoluteURL("/logo.png") },
+          logo: { "@type": "ImageObject", url: absolute("/logo.png") },
         },
         speakable: {
           "@type": "SpeakableSpecification",
@@ -110,7 +108,7 @@ const description = plainText(post.excerptHTML);
           )
         }
 
-        {" "}<time datetime={xmlschema(shown)} set:html={strftime(shown, DATE_FORMAT)} />{" "}
+        {" "}<time datetime={shown.toISOString()} set:html={formatDate(shown)} />{" "}
 
         {
           post.revisions.length > 0 &&
@@ -193,8 +191,8 @@ const description = plainText(post.excerptHTML);
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
-        { "@type": "ListItem", position: 1, item: { "@id": site.url, name: "Articles" } },
-        { "@type": "ListItem", position: 2, item: { "@id": absoluteURL(post.url), name: stripHTML(post.title) } },
+        { "@type": "ListItem", position: 1, item: { "@id": Astro.site!.origin, name: "Articles" } },
+        { "@type": "ListItem", position: 2, item: { "@id": absolute(post.url), name: stripHTML(post.title) } },
       ],
     }}
   />

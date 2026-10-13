@@ -1,6 +1,6 @@
 import { defineCollection } from "astro:content";
 import { z } from "astro/zod";
-import { authorsLoader, booksLoader, postsLoader } from "./lib/content/loaders.ts";
+import { authorsLoader, postsLoader } from "./lib/content/loaders.ts";
 import { paths } from "./lib/site.ts";
 
 const post = z.object({
@@ -62,25 +62,7 @@ const authors = defineCollection({
   }),
 });
 
-const books = defineCollection({
-  loader: booksLoader(),
-  schema: z.object({
-    name: z.string(),
-    title: z.string(),
-    shortTitle: z.string().optional(),
-    subTitle: z.string().optional(),
-    edition: z.string().optional(),
-    author: z.string().optional(),
-    summary: z.string(),
-    summaryHTML: z.string(),
-    image: z.string(),
-    availability: z.string().optional(),
-    bookURL: z.string().optional(),
-    price: z.string().optional(),
-    numberOfPages: z.string().optional(),
-    isbn: z.string().optional(),
-    date: z.string().optional(),
-  }),
-});
-
-export const collections = { posts, pages, authors, books };
+// Books in `src/content/books` have no pages of their own.
+// The article render pipeline reads them directly for the `book.html` include,
+// so they are not a content collection.
+export const collections = { posts, pages, authors };
