@@ -28,7 +28,7 @@ export interface PostData {
   commitHistoryURL?: string;
 }
 
-const POST_FILENAME = /^(\d{4})-(\d{1,2})-(\d{1,2})-(.+)\.md$/;
+const POST_FILENAME = /^(\d{4})-(\d{1,2})-(\d{1,2})-(.+)\.mdx?$/;
 
 export class FrontMatterError extends Error {}
 

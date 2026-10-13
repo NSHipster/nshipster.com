@@ -12,14 +12,14 @@ export async function getStaticPaths() {
   const posts = await postsOldestFirst();
   const newest = posts.at(-1);
 
-  const articles = posts.map((entry, index) => {
+  const articles = posts.map((post, index) => {
     const next = posts[index + 1];
     const previous = posts[index - 1];
     // Suggest the following article, or the newest one if there is none or it is retired.
     const continueWith = !next || next.data.retired ? newest : next;
     return {
-      params: { slug: entry.data.slug },
-      props: { entry, post: entry.data, mdx: false, isArticle: true, next, previous, continueWith },
+      params: { slug: post.data.slug },
+      props: { entry: post.entry, post: post.data, mdx: post.mdx, isArticle: true, next, previous, continueWith },
     };
   });
 
@@ -45,10 +45,10 @@ export async function getStaticPaths() {
 
 const { entry, post, mdx, isArticle, next, previous, continueWith } = Astro.props;
 const { Content } = await render(entry);
-// MDX entries render through components that mirror the legacy HTML transforms.
-const components = { h2: H2, h3: H3, h4: H4, a: ArticleLink };
+// Element overrides for MDX content, mirroring the legacy HTML transforms.
+const articleComponents = { h2: H2, h3: H3, h4: H4, a: ArticleLink };
 ---
 
 <Article post={post} isArticle={isArticle} next={next} previous={previous} continueWith={continueWith}>
-  {mdx ? <Content components={components} /> : <Content />}
+  {mdx ? <Content components={articleComponents} /> : <Content />}
 </Article>

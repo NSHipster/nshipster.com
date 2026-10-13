@@ -1,9 +1,9 @@
-import type { CollectionEntry } from "astro:content";
+import path from "node:path";
 import { plainText } from "../text.ts";
 import { renderFragment } from "../render/index.ts";
 import { processorRenderer } from "../render/renderer.ts";
 import type { PostEntryData } from "./loaders.ts";
-import { normalizePost } from "./posts.ts";
+import { normalizePost, parsePostFilename } from "./posts.ts";
 import type { ParsedDocument } from "./frontmatter.ts";
 
 /**
@@ -11,8 +11,41 @@ import type { ParsedDocument } from "./frontmatter.ts";
  * that the article layout uses, applying the same front matter rules
  * as the legacy Markdown loader.
  */
-export async function mdxPostData(entry: CollectionEntry<"pages">): Promise<PostEntryData> {
-  const data = entry.data as Record<string, unknown>;
+/** The parts of a glob-loaded MDX entry that normalization needs. */
+export interface MdxEntry {
+  id: string;
+  data: object;
+  body?: string;
+  filePath?: string;
+}
+
+export async function mdxPostData(
+  entry: MdxEntry,
+  options: { commitHistory: boolean } = { commitHistory: false },
+): Promise<PostEntryData> {
+  const file = entry.filePath ?? `${entry.id}.mdx`;
+  const data = { ...(entry.data as Record<string, unknown>) };
+  // YAML parsers widen unquoted revision dates used as mapping keys to instants
+  // at midnight UTC, stringified in the build machine's time zone.
+  // Recover the written calendar date so normalization does not shift it a day earlier.
+  if (data.revisions && typeof data.revisions === "object") {
+    data.revisions = Object.fromEntries(
+      Object.entries(data.revisions as Record<string, unknown>).map(([date, description]) => {
+        if (/^\d{4}-\d{2}-\d{2}$/.test(date)) return [date, description];
+        const parsed = Date.parse(date);
+        return [Number.isNaN(parsed) ? date : new Date(parsed).toISOString().slice(0, 10), description];
+      }),
+    );
+  }
+  // Timestamp values in the status mapping arrive as instants at midnight UTC for the same reason.
+  if (data.status && typeof data.status === "object") {
+    data.status = Object.fromEntries(
+      Object.entries(data.status as Record<string, unknown>).map(([key, value]) => [
+        key,
+        value instanceof Date ? value.toISOString().slice(0, 10) : value,
+      ]),
+    );
+  }
   const document: ParsedDocument = {
     data,
     body: entry.body ?? "",
@@ -21,9 +54,10 @@ export async function mdxPostData(entry: CollectionEntry<"pages">): Promise<Post
     source: () => undefined,
   };
   const post = normalizePost(document, {
-    file: entry.filePath ?? `${entry.id}.mdx`,
-    slug: entry.id,
-    commitHistory: false,
+    file,
+    // Article file names encode the slug after their date; page file names are the slug.
+    slug: parsePostFilename(file)?.slug ?? path.basename(entry.id),
+    commitHistory: options.commitHistory,
   });
   const render = await processorRenderer();
   const excerptHTML = await renderFragment(post.excerpt, render);

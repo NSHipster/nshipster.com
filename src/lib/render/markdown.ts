@@ -259,7 +259,9 @@ export const remarkHighlightCode: Plugin<[], Root> = () => async (tree) => {
     });
     let code = await highlight(source, fence);
     placeholders.forEach((name, index) => {
-      code = code.replace(String.fromCodePoint(0xf0000 + index), `<var class="placeholder">${escapeHTML(name)}</var>`);
+      // The legacy pipeline renders `<#...#>` as an ellipsis; keep that for MDX input.
+      const text = name === "..." ? "…" : name;
+      code = code.replace(String.fromCodePoint(0xf0000 + index), `<var class="placeholder">${escapeHTML(text)}</var>`);
     });
     const html: Html = {
       type: "html",
