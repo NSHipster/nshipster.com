@@ -18,33 +18,41 @@
 @use "media-queries/prefers-reduced-motion";
 @use "media-queries/print";
 
-* {
-  box-sizing: border-box;
+@layer reset, tokens, base, layout, components, utilities;
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
 }
 
-#type-encodings tr > td:first-child,
-#method-encodings-table tr > td:first-child {
-  width: 12em;
-  padding-left: 3em;
-}
-
-table {
-  &.core-data-versus-nskeyedarchiver td {
-    text-align: center;
-
-    &:first-child {
-      text-align: left;
-      font-weight: bold;
-    }
+@layer base {
+  #type-encodings tr > td:first-child,
+  #method-encodings-table tr > td:first-child {
+    inline-size: 12em;
+    padding-inline-start: 3em;
   }
 
-  &#xcode-key-bindings-modifiers {
-    width: 100%;
-
-    td,
-    th {
-      width: 20%;
+  table {
+    &.core-data-versus-nskeyedarchiver td {
       text-align: center;
+
+      &:first-child {
+        text-align: start;
+        font-weight: bold;
+      }
+    }
+
+    &#xcode-key-bindings-modifiers {
+      inline-size: 100%;
+
+      td,
+      th {
+        inline-size: 20%;
+        text-align: center;
+      }
     }
   }
 }

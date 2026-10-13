@@ -1,12 +1,14 @@
-@media (prefers-reduced-motion: reduce) {
-  #logo #mustache {
-    animation: none !important;
-  }
+@layer layout {
+  @media (prefers-reduced-motion: reduce) {
+    #logo #mustache {
+      animation: none !important;
+    }
 
-  // Changes take effect at once. A near-zero duration still fires `transitionend` events.
-  *,
-  ::before,
-  ::after {
-    transition-duration: 0.01ms !important;
+    // Changes take effect at once. A near-zero duration still fires `transitionend` events.
+    *,
+    ::before,
+    ::after {
+      transition-duration: 0.01ms !important;
+    }
   }
 }

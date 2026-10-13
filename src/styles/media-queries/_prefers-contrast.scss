@@ -1,51 +1,55 @@
-// The dark palette already has high contrast,
-// so these colors apply only to the light palette.
-@media (prefers-contrast: more) and (prefers-color-scheme: light) {
-  @supports (color: color(display-p3 1 1 1)) {
-    :root {
-      --red: color(display-p3 0.8431 0 0.08235);
-      --orange: color(display-p3 0.62 0.31 0);
-      --yellow: color(display-p3 0.702 0.3843 0);
-      --green: color(display-p3 0.1412 0.5412 0.2392);
-      --teal: color(display-p3 0 0.4431 0.6431);
-      --blue: color(display-p3 0 0.251 0.8667);
-      --indigo: color(display-p3 0.2118 0.2039 0.6392);
-      --purple: color(display-p3 0.5373 0.2667 0.6706);
-      --pink: color(display-p3 0.8275 0.05882 0.2706);
-      --gray: color(display-p3 0.4235 0.4235 0.4392);
-      --gray2: color(display-p3 0.5569 0.5569 0.5765);
-      --gray3: color(display-p3 0.6824 0.6824 0.698);
-      --gray4: color(display-p3 0.7373 0.7373 0.7529);
-      --gray5: color(display-p3 0.8471 0.8471 0.8627);
-      --gray6: color(display-p3 0.9216 0.9216 0.9412);
+@layer tokens {
+  // The dark palette already has high contrast,
+  // so these colors apply only to the light palette.
+  @media (prefers-contrast: more) and (prefers-color-scheme: light) {
+    @supports (color: color(display-p3 1 1 1)) {
+      :root {
+        --red: color(display-p3 0.8431 0 0.08235);
+        --orange: color(display-p3 0.62 0.31 0);
+        --yellow: color(display-p3 0.702 0.3843 0);
+        --green: color(display-p3 0.1412 0.5412 0.2392);
+        --teal: color(display-p3 0 0.4431 0.6431);
+        --blue: color(display-p3 0 0.251 0.8667);
+        --indigo: color(display-p3 0.2118 0.2039 0.6392);
+        --purple: color(display-p3 0.5373 0.2667 0.6706);
+        --pink: color(display-p3 0.8275 0.05882 0.2706);
+        --gray: color(display-p3 0.4235 0.4235 0.4392);
+        --gray2: color(display-p3 0.5569 0.5569 0.5765);
+        --gray3: color(display-p3 0.6824 0.6824 0.698);
+        --gray4: color(display-p3 0.7373 0.7373 0.7529);
+        --gray5: color(display-p3 0.8471 0.8471 0.8627);
+        --gray6: color(display-p3 0.9216 0.9216 0.9412);
 
-      --text: color(display-p3 0 0 0);
-      --secondary-text: color(display-p3 0.2353 0.2353 0.2627);
-      --placeholder-text: color(display-p3 0.2353 0.2353 0.2627);
-      --separator: color(display-p3 0.2353 0.2353 0.2627);
-      --opaque-separator: color(display-p3 0.7765 0.7765 0.7843);
-      --fill: color(display-p3 0.4706 0.4706 0.502);
-      --secondary-fill: color(display-p3 0.4706 0.4706 0.502);
-      --background: color(display-p3 0.9216 0.9216 0.9412);
-      --secondary-background: color(display-p3 1 1 1);
+        --text: color(display-p3 0 0 0);
+        --secondary-text: color(display-p3 0.2353 0.2353 0.2627);
+        --placeholder-text: color(display-p3 0.2353 0.2353 0.2627);
+        --separator: color(display-p3 0.2353 0.2353 0.2627);
+        --opaque-separator: color(display-p3 0.7765 0.7765 0.7843);
+        --fill: color(display-p3 0.4706 0.4706 0.502);
+        --secondary-fill: color(display-p3 0.4706 0.4706 0.502);
+        --background: color(display-p3 0.9216 0.9216 0.9412);
+        --secondary-background: color(display-p3 1 1 1);
+      }
     }
   }
 }
 
-@media (prefers-contrast: more) {
-  a {
-    --link-underline: currentColor;
-    text-decoration-line: underline;
-  }
-
-  // Every tab is fully opaque, and the selected tab is underlined.
-  [role="tablist"] button {
-    &:not([aria-selected="true"]) {
-      opacity: 1;
+@layer layout {
+  @media (prefers-contrast: more) {
+    a {
+      --link-underline: currentColor;
+      text-decoration-line: underline;
     }
 
-    &[aria-selected="true"] {
-      text-decoration: underline;
+    // Every tab is fully opaque, and the selected tab is underlined.
+    [role="tablist"] button {
+      &:not([aria-selected="true"]) {
+        opacity: 1;
+      }
+
+      &[aria-selected="true"] {
+        text-decoration: underline;
+      }
     }
   }
 }

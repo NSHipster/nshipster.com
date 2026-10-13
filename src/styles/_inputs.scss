@@ -1,25 +1,28 @@
-button,
-input[type="submit"] {
-  -webkit-font-smoothing: antialiased;
-  appearance: none;
-  background-color: var(--orange);
-  border-radius: 4px;
-  border: none;
-  color: white;
-  cursor: pointer;
-  display: inline-block;
-  font-size: 1em;
-  font-weight: bold;
-  line-height: 1;
-  padding: 0.75em 1em;
-  text-decoration: none;
-  transition: background-color 0.25s;
-  user-select: none;
-  vertical-align: middle;
-  white-space: nowrap;
-}
+@layer components {
+  button,
+  input[type="submit"] {
+    -webkit-font-smoothing: antialiased;
+    appearance: none;
+    background-color: var(--orange);
+    border-radius: 4px;
+    border: none;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 1em;
+    font-weight: bold;
+    line-height: 1;
+    padding-block: 0.75em;
+    padding-inline: 1em;
+    text-decoration: none;
+    transition: background-color 0.25s;
+    user-select: none;
+    vertical-align: middle;
+    white-space: nowrap;
+  }
 
-button:hover,
-input[type="submit"]:hover {
-  color: white;
+  button:hover,
+  input[type="submit"]:hover {
+    color: white;
+  }
 }

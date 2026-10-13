@@ -1,5 +1,7 @@
-@media (hover: none) {
-  #logo #mustache {
-    animation-iteration-count: 1;
+@layer layout {
+  @media (hover: none) {
+    #logo #mustache {
+      animation-iteration-count: 1;
+    }
   }
 }

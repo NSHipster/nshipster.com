@@ -1,140 +1,34 @@
-pre.highlight {
-  background: var(--secondary-background);
-  border: 1px var(--separator-opaque) solid;
-  border-radius: 4px;
-  overflow: auto;
-  padding: 0.5em 1em;
-  margin-bottom: 1em;
+@layer components {
+  pre.highlight {
+    background: var(--secondary-background);
+    border: 1px var(--separator-opaque) solid;
+    border-radius: 4px;
+    overflow: auto;
+    padding-block: 0.5em;
+    padding-inline: 1em;
+    margin-block-end: 1em;
 
-  code {
-    color: var(--text);
-    background: transparent !important;
+    code {
+      color: var(--text);
+      background: transparent !important;
+    }
+
+    &[data-lang="JWT"] {
+      white-space: pre-wrap;
+    }
   }
 
-  &[data-lang="JWT"] {
-    white-space: pre-wrap;
-  }
-}
-
-.highlight {
-  .placeholder {
-    color: var(--text);
-  }
-
-  .o {
-    color: var(--text);
-  }
-
-  .p {
-    color: var(--gray);
-  }
-
-  .err {
-    color: var(--gray);
-  }
-
-  .s,
-  .sa,
-  .sb,
-  .sc,
-  .dl,
-  .sd,
-  .s2,
-  .sh,
-  .sx,
-  .sr,
-  .s1,
-  .ss {
-    color: var(--orange);
-  }
-
-  .se,
-  .si {
-    color: var(--text);
-  }
-
-  .k,
-  .kc,
-  .kd,
-  .kn,
-  .kp,
-  .kr {
-    color: var(--purple);
-  }
-
-  .kt {
-    color: var(--text);
-  }
-
-  .kd + .kt {
-    color: var(--text);
-  }
-
-  .go,
-  .nc,
-  .nf,
-  .nv {
-    color: var(--text);
-  }
-
-  .kt + .o + .n,
-  .nf {
-    color: var(--indigo);
-  }
-
-  .cp,
-  .c1 {
-    color: var(--gray);
-  }
-
-  .n,
-  .na,
-  .nb,
-  .bp,
-  .no,
-  .nd,
-  .ni,
-  .py,
-  .nl,
-  .nn,
-  .nx,
-  .nt,
-  .vc,
-  .vg,
-  .vi {
-    color: var(--text);
-  }
-
-  .l,
-  .ld,
-  .s,
-  .sb,
-  .sc,
-  .sd,
-  .s2,
-  .se,
-  .sh,
-  .si,
-  .sx,
-  .sr,
-  .s1,
-  .ss,
-  .m,
-  .mf,
-  .mh,
-  .mi,
-  .il,
-  .mo,
-  .mx,
-  .mb {
-    color: var(--indigo);
-  }
-}
-
-@media (prefers-color-scheme: dark) {
   .highlight {
+    .placeholder {
+      color: var(--text);
+    }
+
+    .o {
+      color: var(--text);
+    }
+
     .p {
-      color: var(--gray2);
+      color: var(--gray);
     }
 
     .err {
@@ -153,7 +47,7 @@ pre.highlight {
     .sr,
     .s1,
     .ss {
-      color: var(--green);
+      color: var(--orange);
     }
 
     .se,
@@ -167,15 +61,15 @@ pre.highlight {
     .kn,
     .kp,
     .kr {
-      color: var(--teal);
+      color: var(--purple);
     }
 
     .kt {
-      color: var(--yellow);
+      color: var(--text);
     }
 
     .kd + .kt {
-      color: var(--orange);
+      color: var(--text);
     }
 
     .go,
@@ -187,18 +81,15 @@ pre.highlight {
 
     .kt + .o + .n,
     .nf {
-      color: var(--purple);
+      color: var(--indigo);
     }
 
-    .cp {
-      color: var(--red);
-    }
-
+    .cp,
     .c1 {
-      color: var(--gray2);
+      color: var(--gray);
     }
 
-    .n + .o + .n,
+    .n,
     .na,
     .nb,
     .bp,
@@ -213,7 +104,7 @@ pre.highlight {
     .vc,
     .vg,
     .vi {
-      color: var(--pink);
+      color: var(--text);
     }
 
     .l,
@@ -238,7 +129,119 @@ pre.highlight {
     .mo,
     .mx,
     .mb {
-      color: var(--orange);
+      color: var(--indigo);
+    }
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .highlight {
+      .p {
+        color: var(--gray2);
+      }
+
+      .err {
+        color: var(--gray);
+      }
+
+      .s,
+      .sa,
+      .sb,
+      .sc,
+      .dl,
+      .sd,
+      .s2,
+      .sh,
+      .sx,
+      .sr,
+      .s1,
+      .ss {
+        color: var(--green);
+      }
+
+      .se,
+      .si {
+        color: var(--text);
+      }
+
+      .k,
+      .kc,
+      .kd,
+      .kn,
+      .kp,
+      .kr {
+        color: var(--teal);
+      }
+
+      .kt {
+        color: var(--yellow);
+      }
+
+      .kd + .kt {
+        color: var(--orange);
+      }
+
+      .go,
+      .nc,
+      .nf,
+      .nv {
+        color: var(--text);
+      }
+
+      .kt + .o + .n,
+      .nf {
+        color: var(--purple);
+      }
+
+      .cp {
+        color: var(--red);
+      }
+
+      .c1 {
+        color: var(--gray2);
+      }
+
+      .n + .o + .n,
+      .na,
+      .nb,
+      .bp,
+      .no,
+      .nd,
+      .ni,
+      .py,
+      .nl,
+      .nn,
+      .nx,
+      .nt,
+      .vc,
+      .vg,
+      .vi {
+        color: var(--pink);
+      }
+
+      .l,
+      .ld,
+      .s,
+      .sb,
+      .sc,
+      .sd,
+      .s2,
+      .se,
+      .sh,
+      .si,
+      .sx,
+      .sr,
+      .s1,
+      .ss,
+      .m,
+      .mf,
+      .mh,
+      .mi,
+      .il,
+      .mo,
+      .mx,
+      .mb {
+        color: var(--orange);
+      }
     }
   }
 }

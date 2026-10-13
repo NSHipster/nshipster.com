@@ -1,90 +1,94 @@
 @use "font-stacks";
 
-@mixin border-icon($name) {
-  content: " ";
-  background-image: url("../../assets/images/#{$name}.svg");
-  background-size: 24px 24px;
-  width: 24px;
-  height: 24px;
-  position: absolute;
-  display: block;
-  margin-left: -54px;
-  margin-top: 10px;
-  z-index: 100;
-}
-
-.admonition {
-  --code: var(--link);
-  font-family: font-stacks.$sans-serif;
-  border-left: 4px var(--separator) solid;
-  padding: 5px 40px;
-  margin: 1.5em 0;
-  display: block;
-  clear: both;
-  overflow: visible;
-  font-size: smaller;
-
-  a {
-    text-decoration: underline;
+@layer components {
+  @mixin border-icon($name) {
+    content: " ";
+    background-image: url("../../assets/images/#{$name}.svg");
+    background-size: 24px 24px;
+    inline-size: 24px;
+    block-size: 24px;
+    position: absolute;
+    display: block;
+    margin-inline-start: -54px;
+    margin-block-start: 10px;
+    z-index: 100;
   }
 
-  p {
-    margin: 0.5em 0;
-  }
+  .admonition {
+    --code: var(--link);
+    font-family: font-stacks.$sans-serif;
+    border-inline-start: 4px var(--separator) solid;
+    padding-block: 5px;
+    padding-inline: 40px;
+    margin-block: 1.5em;
+    margin-inline: 0;
+    display: block;
+    clear: both;
+    overflow: visible;
+    font-size: smaller;
+    background-color: var(--_bg, transparent);
 
-  dl {
-    padding: 0.5em 0 !important;
-    margin-bottom: 1em !important;
-  }
-
-  pre code {
-    font-size: small;
-    line-height: 1;
-  }
-
-  th,
-  td {
-    padding: 0.5em !important;
-  }
-
-  blockquote {
-    margin-left: 0 !important;
-    margin-top: 0.25em !important;
-    margin-bottom: 0.25em !important;
-    border-left-color: var(--separator) !important;
-  }
-
-  ins {
-    background: transparent !important;
-  }
-
-  &.info {
-    --link: var(--blue);
-    --separator: var(--blue);
-    --background: #edf5fa;
-
-    &:before {
-      @include border-icon("info");
+    a {
+      text-decoration: underline;
     }
-  }
 
-  &.warning {
-    --background: #fcfaf6;
-    --separator: var(--yellow);
-    --link: rgb(178, 129, 6);
-
-    &:before {
-      @include border-icon("warning");
+    p {
+      margin-block: 0.5em;
     }
-  }
 
-  &.error {
-    --background: #fcf2f6;
-    --link: var(--pink);
-    --separator: var(--pink);
+    dl {
+      padding-block: 0.5em;
+      margin-block-end: 1em;
+    }
 
-    &:before {
-      @include border-icon("error");
+    pre code {
+      font-size: small;
+      line-height: 1;
+    }
+
+    th,
+    td {
+      padding: 0.5em;
+    }
+
+    blockquote {
+      margin-inline-start: 0;
+      margin-block: 0.25em;
+      border-inline-start-color: var(--separator);
+    }
+
+    ins {
+      background: transparent;
+    }
+
+    &.info {
+      --_bg: light-dark(#edf5fa, #333c44);
+      --link: var(--blue);
+      --separator: var(--blue);
+
+      &::before {
+        @include border-icon("info");
+      }
+    }
+
+    &.warning {
+      --_bg: light-dark(#fcfaf6, #484131);
+      --separator: var(--yellow);
+      --link: rgb(178, 129, 6);
+
+      &::before {
+        @include border-icon("warning");
+      }
+    }
+
+    &.error {
+      --_bg: light-dark(#fcf2f6, #592e41);
+      --link: var(--pink);
+      --separator: var(--pink);
+
+      &::before {
+        @include border-icon("error");
+      }
     }
   }
 }

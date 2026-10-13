@@ -1,357 +1,363 @@
 @use "font-stacks";
 
-html,
-body {
-  font-family: font-stacks.$serif;
-  font-size: 16pt;
-  line-height: 21pt;
-  font-weight: 300;
-  font-kerning: normal;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  font-family: font-stacks.$sans-serif;
-  line-height: 1.1em;
-  margin: 0 0 1rem 0;
-
-  small {
-    display: block;
-    font-size: small;
-    font-variant: small-caps;
-    text-transform: uppercase;
-    font-weight: normal;
-    line-height: 2;
-    letter-spacing: 0.2ch;
+@layer base {
+  html,
+  body {
+    font-family: font-stacks.$serif;
+    font-size: 16pt;
+    line-height: 21pt;
+    font-weight: 300;
+    font-kerning: normal;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
   }
 
-  em {
-    font-style: normal;
-  }
-}
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: font-stacks.$sans-serif;
+    line-height: 1.1em;
+    margin-block: 0 1rem;
+    margin-inline: 0;
 
-h1 {
-  font-size: 2.5em;
-}
+    small {
+      display: block;
+      font-size: small;
+      font-variant: small-caps;
+      text-transform: uppercase;
+      font-weight: normal;
+      line-height: 2;
+      letter-spacing: 0.2ch;
+    }
 
-h2 {
-  font-size: 2em;
-}
-
-h3 {
-  font-size: 1.5em;
-}
-
-h4 {
-  font-size: 1.25em;
-}
-
-h5 {
-  font-size: 1.125em;
-}
-
-h6 {
-  font-size: 1em;
-}
-
-p {
-  margin: 0 0 1rem 0;
-}
-
-a {
-  --link-underline: color-mix(in srgb, currentColor 40%, transparent);
-  transition:
-    color 0.1s linear,
-    text-decoration-color 0.1s linear;
-  text-decoration: none;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.2em;
-
-  &,
-  &:visited {
-    color: var(--link);
-  }
-
-  &:hover {
-    text-decoration-line: underline;
-    text-decoration-color: currentColor;
-    text-decoration-thickness: 2px;
-  }
-
-  &:active {
-    background-color: color-mix(in srgb, currentColor 20%, transparent);
-  }
-
-  code {
-    white-space: nowrap;
-    text-decoration: underline;
-  }
-}
-
-// Links in running text are underlined to set them apart from the text around them.
-// Titles, the archive, and the status table list only links, so they aren't underlined.
-// The underline is faint until hover, when it becomes solid.
-:is(p, li, dd, td, th, blockquote, figcaption, .byline) a:not(:where(.title, .title a, .archive a, #status a)) {
-  text-decoration-line: underline;
-
-  &:not(:hover) {
-    text-decoration-color: var(--link-underline);
-  }
-}
-
-p > small {
-  font-size: inherit;
-  font-variant: small-caps;
-  text-transform: lowercase;
-}
-
-:not(pre) > code {
-  user-select: all;
-}
-
-:is(a, p, li, dd, td) {
-  code {
-    padding: 0.25em;
-    font-size: smaller;
-    border-radius: 4px;
-  }
-}
-
-:is(p, li, dd, td) {
-  code {
-    color: var(--code);
-  }
-}
-
-ol,
-ul {
-  li {
-    margin-bottom: 0.5em;
-  }
-}
-
-pre {
-  font-family: font-stacks.$serif;
-}
-
-code,
-samp {
-  font-family: font-stacks.$mono;
-}
-
-pre code,
-samp {
-  font-size: smaller;
-  line-height: 1.1em;
-}
-
-samp {
-  white-space: pre;
-  overflow: scroll;
-  display: block;
-  padding: 0.5em 0;
-}
-
-section > h1 {
-  font-family: font-stacks.$serif;
-  font-weight: 300;
-  font-size: 1.5em;
-  text-align: center;
-  margin-bottom: 2rem;
-  margin-top: 2rem;
-}
-
-article.excerpt h1 {
-  font-size: 1.5em;
-}
-
-a.readmore {
-  font-style: italic;
-}
-
-kbd {
-  border-radius: 4px;
-  border: 1px var(--separator) solid;
-  box-shadow:
-    0 1px 0 rgba(0, 0, 0, 0.2),
-    0 0 0 2px #fff inset;
-  font-family: font-stacks.$sans-serif;
-  font-variant: small-caps;
-  margin: 0 0.1em;
-  padding: 0.1em 0.6em;
-  text-transform: lowercase;
-}
-
-abbr,
-.small-caps {
-  font-variant: small-caps;
-  text-transform: lowercase;
-}
-
-.placeholder {
-  color: var(--placeholder-text);
-  display: inline-block;
-  padding: 0.25em;
-  border: 1px var(--opaque-separator) solid;
-  border-radius: 4px;
-  font-style: normal;
-
-  &.optional {
-    opacity: 0.5;
-  }
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-  &:hover .anchor::before {
-    opacity: 1;
-  }
-}
-
-.title {
-  font-family: font-stacks.$sans-serif;
-  font-weight: 700;
-}
-
-.anchor {
-  &:focus {
-    outline: none;
-  }
-
-  &::before {
-    content: "#";
-    opacity: 0;
-    transition: 300ms opacity;
-    position: absolute;
-    float: left;
-    margin-left: -1.5em;
-    padding: 0 0.5em;
-    color: var(--secondary-text) !important;
-    text-decoration: none;
-  }
-}
-
-.tagline {
-  font-size: 1.33em;
-}
-
-#latest {
-  small {
-    font-style: italic;
-  }
-}
-
-[role="article"] {
-  header {
-    h1 {
-      font-size: 3.5em;
-      line-height: 1;
-      margin-bottom: 0.5rem;
-      padding: 0.5rem 0;
+    em {
+      font-style: normal;
     }
   }
-}
 
-// Article titles scale with the width of the header, from 16px to 72px.
-// Browsers without container query units use the fixed size above.
-[role="article"] > header {
-  container-type: inline-size;
-
-  h1.title {
-    font-size: clamp(0.75rem, 10cqi, 3.375rem);
-
-    // A container's margins don't collapse with its children's,
-    // so a title without a byline below it drops its own margin.
-    &:last-child {
-      margin-bottom: 0;
-    }
-  }
-}
-
-#archive {
-  dd {
-    font-size: smaller;
-    display: list-item;
-    list-style: circle;
-  }
-}
-
-.nowrap {
-  white-space: nowrap;
-}
-
-[lang*="-fonipa"] {
-  font-family: font-stacks.$sans-serif;
-  font-weight: normal;
-  font-style: normal;
-}
-
-[lang*="-Zsye"] {
-  font-style: normal !important;
-}
-
-figcaption {
-  font-style: italic;
-  font-size: smaller;
-}
-
-table * {
-  font-feature-settings: "tnum";
-}
-
-aside.parenthetical {
-  font-size: smaller;
-  font-style: italic;
-  color: var(--secondary-text);
-  padding-bottom: 1em;
-
-  p:before {
-    content: "(";
+  h1 {
+    font-size: 2.5em;
   }
 
-  p:after {
-    content: ")";
+  h2 {
+    font-size: 2em;
   }
 
-  a,
-  code {
-    color: var(--secondary-text) !important;
-    background: transparent !important;
+  h3 {
+    font-size: 1.5em;
+  }
+
+  h4 {
+    font-size: 1.25em;
+  }
+
+  h5 {
+    font-size: 1.125em;
+  }
+
+  h6 {
+    font-size: 1em;
+  }
+
+  p {
+    margin-block: 0 1rem;
+    margin-inline: 0;
   }
 
   a {
-    text-decoration: underline;
+    --link-underline: color-mix(in srgb, currentColor 40%, transparent);
+    transition:
+      color 0.1s linear,
+      text-decoration-color 0.1s linear;
+    text-decoration: none;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 0.2em;
+
+    &,
+    &:visited {
+      color: var(--link);
+    }
+
+    &:hover {
+      text-decoration-line: underline;
+      text-decoration-color: currentColor;
+      text-decoration-thickness: 2px;
+    }
+
+    &:active {
+      background-color: color-mix(in srgb, currentColor 20%, transparent);
+    }
+
+    code {
+      white-space: nowrap;
+      text-decoration: underline;
+    }
   }
-}
 
-li aside.parenthetical {
-  display: inline-block;
-  padding-bottom: 0;
+  // Links in running text are underlined to set them apart from the text around them.
+  // Titles, the archive, and the status table list only links, so they aren't underlined.
+  // The underline is faint until hover, when it becomes solid.
+  :is(p, li, dd, td, th, blockquote, figcaption, .byline) a:not(:where(.title, .title a, .archive a, #status a)) {
+    text-decoration-line: underline;
 
-  p {
-    margin-bottom: 0;
+    &:not(:hover) {
+      text-decoration-color: var(--link-underline);
+    }
   }
-}
 
-.bibliography {
-  font-size: smaller;
-}
+  p > small {
+    font-size: inherit;
+    font-variant: small-caps;
+    text-transform: lowercase;
+  }
 
-del {
-  opacity: 0.5;
-}
+  :not(pre) > code {
+    user-select: all;
+  }
 
-[role="contentinfo"] i {
-  font-family: var(--font-creative-commons);
-  font-style: normal;
+  :is(a, p, li, dd, td) {
+    code {
+      padding: 0.25em;
+      font-size: smaller;
+      border-radius: 4px;
+    }
+  }
+
+  :is(p, li, dd, td) {
+    code {
+      color: var(--code);
+    }
+  }
+
+  ol,
+  ul {
+    li {
+      margin-block-end: 0.5em;
+    }
+  }
+
+  pre {
+    font-family: font-stacks.$serif;
+  }
+
+  code,
+  samp {
+    font-family: font-stacks.$mono;
+  }
+
+  pre code,
+  samp {
+    font-size: smaller;
+    line-height: 1.1em;
+  }
+
+  samp {
+    white-space: pre;
+    overflow: scroll;
+    display: block;
+    padding-block: 0.5em;
+    padding-inline: 0;
+  }
+
+  section > h1 {
+    font-family: font-stacks.$serif;
+    font-weight: 300;
+    font-size: 1.5em;
+    text-align: center;
+    margin-block: 2rem;
+  }
+
+  article.excerpt h1 {
+    font-size: 1.5em;
+  }
+
+  a.readmore {
+    font-style: italic;
+  }
+
+  kbd {
+    border-radius: 4px;
+    border: 1px var(--separator) solid;
+    box-shadow:
+      0 1px 0 rgba(0, 0, 0, 0.2),
+      0 0 0 2px #fff inset;
+    font-family: font-stacks.$sans-serif;
+    font-variant: small-caps;
+    margin-block: 0;
+    margin-inline: 0.1em;
+    padding-block: 0.1em;
+    padding-inline: 0.6em;
+    text-transform: lowercase;
+  }
+
+  abbr,
+  .small-caps {
+    font-variant: small-caps;
+    text-transform: lowercase;
+  }
+
+  .placeholder {
+    color: var(--placeholder-text);
+    display: inline-block;
+    padding: 0.25em;
+    border: 1px var(--opaque-separator) solid;
+    border-radius: 4px;
+    font-style: normal;
+
+    &.optional {
+      opacity: 0.5;
+    }
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    &:hover .anchor::before {
+      opacity: 1;
+    }
+  }
+
+  .title {
+    font-family: font-stacks.$sans-serif;
+    font-weight: 700;
+  }
+
+  .anchor {
+    &:focus:not(:focus-visible) {
+      outline: none;
+    }
+
+    &::before {
+      content: "#";
+      opacity: 0;
+      transition: 300ms opacity;
+      position: absolute;
+      margin-inline-start: -1.5em;
+      padding-inline: 0.5em;
+      color: var(--secondary-text);
+      text-decoration: none;
+    }
+  }
+
+  .tagline {
+    font-size: 1.33em;
+  }
+
+  #latest {
+    small {
+      font-style: italic;
+    }
+  }
+
+  [role="article"] {
+    header {
+      h1 {
+        font-size: 3.5em;
+        line-height: 1;
+        margin-block-end: 0.5rem;
+        padding-block: 0.5rem;
+        padding-inline: 0;
+      }
+    }
+  }
+
+  // Article titles scale with the width of the header, from 16px to 72px.
+  // Browsers without container query units use the fixed size above.
+  [role="article"] > header {
+    container-type: inline-size;
+
+    h1.title {
+      font-size: clamp(0.75rem, 10cqi, 3.375rem);
+
+      // A container's margins don't collapse with its children's,
+      // so a title without a byline below it drops its own margin.
+      &:last-child {
+        margin-block-end: 0;
+      }
+    }
+  }
+
+  #archive {
+    dd {
+      font-size: smaller;
+      display: list-item;
+      list-style: circle;
+    }
+  }
+
+  .nowrap {
+    white-space: nowrap;
+  }
+
+  [lang*="-fonipa"] {
+    font-family: font-stacks.$sans-serif;
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  [lang*="-Zsye"] {
+    font-style: normal !important;
+  }
+
+  figcaption {
+    font-style: italic;
+    font-size: smaller;
+  }
+
+  table * {
+    font-feature-settings: "tnum";
+  }
+
+  aside.parenthetical {
+    font-size: smaller;
+    font-style: italic;
+    color: var(--secondary-text);
+    padding-block-end: 1em;
+
+    p::before {
+      content: "(";
+    }
+
+    p::after {
+      content: ")";
+    }
+
+    a,
+    code {
+      color: var(--secondary-text) !important;
+      background: transparent !important;
+    }
+
+    a {
+      text-decoration: underline;
+    }
+  }
+
+  li aside.parenthetical {
+    display: inline-block;
+    padding-block-end: 0;
+
+    p {
+      margin-block-end: 0;
+    }
+  }
+
+  .bibliography {
+    font-size: smaller;
+  }
+
+  del {
+    opacity: 0.5;
+  }
+
+  [role="contentinfo"] i {
+    font-family: var(--font-creative-commons);
+    font-style: normal;
+  }
 }

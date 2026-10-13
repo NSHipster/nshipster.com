@@ -1,85 +1,87 @@
-@media (monochrome), print and (not (color)) {
-  :root {
-    --red: black;
-    --yellow: black;
-    --green: black;
-    --teal: black;
-    --blue: black;
-    --indigo: black;
-    --purple: black;
-    --pink: black;
-    --gray: black;
-    --gray2: black;
-    --gray3: black;
-    --gray4: black;
-    --gray5: black;
-    --gray6: black;
+@layer layout {
+  @media (monochrome), print and (not (color)) {
+    :root {
+      --red: black;
+      --yellow: black;
+      --green: black;
+      --teal: black;
+      --blue: black;
+      --indigo: black;
+      --purple: black;
+      --pink: black;
+      --gray: black;
+      --gray2: black;
+      --gray3: black;
+      --gray4: black;
+      --gray5: black;
+      --gray6: black;
 
-    --text: black;
-    --secondary-text: black;
-    --placeholder-text: black;
-    --separator: black;
-    --opaque-separator: black;
-    --fill: white;
-    --secondary-fill: white;
-    --background: white;
-    --secondary-background: white;
-  }
-
-  .highlight {
-    color: black !important;
-    background: #fff !important;
-
-    border: 2px black solid;
-
-    .c,
-    .ch,
-    .cm,
-    .cpf,
-    .c1,
-    .cs,
-    .ge,
-    .s,
-    .sa,
-    .sb,
-    .sc,
-    .dl,
-    .sd,
-    .s2,
-    .sh,
-    .sx,
-    .sr,
-    .s1,
-    .ss {
-      font-style: italic;
+      --text: black;
+      --secondary-text: black;
+      --placeholder-text: black;
+      --separator: black;
+      --opaque-separator: black;
+      --fill: white;
+      --secondary-fill: white;
+      --background: white;
+      --secondary-background: white;
     }
 
-    .k,
-    .gh,
-    .gp,
-    .gs,
-    .gu,
-    .kc,
-    .kd,
-    .kn,
-    .kr,
-    .nc,
-    .ni,
-    .ne,
-    .nn,
-    .nt,
-    .ow {
-      font-weight: bold;
+    .highlight {
+      color: black !important;
+      background: #fff !important;
+
+      border: 2px black solid;
+
+      .c,
+      .ch,
+      .cm,
+      .cpf,
+      .c1,
+      .cs,
+      .ge,
+      .s,
+      .sa,
+      .sb,
+      .sc,
+      .dl,
+      .sd,
+      .s2,
+      .sh,
+      .sx,
+      .sr,
+      .s1,
+      .ss {
+        font-style: italic;
+      }
+
+      .k,
+      .gh,
+      .gp,
+      .gs,
+      .gu,
+      .kc,
+      .kd,
+      .kn,
+      .kr,
+      .nc,
+      .ni,
+      .ne,
+      .nn,
+      .nt,
+      .ow {
+        font-weight: bold;
+      }
+
+      .se,
+      .si {
+        font-weight: bold;
+        font-style: italic;
+      }
     }
 
-    .se,
-    .si {
-      font-weight: bold;
-      font-style: italic;
+    .admonition::before {
+      visibility: hidden;
     }
-  }
-
-  .admonition:before {
-    visibility: hidden;
   }
 }
