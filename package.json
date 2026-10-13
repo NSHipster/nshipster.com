@@ -47,10 +47,10 @@
     "@vitest/browser-playwright": "^4.1.11",
     "fast-xml-validator": "^1.4.2",
     "playwright": "^1.63.0",
-    "sharp": "^0.35.4",
+    "sharp": "^0.35.5",
     "typescript": "^6.0.3",
     "vite-plus": "^0.3.3",
-    "wrangler": "^4.145.0"
+    "wrangler": "^4.150.0"
   },
   "engines": {
     "node": ">=24"
