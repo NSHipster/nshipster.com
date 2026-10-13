@@ -1,4 +1,4 @@
-/** English interface strings from `_i18n/en-US.yml`. */
+/** English interface strings. */
 export const t = {
   continueReading: "Continue Reading",
   recentArticles: "Recent Articles",

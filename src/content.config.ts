@@ -34,7 +34,7 @@ const posts = defineCollection({
 /** Pages that use the article layout. */
 const pages = defineCollection({
   loader: postsLoader({
-    directory: ".",
+    directory: paths.pages,
     articles: false,
     files: [
       { file: "return.md", slug: "return" },

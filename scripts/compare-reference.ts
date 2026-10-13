@@ -72,10 +72,8 @@ for (const route of builtRoutes) {
 
 // Author avatars now use Astro's image pipeline instead of `/assets/`.
 const avatars = new Set(
-  readdirSync(path.join(ROOT, "collections/en/_authors"))
-    .map(
-      (file) => readFileSync(path.join(ROOT, "collections/en/_authors", file), "utf8").match(/^image:\s*(\S+)/m)?.[1],
-    )
+  readdirSync(path.join(ROOT, "src/content/authors"))
+    .map((file) => readFileSync(path.join(ROOT, "src/content/authors", file), "utf8").match(/^image:\s*(\S+)/m)?.[1])
     .filter(Boolean),
 );
 // Compare without extensions: the Jekyll pipeline renamed some, e.g. `.m4v` to `.mp4`.

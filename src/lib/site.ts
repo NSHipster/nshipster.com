@@ -38,12 +38,11 @@ export const site = {
 
 export const paths = {
   posts: "collections/en/_posts",
-  authors: "collections/en/_authors",
-  books: "collections/en/_books",
+  authors: "src/content/authors",
+  books: "src/content/books",
+  pages: "src/content/pages",
   bibliography: "_bibliography/references.bib",
-  i18n: "_i18n/en-US.yml",
   assets: "assets",
-  wellKnown: ".well-known",
 } as const;
 
 export function absoluteURL(path: string): string {

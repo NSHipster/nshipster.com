@@ -1,5 +1,4 @@
 ---
-layout: post
 date: 2018-07-09
 title: Returning to Our Regularly Scheduled Programming
 author: Mattt

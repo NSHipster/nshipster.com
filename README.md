@@ -72,6 +72,11 @@ Code is highlighted with [Shiki](https://shiki.style),
 and citations are formatted with [Citation.js](https://citation.js.org)
 from `_bibliography/references.bib`.
 
+Authors, books, and article-like pages live in `src/content/`.
+Files served as-is from the site root, such as icons and `robots.txt`,
+live in `public/`, which Astro copies to the output without changes.
+The links in `public/.well-known/` serve the same files under `/.well-known/`.
+
 Files in `assets/` are published under `/assets/` with content-hashed names.
 Use them in articles with the `{% asset %}` tag, as before.
 Fonts and author portraits are the exceptions.

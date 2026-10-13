@@ -1,5 +1,4 @@
 ---
-layout: post
 date: 2019-02-01
 title: Flight School
 author: Mattt
