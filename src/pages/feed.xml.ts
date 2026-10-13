@@ -1,5 +1,5 @@
 import type { APIRoute } from "astro";
-import { authorNamed, postsByUpdate } from "../lib/collections.ts";
+import { authorNamed, postHTML, postsByUpdate } from "../lib/collections.ts";
 import { site } from "../lib/site.ts";
 import { escapeXML, smartify, stripHTML } from "../lib/text.ts";
 
@@ -21,7 +21,7 @@ export const GET: APIRoute = async ({ site: origin }) => {
     <published>${data.date.toISOString()}</published>
     <updated>${data.updatedOn.toISOString()}</updated>
     <id>${escapeXML(absolute(`/${data.slug}`))}</id>
-    <content type="html" xml:base="${escapeXML(url)}">${escapeXML((post.rendered?.html ?? "").trim())}</content>
+    <content type="html" xml:base="${escapeXML(url)}">${escapeXML((await postHTML(post)).trim())}</content>
     <author>
       <name>${escapeXML(author?.data.name ?? site.author.name)}</name>${
         (author ? author.data.email : site.author.email)

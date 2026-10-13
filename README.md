@@ -82,6 +82,13 @@ Heading anchors and secured external links,
 which the legacy HTML transformations add,
 come from the heading and link components
 that the article route passes to MDX content.
+Converted articles keep their file names with an `.mdx` extension
+and import components from `../../../src/components/articles/`.
+Quote front matter values that must keep their written form,
+such as `swift: "5.0"`,
+because the MDX front matter parser does not preserve the original text.
+An article must not exist as both `.md` and `.mdx`;
+the build fails if a slug appears in both collections.
 
 Articles were written for Kramdown,
 so `src/lib/render/kramdown.ts` and `src/lib/render/markdown.ts`
