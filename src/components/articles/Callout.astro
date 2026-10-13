@@ -1,0 +1,11 @@
+---
+interface Props {
+  type: "info" | "warning" | "error";
+}
+
+const { type } = Astro.props;
+---
+
+<aside class={`admonition ${type}`}>
+  <slot />
+</aside>

@@ -302,6 +302,11 @@ export function assetManifest(): AssetManifest {
   return shared;
 }
 
+/** The public URL of an asset by logical name, for use in MDX expressions. */
+export function assetUrl(name: string): string {
+  return assetManifest().url(name);
+}
+
 /** Discards the shared manifest so that changed files are picked up. */
 export function resetAssetManifest(): void {
   shared = undefined;

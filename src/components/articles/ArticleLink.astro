@@ -1,0 +1,20 @@
+---
+interface Props {
+  href?: string;
+  rel?: string;
+  [attribute: string]: unknown;
+}
+
+const { href, rel, ...rest } = Astro.props;
+// Match the legacy pipeline, which secures cross-origin links in article HTML.
+let external = false;
+if (href) {
+  try {
+    external = new URL(href, Astro.site).origin !== Astro.site!.origin;
+  } catch {
+    external = true;
+  }
+}
+---
+
+<a {...rest} href={href} rel={external ? "noopener noreferrer" : rel}><slot /></a>

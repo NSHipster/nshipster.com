@@ -1,15 +1,16 @@
 ---
-import type { CollectionEntry } from "astro:content";
 import Base from "./Base.astro";
 import Contributor from "../components/Contributor.astro";
 import JsonLd from "../components/JsonLd.astro";
 import { authorNamed, type Post } from "../lib/collections.ts";
+import type { PostEntryData } from "../lib/content/loaders.ts";
 import { formatDate } from "../lib/dates.ts";
 import { t } from "../lib/i18n.ts";
 import { camelBreak, plainText, stripHTML } from "../lib/text.ts";
 
 interface Props {
-  entry: CollectionEntry<"posts"> | CollectionEntry<"pages">;
+  /** Normalized post data, from either the legacy loader or an MDX entry. */
+  post: PostEntryData;
   /** Whether the entry is an article, as opposed to a page with the article layout. */
   isArticle: boolean;
   next?: Post | undefined;
@@ -18,8 +19,7 @@ interface Props {
   continueWith?: Post | undefined;
 }
 
-const { entry, isArticle, next, previous, continueWith } = Astro.props;
-const post = entry.data;
+const { post, isArticle, next, previous, continueWith } = Astro.props;
 const author = await authorNamed(post.author);
 const coauthors = await Promise.all(post.authors.map(async (name) => ({ name, author: await authorNamed(name) })));
 const title = camelBreak(stripHTML(post.title));

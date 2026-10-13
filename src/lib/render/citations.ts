@@ -49,32 +49,44 @@ function entry(key: string): Entry {
 
 const escapeAttribute = (value: string) => value.replace(/&/g, "&amp;").replace(/"/g, "&quot;");
 
+/** Formats in-text citations for the given bibliography keys, as HTML links to their entries. */
+export function citationHTML(keys: string[]): string {
+  return keys
+    .map((key) => {
+      const text = format(entry(key), "citation", "text");
+      return `<a class="citation" href="#${escapeAttribute(key)}">${escapeText(text)}</a>`;
+    })
+    .join(" ");
+}
+
+/** Formats a bibliography list for the given keys, in the order given. */
+export function bibliographyHTML(keys: string[]): string {
+  const items = keys.map((key) => {
+    const html = format(entry(key), "bibliography", "html");
+    const body = html
+      .replace(/^[\s\S]*?<div[^>]*class="csl-entry"[^>]*>/, "")
+      .replace(/<\/div>\s*<\/div>\s*$/, "")
+      .replace(/&#38;/g, "&amp;")
+      .trim();
+    return `<li><span id="${escapeAttribute(key)}">${body}</span></li>`;
+  });
+  return `<ol class="bibliography">${items.join("")}</ol>`;
+}
+
 /** Tracks the citations in a single document, in the order they appear. */
 export class CitationContext {
   readonly cited: string[] = [];
 
   cite(keys: string[]): string {
-    return keys
-      .map((key) => {
-        const data = entry(key);
-        if (!this.cited.includes(key)) this.cited.push(key);
-        const text = format(data, "citation", "text");
-        return `<a class="citation" href="#${escapeAttribute(key)}">${escapeText(text)}</a>`;
-      })
-      .join(" ");
+    for (const key of keys) {
+      entry(key);
+      if (!this.cited.includes(key)) this.cited.push(key);
+    }
+    return citationHTML(keys);
   }
 
   bibliography(): string {
-    const items = this.cited.map((key) => {
-      const html = format(entry(key), "bibliography", "html");
-      const body = html
-        .replace(/^[\s\S]*?<div[^>]*class="csl-entry"[^>]*>/, "")
-        .replace(/<\/div>\s*<\/div>\s*$/, "")
-        .replace(/&#38;/g, "&amp;")
-        .trim();
-      return `<li><span id="${escapeAttribute(key)}">${body}</span></li>`;
-    });
-    return `<ol class="bibliography">${items.join("")}</ol>`;
+    return bibliographyHTML(this.cited);
   }
 }
 

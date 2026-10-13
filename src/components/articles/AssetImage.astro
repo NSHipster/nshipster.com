@@ -1,0 +1,42 @@
+---
+import { assetManifest } from "../../lib/assets.ts";
+import { imageSizes, imageSrcset } from "../../lib/render/transforms.ts";
+
+interface Props {
+  /** The logical asset name, as in the legacy `{% asset %}` tag. */
+  name: string;
+  alt?: string;
+  width?: number;
+  height?: number;
+  /** Set for the first image in an article. Other images load lazily. */
+  eager?: boolean;
+  role?: "img";
+  [attribute: string]: unknown;
+}
+
+const { name, alt = "", width, height, eager = false, role: suppliedRole, ...rest } = Astro.props;
+const assets = assetManifest();
+const asset = assets.resolve(name);
+const { url } = assets.build(asset);
+const size = await assets.size(asset);
+const variants = size ? await assets.variants(asset) : [];
+// Calculate whichever dimension is missing, as the legacy transform does.
+const resolvedWidth = width ?? (size && height ? Math.round((height * size.width) / size.height) : size?.width);
+const resolvedHeight =
+  height ?? (size && width ? Math.round((width * size.height) / size.width) : size?.height);
+const role = suppliedRole ?? (url.endsWith(".svg") ? "img" : undefined);
+const srcset = size && variants.length > 0 ? imageSrcset(url, { ...size, variants }) : undefined;
+const sizes = srcset && resolvedWidth ? imageSizes(resolvedWidth) : undefined;
+---
+
+<img
+  {...rest}
+  role={role}
+  src={url}
+  alt={alt}
+  width={resolvedWidth}
+  height={resolvedHeight}
+  loading={eager ? undefined : "lazy"}
+  srcset={srcset}
+  sizes={sizes}
+/>

@@ -56,6 +56,7 @@ export default defineConfig({
       "public/**",
       ".context/**",
       "*.md",
+      "*.mdx",
       "*.html",
       "*.xml",
       "tests/reference/**",
