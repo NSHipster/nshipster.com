@@ -57,6 +57,10 @@ description = "Report the heaviest pages and largest images in dist/"
 depends = ["build"]
 run = "node scripts/audit-page-weight.ts"
 
+[tasks."icons:generate"]
+description = "Generate browser, home screen, and installed app icons from the SVG logo"
+run = "node scripts/generate-icons.ts"
+
 [tasks.preview]
 description = "Serve dist/ with Cloudflare's local runtime (uses CONDUCTOR_PORT, or 8788)"
 depends = ["build"]
