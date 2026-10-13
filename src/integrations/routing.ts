@@ -59,7 +59,11 @@ export class RoutingError extends Error {}
  * A redirect whose source is now a page is omitted, as Netlify did for existing files.
  * A redirect to a missing page is an error.
  */
-export function redirects(assets: AssetManifest, exists: (pathname: string) => boolean): Redirect[] {
+export function redirects(
+  assets: AssetManifest,
+  exists: (pathname: string) => boolean,
+  stylesheetURL?: string,
+): Redirect[] {
   const rules: Redirect[] = [];
   for (const [from, to] of PAGE_REDIRECTS) {
     if (exists(from)) continue;
@@ -67,6 +71,11 @@ export function redirects(assets: AssetManifest, exists: (pathname: string) => b
     rules.push({ from, to, status: 301 }, { from: `${from}/`, to, status: 301 });
   }
   for (const [legacy, logical] of Object.entries(legacyAssetAliases()).sort(([a], [b]) => (a < b ? -1 : 1))) {
+    if (logical === "application.js") continue;
+    if (logical === "screen.css") {
+      if (stylesheetURL) rules.push({ from: legacy, to: stylesheetURL, status: 301 });
+      continue;
+    }
     // The Jekyll pipeline sometimes changed extensions, e.g. `.m4v` to `.mp4`.
     const asset = assets.find(logical) ?? assets.find(logical.replace(/\.[^./]+$/, ""));
     if (!asset) throw new RoutingError(`Legacy asset ${legacy} refers to missing asset "${logical}"`);
@@ -80,7 +89,7 @@ export function redirects(assets: AssetManifest, exists: (pathname: string) => b
 /** Response headers for Cloudflare's `_headers` file. */
 export function headers(): string {
   return `/*
-  Content-Security-Policy: default-src 'self' *.nshipster.com; script-src 'self' *.nshipster.com https://*.apple-mapkit.com; style-src 'self' 'unsafe-inline'; img-src 'self' *.gravatar.com https://*.apple-mapkit.com; frame-ancestors 'none'; object-src 'none'; connect-src 'self' *.nshipster.com https://*.apple-mapkit.com; base-uri 'none'; upgrade-insecure-requests
+  Content-Security-Policy: default-src 'self' *.nshipster.com; script-src 'self' *.nshipster.com https://*.apple-mapkit.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: *.gravatar.com https://*.apple-mapkit.com; frame-ancestors 'none'; object-src 'none'; connect-src 'self' *.nshipster.com https://*.apple-mapkit.com; base-uri 'none'; upgrade-insecure-requests
   Referrer-Policy: same-origin
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   X-Content-Type-Options: nosniff
