@@ -49,7 +49,8 @@ for (const file of [...walk(DIST)].filter((entry) => entry.endsWith(".html"))) {
       .relative(DIST, file)
       .split(path.sep)
       .join("/")
-      .replace(/index\.html$/, "");
+      .replace(/index\.html$/, "")
+      .replace(/\.html$/, "");
   const html = readFileSync(file, "utf8");
   const resources = new Set<string>();
   for (const match of html.matchAll(/<link\s[^>]*?rel="(?:stylesheet|preload)"[^>]*?href="(\/[^"#?]+)"/g))

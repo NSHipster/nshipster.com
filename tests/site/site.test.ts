@@ -40,13 +40,14 @@ async function open(pathname: string, options: BrowserContextOptions = {}) {
 describe("routing", () => {
   const fetchManual = (pathname: string) => fetch(url(pathname), { redirect: "manual" });
 
-  it("serves articles with trailing slashes and the status page without one", async () => {
-    expect((await fetchManual("/nscache/")).status).toBe(200);
-    expect((await fetchManual("/nscache")).headers.get("location")).toBe("/nscache/");
+  it("serves every page without a trailing slash", async () => {
+    expect((await fetchManual("/nscache")).status).toBe(200);
+    expect((await fetchManual("/nscache/")).headers.get("location")).toBe("/nscache");
     expect((await fetchManual("/status")).status).toBe(200);
+    expect((await fetchManual("/status/")).headers.get("location")).toBe("/status");
     expect((await fetchManual("/status.html")).headers.get("location")).toBe("/status");
-    expect((await fetchManual("/swift-1.2/")).status).toBe(200);
-    expect((await fetchManual("/__attribute__/")).status).toBe(200);
+    expect((await fetchManual("/swift-1.2")).status).toBe(200);
+    expect((await fetchManual("/__attribute__")).status).toBe(200);
   });
 
   it("responds to missing pages with the custom 404 page", async () => {
@@ -57,11 +58,11 @@ describe("routing", () => {
 
   it("redirects renamed articles and authors", async () => {
     for (const [from, to] of [
-      ["/wkwebkit", "/wkwebview/"],
-      ["/nsformatter/", "/formatter/"],
-      ["/authors/mattt-thompson", "/authors/mattt/"],
-      ["/propertyWrapper", "/propertywrapper/"],
-      ["/CocoaPods/", "/cocoapods/"],
+      ["/wkwebkit", "/wkwebview"],
+      ["/nsformatter/", "/formatter"],
+      ["/authors/mattt-thompson", "/authors/mattt"],
+      ["/propertyWrapper", "/propertywrapper"],
+      ["/CocoaPods/", "/cocoapods"],
     ]) {
       const response = await fetchManual(from!);
       expect(response.status, from).toBe(301);
@@ -69,8 +70,8 @@ describe("routing", () => {
     }
   });
 
-  it("keeps the article at /clang-diagnostics/ instead of redirecting", async () => {
-    expect((await fetchManual("/clang-diagnostics/")).status).toBe(200);
+  it("keeps the article at /clang-diagnostics instead of redirecting", async () => {
+    expect((await fetchManual("/clang-diagnostics")).status).toBe(200);
   });
 
   it("serves feeds, sitemaps, and manifests with their content types", async () => {

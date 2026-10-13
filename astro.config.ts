@@ -12,9 +12,14 @@ const merriweather = (file: string, weight: number, style: "normal" | "italic") 
 export default defineConfig({
   site: "https://nshipster.com",
   output: "static",
-  // Keep `status.html` at `/status` while articles use `/slug/index.html`.
-  build: { format: "preserve" },
-  trailingSlash: "ignore",
+  // Serve every page at its extensionless, no-trailing-slash URL,
+  // so canonical tags, the sitemap, and feed links match what is served.
+  trailingSlash: "never",
+  build: {
+    // `file` emits `/nscache.html`, served directly at `/nscache`,
+    // instead of `/nscache/index.html`, which forces a redirect.
+    format: "file",
+  },
   markdown: {
     processor: markdownProcessor(),
     // Code is highlighted by the processor's own Shiki plugin.

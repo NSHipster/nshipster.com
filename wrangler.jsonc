@@ -9,7 +9,7 @@
   "preview_urls": true,
   "assets": {
     "directory": "./dist",
-    // `/nscache/` serves `nscache/index.html`; `/status` serves `status.html`.
+    // `/nscache` serves `nscache.html`, and `/nscache/` redirects to it.
     "html_handling": "auto-trailing-slash",
     "not_found_handling": "404-page",
   },
