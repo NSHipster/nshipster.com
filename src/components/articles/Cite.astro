@@ -1,0 +1,13 @@
+---
+import { citationHTML } from "../../lib/render/citations.ts";
+
+interface Props {
+  /** One bibliography key, or several keys for a combined citation. */
+  keys: string | string[];
+}
+
+const { keys } = Astro.props;
+const html = citationHTML(Array.isArray(keys) ? keys : [keys]);
+---
+
+<Fragment set:html={html} />

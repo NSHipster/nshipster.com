@@ -1,4 +1,5 @@
 import { defineCollection } from "astro:content";
+import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 import { authorsLoader, postsLoader } from "./lib/content/loaders.ts";
 import { paths } from "./lib/site.ts";
@@ -31,17 +32,28 @@ const posts = defineCollection({
   schema: post,
 });
 
-/** Pages that use the article layout. */
+/**
+ * Pages that use the article layout, written in MDX.
+ * The glob loader parses their front matter, and `mdxPostData` applies
+ * the same normalization rules as the legacy post loader,
+ * so most values stay untyped here and are coerced there.
+ */
 const pages = defineCollection({
-  loader: postsLoader({
-    directory: paths.pages,
-    articles: false,
-    files: [
-      { file: "return.md", slug: "return" },
-      { file: "flight-school.md", slug: "flight-school" },
-    ],
+  loader: glob({ base: `./${paths.pages}`, pattern: "**/*.mdx" }),
+  schema: z.object({
+    title: z.string(),
+    date: z.unknown().optional(),
+    author: z.unknown().optional(),
+    authors: z.unknown().optional(),
+    category: z.unknown().optional(),
+    tag: z.unknown().optional(),
+    tags: z.unknown().optional(),
+    excerpt: z.unknown().optional(),
+    revisions: z.unknown().optional(),
+    status: z.unknown().optional(),
+    retired: z.unknown().optional(),
+    published: z.unknown().optional(),
   }),
-  schema: post,
 });
 
 const authors = defineCollection({

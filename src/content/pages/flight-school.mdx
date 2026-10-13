@@ -12,6 +12,8 @@ status:
   swift: n/a
 ---
 
+import Book from "../../components/articles/Book.astro";
+
 [Flight School](https://flightdotschool.com)
 is a book series for advanced Swift developers
 that explores essential topics in iOS and macOS development
@@ -30,19 +32,15 @@ I think you're gonna love what Flight School has to offer.
 
 ---
 
-{% if site.lang == "en-US" %}
-{::nomarkdown type="html"}
+<a id="get-on-with-it" />
 
 <section id="publications">
   <div class="books">
-  {% include book.html book="flight-school-guide-to-swift-codable" %}
-  {% include book.html book="flight-school-guide-to-swift-numbers" %}
-  {% include book.html book="flight-school-guide-to-swift-strings" %}
+    <Book name="flight-school-guide-to-swift-codable" eager />
+    <Book name="flight-school-guide-to-swift-numbers" />
+    <Book name="flight-school-guide-to-swift-strings" />
   </div>
 </section>
-
-{:/}
-{% endif %}
 
 ## Why I'm Writing Flight School
 

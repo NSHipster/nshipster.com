@@ -396,8 +396,8 @@ function addImageAttributes(tree: Root, images: Map<string, ImageDescription>): 
     const displayWidth = isPixels(img.properties.width) ? Number(img.properties.width) : image.width;
     displayWidths.set(img, displayWidth);
     if (image.variants.length > 0 && img.properties.srcSet === undefined) {
-      img.properties.srcSet = srcset(src, image);
-      img.properties.sizes = sizes(displayWidth);
+      img.properties.srcSet = imageSrcset(src, image);
+      img.properties.sizes = imageSizes(displayWidth);
     }
   });
 
@@ -411,18 +411,19 @@ function addImageAttributes(tree: Root, images: Map<string, ImageDescription>): 
       const url = String(source.properties.srcSet ?? "").trim();
       const image = images.get(url);
       if (!image || image.variants.length === 0) continue;
-      source.properties.srcSet = srcset(url, image);
-      source.properties.sizes = sizes(displayWidth);
+      source.properties.srcSet = imageSrcset(url, image);
+      source.properties.sizes = imageSizes(displayWidth);
     }
   }
 }
 
-function srcset(url: string, image: ImageDescription): string {
+/** The `srcset` value for an image and its smaller copies. Shared with the MDX image component. */
+export function imageSrcset(url: string, image: ImageDescription): string {
   return [...image.variants.map((variant) => `${variant.url} ${variant.width}w`), `${url} ${image.width}w`].join(", ");
 }
 
 /** The width that an image takes up at each viewport width, for `sizes`. */
-function sizes(displayWidth: number): string {
+export function imageSizes(displayWidth: number): string {
   const width = Math.min(displayWidth, CONTENT_WIDTH);
   return `(min-width: ${width + PAGE_PADDING}px) ${width}px, calc(100vw - ${PAGE_PADDING}px)`;
 }

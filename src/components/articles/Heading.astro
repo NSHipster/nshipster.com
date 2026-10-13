@@ -1,0 +1,28 @@
+---
+interface Props {
+  level: 2 | 3 | 4;
+  id?: string;
+  [attribute: string]: unknown;
+}
+
+const { level, id, ...rest } = Astro.props;
+// The legacy pipeline moves each heading ID onto an empty anchor inside the heading,
+// and the processor marks those IDs so other headings stay plain. Mirror that here.
+const marked = "data-kramdown-id" in rest || "dataKramdownId" in rest;
+delete rest["data-kramdown-id"];
+delete rest.dataKramdownId;
+const Tag = `h${level}` as "h2" | "h3" | "h4";
+---
+
+{
+  marked && id ? (
+    <Tag {...rest}>
+      <a class="anchor" aria-hidden="true" tabindex={-1} id={id} href={`#${id}`} />
+      <slot />
+    </Tag>
+  ) : (
+    <Tag {...rest} id={id}>
+      <slot />
+    </Tag>
+  )
+}

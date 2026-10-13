@@ -1,0 +1,28 @@
+---
+import AssetImage from "./AssetImage.astro";
+import JsonLd from "../JsonLd.astro";
+import { assetManifest } from "../../lib/assets.ts";
+import { readBooks } from "../../lib/content/books.ts";
+import { renderFragment } from "../../lib/render/index.ts";
+import { bookJSONLD } from "../../lib/render/partials.ts";
+import { processorRenderer } from "../../lib/render/renderer.ts";
+
+interface Props {
+  /** The book name from `src/content/books`, such as `flight-school-guide-to-swift-codable`. */
+  name: string;
+  /** Set for the first cover on a page. Other covers load lazily. */
+  eager?: boolean;
+}
+
+const { name, eager = false } = Astro.props;
+const book = readBooks().find((candidate) => candidate.name === name);
+if (!book) throw new Error(`Unknown book "${name}"`);
+const summaryHTML = await renderFragment(book.summary, await processorRenderer());
+---
+
+<div id={book.name} class="book">
+  <a href={book.bookURL} title={book.title} rel="noopener noreferrer" target="_blank">
+    <AssetImage name={book.image} alt={book.title} class="cover" eager={eager} />
+  </a>
+  <JsonLd data={bookJSONLD(book, assetManifest().url(book.image), summaryHTML)} />
+</div>

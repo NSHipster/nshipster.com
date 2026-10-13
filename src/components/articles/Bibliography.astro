@@ -1,0 +1,12 @@
+---
+import { bibliographyHTML } from "../../lib/render/citations.ts";
+
+interface Props {
+  /** The cited bibliography keys, in the order they appear in the article. */
+  keys: string[];
+}
+
+const html = bibliographyHTML(Astro.props.keys);
+---
+
+<Fragment set:html={html} />

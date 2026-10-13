@@ -63,6 +63,26 @@ then Markdown (with Astro's Unified processor),
 then HTML transformations such as heading anchors and code listing tabs.
 The rendering code lives in `src/lib/render/`.
 
+The site is moving from Liquid and Kramdown to MDX in stages.
+The pages in `src/content/pages/` already use MDX,
+with the components in `src/components/articles/`
+in place of the Liquid tags:
+`{% info %}`, `{% warning %}`, and `{% error %}` become
+the `Info`, `Warning`, and `Error` components;
+`{% include book.html %}` becomes the `Book` component;
+`{% cite %}` and `{% bibliography --cited %}` become
+the `Cite` and `Bibliography` components,
+with the cited keys passed to `Bibliography` in citation order;
+and `{% asset name.png %}` becomes the `AssetImage` component,
+or an `assetUrl()` expression from `src/lib/assets.ts`
+where a plain URL is needed.
+MDX files use the same Markdown processor as the legacy pipeline,
+so header IDs, definition lists, and code listings render the same way.
+Heading anchors and secured external links,
+which the legacy HTML transformations add,
+come from the heading and link components
+that the article route passes to MDX content.
+
 Articles were written for Kramdown,
 so `src/lib/render/kramdown.ts` and `src/lib/render/markdown.ts`
 reproduce the Kramdown behavior that articles rely on,

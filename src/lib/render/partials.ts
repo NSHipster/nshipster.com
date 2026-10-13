@@ -35,7 +35,7 @@ export function jsonLD(data: unknown): string {
   return JSON.stringify(data, null, 2).replace(/</g, "\\u003c");
 }
 
-/** The `book.html` include used by `flight-school.md`. */
+/** The book promotion markup used by the legacy `book.html` include and the MDX `Book` component. */
 export function bookHTML(book: BookData, image: string, summaryHTML: string): string {
   return [
     `<div id="${escape(book.name)}" class="book">`,

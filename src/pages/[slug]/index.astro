@@ -1,7 +1,12 @@
 ---
 import { getCollection, render } from "astro:content";
 import Article from "../../layouts/Article.astro";
+import ArticleLink from "../../components/articles/ArticleLink.astro";
+import H2 from "../../components/articles/H2.astro";
+import H3 from "../../components/articles/H3.astro";
+import H4 from "../../components/articles/H4.astro";
 import { postsOldestFirst } from "../../lib/collections.ts";
+import { mdxPostData } from "../../lib/content/mdx.ts";
 
 export async function getStaticPaths() {
   const posts = await postsOldestFirst();
@@ -12,21 +17,38 @@ export async function getStaticPaths() {
     const previous = posts[index - 1];
     // Suggest the following article, or the newest one if there is none or it is retired.
     const continueWith = !next || next.data.retired ? newest : next;
-    return { params: { slug: entry.data.slug }, props: { entry, isArticle: true, next, previous, continueWith } };
+    return {
+      params: { slug: entry.data.slug },
+      props: { entry, post: entry.data, mdx: false, isArticle: true, next, previous, continueWith },
+    };
   });
 
-  const pages = (await getCollection("pages")).map((entry) => ({
-    params: { slug: entry.data.slug },
-    props: { entry, isArticle: false, next: undefined, previous: undefined, continueWith: newest },
-  }));
+  const pages = await Promise.all(
+    (await getCollection("pages"))
+      .filter((entry) => entry.data.published !== false)
+      .map(async (entry) => ({
+        params: { slug: entry.id },
+        props: {
+          entry,
+          post: await mdxPostData(entry),
+          mdx: true,
+          isArticle: false,
+          next: undefined,
+          previous: undefined,
+          continueWith: newest,
+        },
+      })),
+  );
 
   return [...articles, ...pages];
 }
 
-const { entry, isArticle, next, previous, continueWith } = Astro.props;
+const { entry, post, mdx, isArticle, next, previous, continueWith } = Astro.props;
 const { Content } = await render(entry);
+// MDX entries render through components that mirror the legacy HTML transforms.
+const components = { h2: H2, h3: H3, h4: H4, a: ArticleLink };
 ---
 
-<Article entry={entry} isArticle={isArticle} next={next} previous={previous} continueWith={continueWith}>
-  <Content />
+<Article post={post} isArticle={isArticle} next={next} previous={previous} continueWith={continueWith}>
+  {mdx ? <Content components={components} /> : <Content />}
 </Article>
