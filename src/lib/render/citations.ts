@@ -1,3 +1,4 @@
+import { AsyncLocalStorage } from "node:async_hooks";
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import { Cite } from "@citation-js/core";
@@ -88,6 +89,39 @@ export class CitationContext {
   bibliography(): string {
     return bibliographyHTML(this.cited);
   }
+}
+
+const storage = new AsyncLocalStorage<string[]>();
+
+/** Runs a function inside an isolated citation tracking scope. */
+export function withCitations<T>(fn: () => T): T {
+  return storage.run([], fn);
+}
+
+let fallbackCitations: string[] = [];
+
+/** Clears the current page's tracked citations before rendering. */
+export function resetCitations(): void {
+  const store = storage.getStore();
+  if (store) {
+    store.length = 0;
+  } else {
+    fallbackCitations = [];
+  }
+}
+
+/** Records cited keys in citation order for the current page. */
+export function recordCitations(keys: string[]): void {
+  const store = storage.getStore() ?? fallbackCitations;
+  for (const key of keys) {
+    if (!store.includes(key)) store.push(key);
+  }
+}
+
+/** Returns the citations accumulated during the current page render. */
+export function currentCitedKeys(): string[] {
+  const store = storage.getStore() ?? fallbackCitations;
+  return [...store];
 }
 
 function escapeText(text: string): string {

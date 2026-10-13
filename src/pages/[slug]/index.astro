@@ -7,19 +7,29 @@ import H3 from "../../components/articles/H3.astro";
 import H4 from "../../components/articles/H4.astro";
 import { postsOldestFirst } from "../../lib/collections.ts";
 import { mdxPostData } from "../../lib/content/mdx.ts";
+import { resetCitations } from "../../lib/render/citations.ts";
 
 export async function getStaticPaths() {
   const posts = await postsOldestFirst();
   const newest = posts.at(-1);
 
-  const articles = posts.map((entry, index) => {
+  const articles = posts.map((post, index) => {
     const next = posts[index + 1];
     const previous = posts[index - 1];
     // Suggest the following article, or the newest one if there is none or it is retired.
     const continueWith = !next || next.data.retired ? newest : next;
     return {
-      params: { slug: entry.data.slug },
-      props: { entry, post: entry.data, mdx: false, isArticle: true, next, previous, continueWith },
+      params: { slug: post.data.slug },
+      props: {
+        entry: post.entry,
+        post: post.data,
+        // Markdoc content binds its components in `markdoc.config.ts`; MDX pages take overrides here.
+        mdx: false,
+        isArticle: true,
+        next,
+        previous,
+        continueWith,
+      },
     };
   });
 
@@ -43,6 +53,7 @@ export async function getStaticPaths() {
   return [...articles, ...pages];
 }
 
+resetCitations();
 const { entry, post, mdx, isArticle, next, previous, continueWith } = Astro.props;
 const { Content } = await render(entry);
 // MDX entries render through components that mirror the legacy HTML transforms.

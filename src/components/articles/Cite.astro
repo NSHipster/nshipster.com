@@ -1,13 +1,17 @@
 ---
-import { citationHTML } from "../../lib/render/citations.ts";
+import { citationHTML, recordCitations } from "../../lib/render/citations.ts";
 
 interface Props {
   /** One bibliography key, or several keys for a combined citation. */
-  keys: string | string[];
+  keys?: string | string[];
+  primary?: string;
 }
 
-const { keys } = Astro.props;
-const html = citationHTML(Array.isArray(keys) ? keys : [keys]);
+const { keys, primary } = Astro.props;
+const raw = keys ?? primary ?? "";
+const list = (Array.isArray(raw) ? raw : raw.split(/[,\s]+/)).filter(Boolean);
+recordCitations(list);
+const html = citationHTML(list);
 ---
 
 <Fragment set:html={html} />

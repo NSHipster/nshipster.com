@@ -1,5 +1,6 @@
 import { defineConfig, fontProviders } from "astro/config";
 import mdx from "@astrojs/mdx";
+import markdoc from "@astrojs/markdoc";
 import { staticFiles } from "./src/integrations/static-files.ts";
 import { markdownProcessor } from "./src/lib/render/markdown.ts";
 
@@ -66,7 +67,7 @@ export default defineConfig({
       },
     },
   ],
-  integrations: [mdx(), staticFiles()],
+  integrations: [mdx(), markdoc({ allowHTML: true, typographer: true }), staticFiles()],
   devToolbar: { enabled: false },
   // Prefetch links marked with `data-astro-prefetch` when a reader hovers over or focuses them.
   prefetch: { prefetchAll: false, defaultStrategy: "hover" },

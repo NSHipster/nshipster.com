@@ -63,25 +63,16 @@ then Markdown (with Astro's Unified processor),
 then HTML transformations such as heading anchors and code listing tabs.
 The rendering code lives in `src/lib/render/`.
 
-The site is moving from Liquid and Kramdown to MDX in stages.
-The pages in `src/content/pages/` already use MDX,
-with the components in `src/components/articles/`
-in place of the Liquid tags:
-`{% info %}`, `{% warning %}`, and `{% error %}` become
-the `Info`, `Warning`, and `Error` components;
-`{% include book.html %}` becomes the `Book` component;
-`{% cite %}` and `{% bibliography --cited %}` become
-the `Cite` and `Bibliography` components,
-with the cited keys passed to `Bibliography` in citation order;
-and `{% asset name.png %}` becomes the `AssetImage` component,
-or an `assetUrl()` expression from `src/lib/assets.ts`
-where a plain URL is needed.
-MDX files use the same Markdown processor as the legacy pipeline,
-so header IDs, definition lists, and code listings render the same way.
-Heading anchors and secured external links,
-which the legacy HTML transformations add,
-come from the heading and link components
-that the article route passes to MDX content.
+The site is moving from Liquid and Kramdown to Markdoc for articles in stages.
+Converted articles in `collections/en/_posts/` use `.mdoc`,
+with Markdoc tags mapped to the components in `src/components/articles/`:
+`{% info %}`, `{% warning %}`, and `{% error %}` callout tags;
+`{% book %}` for book links;
+`{% cite %}` and `{% bibliography %}` for citations;
+and `{% asset %}` for article assets.
+Markdoc configuration in `markdoc.config.ts` handles tabbed code listings,
+automatic heading anchors, flim-flam anchors, and camel-case line breaks.
+Site-owned pages in `src/content/pages/` use MDX.
 
 Articles were written for Kramdown,
 so `src/lib/render/kramdown.ts` and `src/lib/render/markdown.ts`

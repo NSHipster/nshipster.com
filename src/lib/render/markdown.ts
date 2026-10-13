@@ -242,29 +242,50 @@ const escapeHTML = (text: string) => text.replace(/&/g, "&amp;").replace(/</g, "
 const escapeHTMLAttribute = (text: string) => escapeHTML(text).replace(/"/g, "&quot;");
 
 /** Highlights fenced and indented code blocks, producing the site's code listing markup. */
+export interface CodeBlockOptions {
+  id?: string;
+  role?: string;
+  tabIndex?: number;
+  ariaLabelledby?: string;
+  hidden?: boolean;
+}
+
+/**
+ * Highlights one fenced code block to the site's `<pre class="highlight">` HTML,
+ * converting `<# placeholder #>` tokens along the way.
+ * Shared by the Markdown processor and the Markdoc fence node.
+ */
+export async function highlightCodeBlock(value: string, fence?: string, options?: CodeBlockOptions): Promise<string> {
+  const label = languageLabel(fence);
+  // Replace each placeholder with one private-use character while highlighting.
+  // Some grammars split an ASCII sentinel across several highlighted tokens.
+  const placeholders: string[] = [];
+  const source = value.replace(/<#\s*([\s\S]*?)\s*#>/g, (_, name: string) => {
+    placeholders.push(name);
+    return String.fromCodePoint(0xf0000 + placeholders.length - 1);
+  });
+  let code = await highlight(source, fence);
+  placeholders.forEach((name, index) => {
+    // The legacy pipeline renders `<#...#>` as an ellipsis.
+    const text = name === "..." ? "…" : name;
+    code = code.replace(String.fromCodePoint(0xf0000 + index), `<var class="placeholder">${escapeHTML(text)}</var>`);
+  });
+  const attrs = [`class="highlight"`, `data-lang="${escapeHTMLAttribute(label)}"`];
+  if (options?.id) attrs.push(`id="${escapeHTMLAttribute(options.id)}"`);
+  if (options?.role) attrs.push(`role="${escapeHTMLAttribute(options.role)}"`);
+  if (options?.tabIndex !== undefined) attrs.push(`tabindex="${options.tabIndex}"`);
+  if (options?.ariaLabelledby) attrs.push(`aria-labelledby="${escapeHTMLAttribute(options.ariaLabelledby)}"`);
+  if (options?.hidden) attrs.push(`hidden=""`);
+  return `<pre ${attrs.join(" ")}><code>${code}</code></pre>`;
+}
+
 export const remarkHighlightCode: Plugin<[], Root> = () => async (tree) => {
   const blocks: Array<{ node: Code; index: number; parent: { children: RootContent[] } }> = [];
   visit(tree, "code", (node: Code, index, parent) => {
     if (parent && index !== undefined) blocks.push({ node, index, parent: parent as { children: RootContent[] } });
   });
   for (const { node, index, parent } of blocks) {
-    const fence = node.lang ?? undefined;
-    const label = languageLabel(fence);
-    // Replace each placeholder with one private-use character while highlighting.
-    // Some grammars split an ASCII sentinel across several highlighted tokens.
-    const placeholders: string[] = [];
-    const source = node.value.replace(/<#\s*([\s\S]*?)\s*#>/g, (_, name: string) => {
-      placeholders.push(name);
-      return String.fromCodePoint(0xf0000 + placeholders.length - 1);
-    });
-    let code = await highlight(source, fence);
-    placeholders.forEach((name, index) => {
-      code = code.replace(String.fromCodePoint(0xf0000 + index), `<var class="placeholder">${escapeHTML(name)}</var>`);
-    });
-    const html: Html = {
-      type: "html",
-      value: `<pre class="highlight" data-lang="${escapeHTMLAttribute(label)}"><code>${code}</code></pre>`,
-    };
+    const html: Html = { type: "html", value: await highlightCodeBlock(node.value, node.lang ?? undefined) };
     parent.children[index] = html;
   }
 };
