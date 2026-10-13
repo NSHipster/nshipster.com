@@ -21,7 +21,7 @@ export interface BookData {
   date?: string;
 }
 
-/** Reads the book promotions in `collections/en/_books`. */
+/** Reads the book promotions in `src/content/books`. */
 export function readBooks(root = ROOT): BookData[] {
   const directory = path.join(root, paths.books);
   return readdirSync(directory)

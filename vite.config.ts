@@ -40,7 +40,7 @@ export default defineConfig({
     ],
   },
   lint: {
-    ignorePatterns: ["dist/**", "assets/**", "collections/**", ".context/**"],
+    ignorePatterns: ["dist/**", "assets/**", "collections/**", "public/**", ".context/**"],
     options: {
       typeAware: true,
       typeCheck: true,
@@ -51,11 +51,10 @@ export default defineConfig({
     ignorePatterns: [
       "dist/**",
       "assets/**",
-      "_i18n/**",
       "_bibliography/**",
       "collections/**",
+      "public/**",
       ".context/**",
-      ".well-known/**",
       "*.md",
       "*.html",
       "*.xml",

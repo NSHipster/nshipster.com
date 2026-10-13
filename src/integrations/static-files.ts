@@ -1,9 +1,9 @@
-import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { AstroIntegration } from "astro";
 import { AssetManifest } from "../lib/assets.ts";
-import { ROOT, paths, site } from "../lib/site.ts";
+import { ROOT, paths } from "../lib/site.ts";
 import { headers, redirects } from "./routing.ts";
 
 const CONTENT_TYPES: Record<string, string> = {
@@ -29,43 +29,11 @@ const CONTENT_TYPES: Record<string, string> = {
   ".zip": "application/zip",
 };
 
-/** Removes Jekyll front matter and resolves the variables used by the text files. */
-function renderTextFile(source: string, time: Date): string {
-  const date = new Intl.DateTimeFormat("en-US", {
-    timeZone: site.timezone,
-    year: "numeric",
-    month: "numeric",
-    day: "numeric",
-  })
-    .formatToParts(time)
-    .reduce<Record<string, string>>((parts, part) => ({ ...parts, [part.type]: part.value }), {});
-  return source
-    .replace(/^---\n[\s\S]*?\n---\n+/, "")
-    .replaceAll("{{ site.url }}", site.url)
-    .replaceAll("{{ site.lang }}", site.lang)
-    .replaceAll('{{ site.time | date: "%Y/%-m/%-d" }}', `${date.year}/${date.month}/${date.day}`);
-}
-
-/** Files served from the site root and `/.well-known/`, such as icons and `robots.txt`. */
-function rootFiles(time = new Date()): Map<string, Buffer | string> {
-  const files = new Map<string, Buffer | string>();
-  const wellKnown = path.join(ROOT, paths.wellKnown);
-  for (const entry of readdirSync(wellKnown).sort()) {
-    const source = path.join(wellKnown, entry);
-    const contents = readFileSync(source);
-    const rendered =
-      entry === "robots.txt" || entry === "humans.txt" ? renderTextFile(contents.toString(), time) : contents;
-    files.set(`/${entry}`, rendered);
-    files.set(`/.well-known/${entry}`, rendered);
-  }
-  files.set("/contribute.json", readFileSync(path.join(ROOT, "contribute.json")));
-  return files;
-}
-
 /**
  * Publishes `assets/` with content-hashed names under `/assets/`,
  * along with smaller copies of the images in `src/data/responsive-images.json`,
- * copies root and `.well-known` files, and writes Cloudflare routing files.
+ * and writes Cloudflare routing files.
+ * Files served as-is from the site root live in `public/`.
  */
 export function staticFiles(): AstroIntegration {
   return {
@@ -90,7 +58,6 @@ export function staticFiles(): AstroIntegration {
                       variants = undefined;
                     }
                   });
-                  const files = rootFiles();
                   server.middlewares.use((request, response, next) => {
                     const pathname = decodeURIComponent(new URL(request.url ?? "/", "http://localhost").pathname);
                     const send = (contents: Buffer | undefined) => {
@@ -109,8 +76,6 @@ export function staticFiles(): AstroIntegration {
                       // Smaller copies of responsive images are made on first request.
                       variants ??= manifest.variantOutputs();
                       variants.then((map) => send(map.get(pathname)?.contents), next);
-                    } else if (files.has(pathname)) {
-                      send(Buffer.from(files.get(pathname)!));
                     } else {
                       next();
                     }
@@ -134,7 +99,6 @@ export function staticFiles(): AstroIntegration {
         for (const [url, { contents }] of outputs) write(url, contents);
         const variants = await manifest.variantOutputs();
         for (const [url, { contents }] of variants) write(url, contents);
-        for (const [pathname, contents] of rootFiles()) write(pathname, contents);
 
         // Compare names exactly: Cloudflare paths are case-sensitive, but file systems may not be.
         const existsExactly = (relative: string): boolean => {
