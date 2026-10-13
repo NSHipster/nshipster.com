@@ -77,6 +77,14 @@ Files served as-is from the site root, such as icons and `robots.txt`,
 live in `public/`, which Astro copies to the output without changes.
 The links in `public/.well-known/` serve the same files under `/.well-known/`.
 
+Site icons are generated from `assets/images/logo.svg`.
+Run `mise run icons:generate` after changing the logo artwork or colours.
+The task updates the browser favicons, the Apple touch icon,
+and the 192- and 512-pixel manifest icons.
+It also generates a separate 512-pixel maskable icon
+with the logo inside the circular safe area.
+Existing icon URLs remain available for older clients.
+
 Files in `assets/` are published under `/assets/` with content-hashed names.
 Use them in articles with the `{% asset %}` tag, as before.
 Fonts and author portraits are the exceptions.
