@@ -102,7 +102,7 @@ export function normalizePost(document: ParsedDocument, options: NormalizeOption
 
   return {
     slug,
-    url: `/${slug}/`,
+    url: `/${slug}`,
     title,
     date: date.date,
     lastRevisedOn,

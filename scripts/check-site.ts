@@ -29,7 +29,8 @@ function* walk(directory: string): Generator<string> {
 function resolve(pathname: string): string | undefined {
   const decoded = decodeURIComponent(pathname);
   const candidates = decoded.endsWith("/")
-    ? [path.join(decoded, "index.html")]
+    ? // Cloudflare redirects `/slug/` to the extensionless `/slug`, which serves `slug.html`.
+      [path.join(decoded, "index.html"), `${decoded.slice(0, -1)}.html`]
     : [decoded, `${decoded}.html`, path.join(decoded, "index.html")];
   return candidates
     .map((candidate) => path.join(DIST, candidate))
@@ -63,7 +64,8 @@ for (const file of pages) {
       .relative(DIST, file)
       .split(path.sep)
       .join("/")
-      .replace(/index\.html$/, "");
+      .replace(/index\.html$/, "")
+      .replace(/\.html$/, "");
   const html = readFileSync(file, "utf8");
 
   // Unique IDs. Scripts and styles are excluded from the markup scan.
@@ -106,9 +108,11 @@ for (const file of readdirSync(postsDirectory).filter((entry) => entry.endsWith(
   const frontMatter = source.match(/^---\n([\s\S]*?)\n---/)?.[1] ?? "";
   if (!/^published:\s*false\s*$/m.test(frontMatter)) continue;
   const slug = file.replace(/^\d{4}-\d{1,2}-\d{1,2}-/, "").replace(/\.md$/, "");
-  if (existsSync(path.join(DIST, slug))) problems.push(`Unpublished article ${file} was built at /${slug}/`);
+  if (existsSync(path.join(DIST, `${slug}.html`)) || existsSync(path.join(DIST, slug)))
+    problems.push(`Unpublished article ${file} was built at /${slug}`);
   for (const document of ["feed.xml", "sitemap.xml"]) {
-    if (readFileSync(path.join(DIST, document), "utf8").includes(`/${slug}/`))
+    const contents = readFileSync(path.join(DIST, document), "utf8");
+    if (contents.includes(`/${slug}<`) || contents.includes(`/${slug}"`))
       problems.push(`Unpublished article ${file} appears in ${document}`);
   }
 }

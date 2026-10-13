@@ -43,7 +43,7 @@ describe("front matter", () => {
     expect(parsePostFilename("2015-02-09-swift-1.2.md")?.slug).toBe("swift-1.2");
     expect(parsePostFilename("2013-01-14-__attribute__.md")?.slug).toBe("__attribute__");
     expect(parsePostFilename("2014-12-1-watchkit.md")?.slug).toBe("watchkit");
-    expect(post("2015-02-09-swift-1.2.md", "title: Swift 1.2").url).toBe("/swift-1.2/");
+    expect(post("2015-02-09-swift-1.2.md", "title: Swift 1.2").url).toBe("/swift-1.2");
   });
 
   it("keeps status values as written", () => {

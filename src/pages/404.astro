@@ -32,13 +32,13 @@ const body = `\n${fence}swift\n${swift}\n${fence}\n\n${fence}objc\n${objc}\n${fe
 const renderer = await markdownProcessor().createRenderer({ syntaxHighlight: false });
 const { html } = await renderDocument(body, {
   file: "src/pages/404.astro",
-  page: { title: "NSError 404 - NSHipster", url: "/404.html" },
+  page: { title: "NSError 404 - NSHipster", url: "/404" },
   assets: assetManifest(),
   markdown: async (markdown) => (await renderer.render(`\n${markdown}`)).code,
 });
 ---
 
-<Base title="NSError 404 - NSHipster" path="/404.html">
+<Base title="NSError 404 - NSHipster" path="/404">
   <article role="article">
     <h1 class="title">NSError</h1>
 

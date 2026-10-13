@@ -39,7 +39,7 @@ function* walk(directory: string): Generator<string> {
 
 const routeFile = (route: string) => {
   const candidates = route.endsWith("/")
-    ? [path.join(route, "index.html")]
+    ? [path.join(route, "index.html"), `${route.replace(/\/+$/, "")}.html`]
     : [`${route}.html`, path.join(route, "index.html")];
   return candidates.map((candidate) => path.join(DIST, candidate)).find(existsSync);
 };
@@ -56,18 +56,26 @@ const problems: string[] = [];
 const notes: string[] = [];
 const report = (message: string) => problems.push(message);
 
+// Routes and URLs compare in extensionless, no-trailing-slash form:
+// the reference uses `/slug/` and `/404.html`, and the site now serves `/slug` and `/404`,
+// with redirects between the forms.
+const withoutTrailingSlash = (value: string) =>
+  value.length > 1 ? value.replace(/\/+$/, "").replace(/\.html$/, "") : value;
+
 // Routes present in the reference but missing from the Astro build.
 const builtRoutes = new Set<string>();
 for (const file of walk(DIST)) {
   if (!file.endsWith(".html")) continue;
   const relative = path.relative(DIST, file).split(path.sep).join("/");
-  builtRoutes.add("/" + relative.replace(/index\.html$/, "").replace(/\.html$/, ""));
+  builtRoutes.add(withoutTrailingSlash("/" + relative.replace(/index\.html$/, "").replace(/\.html$/, "")));
 }
 for (const route of Object.keys(reference.pages)) {
-  if (!builtRoutes.has(route)) report(`Missing route ${route}`);
+  if (!builtRoutes.has(withoutTrailingSlash(route))) report(`Missing route ${route}`);
 }
 for (const route of builtRoutes) {
-  if (!(route in reference.pages)) notes.push(`New route ${route}`);
+  if (!Object.keys(reference.pages).some((known) => withoutTrailingSlash(known) === route)) {
+    notes.push(`New route ${route}`);
+  }
 }
 
 // Author avatars now use Astro's image pipeline instead of `/assets/`.
@@ -99,7 +107,7 @@ for (const [route, facts] of Object.entries(reference.pages)) {
   if (!file) continue;
   const html = readFileSync(file, "utf8");
   const canonical = html.match(/<link rel="canonical" href="([^"]*)"/)?.[1];
-  if (canonical !== facts.canonical && !(route === "/status" && canonical === "https://nshipster.com/status")) {
+  if (withoutTrailingSlash(canonical ?? "") !== withoutTrailingSlash(facts.canonical ?? "")) {
     report(`${route}: canonical ${canonical} differs from ${facts.canonical}`);
   }
   const robots = html.match(/<meta name="robots" content="([^"]*)"/)?.[1];
@@ -127,8 +135,8 @@ for (const [route, facts] of Object.entries(reference.pages)) {
 }
 
 const sitemap = readFileSync(path.join(DIST, "sitemap.xml"), "utf8");
-const sitemapURLs = [...sitemap.matchAll(/<loc>([^<]*)<\/loc>/g)].map((match) => match[1]!);
-const missingSitemapURLs = reference.sitemapURLs.filter((url) => !sitemapURLs.includes(url));
+const sitemapURLs = [...sitemap.matchAll(/<loc>([^<]*)<\/loc>/g)].map((match) => withoutTrailingSlash(match[1]!));
+const missingSitemapURLs = reference.sitemapURLs.filter((url) => !sitemapURLs.includes(withoutTrailingSlash(url)));
 if (missingSitemapURLs.length) report(`Sitemap URLs are missing: ${missingSitemapURLs.join(", ")}`);
 
 const feed = readFileSync(path.join(DIST, "feed.xml"), "utf8");

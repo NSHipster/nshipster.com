@@ -265,7 +265,7 @@ export function authorsLoader(): Loader {
           filePath: relative,
           data: {
             slug,
-            url: `/authors/${slug}/`,
+            url: `/authors/${slug}`,
             title: text("title") ?? text("name") ?? slug,
             name: text("name") ?? slug,
             email: text("email"),
