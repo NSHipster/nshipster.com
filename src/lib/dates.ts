@@ -110,7 +110,10 @@ function formatOffset(offset: number, colon: boolean): string {
   return `${sign}${pad(Math.floor(abs / 60))}${colon ? ":" : ""}${pad(abs % 60)}`;
 }
 
-/** Formats a date like Jekyll's `date_to_xmlschema` filter. */
+/**
+ * Formats a date like Jekyll's `date_to_xmlschema` filter.
+ * Templates and endpoints use `Date.toISOString`; this function serves the Liquid filter in articles.
+ */
 export function xmlschema(date: ZonedDate): string {
   return `${date.year}-${pad(date.month)}-${pad(date.day)}T${pad(date.hour)}:${pad(date.minute)}:${pad(date.second)}${formatOffset(date.offset, true)}`;
 }
@@ -136,9 +139,27 @@ export function ordinal(day: number): string {
   return ["th", "st", "nd", "rd"][day % 10] ?? "th";
 }
 
+const displayFormatter = new Intl.DateTimeFormat("en-US", {
+  timeZone: site.timezone,
+  month: "long",
+  day: "numeric",
+  year: "numeric",
+});
+
+/**
+ * Formats a date for bylines and archives, such as `July 14<sup>th</sup>, 2012`,
+ * with the month, day, and year in the site time zone.
+ */
+export function formatDate(instant: Date): string {
+  const parts = Object.fromEntries(displayFormatter.formatToParts(instant).map((part) => [part.type, part.value]));
+  const day = Number(parts.day);
+  return `${parts.month} ${day}<sup>${ordinal(day)}</sup>, ${parts.year}`;
+}
+
 /**
  * Formats a date with Ruby `strftime` semantics, including the `%o` ordinal
  * extension from the Jekyll site's date filter.
+ * Templates use `formatDate`; this function serves the Liquid `date` filter in articles.
  */
 export function strftime(date: ZonedDate, format: string): string {
   const weekday = new Date(Date.UTC(date.year, date.month - 1, date.day)).getUTCDay();
@@ -222,6 +243,3 @@ export function strftime(date: ZonedDate, format: string): string {
     }
   });
 }
-
-/** The date format used for bylines and archives. */
-export const DATE_FORMAT = "%B %-d<sup>%o</sup>, %Y";

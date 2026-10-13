@@ -3,9 +3,7 @@ import Base from "../layouts/Base.astro";
 import { assetManifest } from "../lib/assets.ts";
 import { renderDocument } from "../lib/render/index.ts";
 import { markdownProcessor } from "../lib/render/markdown.ts";
-import { site } from "../lib/site.ts";
-
-const host = new URL(site.url).host;
+const host = Astro.site!.host;
 const fence = "```";
 const swift = `let domain = "${host}"
 let code = 404

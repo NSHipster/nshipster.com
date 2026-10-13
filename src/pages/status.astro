@@ -2,14 +2,14 @@
 import Page from "../layouts/Page.astro";
 import { postsNewestFirst } from "../lib/collections.ts";
 import { byCodeUnit } from "../lib/content/posts.ts";
-import { DATE_FORMAT, parseDate, strftime, zoned } from "../lib/dates.ts";
+import { formatDate, parseDate } from "../lib/dates.ts";
 import { camelBreak } from "../lib/text.ts";
 
 // Emitted as `status.html`, so its canonical URL is `/status`.
 const posts = (await postsNewestFirst()).sort((a, b) => byCodeUnit(a.data.title, b.data.title));
 const lastReview = (post: (typeof posts)[number]) => {
   const reviewed = post.data.status?.reviewed ? parseDate(post.data.status.reviewed) : undefined;
-  return strftime(reviewed ?? zoned(post.data.date), DATE_FORMAT);
+  return formatDate(reviewed?.date ?? post.data.date);
 };
 ---
 

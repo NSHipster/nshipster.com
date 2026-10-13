@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vite-plus/test";
-import { DATE_FORMAT, localDate, parseDate, strftime, xmlschema } from "../../src/lib/dates.ts";
+import { formatDate, localDate, parseDate, strftime, xmlschema } from "../../src/lib/dates.ts";
 import { parseFrontMatter } from "../../src/lib/content/frontmatter.ts";
 import { isUnpublished, normalizePost, parsePostFilename } from "../../src/lib/content/posts.ts";
 import { parseAssetArguments } from "../../src/lib/render/liquid.ts";
@@ -11,9 +11,15 @@ describe("dates", () => {
     expect(xmlschema(localDate(2025, 12, 31))).toBe("2025-12-31T00:00:00-08:00");
   });
 
-  it("formats dates like Ruby's strftime with ordinals", () => {
-    expect(strftime(localDate(2012, 7, 14), DATE_FORMAT)).toBe("July 14<sup>th</sup>, 2012");
-    expect(strftime(localDate(2019, 11, 1), DATE_FORMAT)).toBe("November 1<sup>st</sup>, 2019");
+  it("formats display dates with ordinals in the site time zone", () => {
+    expect(formatDate(localDate(2012, 7, 14).date)).toBe("July 14<sup>th</sup>, 2012");
+    expect(formatDate(localDate(2019, 11, 1).date)).toBe("November 1<sup>st</sup>, 2019");
+    expect(formatDate(localDate(2019, 11, 12).date)).toBe("November 12<sup>th</sup>, 2019");
+    // An instant just after midnight UTC is still the previous day in Los Angeles.
+    expect(formatDate(new Date("2019-11-02T05:00:00Z"))).toBe("November 1<sup>st</sup>, 2019");
+  });
+
+  it("formats dates like Ruby's strftime for the Liquid date filter", () => {
     expect(strftime(localDate(2019, 11, 12), "%o")).toBe("th");
     expect(strftime(localDate(2018, 11, 28), "(year: %Y, month: %-M, day: %-d)")).toBe(
       "(year: 2018, month: 0, day: 28)",
