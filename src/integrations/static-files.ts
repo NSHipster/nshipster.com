@@ -115,7 +115,12 @@ export function staticFiles(): AstroIntegration {
             (candidate) => candidate && existsExactly(candidate) && statSync(path.join(output, candidate)).isFile(),
           );
         };
-        const rules = redirects(manifest, exists);
+        const astroDir = path.join(output, "_astro");
+        const stylesheet = existsSync(astroDir)
+          ? readdirSync(astroDir).find((file) => /^Base\.[0-9a-zA-Z_-]+\.css$/.test(file))
+          : undefined;
+        const stylesheetURL = stylesheet ? `/_astro/${stylesheet}` : undefined;
+        const rules = redirects(manifest, exists, stylesheetURL);
         write("/_redirects", rules.map(({ from, to, status }) => `${from} ${to} ${status}`).join("\n") + "\n");
         write("/_headers", headers());
         logger.info(

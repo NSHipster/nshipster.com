@@ -124,9 +124,7 @@ export class AssetManifest {
 
     const contents = asset.source.endsWith(".scss")
       ? Buffer.from(this.compileStylesheet(asset.source))
-      : asset.source.endsWith(".js")
-        ? Buffer.from(this.bundleScript(asset.source))
-        : readFileSync(asset.source);
+      : readFileSync(asset.source);
     const digest = createHash("sha256").update(contents).digest("hex").slice(0, 16);
     const extension = path.extname(asset.logical);
     const stem = asset.logical.slice(0, asset.logical.length - extension.length);
@@ -218,46 +216,11 @@ export class AssetManifest {
     return outputs;
   }
 
-  /**
-   * Resolves Sprockets `//= require` directives at the top of a script
-   * by prepending the required scripts, as the Jekyll asset pipeline did.
-   */
-  bundleScript(file: string, seen = new Set<string>()): string {
-    seen.add(file);
-    const source = readFileSync(file, "utf8");
-    const parts: string[] = [];
-    for (const match of source.matchAll(/^\/\/= require (\S+)\s*$/gm)) {
-      const name = match[1]!.endsWith(".js") ? match[1]! : `${match[1]}.js`;
-      const required = path.join(this.root, paths.assets, "js", name);
-      if (!seen.has(required)) parts.push(this.bundleScript(required, seen));
-    }
-    parts.push(source.replace(/^\/\/= require \S+\s*$/gm, ""));
-    return parts.join("\n");
-  }
-
-  /**
-   * Compiles a stylesheet with Dart Sass.
-   * `font_path()` and `asset_url()` replace the Sprockets helpers
-   * that the existing stylesheets use.
-   */
+  /** Compiles a stylesheet with Dart Sass. */
   compileStylesheet(file: string): string {
     const result = sass.compile(file, {
       style: "compressed",
-      loadPaths: [path.join(this.root, paths.assets, "css")],
-      functions: {
-        "font_path($name)": (args) => {
-          const name = args[0]!.assertString("name").text;
-          return new sass.SassString(this.url(name), { quotes: true });
-        },
-        "asset_path($name)": (args) => {
-          const name = args[0]!.assertString("name").text;
-          return new sass.SassString(this.url(name), { quotes: true });
-        },
-        "asset_url($name)": (args) => {
-          const name = args[0]!.assertString("name").text;
-          return new sass.SassString(`url(${this.url(name)})`, { quotes: false });
-        },
-      },
+      loadPaths: [path.join(this.root, paths.assets, "css"), path.join(this.root, "src/styles")],
     });
     return result.css.replace(/^\uFEFF/, "");
   }
