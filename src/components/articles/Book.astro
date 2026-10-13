@@ -1,8 +1,9 @@
 ---
+import { getEntry } from "astro:content";
 import AssetImage from "./AssetImage.astro";
 import JsonLd from "../JsonLd.astro";
 import { assetManifest } from "../../lib/assets.ts";
-import { readBooks } from "../../lib/content/books.ts";
+import type { BookData } from "../../lib/content/books.ts";
 import { renderFragment } from "../../lib/render/index.ts";
 import { bookJSONLD } from "../../lib/render/partials.ts";
 import { processorRenderer } from "../../lib/render/renderer.ts";
@@ -17,8 +18,9 @@ interface Props {
 
 const { name, primary, eager = false } = Astro.props;
 const bookName = name ?? (typeof primary === "string" ? primary : "");
-const book = readBooks().find((candidate) => candidate.name === bookName);
-if (!book) throw new Error(`Unknown book "${bookName}"`);
+const entry = await getEntry("books", bookName);
+if (!entry) throw new Error(`Unknown book "${bookName}"`);
+const book: BookData = { ...entry.data, name: entry.data.name ?? entry.id };
 const summaryHTML = await renderFragment(book.summary, await processorRenderer());
 ---
 
