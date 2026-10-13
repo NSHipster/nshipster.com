@@ -1,27 +1,30 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
 import Avatar from "./Avatar.astro";
+import { authorURL } from "../lib/collections.ts";
 import { t } from "../lib/i18n.ts";
 
 interface Props {
   author?: CollectionEntry<"authors"> | undefined;
 }
 
-const author = Astro.props.author?.data;
+const { author } = Astro.props;
+const Content = author ? (await render(author)).Content : null;
 ---
 
 <div class="contributor">
   <small>{t.writtenBy}</small>
 
   {
-    author && (
+    author && Content && (
       <>
-        <Avatar name={author.name} image={author.image} gravatar={author.gravatar} />
+        <Avatar name={author.data.name} image={author.data.image} gravatar={author.data.gravatar} />
         <div class="details">
           <span>
-            <a href={author.url}>{author.name}</a>
+            <a href={authorURL(author)}>{author.data.name}</a>
           </span>
-          <Fragment set:html={author.bioHTML} />
+          <Content />
         </div>
       </>
     )

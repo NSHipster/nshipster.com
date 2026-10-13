@@ -11,7 +11,6 @@ import { ROOT, paths } from "../site.ts";
 import { plainText } from "../text.ts";
 import { parseFrontMatter } from "./frontmatter.ts";
 import { isUnpublished, normalizePost, type PostData } from "./posts.ts";
-import { scalarText } from "../scalar.ts";
 
 /**
  * Content loaders for the English site.
@@ -222,65 +221,6 @@ export function postsLoader(options: PostsLoaderOptions): Loader {
       watcher.on("change", onChange);
       watcher.on("add", onChange);
       watcher.on("unlink", onChange);
-    },
-  };
-}
-
-export interface AuthorEntryData {
-  slug: string;
-  url: string;
-  title: string;
-  name: string;
-  email?: string;
-  website?: string;
-  twitter?: string;
-  github?: string;
-  image?: string;
-  gravatar?: string;
-  bioHTML: string;
-  /** The first paragraph of the biography, for descriptions. */
-  description: string;
-}
-
-/** Loads author profiles and renders their biographies. */
-export function authorsLoader(): Loader {
-  return {
-    name: "nshipster-authors",
-    load: async (context) => {
-      const directory = path.join(ROOT, paths.authors);
-      const render = markdownRenderer(context);
-      context.store.clear();
-      for (const file of readdirSync(directory)
-        .filter((entry) => entry.endsWith(".md"))
-        .sort()) {
-        const relative = path.relative(ROOT, path.join(directory, file));
-        const document = parseFrontMatter(readFileSync(path.join(directory, file), "utf8"), relative);
-        const slug = path.basename(file, ".md");
-        const text = (key: string) => (document.data[key] == null ? undefined : scalarText(document.data[key]));
-        const bioHTML = await renderFragment(document.body.trim(), render);
-        const firstParagraph = document.body.trim().split(/\n\s*\n/)[0] ?? "";
-        const description = plainText(await renderFragment(firstParagraph, render));
-        const data = await context.parseData({
-          id: slug,
-          filePath: relative,
-          data: {
-            slug,
-            url: `/authors/${slug}`,
-            title: text("title") ?? text("name") ?? slug,
-            name: text("name") ?? slug,
-            email: text("email"),
-            website: text("url"),
-            twitter: text("twitter"),
-            github: text("github"),
-            image: text("image"),
-            gravatar: text("gravatar"),
-            bioHTML,
-            description,
-          } satisfies AuthorEntryData as unknown as Record<string, unknown>,
-        });
-        context.store.set({ id: slug, data, filePath: relative });
-      }
-      context.watcher?.add(directory);
     },
   };
 }

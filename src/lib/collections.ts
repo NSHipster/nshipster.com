@@ -4,7 +4,10 @@ import type { PostEntryData } from "./content/loaders.ts";
 import { mdxPostData } from "./content/mdx.ts";
 import { chronological } from "./content/posts.ts";
 import { withCitations } from "./render/citations.ts";
+import { renderFragment } from "./render/index.ts";
+import { processorRenderer } from "./render/renderer.ts";
 import { site } from "./site.ts";
+import { plainText } from "./text.ts";
 
 /** A published article, from either the legacy Markdown loader or Markdoc. */
 export interface Post {
@@ -16,6 +19,19 @@ export interface Post {
 }
 
 export type Author = CollectionEntry<"authors">;
+export type Book = CollectionEntry<"books">;
+
+/** Canonical path for an author profile. */
+export function authorURL(author: Author | string): string {
+  const id = typeof author === "string" ? author : author.id;
+  return `/authors/${id}`;
+}
+
+/** Plain text biography description from the first paragraph of an author's Markdown body. */
+export async function authorDescription(author: Author): Promise<string> {
+  const firstParagraph = author.body?.trim().split(/\n\s*\n/)[0] ?? "";
+  return plainText(await renderFragment(firstParagraph, await processorRenderer()));
+}
 
 let cached: Promise<Post[]> | undefined;
 

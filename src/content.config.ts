@@ -1,7 +1,7 @@
 import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
-import { authorsLoader, postsLoader } from "./lib/content/loaders.ts";
+import { postsLoader } from "./lib/content/loaders.ts";
 import { paths } from "./lib/site.ts";
 
 const post = z.object({
@@ -69,24 +69,76 @@ const pages = defineCollection({
 });
 
 const authors = defineCollection({
-  loader: authorsLoader(),
-  schema: z.object({
-    slug: z.string(),
-    url: z.string(),
-    title: z.string(),
-    name: z.string(),
-    email: z.string().optional(),
-    website: z.string().optional(),
-    twitter: z.string().optional(),
-    github: z.string().optional(),
-    image: z.string().optional(),
-    gravatar: z.string().optional(),
-    bioHTML: z.string(),
-    description: z.string(),
-  }),
+  loader: glob({ base: `./${paths.authors}`, pattern: "**/*.md" }),
+  schema: z
+    .object({
+      name: z.string(),
+      title: z.string().optional(),
+      email: z.string().optional(),
+      url: z.string().optional(),
+      twitter: z.string().optional(),
+      github: z.string().optional(),
+      image: z.string().optional(),
+      gravatar: z.string().optional(),
+    })
+    .transform((data) => ({
+      name: data.name,
+      title: data.title ?? data.name,
+      email: data.email,
+      website: data.url,
+      twitter: data.twitter,
+      github: data.github,
+      image: data.image,
+      gravatar: data.gravatar,
+    })),
 });
 
-// Books in `src/content/books` have no pages of their own.
-// The article render pipeline reads them directly for the `book.html` include,
-// so they are not a content collection.
-export const collections = { posts, articles, pages, authors };
+const books = defineCollection({
+  loader: glob({ base: `./${paths.books}`, pattern: "**/*.md" }),
+  schema: z
+    .object({
+      name: z.string().optional(),
+      title: z.string(),
+      short_title: z.string().optional(),
+      shortTitle: z.string().optional(),
+      sub_title: z.string().optional(),
+      subTitle: z.string().optional(),
+      edition: z.string().optional(),
+      author: z.string().optional(),
+      summary: z.string(),
+      image: z.string(),
+      availability: z.string().optional(),
+      book_url: z.string().optional(),
+      bookURL: z.string().optional(),
+      price: z.union([z.string(), z.number()]).optional(),
+      number_of_pages: z.union([z.string(), z.number()]).optional(),
+      numberOfPages: z.union([z.string(), z.number()]).optional(),
+      category: z.string().optional(),
+      isbn: z.string().optional(),
+      date: z.coerce.string().optional(),
+    })
+    .transform((data) => ({
+      name: data.name,
+      title: data.title,
+      shortTitle: data.shortTitle ?? data.short_title,
+      subTitle: data.subTitle ?? data.sub_title,
+      edition: data.edition,
+      author: data.author,
+      summary: data.summary,
+      image: data.image,
+      availability: data.availability,
+      bookURL: data.bookURL ?? data.book_url,
+      price: data.price !== undefined ? String(data.price) : undefined,
+      numberOfPages:
+        data.numberOfPages !== undefined
+          ? String(data.numberOfPages)
+          : data.number_of_pages !== undefined
+            ? String(data.number_of_pages)
+            : undefined,
+      category: data.category,
+      isbn: data.isbn,
+      date: data.date,
+    })),
+});
+
+export const collections = { posts, articles, pages, authors, books };

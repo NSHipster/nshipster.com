@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
-import { postsNewestFirst } from "../lib/collections.ts";
+import { authorURL, postsNewestFirst } from "../lib/collections.ts";
 import { escapeXML } from "../lib/text.ts";
 
 export const GET: APIRoute = async ({ site }) => {
@@ -27,7 +27,7 @@ export const GET: APIRoute = async ({ site }) => {
       ),
     ...authors.map(
       (author) => `  <url>
-    <loc>${escapeXML(absolute(author.data.url))}</loc>
+    <loc>${escapeXML(absolute(authorURL(author)))}</loc>
   </url>`,
     ),
   ];

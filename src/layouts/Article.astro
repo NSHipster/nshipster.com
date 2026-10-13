@@ -2,7 +2,7 @@
 import Base from "./Base.astro";
 import Contributor from "../components/Contributor.astro";
 import JsonLd from "../components/JsonLd.astro";
-import { authorNamed, type Post } from "../lib/collections.ts";
+import { authorNamed, authorURL, type Post } from "../lib/collections.ts";
 import type { PostEntryData } from "../lib/content/loaders.ts";
 import { formatDate } from "../lib/dates.ts";
 import { t } from "../lib/i18n.ts";
@@ -84,7 +84,7 @@ const description = plainText(post.excerptHTML);
                 {coauthors.map(({ name, author }, index) => (
                   <>
                     {index === coauthors.length - 1 && "& "}
-                    <a rel="author" class="author" href={author?.data.url}>
+                    <a rel="author" class="author" href={author ? authorURL(author) : undefined}>
                       {author?.data.name ?? name}
                     </a>{" "}
                   </>
@@ -96,7 +96,7 @@ const description = plainText(post.excerptHTML);
             <>
               {t.writtenBy}{" "}
               <span class="authors">
-                <a class="author" href={author.data.url}>{author.data.name}</a>
+                <a class="author" href={authorURL(author)}>{author.data.name}</a>
               </span>
             </>
           ) : (
