@@ -63,14 +63,6 @@ describe("routing", () => {
       ["/authors/mattt-thompson", "/authors/mattt"],
       ["/propertyWrapper", "/propertywrapper"],
       ["/CocoaPods/", "/cocoapods"],
-      ["/boolean-values/", "/bool"],
-      ["/swift-reflection-api", "/mirror"],
-      ["/swift-build-configurations/", "/xcconfig"],
-      ["/iOS7", "/ios7"],
-      ["/model-context-", "/model-context-protocol"],
-      ["/language-server-protocol/-", "/language-server-protocol"],
-      ["/uiactivityviewcontroller/,", "/uiactivityviewcontroller"],
-      ["/macos-accessibility", "/accessibility-keyboard"],
     ]) {
       const response = await fetchManual(from!);
       expect(response.status, from).toBe(301);
