@@ -38,6 +38,11 @@ export const PAGE_REDIRECTS: ReadonlyArray<readonly [string, string]> = [
   ["/boolean-values", "/bool"],
   ["/swift-reflection-api", "/mirror"],
   ["/swift-build-configurations", "/xcconfig"],
+  ["/iOS7", "/ios7"],
+  ["/model-context-", "/model-context-protocol"],
+  ["/language-server-protocol/-", "/language-server-protocol"],
+  ["/uiactivityviewcontroller/,", "/uiactivityviewcontroller"],
+  ["/macos-accessibility", "/accessibility-keyboard"],
 ];
 
 /** Redirects to other hosts. */
