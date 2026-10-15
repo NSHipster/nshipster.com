@@ -1,6 +1,0 @@
-[submodule "collections/en/_posts"]
-	path = collections/en/_posts
-	url = https://github.com/NSHipster/articles.git
-	branch = master
-	ignore = all
-	update = merge

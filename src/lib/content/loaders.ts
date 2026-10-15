@@ -1,4 +1,3 @@
-import { execFileSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
@@ -63,32 +62,8 @@ function markdownRenderer(context: LoaderContext): MarkdownRenderer {
   return async (markdown) => (await context.renderMarkdown(`\n${markdown}`)).html;
 }
 
-/**
- * Warns when the article submodule's checkout differs from the revision
- * recorded in this repository. `mise run content:update` changes it deliberately.
- */
-function checkSubmoduleRevision(context: LoaderContext, directory: string): void {
-  try {
-    const recorded = execFileSync("git", ["ls-tree", "HEAD", directory], { cwd: ROOT, encoding: "utf8" }).split(
-      /\s+/,
-    )[2];
-    const checkedOut = execFileSync("git", ["rev-parse", "HEAD"], {
-      cwd: path.join(ROOT, directory),
-      encoding: "utf8",
-    }).trim();
-    if (recorded && checkedOut && recorded !== checkedOut) {
-      context.logger.warn(
-        `${directory} is at ${checkedOut.slice(0, 7)}, but this repository records ${recorded.slice(0, 7)}. ` +
-          "Run `git submodule update --init` to use the recorded articles.",
-      );
-    }
-  } catch {
-    // Git is unavailable, e.g. in an exported source tree.
-  }
-}
-
 interface PostsLoaderOptions {
-  /** Directory of Markdown files, relative to the repository root. */
+  /** Directory of Markdown files, absolute or relative to the repository root. */
   directory: string;
   /** Specific files in the directory; defaults to all posts named `YYYY-MM-DD-slug.md`. */
   files?: Array<{ file: string; slug: string }>;
@@ -110,14 +85,11 @@ export function postsLoader(options: PostsLoaderOptions): Loader {
   return {
     name: "nshipster-posts",
     load: async (context) => {
-      const directory = path.join(ROOT, options.directory);
+      const directory = path.resolve(ROOT, options.directory);
       if (options.articles) {
         if (!existsSync(directory) || readdirSync(directory).filter((file) => file.endsWith(".md")).length === 0) {
-          throw new Error(
-            `No articles found in ${options.directory}. Run \`mise run setup\` to initialize the articles submodule.`,
-          );
+          throw new Error(`No articles found in ${directory}.`);
         }
-        checkSubmoduleRevision(context, options.directory);
       }
 
       const render = markdownRenderer(context);

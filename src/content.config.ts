@@ -1,6 +1,7 @@
 import { defineCollection } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
+import { articlesDirectory } from "./lib/content/articles.ts";
 import { postsLoader } from "./lib/content/loaders.ts";
 import { paths } from "./lib/site.ts";
 
@@ -26,9 +27,9 @@ const post = z.object({
   citations: z.array(z.string()),
 });
 
-/** Published articles from the `NSHipster/articles` submodule. */
+/** Published articles from `NSHipster/articles`, which the `articles` integration downloads. */
 const posts = defineCollection({
-  loader: postsLoader({ directory: paths.posts, articles: true }),
+  loader: postsLoader({ directory: articlesDirectory(), articles: true }),
   schema: post,
 });
 
@@ -54,11 +55,11 @@ const globFrontmatter = z.object({
 });
 
 /**
- * Published articles from the submodule that have been converted to Markdoc.
+ * Published articles from `NSHipster/articles` that have been converted to Markdoc.
  * They merge with the legacy Markdown posts everywhere articles are listed.
  */
 const articles = defineCollection({
-  loader: glob({ base: `./${paths.posts}`, pattern: "**/*.mdoc" }),
+  loader: glob({ base: articlesDirectory(), pattern: "**/*.mdoc" }),
   schema: globFrontmatter,
 });
 

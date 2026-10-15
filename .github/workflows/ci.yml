@@ -22,16 +22,18 @@ jobs:
         run: mise run check
       - name: Run unit tests
         run: mise run test:unit
-      - name: Build
-        run: mise run build
-      - name: Check the built site
-        run: node scripts/check-site.ts
+      - name: Build with the pinned articles
+        run: mise run build:pinned
       - name: Compare with the Jekyll reference
         run: node scripts/compare-reference.ts
       - name: Install Chromium
         run: npx playwright install --with-deps chromium
       - name: Run browser tests
         run: npx vp test --project browser --project site
+      - name: Build with the latest articles
+        run: mise run build
+      - name: Check the built site
+        run: node scripts/check-site.ts
       - uses: actions/upload-artifact@v5
         with:
           name: dist

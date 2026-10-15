@@ -8,14 +8,8 @@ ASTRO_DEV_BACKGROUND = "0"
 ASTRO_TELEMETRY_DISABLED = "1"
 
 [tasks.setup]
-description = "Install tools, the English articles at their recorded revision, and locked dependencies"
-run = [
-  "mise install",
-  # Check out the recorded revision; `content:update` fetches newer articles.
-  "git submodule sync --quiet collections/en/_posts",
-  "git submodule update --init collections/en/_posts",
-  "npm ci --no-audit --no-fund",
-]
+description = "Install tools and locked dependencies"
+run = ["mise install", "npm ci --no-audit --no-fund"]
 
 [tasks."setup:browsers"]
 description = "Install the Chromium build used by browser tests and screenshots"
@@ -26,7 +20,13 @@ description = "Start the development server (uses CONDUCTOR_PORT, or 4321)"
 run = 'npx astro dev --host 127.0.0.1 --port "${CONDUCTOR_PORT:-4321}"'
 
 [tasks.build]
-description = "Build the static site into dist/"
+description = "Build the static site into dist/ with the latest articles"
+run = "npx astro build"
+
+[tasks."build:pinned"]
+description = "Build the static site into dist/ with the articles that the tests and Jekyll reference match"
+# NSHipster/articles keeps changing, so tests use the articles at this commit.
+env = { ARTICLES_REF = "1d68ce915ae1213ea2d83370c934482f5ad86b54" }
 run = "npx astro build"
 
 [tasks.check]
@@ -44,12 +44,12 @@ run = "npx vp test --project unit"
 
 [tasks."test:browser"]
 description = "Run browser tests for scripts and the built site"
-depends = ["build", "setup:browsers"]
+depends = ["build:pinned", "setup:browsers"]
 run = "npx vp test --project browser --project site"
 
 [tasks."reference:compare"]
 description = "Compare dist/ with the Jekyll reference facts (and pages, given a reference build directory)"
-depends = ["build"]
+depends = ["build:pinned"]
 run = "node scripts/compare-reference.ts"
 
 [tasks."audit:weight"]
@@ -65,14 +65,6 @@ run = "node scripts/generate-icons.ts"
 description = "Serve dist/ with Cloudflare's local runtime (uses CONDUCTOR_PORT, or 8788)"
 depends = ["build"]
 run = 'npx wrangler dev --ip 127.0.0.1 --port "${CONDUCTOR_PORT:-8788}"'
-
-[tasks."content:update"]
-description = "Update the English articles to the latest commit of NSHipster/articles"
-run = [
-  "git submodule update --init --remote collections/en/_posts",
-  "git -C collections/en/_posts log -1 --format='Articles are now at %h: %s'",
-  "echo 'Review and commit the collections/en/_posts change to publish it.'",
-]
 
 [tasks.deploy]
 description = "Build and deploy to production on Cloudflare"

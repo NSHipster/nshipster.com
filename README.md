@@ -26,9 +26,7 @@ $ cd nshipster.com
 $ mise run setup
 ```
 
-Setup installs Node.js,
-checks out the English articles at the revision recorded in this repository,
-and installs the locked dependencies.
+Setup installs Node.js and the locked dependencies.
 It's safe to run again.
 
 Start the development server with:
@@ -39,7 +37,7 @@ $ mise run dev
 
 The server listens on port 4321,
 or on `CONDUCTOR_PORT` when run from a Conductor workspace.
-Changes to articles, the bibliography, and assets are picked up while it runs.
+Changes to the bibliography and assets are picked up while it runs.
 
 Run `mise tasks` to see every task.
 The most common ones are:
@@ -52,7 +50,31 @@ The most common ones are:
 | `mise run test:browser`     | Run browser tests for scripts and the built site           |
 | `mise run check:site`       | Check the built site for broken links and other problems   |
 | `mise run preview`          | Serve `dist/` with Cloudflare's local runtime              |
-| `mise run content:update`   | Update the English articles to the latest published commit |
+
+### Articles
+
+Each build downloads the English articles
+from the latest commit on the `master` branch of
+[`NSHipster/articles`](https://github.com/nshipster/articles)
+into `node_modules/.astro/articles`.
+If the download fails during a local build,
+the build uses the previous download.
+
+To preview changes to articles,
+set `ARTICLES_DIR` to a local checkout of `NSHipster/articles`.
+The development server picks up changes to those files while it runs:
+
+```terminal
+$ ARTICLES_DIR=../articles mise run dev
+```
+
+To build a branch, tag, or commit of `NSHipster/articles` other than `master`,
+set `ARTICLES_REF`.
+The browser tests and the comparison with the Jekyll site
+open specific articles and expect their content,
+so they use `mise run build:pinned`,
+which builds with the articles at a fixed commit.
+`mise run check:site` checks a build with the latest articles.
 
 ## How the Site Is Built
 
@@ -64,7 +86,7 @@ then HTML transformations such as heading anchors and code listing tabs.
 The rendering code lives in `src/lib/render/`.
 
 The site is moving from Liquid and Kramdown to Markdoc for articles in stages.
-Converted articles in `collections/en/_posts/` use `.mdoc`,
+Converted articles in `NSHipster/articles` use `.mdoc`,
 with Markdoc tags mapped to the components in `src/components/articles/`:
 `{% info %}`, `{% warning %}`, and `{% error %}` callout tags;
 `{% book %}` for book links;
@@ -140,6 +162,14 @@ the build writes `_redirects` and `_headers` into `dist/`.
 The Cloudflare Git integration builds and deploys `master` to production.
 It creates preview deployments for other branches.
 The GitHub Actions workflow runs checks but does not deploy the site.
+
+The Cloudflare Git integration doesn't build the site
+when articles change.
+Instead, pushes to the `master` branch of `NSHipster/articles`
+run its [Deploy workflow](https://github.com/NSHipster/articles/actions/workflows/deploy.yml),
+which builds `master` of this repository and deploys it to production.
+That workflow uses the `CLOUDFLARE_API_TOKEN` secret
+and the `CLOUDFLARE_ACCOUNT_ID` variable of `NSHipster/articles`.
 
 The build settings for the `nshipster` Worker
 are configured in the Cloudflare dashboard:
