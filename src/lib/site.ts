@@ -37,7 +37,8 @@ export const site = {
 } as const;
 
 export const paths = {
-  posts: "collections/en/_posts",
+  /** Where the build downloads `NSHipster/articles`; see `src/lib/content/articles.ts`. */
+  articles: "node_modules/.astro/articles",
   authors: "src/content/authors",
   books: "src/content/books",
   pages: "src/content/pages",

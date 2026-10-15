@@ -12,6 +12,7 @@
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import { SyntaxValidator } from "fast-xml-validator";
+import { articlesDirectory } from "../src/lib/content/articles.ts";
 
 const DIST = path.resolve(process.argv[2] ?? "dist");
 const ROOT = process.cwd();
@@ -102,7 +103,7 @@ for (const file of pages) {
 }
 
 // Unpublished articles must not be built.
-const postsDirectory = path.join(ROOT, "collections/en/_posts");
+const postsDirectory = articlesDirectory();
 for (const file of readdirSync(postsDirectory).filter((entry) => entry.endsWith(".md"))) {
   const source = readFileSync(path.join(postsDirectory, file), "utf8");
   const frontMatter = source.match(/^---\n([\s\S]*?)\n---/)?.[1] ?? "";
