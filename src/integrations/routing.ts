@@ -35,6 +35,9 @@ export const PAGE_REDIRECTS: ReadonlyArray<readonly [string, string]> = [
   ["/clang-diagnostics", "/pragma"],
   ["/propertyWrapper", "/propertywrapper"],
   ["/CocoaPods", "/cocoapods"],
+  ["/boolean-values", "/bool"],
+  ["/swift-reflection-api", "/mirror"],
+  ["/swift-build-configurations", "/xcconfig"],
 ];
 
 /** Redirects to other hosts. */

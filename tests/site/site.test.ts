@@ -63,6 +63,9 @@ describe("routing", () => {
       ["/authors/mattt-thompson", "/authors/mattt"],
       ["/propertyWrapper", "/propertywrapper"],
       ["/CocoaPods/", "/cocoapods"],
+      ["/boolean-values/", "/bool"],
+      ["/swift-reflection-api", "/mirror"],
+      ["/swift-build-configurations/", "/xcconfig"],
     ]) {
       const response = await fetchManual(from!);
       expect(response.status, from).toBe(301);
@@ -82,10 +85,12 @@ describe("routing", () => {
     );
     expect((await fetchManual("/robots.txt")).headers.get("content-type")).toMatch(/^text\/plain/);
     expect((await fetchManual("/.well-known/favicon.ico")).status).toBe(200);
+    expect(await (await fetch(url("/.well-known/robots.txt"))).text()).toContain("Disallow: /search");
     expect(await (await fetch(url("/.well-known/robots.txt"))).text()).toContain(
       "Sitemap: https://nshipster.com/sitemap.xml",
     );
     expect(await (await fetch(url("/.well-known/humans.txt"))).text()).toContain("Language: en-US");
+    expect(await (await fetch(url("/robots.txt"))).text()).toContain("Disallow: /search");
     expect(await (await fetch(url("/robots.txt"))).text()).toContain("Sitemap: https://nshipster.com/sitemap.xml");
     const humans = await (await fetch(url("/humans.txt"))).text();
     expect(humans).toContain("Language: en-US");

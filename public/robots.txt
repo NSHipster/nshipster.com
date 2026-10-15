@@ -1,4 +1,6 @@
 User-agent: *
 Allow: /
+Disallow: /search
 
 Sitemap: https://nshipster.com/sitemap.xml
+
