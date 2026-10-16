@@ -3,7 +3,7 @@ import { getCollection } from "astro:content";
 import { authorDescription, authorURL, postsNewestFirst, type Post } from "../lib/collections.ts";
 import { mdxPostData } from "../lib/content/mdx.ts";
 import { byCodeUnit } from "../lib/content/posts.ts";
-import { markdownPath } from "../lib/markdown-alternate.ts";
+import { markdownPath } from "../lib/markdown-negotiation.ts";
 import { site } from "../lib/site.ts";
 import { plainText } from "../lib/text.ts";
 

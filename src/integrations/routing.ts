@@ -128,8 +128,8 @@ export function redirects(assets: AssetManifest, exists: (pathname: string) => b
  * Every path gets the security headers in `SECURITY_HEADERS`
  * and a `Link` header with the site's machine-readable resources in `SITE_LINKS`.
  *
- * The `Link` header doesn't give the Markdown versions of articles.
- * A `/:slug` rule for them would also match every other path with one segment, such as `/feed.xml`,
+ * The Worker in `src/worker.ts` replaces the `Link` header of each article with one that also gives its Markdown version.
+ * A `/:slug` rule here would also match every other path with one segment, such as `/feed.xml`,
  * and `_headers` allows only 100 rules, too few for one per article.
  * Later rules could remove the link from the other paths,
  * but the result would depend on the order in which Cloudflare applies rules:

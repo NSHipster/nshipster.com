@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vite-plus/test";
-import { htmlToMarkdown, markdownPath, pageMarkdown, pageURL } from "../../src/lib/markdown-alternate.ts";
+import { htmlToMarkdown, pageMarkdown, pageURL } from "../../src/lib/markdown-alternate.ts";
 import { render } from "./helpers.ts";
 
 const URL = "https://nshipster.com/fixture";
@@ -132,10 +132,5 @@ ${head}
     // `/%2F127.0.0.1:8080/admin.md`, decoded.
     const url = pageURL("http://127.0.0.1:4321/", "//127.0.0.1:8080/admin.md");
     expect(url.origin).toBe("http://127.0.0.1:4321");
-  });
-
-  it("appends .md to the page path", () => {
-    expect(markdownPath("/nscache")).toBe("/nscache.md");
-    expect(markdownPath("/nscache/")).toBe("/nscache.md");
   });
 });
