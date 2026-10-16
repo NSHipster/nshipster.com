@@ -1,6 +1,7 @@
 import { transformationSource } from "./lib/image-transformations.ts";
 import { SECURITY_HEADERS } from "./lib/security-headers.ts";
 import { securityTxt } from "./lib/security-txt.ts";
+import { SITE_LINKS } from "./lib/site-links.ts";
 
 /**
  * The Worker in front of the static site.
@@ -10,7 +11,7 @@ import { securityTxt } from "./lib/security-txt.ts";
  * and for requests that match no asset, which get the 404 page.
  * Add a path to `run_worker_first` and to `routes` to handle it here.
  * `_headers` rules don't apply to responses that this Worker creates,
- * so `respond` adds the security headers itself.
+ * so `respond` adds the security headers and the site's `Link` header itself.
  *
  * The Workers runtime treats every value export of this module as an entry point,
  * so export only the default handler and types; put other code in `src/lib/`.
@@ -32,11 +33,11 @@ const routes: Record<string, Handler> = {
     }),
 };
 
-/** Creates a response with the security headers, and without a body for `HEAD` requests. */
+/** Creates a response with the security headers and site links, and without a body for `HEAD` requests. */
 function respond(request: Request, body: BodyInit | null, headers: Record<string, string>, status = 200): Response {
   return new Response(request.method === "HEAD" ? null : body, {
     status,
-    headers: { ...SECURITY_HEADERS, ...headers },
+    headers: { ...SECURITY_HEADERS, Link: SITE_LINKS, ...headers },
   });
 }
 

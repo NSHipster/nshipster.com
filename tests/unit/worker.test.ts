@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vite-plus/test";
 import { SECURITY_HEADERS } from "../../src/lib/security-headers.ts";
+import { SITE_LINKS } from "../../src/lib/site-links.ts";
 import worker, { type Env } from "../../src/worker.ts";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
@@ -54,10 +55,13 @@ describe("worker", () => {
     expect(expiresAt).toBeLessThan(requestedAt + 365 * DAY_MS);
   });
 
-  it("adds the site's security headers to the responses it creates", async () => {
-    const response = await fetchWorker("/.well-known/security.txt");
-    for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
-      expect(response.headers.get(name), name).toBe(value);
+  it("adds the site's security headers and links to the responses it creates", async () => {
+    for (const pathname of ["/.well-known/security.txt", "/missing"]) {
+      const response = await fetchWorker(pathname);
+      for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
+        expect(response.headers.get(name), `${pathname} ${name}`).toBe(value);
+      }
+      expect(response.headers.get("Link"), pathname).toBe(SITE_LINKS);
     }
   });
 

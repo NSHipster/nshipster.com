@@ -219,6 +219,27 @@ describe("routing", () => {
     expect(response.headers.get("permissions-policy")).toContain("camera=()");
   });
 
+  it("links every response to the feed, sitemap, and llms.txt", async () => {
+    const links =
+      '</feed.xml>; rel="alternate"; type="application/atom+xml", ' +
+      '</sitemap.xml>; rel="sitemap"; type="application/xml", ' +
+      '</llms.txt>; rel="describedby"; type="text/plain"';
+    // Pages, files, redirects, and responses from the Worker.
+    const paths = [
+      "/",
+      "/nscache",
+      "/nscache.md",
+      "/feed.xml",
+      "/logo.png",
+      "/wkwebkit",
+      "/missing",
+      "/.well-known/security.txt",
+    ];
+    for (const pathname of paths) {
+      expect((await fetchManual(pathname)).headers.get("link"), pathname).toBe(links);
+    }
+  });
+
   it("serves security.txt from the Worker with the security headers", async () => {
     const response = await fetchManual("/.well-known/security.txt");
     expect(response.status).toBe(200);
