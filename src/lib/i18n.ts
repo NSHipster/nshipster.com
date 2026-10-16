@@ -9,4 +9,5 @@ export const t = {
   articles: "Articles",
   license:
     'NSHipster.com is released under a <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license">Creative Commons BY-NC License</a>.',
+  privacy: "Privacy Policy",
 } as const;
