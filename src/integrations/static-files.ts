@@ -3,7 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { AstroIntegration } from "astro";
 import { AssetManifest } from "../lib/assets.ts";
-import { pageMarkdown } from "../lib/markdown-alternate.ts";
+import { pageMarkdown, pageURL } from "../lib/markdown-alternate.ts";
 import { ROOT, paths } from "../lib/site.ts";
 import { headers, redirects } from "./routing.ts";
 
@@ -74,8 +74,10 @@ export function staticFiles(): AstroIntegration {
                     };
                     if (pathname.endsWith(".md")) {
                       // Convert the page as the build does, if it links to this Markdown version.
-                      const page = new URL(pathname.slice(0, -".md".length), `http://${request.headers.host}`);
-                      fetch(page)
+                      // The page is always requested from this server, whatever the path contains.
+                      const origin = server.resolvedUrls?.local[0];
+                      if (!origin) return next();
+                      fetch(pageURL(origin, pathname), { redirect: "manual" })
                         .then(async (response) => (response.ok ? pageMarkdown(await response.text()) : undefined))
                         .then((alternate) =>
                           send(alternate?.path === pathname ? Buffer.from(alternate.markdown) : undefined),

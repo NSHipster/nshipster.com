@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vite-plus/test";
-import { htmlToMarkdown, markdownPath, pageMarkdown } from "../../src/lib/markdown-alternate.ts";
+import { htmlToMarkdown, markdownPath, pageMarkdown, pageURL } from "../../src/lib/markdown-alternate.ts";
 import { render } from "./helpers.ts";
 
 const URL = "https://nshipster.com/fixture";
@@ -56,6 +56,12 @@ describe("Markdown versions of articles", () => {
     expect(markdown).toContain("[^note-2]: Numbered label.");
     expect(markdown).toContain("[^a]: Repeated.");
     expect(markdown).not.toContain("↩");
+    expect(markdown).not.toContain("[](");
+  });
+
+  it("keeps footnote labels with percent signs", async () => {
+    const markdown = await convert("All[^100%].\n\n[^100%]: Everything.");
+    expect(markdown).toBe("All[^100%].\n\n[^100%]: Everything.\n");
   });
 
   it("resolves links and images against the page URL", async () => {
@@ -107,6 +113,13 @@ ${head}
 
   it("skips a page that doesn't link to a Markdown version", () => {
     expect(pageMarkdown(page(""))).toBeUndefined();
+  });
+
+  it("requests the page from the development server for any path", () => {
+    expect(pageURL("http://127.0.0.1:4321/", "/nscache.md").href).toBe("http://127.0.0.1:4321/nscache");
+    // `/%2F127.0.0.1:8080/admin.md`, decoded.
+    const url = pageURL("http://127.0.0.1:4321/", "//127.0.0.1:8080/admin.md");
+    expect(url.origin).toBe("http://127.0.0.1:4321");
   });
 
   it("appends .md to the page path", () => {

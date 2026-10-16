@@ -26,6 +26,16 @@ export function markdownPath(pathname: string): string {
   return `${pathname.replace(/\/+$/, "") || "/index"}.md`;
 }
 
+/**
+ * The URL of the page with the Markdown version at `pathname`, on the server at `origin`.
+ * The URL stays on that server even if the path starts with `//`.
+ */
+export function pageURL(origin: string, pathname: string): URL {
+  const url = new URL(origin);
+  url.pathname = pathname.replace(/\.md$/, "");
+  return url;
+}
+
 export interface MarkdownAlternate {
   /** The path that the page gives in its `<link rel="alternate" type="text/markdown">`. */
   path: string;
@@ -150,6 +160,8 @@ function prepare(tree: HastRoot): void {
       ((node.tagName === "a" && node.children.length === 0) ||
         // Code tab buttons; the listings that they switch between are kept.
         node.properties.role === "tablist" ||
+        // Links from footnotes back to their references.
+        node.properties.role === "doc-backlink" ||
         // Line break opportunities, which `hast-util-to-mdast` turns into zero-width spaces.
         node.tagName === "wbr" ||
         // Hidden content, like a caption that repeats a summary, except hidden code tabs.
@@ -218,7 +230,6 @@ const handlers: Record<string, Handle> = {
     if (node.properties.role !== "doc-endnotes") return defaultHandlers.div!(state, node);
     const definitions: FootnoteDefinition[] = [];
     for (const item of selectAll("li[role=doc-endnote]", node)) {
-      for (const back of selectAll("a.reversefootnote", item)) back.children = [];
       const label = footnoteLabel(String(item.properties.id));
       const children = state.toFlow(state.all(item)) as FootnoteDefinition["children"];
       definitions.push({ type: "footnoteDefinition", identifier: label.toLowerCase(), label, children });
@@ -236,7 +247,8 @@ const handlers: Record<string, Handle> = {
   },
 };
 
-const footnoteLabel = (value: string) => decodeURIComponent(value.replace(/^#?fn(?:ref)?:/, ""));
+/** The label in a footnote ID or link, which `convertFootnotes` in `render/transforms.ts` has already decoded. */
+const footnoteLabel = (value: string) => value.replace(/^#?fn(?:ref)?:/, "");
 
 const escapeHTML = (text: string) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
