@@ -39,6 +39,7 @@ const KINDS: Record<string, AssetKind> = {
   ".m4v": "media",
   ".mov": "media",
   ".srt": "file",
+  ".vtt": "file",
 };
 
 export class AssetError extends Error {}
