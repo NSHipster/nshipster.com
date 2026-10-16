@@ -270,7 +270,8 @@ export async function highlightCodeBlock(value: string, fence?: string, options?
     const text = name === "..." ? "…" : name;
     code = code.replace(String.fromCodePoint(0xf0000 + index), `<var class="placeholder">${escapeHTML(text)}</var>`);
   });
-  const attrs = [`class="highlight"`, `data-lang="${escapeHTMLAttribute(label)}"`];
+  // Translation tools leave the listing alone; its `<code>` inherits the attribute.
+  const attrs = [`class="highlight"`, `data-lang="${escapeHTMLAttribute(label)}"`, `translate="no"`];
   if (options?.id) attrs.push(`id="${escapeHTMLAttribute(options.id)}"`);
   if (options?.role) attrs.push(`role="${escapeHTMLAttribute(options.role)}"`);
   if (options?.tabIndex !== undefined) attrs.push(`tabindex="${options.tabIndex}"`);
@@ -301,6 +302,25 @@ export const rehypeMarkHeadingIds: Plugin<[], HastRoot> = () => (tree) => {
     }
   });
 };
+
+/**
+ * Marks code listings and inline code with `translate="no"`,
+ * so that browser and machine translation leave code as written.
+ * Code inside a listing inherits the attribute from its `<pre>`,
+ * and elements that set `translate` themselves keep their value.
+ */
+export function preventCodeTranslation(node: HastRoot | Element, inListing = false): void {
+  for (const child of node.children) {
+    if (child.type !== "element") continue;
+    const isListing = child.tagName === "pre";
+    if ((isListing || (child.tagName === "code" && !inListing)) && child.properties.translate === undefined) {
+      child.properties.translate = "no";
+    }
+    preventCodeTranslation(child, inListing || isListing);
+  }
+}
+
+export const rehypePreventCodeTranslation: Plugin<[], HastRoot> = () => (tree) => preventCodeTranslation(tree);
 
 /**
  * The GFM syntax that Kramdown's GFM parser supported: tables, strikethrough, and footnotes.
@@ -386,7 +406,7 @@ export function markdownProcessor() {
       remarkDefinitionLists,
       remarkHighlightCode,
     ],
-    rehypePlugins: [rehypeRaw, rehypeMarkHeadingIds],
+    rehypePlugins: [rehypeRaw, rehypeMarkHeadingIds, rehypePreventCodeTranslation],
     remarkRehype: { allowDangerousHtml: true, handlers: { listItem: listItemHandler } },
   });
 }

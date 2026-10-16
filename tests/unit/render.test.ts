@@ -56,14 +56,14 @@ describe("article rendering", () => {
 
   it("parses Markdown inside HTML the way Kramdown did", async () => {
     const { html } = await render(fixture("markdown-in-html"));
-    expect(html).toContain("<code>uv</code>");
-    expect(html).toContain("<dt><code>Localized<wbr>Error</code></dt>");
+    expect(html).toContain('<code translate="no">uv</code>');
+    expect(html).toContain('<dt><code translate="no">Localized<wbr>Error</code></dt>');
     expect(html).toContain('<a href="https://en.wikipedia.org/wiki/ISO/IEC_80000" rel="noopener noreferrer">');
     expect(html).toContain("<samp>\n`&lt;CNMutableContact: 0x7ff727e38bb0: ... />`<br>and more...\n</samp>");
     expect(html).toContain("<p>This **is not** Markdown.</p>");
     expect(html).toMatch(/<table>\s*<tbody>/);
     expect(html).toContain("A line with a hard break <br>");
-    expect(html).toContain("<dt><code>@property</code></dt>");
+    expect(html).toContain('<dt><code translate="no">@property</code></dt>');
     await expect(html).toMatchFileSnapshot(snapshot("markdown-in-html"));
   });
 
@@ -77,7 +77,7 @@ describe("article rendering", () => {
     expect(html).toContain('data-lang="JWT"');
     expect(html).toContain('data-lang="plaintext"');
     expect(html).toContain("Plain text &lt;b>not bold&lt;/b>");
-    expect(html).toContain('<code><var class="placeholder">…</var></code>');
+    expect(html).toContain('<code translate="no"><var class="placeholder">…</var></code>');
     expect(html).toContain(
       '<a class="anchor" aria-hidden="true" tabindex="-1" id="code-listings" href="#code-listings"></a>',
     );
@@ -107,6 +107,16 @@ describe("article rendering", () => {
     expect(html).toContain('<var class="placeholder">Turtle object</var>');
     expect(html).toContain('<var class="placeholder">variables</var>');
     expect(html).not.toContain("NSHIPSTER_PLACEHOLDER");
+  });
+
+  it("keeps translation tools out of code listings and inline code", async () => {
+    const { html } = await render(
+      'Call `doSomething()`.\n\n```swift\nlet x = 1\n```\n\n{::nomarkdown}<pre><code>raw</code></pre>{:/}\n\n<code translate="yes">kept</code>',
+    );
+    expect(html).toContain('<code translate="no">do<wbr>Something()</code>');
+    expect(html).toContain('<pre class="highlight" data-lang="Swift" translate="no"><code>');
+    expect(html).toContain('<pre translate="no"><code>raw</code></pre>');
+    expect(html).toContain('<code translate="yes">kept</code>');
   });
 
   it("uses the rendered book summary in structured data", async () => {
@@ -231,5 +241,15 @@ describe("article rendering", () => {
     const html = String(infoTag.children[0]);
     expect(html).toContain('<div class="highlight-group">');
     expect(html).toContain('id="code-listing-1-swift"');
+    expect(html).toContain('translate="no"');
+  });
+
+  it("keeps translation tools out of Markdoc inline code", async () => {
+    const ast = Markdoc.parse("Call `doSomething()`.");
+    const transformed = Markdoc.transform(ast, markdocConfig as any);
+    const content = (transformed instanceof Promise ? await transformed : transformed) as any[];
+    const code = content[0].children[1];
+    expect(code.name).toBe("code");
+    expect(code.attributes).toEqual({ translate: "no" });
   });
 });
