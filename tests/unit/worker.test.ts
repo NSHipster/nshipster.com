@@ -9,6 +9,7 @@ const NOT_FOUND_PAGE = "<!DOCTYPE html><title>NSError</title>";
 const PAGE = "<!DOCTYPE html><title>NSCache</title>";
 const MARKDOWN = "# NSCache\n";
 const STATUS_PAGE = "<!DOCTYPE html><title>Status</title>";
+const HOME_PAGE = "<!DOCTYPE html><title>NSHipster</title>";
 
 /** Files in the static assets, with the headers that `_headers` adds to some of them. */
 const FILES: Record<string, { body: string; type: string; etag: string; headers?: Record<string, string> }> = {
@@ -20,11 +21,12 @@ const FILES: Record<string, { body: string; type: string; etag: string; headers?
     headers: { "X-Robots-Tag": "noindex" },
   },
   "/status": { body: STATUS_PAGE, type: "text/html; charset=utf-8", etag: '"status"' },
+  "/": { body: HOME_PAGE, type: "text/html; charset=utf-8", etag: '"home"' },
 };
 
 /**
  * Static assets with the files in `FILES` and the 404 page, which treat other paths as missing.
- * Like Cloudflare's, they redirect a path with a trailing slash and answer conditional requests.
+ * Like Cloudflare's, they redirect a path with a trailing slash and answer conditional and range requests.
  */
 const assets = (notFoundPage: string | null = NOT_FOUND_PAGE): Env => ({
   ASSETS: {
@@ -50,6 +52,11 @@ const assets = (notFoundPage: string | null = NOT_FOUND_PAGE): Env => ({
         ...file.headers,
       };
       if (request.headers.get("If-None-Match") === file.etag) return new Response(null, { status: 304, headers });
+      const range = request.headers.get("Range")?.match(/^bytes=(\d+)-(\d+)$/);
+      if (range) {
+        const body = file.body.slice(Number(range[1]), Number(range[2]) + 1);
+        return new Response(request.method === "HEAD" ? null : body, { status: 206, headers });
+      }
       return new Response(request.method === "HEAD" ? null : file.body, { headers });
     },
   },
@@ -183,6 +190,31 @@ describe("worker", () => {
     expect(head.status).toBe(200);
     expect(head.headers.get("Content-Type")).toBe("text/markdown; charset=utf-8");
     expect(await head.text()).toBe("");
+  });
+
+  it("answers range requests for either version", async () => {
+    const page = await fetchWorker("/nscache", { headers: { Range: "bytes=0-8" } });
+    expect(page.status).toBe(206);
+    expect(await page.text()).toBe("<!DOCTYPE");
+    expect(page.headers.get("Link")).toBe(pageLinks("/nscache.md"));
+    expect(page.headers.get("Vary")).toBe("Accept");
+
+    const markdown = await fetchWorker("/nscache", { headers: { Accept: "text/markdown", Range: "bytes=0-1" } });
+    expect(markdown.status).toBe(206);
+    expect(await markdown.text()).toBe("# ");
+    expect(markdown.headers.get("Content-Type")).toBe("text/markdown; charset=utf-8");
+    expect(markdown.headers.get("Vary")).toBe("Accept");
+  });
+
+  it("looks for a Markdown version on this site when the path starts with //", async () => {
+    // `new URL("//nscache.md", base)` would be `https://nscache.md/`, which the static assets serve as the home page.
+    const response = await worker.fetch(
+      new Request("https://nshipster.com//nscache", { headers: { Accept: "text/markdown" } }),
+      env,
+    );
+    expect(response.status).toBe(404);
+    expect(response.headers.get("Content-Type")).toBe("text/html; charset=utf-8");
+    expect(await response.text()).toBe(NOT_FOUND_PAGE);
   });
 
   it("passes redirects through without negotiating", async () => {

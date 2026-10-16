@@ -96,7 +96,8 @@ function varyAccept(response: Response): Response {
   return response;
 }
 
-const found = (response: Response) => response.status === 200 || response.status === 304;
+/** Whether a response from the static assets has the requested file, whole or in part, or confirms the cached copy. */
+const found = (response: Response) => [200, 206, 304].includes(response.status);
 
 /**
  * Responds with a page or other file from the static assets.
@@ -122,7 +123,10 @@ async function page(request: Request, env: Env): Promise<Response> {
   }
 
   const markdown = markdownPath(pathname);
-  const markdownURL = new URL(markdown, request.url);
+  // Setting the path keeps the URL on this site even if the path starts with `//`.
+  const markdownURL = new URL(request.url);
+  markdownURL.pathname = markdown;
+  markdownURL.search = "";
   if (prefersMarkdown(request.headers.get("Accept"))) {
     // Conditional request headers apply to the Markdown version, which has its own `ETag`.
     const response = await env.ASSETS.fetch(new Request(markdownURL, request));
