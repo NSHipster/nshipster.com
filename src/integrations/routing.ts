@@ -77,10 +77,25 @@ export function redirects(assets: AssetManifest, exists: (pathname: string) => b
   return rules;
 }
 
-/** Response headers for Cloudflare's `_headers` file. */
+/**
+ * Response headers for Cloudflare's `_headers` file.
+ *
+ * `Permissions-Policy` disables powerful features that no page uses.
+ * It leaves features such as `fullscreen` and `encrypted-media` unrestricted
+ * for the YouTube videos that some articles embed.
+ *
+ * `Cross-Origin-Resource-Policy: same-origin` keeps other sites from loading pages as subresources.
+ * Images, media, scripts, styles, and icons are `cross-origin` instead,
+ * so that feed readers and other sites can still show them.
+ * Cloudflare joins the values of a header that more than one rule sets,
+ * so these rules remove the earlier value first with `!`.
+ */
 export function headers(): string {
   return `/*
   Content-Security-Policy: default-src 'self' *.nshipster.com; script-src 'self' *.nshipster.com https://*.apple-mapkit.com; style-src 'self' 'unsafe-inline'; img-src 'self' *.gravatar.com https://*.apple-mapkit.com; frame-ancestors 'none'; object-src 'none'; connect-src 'self' *.nshipster.com https://*.apple-mapkit.com; base-uri 'none'; upgrade-insecure-requests
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+  Permissions-Policy: bluetooth=(), browsing-topics=(), camera=(), display-capture=(), geolocation=(), hid=(), idle-detection=(), local-fonts=(), microphone=(), midi=(), payment=(), screen-wake-lock=(), serial=(), usb=(), xr-spatial-tracking=()
   Referrer-Policy: same-origin
   Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
   X-Content-Type-Options: nosniff
@@ -88,9 +103,25 @@ export function headers(): string {
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
+  ! Cross-Origin-Resource-Policy
+  Cross-Origin-Resource-Policy: cross-origin
 
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
+  ! Cross-Origin-Resource-Policy
+  Cross-Origin-Resource-Policy: cross-origin
+
+/*.ico
+  ! Cross-Origin-Resource-Policy
+  Cross-Origin-Resource-Policy: cross-origin
+
+/*.png
+  ! Cross-Origin-Resource-Policy
+  Cross-Origin-Resource-Policy: cross-origin
+
+/*.svg
+  ! Cross-Origin-Resource-Policy
+  Cross-Origin-Resource-Policy: cross-origin
 
 /feed.xml
   Content-Type: application/atom+xml; charset=utf-8
