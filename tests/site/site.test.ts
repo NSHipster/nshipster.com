@@ -186,6 +186,7 @@ describe("pages", () => {
       "/status",
       "/flight-school/",
       "/return/",
+      "/privacy/",
       "/secrets/",
     ]) {
       const { errors, context, response } = await open(pathname);
