@@ -233,6 +233,11 @@ export async function highlight(code: string, fence: string | undefined): Promis
     lang: grammar as Parameters<Highlighter["codeToTokensBase"]>[1]["lang"],
     theme: "github-light",
     includeExplanation: "scopeName",
+    // With explanations, Shiki tokenizes each line twice, each pass with its own time limit.
+    // On a slow build machine, one pass can stop early while the other finishes,
+    // and Shiki fails when their tokens don't line up. No limit keeps the passes in step
+    // and the output the same on every build.
+    tokenizeTimeLimit: 0,
   });
 
   const output: string[] = [];
