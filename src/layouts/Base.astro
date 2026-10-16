@@ -31,11 +31,13 @@ interface Props {
   next?: string;
   previous?: string;
   noindex?: boolean;
+  /** The path of the page's Markdown version, e.g. `/nscache.md`. */
+  markdown?: string;
   /** Whether the page is the home page, which shows the tagline. */
   home?: boolean;
 }
 
-const { title, path, document, article, creator, next, previous, noindex, home } = Astro.props;
+const { title, path, document, article, creator, next, previous, noindex, markdown, home } = Astro.props;
 const assets = assetManifest();
 const absolute = (value: string) => new URL(value, Astro.site).href;
 const founder = { "@type": "Person", name: "Mattt", url: absolute(authorURL("mattt")) };
@@ -134,6 +136,7 @@ const plainTitle = stripHTML(title).trim();
     }
 
     <link rel="canonical" href={absolute(path)} />
+    {markdown && <link rel="alternate" type="text/markdown" href={markdown} />}
 
     {next && <link rel="next" href={absolute(next)} />}
     {previous && <link rel="prev" href={absolute(previous)} />}

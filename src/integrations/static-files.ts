@@ -1,8 +1,9 @@
-import { existsSync, mkdirSync, readdirSync, statSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { AstroIntegration } from "astro";
 import { AssetManifest } from "../lib/assets.ts";
+import { pageMarkdown } from "../lib/markdown-alternate.ts";
 import { ROOT, paths } from "../lib/site.ts";
 import { headers, redirects } from "./routing.ts";
 
@@ -24,6 +25,7 @@ const CONTENT_TYPES: Record<string, string> = {
   ".srt": "text/plain; charset=utf-8",
   ".vtt": "text/vtt; charset=utf-8",
   ".txt": "text/plain; charset=utf-8",
+  ".md": "text/markdown; charset=utf-8",
   ".xml": "application/xml; charset=utf-8",
   ".json": "application/json; charset=utf-8",
   ".webmanifest": "application/manifest+json; charset=utf-8",
@@ -33,6 +35,7 @@ const CONTENT_TYPES: Record<string, string> = {
 /**
  * Publishes `assets/` with content-hashed names under `/assets/`,
  * along with smaller copies of the images in `src/data/responsive-images.json`,
+ * writes the Markdown versions of articles that their pages link to,
  * and writes Cloudflare routing files.
  * Files served as-is from the site root live in `public/`.
  */
@@ -69,7 +72,16 @@ export function staticFiles(): AstroIntegration {
                       );
                       response.end(contents);
                     };
-                    if (pathname.startsWith("/assets/")) {
+                    if (pathname.endsWith(".md")) {
+                      // Convert the page as the build does, if it links to this Markdown version.
+                      const page = new URL(pathname.slice(0, -".md".length), `http://${request.headers.host}`);
+                      fetch(page)
+                        .then(async (response) => (response.ok ? pageMarkdown(await response.text()) : undefined))
+                        .then((alternate) =>
+                          send(alternate?.path === pathname ? Buffer.from(alternate.markdown) : undefined),
+                        )
+                        .catch(next);
+                    } else if (pathname.startsWith("/assets/")) {
                       manifest ??= new AssetManifest();
                       outputs ??= manifest.outputs();
                       const contents = outputs.get(pathname)?.contents;
@@ -101,6 +113,14 @@ export function staticFiles(): AstroIntegration {
         const variants = await manifest.variantOutputs();
         for (const [url, { contents }] of variants) write(url, contents);
 
+        let markdownCount = 0;
+        for (const file of pages(output)) {
+          const alternate = pageMarkdown(readFileSync(file, "utf8"));
+          if (!alternate) continue;
+          write(alternate.path, alternate.markdown);
+          markdownCount++;
+        }
+
         // Compare names exactly: Cloudflare paths are case-sensitive, but file systems may not be.
         const existsExactly = (relative: string): boolean => {
           let directory = output;
@@ -120,9 +140,19 @@ export function staticFiles(): AstroIntegration {
         write("/_redirects", rules.map(({ from, to, status }) => `${from} ${to} ${status}`).join("\n") + "\n");
         write("/_headers", headers());
         logger.info(
-          `Wrote ${outputs.size} assets, ${variants.size} smaller copies of large images, and ${rules.length} redirects`,
+          `Wrote ${outputs.size} assets, ${variants.size} smaller copies of large images, ` +
+            `${markdownCount} Markdown versions of pages, and ${rules.length} redirects`,
         );
       },
     },
   };
+}
+
+/** The HTML pages in the output directory that may link to a Markdown version, skipping bundled and published assets. */
+function* pages(directory: string): Generator<string> {
+  for (const entry of readdirSync(directory, { withFileTypes: true })) {
+    const file = path.join(directory, entry.name);
+    if (entry.isDirectory() && entry.name !== "_astro" && entry.name !== "assets") yield* pages(file);
+    else if (entry.isFile() && entry.name.endsWith(".html")) yield file;
+  }
 }

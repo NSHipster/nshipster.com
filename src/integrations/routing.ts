@@ -84,6 +84,7 @@ export function redirects(assets: AssetManifest, exists: (pathname: string) => b
  * Every path gets the security headers in `SECURITY_HEADERS`.
  * Images, media, scripts, styles, and icons are `Cross-Origin-Resource-Policy: cross-origin` instead of `same-origin`,
  * so that feed readers and other sites can still show them.
+ * The Markdown versions of articles aren't indexed by search engines, which index the articles themselves.
  * Cloudflare joins the values of a header that more than one rule sets,
  * so these rules remove the earlier value first with `!`.
  */
@@ -116,6 +117,10 @@ ${security.join("\n")}
 
 /feed.xml
   Content-Type: application/atom+xml; charset=utf-8
+
+/*.md
+  Content-Type: text/markdown; charset=utf-8
+  X-Robots-Tag: noindex
 
 /site.webmanifest
   Content-Type: application/manifest+json; charset=utf-8
