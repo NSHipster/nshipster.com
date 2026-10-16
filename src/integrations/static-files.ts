@@ -3,7 +3,6 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { AstroIntegration } from "astro";
 import { AssetManifest } from "../lib/assets.ts";
-import { IMAGE_TRANSFORMATIONS, transformationSource } from "../lib/image-transformations.ts";
 import { pageMarkdown, pageURL } from "../lib/markdown-alternate.ts";
 import { ROOT, paths } from "../lib/site.ts";
 import { headers, redirects } from "./routing.ts";
@@ -35,8 +34,7 @@ const CONTENT_TYPES: Record<string, string> = {
 
 /**
  * Publishes `assets/` with content-hashed names under `/assets/`,
- * along with smaller copies of the images in `src/data/responsive-images.json`
- * unless Cloudflare Image Transformations make them (see `src/lib/image-transformations.ts`),
+ * along with WebP copies of PNG, JPEG, and WebP images,
  * writes the Markdown versions of articles that their pages link to,
  * and writes Cloudflare routing files.
  * Files served as-is from the site root live in `public/`.
@@ -46,14 +44,9 @@ export function staticFiles(): AstroIntegration {
     name: "nshipster:static-files",
     hooks: {
       "astro:config:setup": ({ updateConfig, command }) => {
-        // Only Cloudflare serves `/cdn-cgi/image/` URLs, so the development server keeps Astro's sharp service.
-        if (command === "build" && IMAGE_TRANSFORMATIONS) {
-          updateConfig({ image: { service: { entrypoint: path.join(ROOT, "src/lib/image-service.ts") } } });
-        }
         if (command !== "dev") return;
         let manifest: AssetManifest | undefined;
         let outputs: Map<string, { contents: Buffer }> | undefined;
-        let variants: Promise<Map<string, { contents: Buffer }>> | undefined;
         updateConfig({
           vite: {
             plugins: [
@@ -65,14 +58,10 @@ export function staticFiles(): AstroIntegration {
                     if (file.startsWith(path.join(ROOT, paths.assets))) {
                       manifest = undefined;
                       outputs = undefined;
-                      variants = undefined;
                     }
                   });
                   server.middlewares.use((request, response, next) => {
-                    // Transformed image URLs serve the original image.
-                    const pathname = transformationSource(
-                      decodeURIComponent(new URL(request.url ?? "/", "http://localhost").pathname),
-                    );
+                    const pathname = decodeURIComponent(new URL(request.url ?? "/", "http://localhost").pathname);
                     const send = (contents: Buffer | undefined) => {
                       if (!contents) return next();
                       response.setHeader(
@@ -97,9 +86,8 @@ export function staticFiles(): AstroIntegration {
                       outputs ??= manifest.outputs();
                       const contents = outputs.get(pathname)?.contents;
                       if (contents) return send(contents);
-                      // Smaller copies of responsive images are made on first request.
-                      variants ??= manifest.variantOutputs();
-                      variants.then((map) => send(map.get(pathname)?.contents), next);
+                      // WebP copies of images are made on first request.
+                      manifest.variantOutput(pathname).then(send, next);
                     } else {
                       next();
                     }
@@ -123,6 +111,12 @@ export function staticFiles(): AstroIntegration {
         for (const [url, { contents }] of outputs) write(url, contents);
         const variants = await manifest.variantOutputs();
         for (const [url, { contents }] of variants) write(url, contents);
+        const pruned = manifest.pruneImageCache();
+        const { encoded, cached } = manifest.imageCacheStatistics;
+        logger.info(
+          `Encoded ${encoded} WebP copies of images and read ${cached} from ${path.relative(ROOT, manifest.imageCache)}` +
+            (pruned > 0 ? `, deleting ${pruned} unused copies` : ""),
+        );
 
         let markdownCount = 0;
         for (const file of pages(output)) {
@@ -152,7 +146,7 @@ export function staticFiles(): AstroIntegration {
         write("/_redirects", rules.map(({ from, to, status }) => `${from} ${to} ${status}`).join("\n") + "\n");
         write("/_headers", headers());
         logger.info(
-          `Wrote ${outputs.size} assets, ${variants.size} smaller copies of large images, ` +
+          `Wrote ${outputs.size} assets, ${variants.size} WebP copies of images, ` +
             `${markdownCount} Markdown versions of pages, and ${rules.length} redirects`,
         );
       },

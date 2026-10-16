@@ -20,7 +20,7 @@ export interface TransformOptions {
   delineate?: boolean;
   /**
    * The document's image assets, keyed by URL.
-   * When given, images get their sizes and responsive copies,
+   * When given, images get their sizes and WebP copies,
    * and images after the first load lazily.
    */
   images?: Map<string, ImageDescription>;
@@ -377,7 +377,7 @@ const isPercentage = (value: Properties[string]): boolean =>
 /**
  * Gives images their width and height so the page doesn't shift as they load,
  * loads the images after the first one lazily,
- * and lists the smaller copies of large images in `srcset`.
+ * and lists the WebP copies of images in `srcset`.
  * Width and height that the article sets are kept,
  * and a missing one is calculated from the image's aspect ratio.
  */
@@ -434,8 +434,8 @@ function addImageAttributes(tree: Root, images: Map<string, ImageDescription>): 
 }
 
 /**
- * The `srcset` value for an image and its smaller copies. Shared with the MDX image component.
- * A transformed copy at the image's own width replaces the original.
+ * The `srcset` value for an image and its WebP copies. Shared with the MDX image component.
+ * A copy at the image's own width replaces the original.
  */
 export function imageSrcset(url: string, image: ImageDescription): string {
   const candidates = image.variants.map((variant) => `${variant.url} ${variant.width}w`);

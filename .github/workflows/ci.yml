@@ -18,6 +18,14 @@ jobs:
           install: false
       - name: Set up
         run: mise run setup
+      # Restore after setup, because `npm ci` deletes `node_modules`.
+      # The cache is keyed by digests of image sources and settings, so a partial match still saves work.
+      - name: Restore WebP copies of images
+        uses: actions/cache@v6
+        with:
+          path: node_modules/.astro/article-images
+          key: article-images-${{ hashFiles('assets/images/**', 'src/lib/assets.ts', 'package-lock.json') }}
+          restore-keys: article-images-
       - name: Check formatting, lint, and types
         run: mise run check
       - name: Run unit tests

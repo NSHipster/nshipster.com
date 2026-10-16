@@ -47,8 +47,8 @@ const routeFile = (route: string) => {
 const manifest = new AssetManifest();
 const logicalByURL = new Map<string, string>();
 for (const [url, { asset }] of manifest.outputs()) logicalByURL.set(url, asset.logical);
-// Smaller copies of large images count as references to the original.
-for (const asset of manifest.responsiveImages) {
+// WebP copies of images count as references to the original.
+for (const asset of manifest.all) {
   for (const { url } of await manifest.variants(asset)) logicalByURL.set(url, asset.logical);
 }
 
@@ -88,9 +88,7 @@ const avatars = new Set(
 const withoutExtension = (asset: string) => asset.replace(/\.[^./]+$/, "");
 const normalizeAssets = (assets: string[]) =>
   [...new Set(assets.filter((asset) => !avatars.has(asset)).map(withoutExtension))].sort();
-// A Cloudflare Image Transformations URL refers to the original image that follows its options.
-const assetURLs = (text: string) =>
-  [...text.matchAll(/["'(](?:\/cdn-cgi\/image\/[^/"'\s]+)?(\/assets\/[^"')\s]+)/g)].map((match) => match[1]!);
+const assetURLs = (text: string) => [...text.matchAll(/["'(](\/assets\/[^"')\s]+)/g)].map((match) => match[1]!);
 // Jekyll pages included the site stylesheet inline, so its images counted as page assets.
 const stylesheet = manifest.build(manifest.resolve("screen.css"));
 const stylesheetAssets = assetURLs(stylesheet.contents.toString("utf8"));

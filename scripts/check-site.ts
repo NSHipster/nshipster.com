@@ -15,7 +15,6 @@
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import { SyntaxValidator } from "fast-xml-validator";
-import { transformationSource } from "../src/lib/image-transformations.ts";
 
 const DIST = path.resolve(process.argv[2] ?? "dist");
 const ROOT = process.cwd();
@@ -121,8 +120,7 @@ for (const file of pages) {
         }
         continue;
       }
-      // Cloudflare serves transformed images from the original image.
-      const url = new URL(transformationSource(reference), "https://nshipster.com");
+      const url = new URL(reference, "https://nshipster.com");
       const target = resolve(url.pathname);
       if (!target) {
         const redirect = redirects.get(url.pathname) ?? redirects.get(url.pathname.replace(/\/$/, ""));

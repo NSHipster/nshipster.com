@@ -116,24 +116,16 @@ so each one is imported in `src/lib/images.ts`.
 
 Images in articles get their width and height,
 and every image after the first one loads lazily.
-The images listed in `src/data/responsive-images.json`
-also get copies 800 and 1200 pixels wide in `srcset`;
-the original keeps its URL.
-To find large images for that list,
-run `mise run audit:weight`,
-which reports the heaviest pages and the largest images.
-
-`IMAGE_TRANSFORMATIONS` in `src/lib/image-transformations.ts`
-serves images through [Cloudflare Image Transformations](https://developers.cloudflare.com/images/transform-images/transform-via-url/) instead.
-Every PNG, JPEG, and WebP image in an article
-then lists `/cdn-cgi/image/` copies in `srcset`,
-at 400, 800, 1200, and 1600 pixels wide and at its own width,
-and Cloudflare serves each one as AVIF or WebP to browsers that accept them.
-Author portraits use the same URLs through `src/lib/image-service.ts`.
-GIF, SVG, and TIFF images stay as they are.
-Transformations must be enabled for the nshipster.com zone first,
-under Images > Transformations in the Cloudflare dashboard;
-the development server serves the original images at these URLs.
+The build makes WebP copies of every PNG, JPEG, and WebP image in `assets/`
+with sharp, 400, 800, 1200, and 1600 pixels wide and at the image's own width,
+and articles list them in `srcset`; the original keeps its URL in `src`.
+A copy is listed only if it is smaller than the original and the wider copies,
+which a lossy copy of a screenshot sometimes isn't.
+Animated PNG images and GIF, SVG, and TIFF images stay as they are.
+The build keeps the copies in `node_modules/.astro/article-images/`,
+named by a digest of the source image and the settings,
+so that it encodes only new and changed images.
+Run `mise run audit:weight` to report the heaviest pages and the largest images.
 
 ### Markdown Versions of Articles
 
@@ -200,6 +192,10 @@ are configured in the Cloudflare dashboard:
 
 The build image uses its default Node.js version
 and doesn't read `mise.toml`.
+Workers Builds restores Astro's cache directory, `node_modules/.astro`,
+before it runs the build command,
+but `npm ci` deletes `node_modules`,
+so each build encodes the WebP copies of images again.
 
 Previews serve the site at a `workers.dev` URL.
 To create a Preview of your current branch from your machine, run:

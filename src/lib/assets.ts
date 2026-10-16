@@ -1,15 +1,9 @@
 import { createHash } from "node:crypto";
-import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, renameSync, rmSync, statSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { imageMetadata } from "astro/assets/utils";
 import * as sass from "sass";
 import sharp from "sharp";
-import {
-  IMAGE_TRANSFORMATIONS,
-  TRANSFORMED_WIDTHS,
-  isTransformable,
-  transformedImageURL,
-} from "./image-transformations.ts";
 import { ROOT, paths } from "./site.ts";
 
 /**
@@ -55,24 +49,37 @@ export interface ImageSize {
   height: number;
 }
 
-/** A smaller or transformed copy of an image, for `srcset`. */
+/** A WebP copy of an image, for `srcset`. */
 export interface ImageVariant {
   url: string;
   width: number;
 }
 
 /**
- * Widths of the smaller copies made for the images listed in `src/data/responsive-images.json`.
- * An image gets a copy at each width that is less than its own.
+ * Widths of the WebP copies of PNG, JPEG, and WebP images.
+ * An image gets a copy at each width that is less than its own, and one at its own width.
+ * Images are never made larger.
  */
-export const RESPONSIVE_WIDTHS = [800, 1200] as const;
+export const IMAGE_WIDTHS = [400, 800, 1200, 1600] as const;
 
 /**
- * Sharp's PNG and JPEG settings for the smaller copies.
- * The PNG copies use a 256-color palette, as many of the original screenshots do.
- * These settings are part of each copy's hashed URL.
+ * Sharp's WebP settings for the copies.
+ * These settings and the sharp version are part of each copy's URL and cache key.
  */
-const VARIANT_ENCODING = { png: { palette: true, compressionLevel: 9, effort: 10 }, jpeg: { quality: 82 } } as const;
+const WEBP_ENCODING = { quality: 80 } as const;
+
+/**
+ * The directory that keeps encoded WebP copies between builds, named by a digest of their source and settings.
+ * It is inside Astro's cache directory, which Workers Builds restores before each build
+ * and the CI workflow restores after `npm ci`, which deletes `node_modules`.
+ */
+export const IMAGE_CACHE = path.join(ROOT, "node_modules/.astro/article-images");
+
+/** The number of WebP copies that a manifest encoded, and that it read from the cache. */
+export interface ImageCacheStatistics {
+  encoded: number;
+  cached: number;
+}
 
 /**
  * Indexes the files in `assets/`, compiles Sass,
@@ -83,14 +90,16 @@ export class AssetManifest {
   readonly #stems = new Map<string, Asset>();
   readonly #built = new Map<string, { url: string; contents: Buffer }>();
   readonly #sizes = new Map<string, Promise<ImageSize | undefined>>();
-  readonly #responsive: Set<string>;
+  readonly #variants = new Map<string, Promise<Array<ImageVariant & { contents: Buffer }>>>();
+  readonly #encoded = new Map<string, Promise<Buffer>>();
   readonly root: string;
-  /** Whether images link to Cloudflare Image Transformations instead of smaller copies. */
-  readonly imageTransformations: boolean;
+  /** The directory that keeps encoded WebP copies between builds. */
+  readonly imageCache: string;
+  readonly imageCacheStatistics: ImageCacheStatistics = { encoded: 0, cached: 0 };
 
-  constructor(root = ROOT, { imageTransformations = IMAGE_TRANSFORMATIONS } = {}) {
+  constructor(root = ROOT, { imageCache = IMAGE_CACHE } = {}) {
     this.root = root;
-    this.imageTransformations = imageTransformations;
+    this.imageCache = imageCache;
     for (const directory of SOURCE_DIRECTORIES) {
       const base = path.join(root, paths.assets, directory);
       for (const file of walk(base)) {
@@ -103,10 +112,6 @@ export class AssetManifest {
         this.#stems.set(logical.replace(/\.[^./]+$/, ""), asset);
       }
     }
-    const responsive = path.join(root, "src/data/responsive-images.json");
-    this.#responsive = new Set(
-      existsSync(responsive) ? (JSON.parse(readFileSync(responsive, "utf8")) as string[]) : [],
-    );
   }
 
   /** All assets, keyed by logical path. */
@@ -172,68 +177,124 @@ export class AssetManifest {
     return size;
   }
 
-  /** The images listed in `src/data/responsive-images.json`. */
-  get responsiveImages(): Asset[] {
-    return [...this.#responsive].map((name) => this.resolve(name));
+  /** Whether an image gets WebP copies: PNG, JPEG, and WebP images that aren't animated. */
+  hasVariants(asset: Asset): boolean {
+    return (
+      asset.kind === "image" && /\.(png|jpe?g|webp)$/i.test(asset.logical) && !isAnimated(this.build(asset).contents)
+    );
   }
 
   /**
-   * The smaller copies of an image listed in `src/data/responsive-images.json`, narrowest first.
-   * Other images have none.
-   * With Cloudflare Image Transformations, every image that Cloudflare can transform
-   * has transformed copies instead, the last of which is at the image's own width.
+   * The WebP copies of a PNG, JPEG, or WebP image, narrowest first.
+   * There is a copy at each of `IMAGE_WIDTHS` that is less than the image's own width, and one at its own width,
+   * but a copy is listed only if it has fewer bytes than the original and every wider copy listed.
+   * Other images, such as GIF and SVG images, have none.
    */
   async variants(asset: Asset): Promise<ImageVariant[]> {
-    if (this.imageTransformations) return this.#transformedVariants(asset);
-    if (!this.#responsive.has(asset.logical)) return [];
-    const size = await this.size(asset);
-    if (!size) throw new AssetError(`Responsive image "${asset.logical}" has no known size`);
-    const extension = path.extname(asset.logical);
-    const stem = asset.logical.slice(0, asset.logical.length - extension.length);
-    const source = this.build(asset).url;
-    return RESPONSIVE_WIDTHS.filter((width) => width < size.width).map((width) => {
-      const digest = createHash("sha256")
-        .update(JSON.stringify([source, width, VARIANT_ENCODING]))
-        .digest("hex")
-        .slice(0, 16);
-      return { url: `/assets/${stem}-${width}w-${digest}${extension}`, width };
-    });
+    return (await this.#encodedVariants(asset)).map(({ url, width }) => ({ url, width }));
   }
 
-  async #transformedVariants(asset: Asset): Promise<ImageVariant[]> {
-    if (asset.kind !== "image" || !isTransformable(asset.logical)) return [];
-    const size = await this.size(asset);
-    if (!size) return [];
-    const source = this.build(asset).url;
-    return [...TRANSFORMED_WIDTHS.filter((width) => width < size.width), size.width].map((width) => ({
-      url: transformedImageURL(source, { width: width < size.width ? width : undefined }),
-      width,
-    }));
+  #encodedVariants(asset: Asset): Promise<Array<ImageVariant & { contents: Buffer }>> {
+    let variants = this.#variants.get(asset.logical);
+    if (!variants) {
+      variants = (async () => {
+        if (!this.hasVariants(asset)) return [];
+        const size = await this.size(asset);
+        if (!size) return [];
+        const original = this.build(asset);
+        const extension = path.extname(asset.logical);
+        const stem = asset.logical.slice(0, asset.logical.length - extension.length);
+        const widths = [...IMAGE_WIDTHS.filter((width) => width < size.width), size.width];
+        const encoded = await Promise.all(
+          widths.map(async (width) => {
+            const digest = createHash("sha256")
+              .update(JSON.stringify([original.url, width, WEBP_ENCODING, sharp.versions.sharp]))
+              .digest("hex");
+            const contents = await this.#encode(digest, original.contents, width);
+            return { url: `/assets/${stem}-${width}w-${digest.slice(0, 16)}.webp`, width, contents };
+          }),
+        );
+        // Lossy WebP can be larger than a screenshot that uses a PNG palette,
+        // and a resized screenshot can be larger than a wider copy.
+        const listed: typeof encoded = [];
+        let limit = original.contents.length;
+        for (const variant of encoded.reverse()) {
+          if (variant.contents.length >= limit) continue;
+          listed.unshift(variant);
+          limit = variant.contents.length;
+        }
+        return listed;
+      })();
+      this.#variants.set(asset.logical, variants);
+    }
+    return variants;
   }
 
-  /**
-   * Makes the smaller copies of the images in `src/data/responsive-images.json`, keyed by URL.
-   * With Cloudflare Image Transformations, there are none to make.
-   */
+  /** Encodes an image as WebP at a width, or reads the copy that an earlier build kept in the cache. */
+  #encode(digest: string, source: Buffer, width: number): Promise<Buffer> {
+    let encoded = this.#encoded.get(digest);
+    if (!encoded) {
+      const file = path.join(this.imageCache, `${digest}.webp`);
+      if (existsSync(file)) {
+        this.imageCacheStatistics.cached++;
+        encoded = Promise.resolve(readFileSync(file));
+      } else {
+        encoded = sharp(source)
+          .autoOrient()
+          .resize({ width })
+          .webp(WEBP_ENCODING)
+          .toBuffer()
+          .then((contents) => {
+            this.imageCacheStatistics.encoded++;
+            // Write to a temporary file and rename it, so that a concurrent build never reads part of a file.
+            mkdirSync(this.imageCache, { recursive: true });
+            const temporary = `${file}.${process.pid}.tmp`;
+            writeFileSync(temporary, contents);
+            renameSync(temporary, file);
+            return contents;
+          });
+      }
+      this.#encoded.set(digest, encoded);
+    }
+    return encoded;
+  }
+
+  /** Makes the WebP copies of the images in `assets/`, keyed by URL. */
   async variantOutputs(): Promise<Map<string, { asset: Asset; contents: Buffer }>> {
     const outputs = new Map<string, { asset: Asset; contents: Buffer }>();
-    if (this.imageTransformations) return outputs;
     await Promise.all(
-      this.responsiveImages.map(async (asset) => {
-        const { contents } = this.build(asset);
-        for (const { url, width } of await this.variants(asset)) {
-          const image = sharp(contents).resize({ width });
-          const resized = asset.logical.endsWith(".png")
-            ? image.png(VARIANT_ENCODING.png)
-            : asset.logical.endsWith(".jpg")
-              ? image.jpeg(VARIANT_ENCODING.jpeg)
-              : undefined;
-          if (!resized) throw new AssetError(`Responsive image "${asset.logical}" must be a PNG or JPEG file`);
-          outputs.set(url, { asset, contents: await resized.toBuffer() });
-        }
+      this.all.map(async (asset) => {
+        for (const { url, contents } of await this.#encodedVariants(asset)) outputs.set(url, { asset, contents });
       }),
     );
     return outputs;
+  }
+
+  /** The WebP copy of an image at a URL, for the development server, or `undefined` if there is none. */
+  async variantOutput(url: string): Promise<Buffer | undefined> {
+    const stem = url.match(/^\/assets\/(.+)-\d+w-[0-9a-f]{16}\.webp$/)?.[1];
+    if (!stem) return undefined;
+    for (const asset of this.all) {
+      if (!asset.logical.startsWith(`${stem}.`)) continue;
+      const variant = (await this.#encodedVariants(asset)).find((candidate) => candidate.url === url);
+      if (variant) return variant.contents;
+    }
+    return undefined;
+  }
+
+  /**
+   * Deletes the files in the image cache that this manifest didn't use,
+   * such as copies of changed images, so that the cache doesn't grow. Returns the number deleted.
+   */
+  pruneImageCache(): number {
+    if (!existsSync(this.imageCache)) return 0;
+    let count = 0;
+    for (const entry of readdirSync(this.imageCache)) {
+      if (this.#encoded.has(entry.replace(/\.webp$/, ""))) continue;
+      rmSync(path.join(this.imageCache, entry), { force: true, recursive: true });
+      count++;
+    }
+    return count;
   }
 
   /** Maps each hashed URL to its asset, for serving and writing output files. */
@@ -329,6 +390,28 @@ export function svgSize(svg: string): ImageSize | undefined {
   }
   if (!width || !height) return undefined;
   return { width: Math.max(1, Math.round(width)), height: Math.max(1, Math.round(height)) };
+}
+
+/**
+ * Whether a PNG or WebP file is animated.
+ * An animated PNG has an `acTL` chunk before its image data,
+ * and an animated WebP file sets the animation flag in its `VP8X` chunk.
+ * Sharp reads only the first frame of an animated PNG.
+ */
+export function isAnimated(contents: Buffer): boolean {
+  if (contents.subarray(1, 4).toString("latin1") === "PNG") {
+    for (let offset = 8; offset + 8 <= contents.length;) {
+      const type = contents.subarray(offset + 4, offset + 8).toString("latin1");
+      if (type === "acTL") return true;
+      if (type === "IDAT") return false;
+      offset += 12 + contents.readUInt32BE(offset);
+    }
+    return false;
+  }
+  if (contents.subarray(8, 12).toString("latin1") === "WEBP") {
+    return contents.subarray(12, 16).toString("latin1") === "VP8X" && (contents[20]! & 0x02) !== 0;
+  }
+  return false;
 }
 
 function* walk(directory: string): Generator<string> {

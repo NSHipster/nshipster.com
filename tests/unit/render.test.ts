@@ -2,8 +2,9 @@ import { readFileSync } from "node:fs";
 import Markdoc from "@markdoc/markdoc";
 import { describe, expect, it } from "vite-plus/test";
 import markdocConfig from "../../markdoc.config.ts";
+import { assetManifest } from "../../src/lib/assets.ts";
 import { currentCitedKeys, recordCitations, withCitations } from "../../src/lib/render/citations.ts";
-import { manifests, render } from "./helpers.ts";
+import { render } from "./helpers.ts";
 
 const fixture = (name: string) => readFileSync(new URL(`../fixtures/${name}.md`, import.meta.url), "utf8");
 const snapshot = (name: string) => `../fixtures/__snapshots__/${name}.html`;
@@ -153,9 +154,19 @@ describe("article rendering", () => {
     expect(html).toContain('href="#fnref:a:1"');
   });
 
-  it("sizes images, loads images after the first lazily, and lists smaller copies", async () => {
-    const assets = manifests.sharp;
+  it("sizes images, loads images after the first lazily, and lists WebP copies", async () => {
+    const assets = assetManifest();
     const url = (name: string) => assets.url(name);
+    /** The `srcset` URLs of an element, keyed by width. */
+    const candidates = (element: string) =>
+      Object.fromEntries(
+        element
+          .match(/srcset="([^"]*)"/)![1]!
+          .split(", ")
+          .map((candidate) => candidate.split(" "))
+          .map(([url, width]) => [Number.parseInt(width!), url!]),
+      );
+    const copy = (name: string, width: number) => new RegExp(`^/assets/${name}-${width}w-[0-9a-f]{16}\\.webp$`);
     const source = [
       "{% asset uiactivity-airDrop.png %}",
       "",
@@ -167,47 +178,8 @@ describe("article rendering", () => {
       '<source srcset="{% asset uncertainty-screenshot--dark.png @path %}" media="(prefers-color-scheme: dark)">',
       '<img src="{% asset uncertainty-screenshot--light.png @path %}" alt="Screenshot">',
       "</picture>",
-    ].join("\n");
-    const { html } = await render(source, "fixture.md", assets);
-    const images = [...html.matchAll(/<img [^>]*>/g)].map((match) => match[0]);
-
-    expect(images[0]).toContain(`src="${url("uiactivity-airDrop.png")}"`);
-    expect(images[0]).not.toContain("loading=");
-    expect(images[1]).toContain('loading="lazy"');
-    expect(images[1]).toContain('width="1632" height="691"');
-    expect(images[1]).not.toContain("srcset=");
-
-    // The height follows from the article's width and the image's aspect ratio.
-    expect(images[2]).toContain('width="600"');
-    expect(images[2]).toContain('height="519"');
-    const [small, medium] = await assets.variants(assets.resolve("wwdc-twitter-app--light.png"));
-    expect(images[2]).toContain(
-      `srcset="${small!.url} 800w, ${medium!.url} 1200w, ${url("wwdc-twitter-app--light.png")} 1520w"`,
-    );
-    expect(images[2]).toContain('sizes="(min-width: 643px) 600px, calc(100vw - 43px)"');
-
-    expect(images[3]).toContain('sizes="(min-width: 918px) 875px, calc(100vw - 43px)"');
-    const dark = html.match(/<source [^>]*>/)![0];
-    expect(dark).toContain(`${url("uncertainty-screenshot--dark.png")} 2916w"`);
-    expect(dark).toContain('sizes="(min-width: 918px) 875px, calc(100vw - 43px)"');
-  });
-
-  it("lists Cloudflare transformations of PNG and JPEG images", async () => {
-    const assets = manifests.cloudflare;
-    const url = (name: string) => assets.url(name);
-    const transformed = (name: string, width?: number) =>
-      `/cdn-cgi/image/${width ? `width=${width},` : ""}format=auto,onerror=redirect${url(name)}`;
-    const source = [
-      "![Banner]({% asset wwdc-2019.jpg @path %})",
       "",
-      '<img src="{% asset wwdc-twitter-app--light.png @path %}" alt="Twitter App" width="600">',
-      "",
-      "<picture>",
-      '<source srcset="{% asset uncertainty-screenshot--dark.png @path %}" media="(prefers-color-scheme: dark)">',
-      '<img src="{% asset uncertainty-screenshot--light.png @path %}" alt="Screenshot">',
-      "</picture>",
-      "",
-      "{% asset 1password-database.png %}",
+      "{% asset caemitterlayer-confetti.png %}",
       "",
       "{% asset alert.gif %}",
       "",
@@ -216,30 +188,40 @@ describe("article rendering", () => {
     const { html } = await render(source, "fixture.md", assets);
     const images = [...html.matchAll(/<img [^>]*>/g)].map((match) => match[0]);
 
-    // The original stays in `src`, and a transformed copy at the image's own width replaces it in `srcset`.
-    expect(images[0]).toContain(`src="${url("wwdc-2019.jpg")}"`);
-    expect(images[0]).toContain(
-      `srcset="${transformed("wwdc-2019.jpg", 400)} 400w, ${transformed("wwdc-2019.jpg", 800)} 800w, ` +
-        `${transformed("wwdc-2019.jpg", 1200)} 1200w, ${transformed("wwdc-2019.jpg", 1600)} 1600w, ` +
-        `${transformed("wwdc-2019.jpg")} 1632w"`,
-    );
-    expect(images[0]).toContain('sizes="(min-width: 918px) 875px, calc(100vw - 43px)"');
+    // A WebP copy of this small PNG image would be larger, so it has none.
+    expect(images[0]).toContain(`src="${url("uiactivity-airDrop.png")}"`);
     expect(images[0]).not.toContain("loading=");
+    expect(images[0]).not.toContain("srcset=");
 
-    expect(images[1]).toContain(`${transformed("wwdc-twitter-app--light.png", 1200)} 1200w`);
-    expect(images[1]).toContain(`${transformed("wwdc-twitter-app--light.png")} 1520w"`);
-    expect(images[1]).toContain('sizes="(min-width: 643px) 600px, calc(100vw - 43px)"');
+    // The original stays in `src`, and a WebP copy at the image's own width replaces it in `srcset`.
+    expect(images[1]).toContain(`src="${url("wwdc-2019.jpg")}"`);
     expect(images[1]).toContain('loading="lazy"');
+    expect(images[1]).toContain('width="1632" height="691"');
+    const banner = candidates(images[1]!);
+    expect(Object.keys(banner).map(Number)).toEqual([400, 800, 1200, 1600, 1632]);
+    for (const [width, candidate] of Object.entries(banner)) expect(candidate).toMatch(copy("wwdc-2019", +width));
+    expect(images[1]).toContain('sizes="(min-width: 918px) 875px, calc(100vw - 43px)"');
 
+    // The height follows from the article's width and the image's aspect ratio.
+    expect(images[2]).toContain('width="600"');
+    expect(images[2]).toContain('height="519"');
+    // The copy 1200 pixels wide is larger than the one at the image's own width, so it isn't listed.
+    const twitter = candidates(images[2]!);
+    expect(Object.keys(twitter).map(Number)).toEqual([400, 800, 1520]);
+    expect(twitter[1520]).toMatch(copy("wwdc-twitter-app--light", 1520));
+    expect(images[2]).toContain('sizes="(min-width: 643px) 600px, calc(100vw - 43px)"');
+
+    expect(candidates(images[3]!)[800]).toMatch(copy("uncertainty-screenshot--light", 800));
+    expect(images[3]).toContain('sizes="(min-width: 918px) 875px, calc(100vw - 43px)"');
     const dark = html.match(/<source [^>]*>/)![0];
-    expect(dark).toContain(`${transformed("uncertainty-screenshot--dark.png", 1600)} 1600w`);
-    expect(dark).toContain(`${transformed("uncertainty-screenshot--dark.png")} 2916w"`);
+    expect(candidates(dark)[2916]).toMatch(copy("uncertainty-screenshot--dark", 2916));
+    expect(dark).toContain('sizes="(min-width: 918px) 875px, calc(100vw - 43px)"');
 
-    // A small image still gets a copy in a modern format.
-    expect(images[3]).toContain(`srcset="${transformed("1password-database.png")} 128w"`);
-    // Animated GIF and SVG images stay as they are.
+    // Animated PNG, GIF, and SVG images stay as they are.
+    expect(images[4]).toContain(`src="${url("caemitterlayer-confetti.png")}"`);
     expect(images[4]).not.toContain("srcset=");
     expect(images[5]).not.toContain("srcset=");
+    expect(images[6]).not.toContain("srcset=");
   });
 
   it("sizes SVG images and keeps a percentage width in the style", async () => {

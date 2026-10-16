@@ -1,7 +1,6 @@
 import { readFileSync } from "node:fs";
 import { afterAll, beforeAll, describe, expect, it } from "vite-plus/test";
 import { chromium, type Browser, type BrowserContextOptions } from "playwright";
-import { IMAGE_TRANSFORMATIONS } from "../../src/lib/image-transformations.ts";
 import { startPreview, type PreviewServer } from "./server.ts";
 
 let server: PreviewServer;
@@ -197,7 +196,7 @@ describe("routing", () => {
     expect(target.status).toBe(200);
   });
 
-  it("keeps the original URL of an image with smaller copies", async () => {
+  it("keeps the original URL of an image with WebP copies", async () => {
     const aliases = (await import("../../src/data/legacy-assets.json", { with: { type: "json" } })).default as Record<
       string,
       string
@@ -206,7 +205,7 @@ describe("routing", () => {
     const location = (await fetchManual(legacy)).headers.get("location")!;
     const html = await (await fetch(url("/uncertainty/"))).text();
     expect(html).toContain(`<img src="${location}"`);
-    expect(html).toContain(`${location} 2916w"`);
+    expect(html).toMatch(/\/assets\/uncertainty-screenshot--light-2916w-[0-9a-f]{16}\.webp 2916w"/);
   });
 
   it("sends security headers", async () => {
@@ -323,7 +322,7 @@ describe("pages", () => {
     await context.close();
   });
 
-  it("loads a smaller copy of a large screenshot on a narrow screen", async () => {
+  it("loads a WebP copy of a screenshot at the width of the screen", async () => {
     const currentSource = async (options: BrowserContextOptions) => {
       const { page, context } = await open("/uncertainty/", options);
       const image = page.locator("article .content img").first();
@@ -331,19 +330,15 @@ describe("pages", () => {
       await context.close();
       return new URL(source).pathname;
     };
-    // A copy 800 pixels wide, or the image at its own width, made by sharp or by Cloudflare.
-    const copy = (name: string, width?: number) =>
-      IMAGE_TRANSFORMATIONS
-        ? new RegExp(
-            `^/cdn-cgi/image/${width ? `width=${width},` : ""}format=auto,[^/]*/assets/${name}-[0-9a-f]+\\.png$`,
-          )
-        : new RegExp(`^/assets/${name}-${width ? `${width}w-` : ""}[0-9a-f]+\\.png$`);
+    const copy = (name: string, width: number) => new RegExp(`^/assets/${name}-${width}w-[0-9a-f]{16}\\.webp$`);
     const phone = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 };
     expect(await currentSource(phone)).toMatch(copy("uncertainty-screenshot--light", 800));
     expect(await currentSource({ ...phone, colorScheme: "dark" })).toMatch(copy("uncertainty-screenshot--dark", 800));
-    expect(await currentSource({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2 })).toMatch(
-      copy("uncertainty-screenshot--light"),
-    );
+    const desktop = await currentSource({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2 });
+    expect(desktop).toMatch(copy("uncertainty-screenshot--light", 2916));
+    const response = await fetch(url(desktop));
+    expect(response.headers.get("content-type")).toBe("image/webp");
+    expect(response.headers.get("cache-control")).toContain("immutable");
   });
 
   it("loads images after the first one lazily", async () => {
