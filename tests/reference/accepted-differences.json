@@ -14,6 +14,10 @@
       "reason": "Kramdown misread WTF_PLATFORM_IOS as emphasis; the heading now shows the underscores."
     },
     {
+      "difference": "/new-years-2016/: asset references differ (missing: none; added: 2016-multiline-demo)",
+      "reason": "The multiline label demo GIF is now served from the site instead of raw.githubusercontent.com, which the Content-Security-Policy blocks."
+    },
+    {
       "difference": "/swift-format/: heading anchors differ (missing: none; added: performance-2)",
       "reason": "A repeated \"performance\" heading ID is now unique; the first keeps its ID."
     },

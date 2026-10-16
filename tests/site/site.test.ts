@@ -148,6 +148,7 @@ describe("routing", () => {
   it("sends security headers", async () => {
     const response = await fetchManual("/");
     expect(response.headers.get("content-security-policy")).toContain("default-src 'self'");
+    expect(response.headers.get("content-security-policy")).toContain("frame-src https://www.youtube-nocookie.com");
     expect(response.headers.get("x-content-type-options")).toBe("nosniff");
     expect(response.headers.get("cross-origin-opener-policy")).toBe("same-origin");
     expect(response.headers.get("cross-origin-resource-policy")).toBe("same-origin");
@@ -506,6 +507,27 @@ describe("article demos", () => {
     // Errors caused by the external service are not migration defects.
     const local = errors.filter((error) => !/mapkit|apple-mapkit|Failed to load resource/i.test(error));
     expect(local).toEqual([]);
+    await context.close();
+  });
+
+  it("embeds YouTube videos that the Content Security Policy allows", async () => {
+    const context = await browser.newContext();
+    await context.addInitScript(() => {
+      const violations: string[] = [];
+      Object.assign(window, { violations });
+      document.addEventListener("securitypolicyviolation", (event) => {
+        violations.push(`${event.effectiveDirective} ${event.blockedURI}`);
+      });
+    });
+    const page = await context.newPage();
+    await page.goto(url("/nshipster-quiz-6/"));
+    const iframes = page.locator('iframe[src^="https://www.youtube-nocookie.com/embed/"]');
+    await expect(iframes.count()).resolves.toBe(10);
+    // The videos load lazily, so scroll them into view.
+    await iframes.last().scrollIntoViewIfNeeded();
+    await page.waitForTimeout(500);
+    const violations = await page.evaluate(() => (window as unknown as { violations: string[] }).violations);
+    expect(violations).toEqual([]);
     await context.close();
   });
 });

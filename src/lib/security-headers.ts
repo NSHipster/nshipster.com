@@ -5,6 +5,9 @@
  * and the Worker in `src/worker.ts` adds them to the responses it creates,
  * because `_headers` rules don't apply to those.
  *
+ * `Content-Security-Policy` allows the YouTube videos that some articles embed with `frame-src`,
+ * and MapKit JS in the `/mapkit-js` article, which runs its map renderer in a `blob:` worker.
+ *
  * `Permissions-Policy` disables powerful features that no page uses.
  * It leaves features such as `fullscreen` and `encrypted-media` unrestricted
  * for the YouTube videos that some articles embed.
@@ -15,7 +18,7 @@
  */
 export const SECURITY_HEADERS: Readonly<Record<string, string>> = {
   "Content-Security-Policy":
-    "default-src 'self' *.nshipster.com; script-src 'self' *.nshipster.com https://*.apple-mapkit.com; style-src 'self' 'unsafe-inline'; img-src 'self' *.gravatar.com https://*.apple-mapkit.com; frame-ancestors 'none'; object-src 'none'; connect-src 'self' *.nshipster.com https://*.apple-mapkit.com; base-uri 'none'; upgrade-insecure-requests",
+    "default-src 'self'; script-src 'self' https://*.apple-mapkit.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://*.apple-mapkit.com; frame-src https://www.youtube-nocookie.com; frame-ancestors 'none'; object-src 'none'; connect-src 'self' https://*.apple-mapkit.com; base-uri 'none'; worker-src blob:; upgrade-insecure-requests",
   "Cross-Origin-Opener-Policy": "same-origin",
   "Cross-Origin-Resource-Policy": "same-origin",
   "Permissions-Policy":
