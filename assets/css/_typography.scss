@@ -60,6 +60,23 @@ h6 {
   font-size: 1em;
 }
 
+// Headings and titles balance their lines so the last line isn't much shorter than the others.
+// Browsers stop balancing after a few lines, so longer text wraps as usual.
+// The `text-wrap-style` longhand leaves `white-space: nowrap` in effect where it's set.
+h1,
+h2,
+h3,
+h4,
+.title {
+  text-wrap-style: balance;
+}
+
+// Running text avoids a single word on its last line.
+// This costs more to lay out than balancing, so it's limited to article text and excerpts.
+:where(.content, #latest, #recent) :is(p, li) {
+  text-wrap-style: pretty;
+}
+
 p {
   margin: 0 0 1rem 0;
 }
