@@ -263,20 +263,44 @@ export class AssetManifest {
   }
 }
 
+/** CSS pixels per unit, for the absolute lengths that an SVG file's `width` and `height` can use. */
+const SVG_UNITS: Record<string, number> = {
+  "": 1,
+  px: 1,
+  pt: 4 / 3,
+  pc: 16,
+  in: 96,
+  cm: 96 / 2.54,
+  mm: 96 / 25.4,
+  q: 96 / 101.6,
+};
+
 /**
- * The size given by the `width` and `height` attributes of an SVG file's root element.
- * A size from the `viewBox` alone is not used:
- * without width and height, the browser sizes the image to fit its container.
+ * The size of an SVG file in whole CSS pixels, from the `width` and `height` of its root element.
+ * The `viewBox` gives a dimension that is missing or relative, such as a percentage.
+ * Without either, the size is unknown.
  */
-function svgSize(svg: string): ImageSize | undefined {
+export function svgSize(svg: string): ImageSize | undefined {
   const root = svg.match(/<svg\b[^>]*>/i)?.[0] ?? "";
+  const attribute = (name: string) => root.match(new RegExp(`\\s${name}\\s*=\\s*(["'])(.*?)\\1`, "is"))?.[2];
   const length = (name: string) => {
-    const value = root.match(new RegExp(`\\s${name}\\s*=\\s*["']\\s*([\\d.]+)(?:px)?\\s*["']`, "i"))?.[1];
-    return value ? Number(value) : undefined;
+    const match = attribute(name)?.match(/^\s*(\d*\.?\d+)\s*([a-z]*)\s*$/i);
+    const scale = match && SVG_UNITS[match[2]!.toLowerCase()];
+    return scale ? Number(match[1]) * scale : undefined;
   };
-  const width = length("width");
-  const height = length("height");
-  return width && height ? { width, height } : undefined;
+  const viewBox = attribute("viewBox")
+    ?.trim()
+    .split(/[\s,]+/)
+    .map(Number);
+  const ratio = viewBox?.length === 4 && viewBox[2]! > 0 && viewBox[3]! > 0 ? viewBox[2]! / viewBox[3]! : undefined;
+  let width = length("width");
+  let height = length("height");
+  if (ratio) {
+    width ??= height === undefined ? viewBox![2]! : height * ratio;
+    height ??= width / ratio;
+  }
+  if (!width || !height) return undefined;
+  return { width: Math.max(1, Math.round(width)), height: Math.max(1, Math.round(height)) };
 }
 
 function* walk(directory: string): Generator<string> {

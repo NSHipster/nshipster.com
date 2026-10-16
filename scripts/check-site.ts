@@ -3,6 +3,7 @@
  * - internal links and fragments resolve,
  * - element IDs are unique within each page,
  * - each page has one `h1`, before any other heading,
+ * - local images have a width and height,
  * - referenced assets exist,
  * - unpublished articles are not published,
  * - the Atom feed and sitemap are well-formed and complete,
@@ -81,6 +82,14 @@ for (const file of pages) {
   const titles = headings.filter((level) => level === "1").length;
   if (titles !== 1) problems.push(`${route}: ${titles} h1 elements instead of 1`);
   else if (headings[0] !== "1") problems.push(`${route}: h${headings[0]} before the h1`);
+
+  // Local images give their size so the page doesn't shift as they load.
+  for (const [img] of markup.matchAll(/<img\s[^>]*>/g)) {
+    const src = img.match(/\ssrc="([^"]+)"/)?.[1] ?? "";
+    if (!src.startsWith("/") || src.startsWith("//")) continue;
+    if (!/\swidth="\d+"/.test(img) || !/\sheight="\d+"/.test(img))
+      problems.push(`${route}: image ${src} has no width and height`);
+  }
 
   for (const match of markup.matchAll(
     /<(?:a|link|img|source|script|video|audio|track)\s[^>]*?(?:href|src|srcset|poster)="([^"]+)"/g,
