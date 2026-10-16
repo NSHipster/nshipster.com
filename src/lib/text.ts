@@ -1,11 +1,15 @@
 export { camelBreak } from "./render/liquid.ts";
 
-/** Removes HTML tags, like Liquid's `strip_html`. */
+/**
+ * Removes HTML tags, like Liquid's `strip_html`.
+ * Line breaks become a single space so that words on either side stay apart.
+ */
 export function stripHTML(html: string): string {
   return html
     .replace(/<script[\s\S]*?<\/script>/gi, "")
     .replace(/<style[\s\S]*?<\/style>/gi, "")
     .replace(/<!--[\s\S]*?-->/g, "")
+    .replace(/\s*<br\s*\/?>\s*/gi, " ")
     .replace(/<[^>]*>/g, "");
 }
 
