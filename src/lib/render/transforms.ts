@@ -6,7 +6,7 @@ import { toString } from "hast-util-to-string";
 import { site } from "../site.ts";
 import type { ImageDescription } from "./images.ts";
 import { EMPTY_HEADER } from "./kramdown.ts";
-import { parameterize } from "./markdown.ts";
+import { parameterize, preventCodeTranslation } from "./markdown.ts";
 
 /**
  * HTML transformations applied after Markdown rendering.
@@ -36,6 +36,8 @@ export function transformHTML(html: string, options: TransformOptions = {}): str
   removeEmptyTableHeaders(tree);
   transformPlaceholderTokens(tree);
   transformCodeSymbols(tree);
+  // Covers code in `{::nomarkdown}` blocks, which skip the Markdown processor's plugins.
+  preventCodeTranslation(tree);
   addHeadingAnchors(tree);
   convertFootnotes(tree);
   consolidateCodeListings(tree);

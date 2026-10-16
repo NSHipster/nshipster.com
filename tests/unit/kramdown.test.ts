@@ -42,7 +42,7 @@ describe("Kramdown compatibility", () => {
   it("does not turn indented HTML paragraphs into code blocks", async () => {
     const source = "    <p>Paragraph with `code`.</p>";
     const html = await markdown(preprocessKramdown(source));
-    expect(html).toContain("<p>Paragraph with <code>code</code>.</p>");
+    expect(html).toContain('<p>Paragraph with <code translate="no">code</code>.</p>');
     expect(html).not.toContain("<pre>");
   });
 

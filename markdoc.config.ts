@@ -148,14 +148,16 @@ export default defineMarkdocConfig({
       ...nodes.code,
       transform(node) {
         const content = typeof node.attributes.content === "string" ? node.attributes.content : "";
-        if (!/[a-z][A-Z]/.test(content)) return new Tag("code", {}, [content]);
+        // Translation tools leave inline code alone, as in the Markdown pipeline.
+        const attributes = { translate: "no" };
+        if (!/[a-z][A-Z]/.test(content)) return new Tag("code", attributes, [content]);
         const segments = content.split(/(?<=[a-z])(?=[A-Z])/);
         const children: Array<string | InstanceType<typeof Tag>> = [];
         segments.forEach((segment, index) => {
           if (index > 0) children.push(new Tag("wbr"));
           children.push(segment);
         });
-        return new Tag("code", {}, children);
+        return new Tag("code", attributes, children);
       },
     },
     fence: {
