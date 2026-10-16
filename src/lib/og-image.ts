@@ -232,7 +232,8 @@ function cardLayout(card: OgCard, title: TitleLayout): Node {
                 fontSize: "28px",
                 letterSpacing: "0.12em",
                 textTransform: "uppercase",
-                color: ORANGE,
+                // Orange text on the background has too little contrast to read easily.
+                color: SECONDARY_TEXT,
               },
               card.category ?? "",
             ),
