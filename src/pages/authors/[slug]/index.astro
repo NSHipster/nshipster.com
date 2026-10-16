@@ -2,7 +2,7 @@
 import { getCollection, render } from "astro:content";
 import Avatar from "../../../components/Avatar.astro";
 import Base from "../../../layouts/Base.astro";
-import { authorDescription, authorURL, postsNewestFirst } from "../../../lib/collections.ts";
+import { authorDescription, authorPerson, authorURL, postsNewestFirst } from "../../../lib/collections.ts";
 import { formatDate } from "../../../lib/dates.ts";
 import { t } from "../../../lib/i18n.ts";
 
@@ -31,12 +31,7 @@ const description = await authorDescription(author);
   article={{
     "@context": "https://schema.org",
     "@type": "ProfilePage",
-    mainEntity: {
-      "@type": "Person",
-      name,
-      url: new URL(url, Astro.site).href,
-      ...(author.data.website ? { sameAs: [author.data.website] } : {}),
-    },
+    mainEntity: authorPerson(author),
   }}
 >
   <article class="author">

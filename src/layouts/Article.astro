@@ -2,7 +2,7 @@
 import Base from "./Base.astro";
 import Contributor from "../components/Contributor.astro";
 import JsonLd from "../components/JsonLd.astro";
-import { authorNamed, authorURL, type Post } from "../lib/collections.ts";
+import { authorNamed, authorPerson, authorURL, type Post } from "../lib/collections.ts";
 import type { PostEntryData } from "../lib/content/loaders.ts";
 import { formatDate } from "../lib/dates.ts";
 import { t } from "../lib/i18n.ts";
@@ -22,6 +22,14 @@ interface Props {
 const { post, isArticle, next, previous, continueWith } = Astro.props;
 const author = await authorNamed(post.author);
 const coauthors = await Promise.all(post.authors.map(async (name) => ({ name, author: await authorNamed(name) })));
+// Some older articles credit coauthors only in `author`, as in "Nate Cook, Mattt".
+const creditedNames = post.authors.length > 0 ? post.authors : (post.author ?? "Mattt").split(/\s*[,&]\s*/);
+const credited = await Promise.all(
+  creditedNames.map(async (name) => {
+    const entry = await authorNamed(name);
+    return entry ? authorPerson(entry) : { "@type": "Person", name };
+  }),
+);
 const title = camelBreak(stripHTML(post.title));
 const absolute = (path: string) => new URL(path, Astro.site).href;
 const shown = post.lastRevisedOn ?? post.date;
@@ -52,7 +60,7 @@ const description = plainText(post.excerptHTML);
         datePublished: post.date.toISOString(),
         dateModified: post.updatedOn.toISOString(),
         mainEntityOfPage: { "@type": "WebPage", "@id": absolute(post.url) },
-        author: { "@type": "Person", name: author?.data.name ?? post.author ?? "Mattt" },
+        author: credited.length === 1 ? credited[0] : credited,
         publisher: {
           "@type": "Organization",
           name: "NSHipster",
