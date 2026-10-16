@@ -1,12 +1,14 @@
 ---
 import { getCollection, render } from "astro:content";
 import Article from "../../layouts/Article.astro";
+import Page from "../../layouts/Page.astro";
 import ArticleLink from "../../components/articles/ArticleLink.astro";
 import H2 from "../../components/articles/H2.astro";
 import H3 from "../../components/articles/H3.astro";
 import H4 from "../../components/articles/H4.astro";
 import { postsOldestFirst } from "../../lib/collections.ts";
 import { mdxPostData } from "../../lib/content/mdx.ts";
+import { markdownPath } from "../../lib/markdown-negotiation.ts";
 import { resetCitations } from "../../lib/render/citations.ts";
 
 export async function getStaticPaths() {
@@ -26,6 +28,7 @@ export async function getStaticPaths() {
         // Markdoc content binds its components in `markdoc.config.ts`; MDX pages take overrides here.
         mdx: false,
         isArticle: true,
+        plain: false,
         next,
         previous,
         continueWith,
@@ -43,6 +46,8 @@ export async function getStaticPaths() {
           post: await mdxPostData(entry),
           mdx: true,
           isArticle: false,
+          // Plain pages, like the privacy policy, have no byline or article footer.
+          plain: entry.data.plain === true,
           next: undefined,
           previous: undefined,
           continueWith: newest,
@@ -54,12 +59,20 @@ export async function getStaticPaths() {
 }
 
 resetCitations();
-const { entry, post, mdx, isArticle, next, previous, continueWith } = Astro.props;
+const { entry, post, mdx, isArticle, plain, next, previous, continueWith } = Astro.props;
 const { Content } = await render(entry);
 // MDX entries render through components that mirror the legacy HTML transforms.
 const components = { h2: H2, h3: H3, h4: H4, a: ArticleLink };
 ---
 
-<Article post={post} isArticle={isArticle} next={next} previous={previous} continueWith={continueWith}>
-  {mdx ? <Content components={components} /> : <Content />}
-</Article>
+{
+  plain ? (
+    <Page title={post.title} path={post.url} noindex={post.retired} markdown={markdownPath(post.url)}>
+      <Content components={components} />
+    </Page>
+  ) : (
+    <Article post={post} isArticle={isArticle} next={next} previous={previous} continueWith={continueWith}>
+      {mdx ? <Content components={components} /> : <Content />}
+    </Article>
+  )
+}

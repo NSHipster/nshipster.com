@@ -6,12 +6,14 @@ interface Props {
   title: string;
   path: string;
   noindex?: boolean;
+  /** The path of the page's Markdown version, e.g. `/privacy.md`. */
+  markdown?: string;
 }
 
-const { title, path, noindex } = Astro.props;
+const { title, path, noindex, markdown } = Astro.props;
 ---
 
-<Base title={title} path={path} noindex={noindex}>
+<Base title={title} path={path} noindex={noindex} markdown={markdown}>
   <article role="article">
     <header>
       <h1 class="title">
