@@ -1,4 +1,13 @@
 {
   "description": "Problems in the article sources that also exist in the Jekyll build. Fix them in NSHipster/articles, then remove them here.",
-  "issues": []
+  "issues": [
+    "/nshipster-quiz-1: 2 h1 elements instead of 1",
+    "/nshipster-quiz-2: 2 h1 elements instead of 1",
+    "/nshipster-quiz-3: 2 h1 elements instead of 1",
+    "/nshipster-quiz-4: 2 h1 elements instead of 1",
+    "/nshipster-quiz-5: 2 h1 elements instead of 1",
+    "/nshipster-quiz-6: 2 h1 elements instead of 1",
+    "/nshipster-quiz-7: 2 h1 elements instead of 1",
+    "/nshipster-quiz-8: 2 h1 elements instead of 1"
+  ]
 }

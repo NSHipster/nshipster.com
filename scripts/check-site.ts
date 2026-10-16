@@ -2,6 +2,7 @@
  * Checks the built site in `dist/`:
  * - internal links and fragments resolve,
  * - element IDs are unique within each page,
+ * - each page has one `h1`, before any other heading,
  * - referenced assets exist,
  * - unpublished articles are not published,
  * - the Atom feed and sitemap are well-formed and complete,
@@ -74,6 +75,12 @@ for (const file of pages) {
   for (const match of markup.matchAll(/<[a-zA-Z][^>]*\sid="([^"]+)"/g))
     seen.set(match[1]!, (seen.get(match[1]!) ?? 0) + 1);
   for (const [id, count] of seen) if (count > 1) problems.push(`${route}: duplicate id "${id}" (${count} times)`);
+
+  // One `h1` titles each page and comes before any other heading.
+  const headings = [...markup.matchAll(/<h([1-6])[\s>]/g)].map((match) => match[1]!);
+  const titles = headings.filter((level) => level === "1").length;
+  if (titles !== 1) problems.push(`${route}: ${titles} h1 elements instead of 1`);
+  else if (headings[0] !== "1") problems.push(`${route}: h${headings[0]} before the h1`);
 
   for (const match of markup.matchAll(
     /<(?:a|link|img|source|script|video|audio|track)\s[^>]*?(?:href|src|srcset|poster)="([^"]+)"/g,
