@@ -70,6 +70,18 @@ describe("Markdown versions of articles", () => {
     expect(markdown).toContain("![Logo](https://nshipster.com/logo.png)");
     expect(markdown).toContain("10<sup>5</sup> samples");
   });
+
+  it("links to videos with their poster or label", () => {
+    const markdown = htmlToMarkdown(
+      [
+        '<video aria-label="A demo" poster="/demo.png" controls><source src="/demo.mp4" type="video/mp4"></video>',
+        '<p><video aria-label="A recording" src="/recording.mov" controls></video></p>',
+      ].join("\n"),
+      URL,
+    );
+    expect(markdown).toContain("[![A demo](https://nshipster.com/demo.png)](https://nshipster.com/demo.mp4)");
+    expect(markdown).toContain("[A recording](https://nshipster.com/recording.mov)");
+  });
 });
 
 describe("pageMarkdown", () => {

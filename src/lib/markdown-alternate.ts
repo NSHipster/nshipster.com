@@ -239,9 +239,12 @@ const handlers: Record<string, Handle> = {
 
   video(state, node) {
     const result = defaultHandlers.video!(state, node);
-    // A video without a poster or fallback content links with its name.
-    if (result && !Array.isArray(result) && result.type === "link" && result.children.length === 0) {
-      result.children = [{ type: "text", value: String(node.properties.title ?? "Video") }];
+    // The link to a video shows its poster or, without one, its label.
+    const label = String(node.properties.ariaLabel ?? node.properties.title ?? "Video");
+    if (result && !Array.isArray(result) && result.type === "link") {
+      const [poster] = result.children;
+      if (!poster) result.children = [{ type: "text", value: label }];
+      else if (poster.type === "image" && !poster.alt) poster.alt = label;
     }
     return result;
   },
