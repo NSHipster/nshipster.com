@@ -7,7 +7,8 @@ import { escapeXML, smartify, stripHTML } from "../lib/text.ts";
 export const GET: APIRoute = async ({ site: origin }) => {
   const absolute = (path: string) => new URL(path, origin).href;
   const posts = (await postsByUpdate()).slice(0, 10);
-  const updated = new Date();
+  // The feed changes only when an entry does, so it takes the newest entry's revision date.
+  const updated = posts[0]!.data.updatedOn;
 
   const entries = await Promise.all(
     posts.map(async (post) => {
