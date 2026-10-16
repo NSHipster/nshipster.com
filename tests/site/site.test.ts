@@ -56,6 +56,25 @@ describe("routing", () => {
     expect(await response.text()).toContain("NSError");
   });
 
+  it("doesn't let browsers cache a missing asset", async () => {
+    for (const pathname of ["/assets/missing.png", "/_astro/missing.js", "/missing"]) {
+      const response = await fetchManual(pathname);
+      expect(response.status, pathname).toBe(404);
+      expect(response.headers.get("content-type"), pathname).toBe("text/html; charset=utf-8");
+      expect(response.headers.get("cache-control"), pathname).toBe("public, max-age=0, must-revalidate");
+      expect(response.headers.get("content-security-policy"), pathname).toContain("default-src 'self'");
+      expect(await response.text(), pathname).toContain("NSError");
+    }
+    const head = await fetch(url("/assets/missing.png"), { method: "HEAD" });
+    expect(head.status).toBe(404);
+    expect(await head.text()).toBe("");
+
+    const stylesheet = (await (await fetch(url("/nscache"))).text()).match(/\/assets\/screen-[0-9a-f]+\.css/)![0];
+    const asset = await fetchManual(stylesheet);
+    expect(asset.status).toBe(200);
+    expect(asset.headers.get("cache-control")).toBe("public, max-age=31536000, immutable");
+  });
+
   it("redirects renamed articles and authors", async () => {
     for (const [from, to] of [
       ["/wkwebkit", "/wkwebview"],

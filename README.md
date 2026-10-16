@@ -134,13 +134,18 @@ in `tests/reference/accepted-differences.json`.
 
 NSHipster.com is served by
 [Cloudflare Workers Static Assets](https://developers.cloudflare.com/workers/static-assets/).
-`wrangler.jsonc` configures trailing-slash handling and the 404 page;
+`wrangler.jsonc` configures trailing-slash handling;
 the build writes `_redirects` and `_headers` into `dist/`.
 
 A small Worker in `src/worker.ts` handles the paths
 listed in `assets.run_worker_first` in `wrangler.jsonc`.
 It generates `/.well-known/security.txt` for each request,
 so that its `Expires` date is always about a year away.
+The Worker also handles requests that match no asset or redirect.
+It responds with the 404 page and a `Cache-Control` header
+that makes browsers revalidate it,
+so that a file that is missing during a deploy isn't cached for a year
+by the `/assets/*` rule in `_headers`.
 All other requests go directly to the static assets.
 `_headers` doesn't apply to responses that the Worker creates,
 so the Worker adds the security headers from `src/lib/security-headers.ts` itself.

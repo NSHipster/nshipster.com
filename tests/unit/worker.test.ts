@@ -4,9 +4,28 @@ import worker, { type Env } from "../../src/worker.ts";
 
 const DAY_MS = 24 * 60 * 60 * 1000;
 
-const env: Env = {
-  ASSETS: { fetch: async (request) => new Response(`asset ${new URL(request.url).pathname}`) },
-};
+const NOT_FOUND_PAGE = "<!DOCTYPE html><title>NSError</title>";
+
+/** Static assets with a page at `/nscache` and the 404 page, which treat other paths as missing. */
+const assets = (notFoundPage: string | null = NOT_FOUND_PAGE): Env => ({
+  ASSETS: {
+    fetch: async (request) => {
+      const { pathname } = new URL(request.url);
+      if (pathname === "/nscache") return new Response(`asset ${pathname}`);
+      if (pathname === "/404" && notFoundPage !== null) {
+        return new Response(request.method === "HEAD" ? null : notFoundPage, {
+          headers: {
+            "Content-Type": "text/html; charset=utf-8",
+            "Cache-Control": "public, max-age=31536000, immutable",
+          },
+        });
+      }
+      return new Response(null, { status: 404 });
+    },
+  },
+});
+
+const env = assets();
 
 const fetchWorker = (pathname: string, init?: RequestInit) =>
   worker.fetch(new Request(new URL(pathname, "https://nshipster.com"), init), env);
@@ -55,5 +74,32 @@ describe("worker", () => {
   it("passes other requests to the static assets", async () => {
     const response = await fetchWorker("/nscache");
     expect(await response.text()).toBe("asset /nscache");
+  });
+
+  it("serves the 404 page for missing paths without caching it for long", async () => {
+    for (const pathname of ["/assets/missing.png", "/_astro/missing.js", "/missing"]) {
+      const response = await fetchWorker(pathname);
+      expect(response.status, pathname).toBe(404);
+      expect(response.headers.get("Content-Type"), pathname).toBe("text/html; charset=utf-8");
+      expect(response.headers.get("Cache-Control"), pathname).toBe("public, max-age=0, must-revalidate");
+      for (const [name, value] of Object.entries(SECURITY_HEADERS)) {
+        expect(response.headers.get(name), `${pathname} ${name}`).toBe(value);
+      }
+      expect(await response.text(), pathname).toBe(NOT_FOUND_PAGE);
+    }
+  });
+
+  it("answers HEAD requests for missing paths without a body", async () => {
+    const response = await fetchWorker("/assets/missing.png", { method: "HEAD" });
+    expect(response.status).toBe(404);
+    expect(response.headers.get("Content-Type")).toBe("text/html; charset=utf-8");
+    expect(await response.text()).toBe("");
+  });
+
+  it("responds with plain text when the 404 page is missing", async () => {
+    const response = await worker.fetch(new Request("https://nshipster.com/missing"), assets(null));
+    expect(response.status).toBe(404);
+    expect(response.headers.get("Content-Type")).toBe("text/plain; charset=utf-8");
+    expect(await response.text()).toBe("Not Found\n");
   });
 });
