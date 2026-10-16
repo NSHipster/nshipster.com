@@ -2,6 +2,7 @@ import { readFileSync } from "node:fs";
 import path from "node:path";
 import type { AssetManifest } from "../lib/assets.ts";
 import { SECURITY_HEADERS } from "../lib/security-headers.ts";
+import { SITE_LINKS } from "../lib/site-links.ts";
 import { ROOT } from "../lib/site.ts";
 
 export interface Redirect {
@@ -124,7 +125,16 @@ export function redirects(assets: AssetManifest, exists: (pathname: string) => b
 /**
  * Response headers for Cloudflare's `_headers` file.
  *
- * Every path gets the security headers in `SECURITY_HEADERS`.
+ * Every path gets the security headers in `SECURITY_HEADERS`
+ * and a `Link` header with the site's machine-readable resources in `SITE_LINKS`.
+ *
+ * The `Link` header doesn't give the Markdown versions of articles.
+ * A `/:slug` rule for them would also match every other path with one segment, such as `/feed.xml`,
+ * and `_headers` allows only 100 rules, too few for one per article.
+ * Later rules could remove the link from the other paths,
+ * but the result would depend on the order in which Cloudflare applies rules:
+ * the order of the file in `wrangler dev`, but apparently alphabetical by pattern in production.
+ *
  * Images, media, scripts, styles, and icons are `Cross-Origin-Resource-Policy: cross-origin` instead of `same-origin`,
  * so that feed readers and other sites can still show them.
  * The Markdown versions of articles aren't indexed by search engines, which index the articles themselves.
@@ -135,6 +145,7 @@ export function headers(): string {
   const security = Object.entries(SECURITY_HEADERS).map(([name, value]) => `  ${name}: ${value}`);
   return `/*
 ${security.join("\n")}
+  Link: ${SITE_LINKS}
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable
