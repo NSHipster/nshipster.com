@@ -34,8 +34,9 @@ export default defineConfig({
       cssVariable: "--font-merriweather",
       fallbacks: ["Georgia", "serif"],
       formats: ["woff2", "woff"],
-      // Keep the text hidden briefly while fonts load, as the site did before.
-      display: "auto",
+      // Show fallback text while fonts load; the metric-matched fallback
+      // faces that Astro generates limit layout shift when the fonts swap in.
+      display: "swap",
       options: {
         variants: [
           merriweather("Light", 300, "normal"),
