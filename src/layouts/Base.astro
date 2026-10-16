@@ -3,6 +3,7 @@ import { Font } from "astro:assets";
 import Logo from "../../assets/images/logo.svg";
 import JsonLd from "../components/JsonLd.astro";
 import { assetManifest } from "../lib/assets.ts";
+import { authorURL } from "../lib/collections.ts";
 import { site } from "../lib/site.ts";
 import { t } from "../lib/i18n.ts";
 import { stripHTML } from "../lib/text.ts";
@@ -37,6 +38,7 @@ interface Props {
 const { title, path, document, article, creator, next, previous, noindex, home } = Astro.props;
 const assets = assetManifest();
 const absolute = (value: string) => new URL(value, Astro.site).href;
+const founder = { "@type": "Person", name: "Mattt", url: absolute(authorURL("mattt")) };
 const siteDescription = "NSHipster is a journal of the overlooked bits in Objective-C, Swift, and Cocoa.";
 const plainTitle = stripHTML(title).trim();
 ---
@@ -186,7 +188,7 @@ const plainTitle = stripHTML(title).trim();
         url: Astro.site!.origin,
         logo: { "@type": "ImageObject", url: absolute("/logo.png") },
         foundingDate: "2012-07-07",
-        founders: [{ "@type": "Person", name: "Mattt" }],
+        founders: [founder],
         sameAs: ["https://twitter.com/nshipster", "https://github.com/nshipster"],
       }}
     />
@@ -196,7 +198,7 @@ const plainTitle = stripHTML(title).trim();
         "@type": "WebSite",
         url: Astro.site!.origin,
         name: site.title,
-        author: { "@type": "Person", name: "Mattt" },
+        author: founder,
         description: siteDescription,
         publisher: {
           "@type": "Organization",

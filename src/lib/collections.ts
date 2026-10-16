@@ -27,6 +27,19 @@ export function authorURL(author: Author | string): string {
   return `/authors/${id}`;
 }
 
+/** Schema.org `Person` for an author, with their profile URL and linked accounts. */
+export function authorPerson(author: Author) {
+  const { name, website, twitter, github } = author.data;
+  const links = [website, twitter && `https://twitter.com/${twitter}`, github && `https://github.com/${github}`];
+  const sameAs = [...new Set(links.filter((link): link is string => Boolean(link)))];
+  return {
+    "@type": "Person",
+    name,
+    url: new URL(authorURL(author), site.url).href,
+    ...(sameAs.length > 0 ? { sameAs } : {}),
+  };
+}
+
 /** Plain text biography description from the first paragraph of an author's Markdown body. */
 export async function authorDescription(author: Author): Promise<string> {
   const firstParagraph = author.body?.trim().split(/\n\s*\n/)[0] ?? "";
