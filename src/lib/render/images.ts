@@ -13,7 +13,8 @@ export async function describeImages(
   const images = new Map<string, ImageDescription>();
   for (const name of names) {
     const asset = assets.find(name);
-    if (asset?.kind !== "image") continue;
+    // `{% asset %}` links to a TIFF file rather than embedding it, but articles show them as images.
+    if (!asset || (asset.kind !== "image" && !asset.logical.endsWith(".tiff"))) continue;
     const size = await assets.size(asset);
     if (!size) continue;
     images.set(assets.build(asset).url, { ...size, variants: await assets.variants(asset) });

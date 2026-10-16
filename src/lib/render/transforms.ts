@@ -371,6 +371,9 @@ const PAGE_PADDING = 43;
 const isPixels = (value: Properties[string]): boolean =>
   typeof value === "number" || (typeof value === "string" && /^\d+(\.\d+)?$/.test(value));
 
+const isPercentage = (value: Properties[string]): boolean =>
+  typeof value === "string" && /^\s*\d+(\.\d+)?%\s*$/.test(value);
+
 /**
  * Gives images their width and height so the page doesn't shift as they load,
  * loads the images after the first one lazily,
@@ -394,8 +397,19 @@ function addImageAttributes(tree: Root, images: Map<string, ImageDescription>): 
       img.properties.height = Math.round((Number(width) * image.height) / image.width);
     } else if (width === undefined && isPixels(height)) {
       img.properties.width = Math.round((Number(height) * image.width) / image.height);
+    } else if (height === undefined && isPercentage(width)) {
+      // A percentage isn't a valid `width` attribute and gives no aspect ratio,
+      // so the style keeps it and the attributes give the image's own size.
+      const style = img.properties.style === undefined ? "" : ` ${String(img.properties.style)}`;
+      img.properties.style = `width: ${String(width).trim()};${style}`;
+      img.properties.width = image.width;
+      img.properties.height = image.height;
     }
-    const displayWidth = isPixels(img.properties.width) ? Number(img.properties.width) : image.width;
+    const displayWidth = isPercentage(width)
+      ? CONTENT_WIDTH
+      : isPixels(img.properties.width)
+        ? Number(img.properties.width)
+        : image.width;
     displayWidths.set(img, displayWidth);
     if (image.variants.length > 0 && img.properties.srcSet === undefined) {
       img.properties.srcSet = imageSrcset(src, image);

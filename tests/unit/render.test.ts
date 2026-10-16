@@ -193,6 +193,26 @@ describe("article rendering", () => {
     expect(dark).toContain('sizes="(min-width: 918px) 875px, calc(100vw - 43px)"');
   });
 
+  it("sizes SVG images and keeps a percentage width in the style", async () => {
+    const source = [
+      "{% asset gpuimage-pipeline.svg %}",
+      "",
+      "{% asset swift-operators-one-plus-two.svg %}",
+      "",
+      '{% asset contact-tracing-equation.svg width="100%" %}',
+    ].join("\n");
+    const { html } = await render(source);
+    const images = [...html.matchAll(/<img [^>]*>/g)].map((match) => match[0]);
+
+    // The width and height are in points.
+    expect(images[0]).toContain('width="753" height="101"');
+    // Only the view box gives the size.
+    expect(images[1]).toContain('width="600" height="200"');
+    expect(images[2]).toContain('width="553"');
+    expect(images[2]).toContain('height="42"');
+    expect(images[2]).toContain('style="width: 100%;"');
+  });
+
   it("names the source file for a missing asset", async () => {
     await expect(render("{% asset does-not-exist.png %}", "2020-01-01-missing.md")).rejects.toThrow(
       /2020-01-01-missing\.md.*does-not-exist\.png/,
