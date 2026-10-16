@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import path from "node:path";
 import type { AssetManifest } from "../lib/assets.ts";
+import { SECURITY_HEADERS } from "../lib/security-headers.ts";
 import { ROOT } from "../lib/site.ts";
 
 export interface Redirect {
@@ -80,26 +81,16 @@ export function redirects(assets: AssetManifest, exists: (pathname: string) => b
 /**
  * Response headers for Cloudflare's `_headers` file.
  *
- * `Permissions-Policy` disables powerful features that no page uses.
- * It leaves features such as `fullscreen` and `encrypted-media` unrestricted
- * for the YouTube videos that some articles embed.
- *
- * `Cross-Origin-Resource-Policy: same-origin` keeps other sites from loading pages as subresources.
- * Images, media, scripts, styles, and icons are `cross-origin` instead,
+ * Every path gets the security headers in `SECURITY_HEADERS`.
+ * Images, media, scripts, styles, and icons are `Cross-Origin-Resource-Policy: cross-origin` instead of `same-origin`,
  * so that feed readers and other sites can still show them.
  * Cloudflare joins the values of a header that more than one rule sets,
  * so these rules remove the earlier value first with `!`.
  */
 export function headers(): string {
+  const security = Object.entries(SECURITY_HEADERS).map(([name, value]) => `  ${name}: ${value}`);
   return `/*
-  Content-Security-Policy: default-src 'self' *.nshipster.com; script-src 'self' *.nshipster.com https://*.apple-mapkit.com; style-src 'self' 'unsafe-inline'; img-src 'self' *.gravatar.com https://*.apple-mapkit.com; frame-ancestors 'none'; object-src 'none'; connect-src 'self' *.nshipster.com https://*.apple-mapkit.com; base-uri 'none'; upgrade-insecure-requests
-  Cross-Origin-Opener-Policy: same-origin
-  Cross-Origin-Resource-Policy: same-origin
-  Permissions-Policy: bluetooth=(), browsing-topics=(), camera=(), display-capture=(), geolocation=(), hid=(), idle-detection=(), local-fonts=(), microphone=(), midi=(), payment=(), screen-wake-lock=(), serial=(), usb=(), xr-spatial-tracking=()
-  Referrer-Policy: same-origin
-  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
-  X-Content-Type-Options: nosniff
-  X-Frame-Options: DENY
+${security.join("\n")}
 
 /assets/*
   Cache-Control: public, max-age=31536000, immutable

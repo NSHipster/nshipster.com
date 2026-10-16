@@ -135,6 +135,15 @@ describe("routing", () => {
     expect(response.headers.get("permissions-policy")).toContain("camera=()");
   });
 
+  it("serves security.txt from the Worker with the security headers", async () => {
+    const response = await fetchManual("/.well-known/security.txt");
+    expect(response.status).toBe(200);
+    expect(response.headers.get("content-type")).toBe("text/plain; charset=utf-8");
+    expect(response.headers.get("content-security-policy")).toContain("default-src 'self'");
+    expect(response.headers.get("strict-transport-security")).toContain("max-age=");
+    expect(await response.text()).toMatch(/^Expires: \d{4}-/m);
+  });
+
   it("lets other sites load images", async () => {
     const response = await fetchManual("/logo.png");
     expect(response.headers.get("cross-origin-resource-policy")).toBe("cross-origin");
