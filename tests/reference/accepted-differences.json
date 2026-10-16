@@ -148,6 +148,90 @@
     {
       "difference": "/xcplayground/: content text differs",
       "reason": "A code listing shows an asset URL, which now has a new digest."
+    },
+    {
+      "difference": "/addressbookui/: robots noindex,nofollow differs from undefined",
+      "reason": "The article is retired, so it is no longer indexed."
+    },
+    {
+      "difference": "/apple-pay/: robots noindex,nofollow differs from undefined",
+      "reason": "The article is retired, so it is no longer indexed."
+    },
+    {
+      "difference": "/contact-tracing/: robots noindex,nofollow differs from undefined",
+      "reason": "The article is retired, so it is no longer indexed."
+    },
+    {
+      "difference": "/device-identifiers/: heading anchors differ (missing: universal-identifiers-udid; added: unique-device-identifiers-udid)",
+      "reason": "The heading text was corrected, which changed its ID."
+    },
+    {
+      "difference": "/ibinspectable-ibdesignable/: robots noindex,nofollow differs from undefined",
+      "reason": "The article is retired, so it is no longer indexed."
+    },
+    {
+      "difference": "/multipeer-connectivity/: robots noindex,nofollow differs from undefined",
+      "reason": "The article is retired, so it is no longer indexed."
+    },
+    {
+      "difference": "/nslinguistictagger/: robots noindex,nofollow differs from undefined",
+      "reason": "The article is retired, so it is no longer indexed."
+    },
+    {
+      "difference": "/objective-c-documentation/: robots noindex,nofollow differs from undefined",
+      "reason": "The article is retired, so it is no longer indexed."
+    },
+    {
+      "difference": "/propertywrapper/: heading anchors differ (missing: implementing-a-property-value-versioning; added: implementing-property-value-versioning)",
+      "reason": "The heading text was corrected, which changed its ID."
+    },
+    {
+      "difference": "/swift-api-pollution/: heading anchors differ (missing: strategies-for-api-provider; added: strategies-for-api-providers)",
+      "reason": "The heading text was corrected, which changed its ID."
+    },
+    {
+      "difference": "/swift-default-protocol-implementations/: robots noindex,nofollow differs from undefined",
+      "reason": "The article is retired, so it is no longer indexed."
+    },
+    {
+      "difference": "/swift-log/: heading anchors differ (missing: conditional-boostrapping; added: conditional-bootstrapping)",
+      "reason": "The heading text was corrected, which changed its ID."
+    },
+    {
+      "difference": "/swift-system-version-checking/: robots noindex,nofollow differs from undefined",
+      "reason": "The article is retired, so it is no longer indexed."
+    },
+    {
+      "difference": "/uimenucontroller/: robots noindex,nofollow differs from undefined",
+      "reason": "The article is retired, so it is no longer indexed."
+    },
+    {
+      "difference": "/uiprintinteractioncontroller/: heading anchors differ (missing: printing-with-printitems; added: printing-with-printingitems)",
+      "reason": "The heading text was corrected, which changed its ID."
+    },
+    {
+      "difference": "/unit-testing/: robots noindex,nofollow differs from undefined",
+      "reason": "The article is retired, so it is no longer indexed."
+    },
+    {
+      "difference": "/uuid-udid-unique-identifier/: robots noindex,nofollow differs from undefined",
+      "reason": "The article is retired, so it is no longer indexed."
+    },
+    {
+      "difference": "/watchkit/: robots noindex,nofollow differs from undefined",
+      "reason": "The article is retired, so it is no longer indexed."
+    },
+    {
+      "difference": "/xcode-plugins/: robots noindex,nofollow differs from undefined",
+      "reason": "The article is retired, so it is no longer indexed."
+    },
+    {
+      "difference": "/xcplayground/: robots noindex,nofollow differs from undefined",
+      "reason": "The article is retired, so it is no longer indexed."
+    },
+    {
+      "difference": "Sitemap URLs are missing: https://nshipster.com/contact-tracing/, https://nshipster.com/xcplayground/, https://nshipster.com/ibinspectable-ibdesignable/, https://nshipster.com/apple-pay/, https://nshipster.com/watchkit/, https://nshipster.com/swift-system-version-checking/, https://nshipster.com/swift-default-protocol-implementations/, https://nshipster.com/xcode-plugins/, https://nshipster.com/multipeer-connectivity/, https://nshipster.com/objective-c-documentation/, https://nshipster.com/uimenucontroller/, https://nshipster.com/uuid-udid-unique-identifier/, https://nshipster.com/unit-testing/, https://nshipster.com/nslinguistictagger/, https://nshipster.com/addressbookui/",
+      "reason": "Retired articles are no longer listed in the sitemap."
     }
   ]
 }

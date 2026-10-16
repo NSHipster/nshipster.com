@@ -128,6 +128,16 @@ dl {
   }
 }
 
+// Hides text visually but keeps it in the accessibility tree, e.g. to give a generic link a descriptive name.
+.visually-hidden {
+  position: absolute;
+  clip-path: inset(50%);
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .container {
   @include mixins.clearfix;
 
