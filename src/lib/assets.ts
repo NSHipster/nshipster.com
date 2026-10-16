@@ -4,6 +4,12 @@ import path from "node:path";
 import { imageMetadata } from "astro/assets/utils";
 import * as sass from "sass";
 import sharp from "sharp";
+import {
+  IMAGE_TRANSFORMATIONS,
+  TRANSFORMED_WIDTHS,
+  isTransformable,
+  transformedImageURL,
+} from "./image-transformations.ts";
 import { ROOT, paths } from "./site.ts";
 
 /**
@@ -49,7 +55,7 @@ export interface ImageSize {
   height: number;
 }
 
-/** A smaller copy of an image, for `srcset`. */
+/** A smaller or transformed copy of an image, for `srcset`. */
 export interface ImageVariant {
   url: string;
   width: number;
@@ -79,9 +85,12 @@ export class AssetManifest {
   readonly #sizes = new Map<string, Promise<ImageSize | undefined>>();
   readonly #responsive: Set<string>;
   readonly root: string;
+  /** Whether images link to Cloudflare Image Transformations instead of smaller copies. */
+  readonly imageTransformations: boolean;
 
-  constructor(root = ROOT) {
+  constructor(root = ROOT, { imageTransformations = IMAGE_TRANSFORMATIONS } = {}) {
     this.root = root;
+    this.imageTransformations = imageTransformations;
     for (const directory of SOURCE_DIRECTORIES) {
       const base = path.join(root, paths.assets, directory);
       for (const file of walk(base)) {
@@ -171,8 +180,11 @@ export class AssetManifest {
   /**
    * The smaller copies of an image listed in `src/data/responsive-images.json`, narrowest first.
    * Other images have none.
+   * With Cloudflare Image Transformations, every image that Cloudflare can transform
+   * has transformed copies instead, the last of which is at the image's own width.
    */
   async variants(asset: Asset): Promise<ImageVariant[]> {
+    if (this.imageTransformations) return this.#transformedVariants(asset);
     if (!this.#responsive.has(asset.logical)) return [];
     const size = await this.size(asset);
     if (!size) throw new AssetError(`Responsive image "${asset.logical}" has no known size`);
@@ -188,9 +200,24 @@ export class AssetManifest {
     });
   }
 
-  /** Makes the smaller copies of the images in `src/data/responsive-images.json`, keyed by URL. */
+  async #transformedVariants(asset: Asset): Promise<ImageVariant[]> {
+    if (asset.kind !== "image" || !isTransformable(asset.logical)) return [];
+    const size = await this.size(asset);
+    if (!size) return [];
+    const source = this.build(asset).url;
+    return [...TRANSFORMED_WIDTHS.filter((width) => width < size.width), size.width].map((width) => ({
+      url: transformedImageURL(source, { width: width < size.width ? width : undefined }),
+      width,
+    }));
+  }
+
+  /**
+   * Makes the smaller copies of the images in `src/data/responsive-images.json`, keyed by URL.
+   * With Cloudflare Image Transformations, there are none to make.
+   */
   async variantOutputs(): Promise<Map<string, { asset: Asset; contents: Buffer }>> {
     const outputs = new Map<string, { asset: Asset; contents: Buffer }>();
+    if (this.imageTransformations) return outputs;
     await Promise.all(
       this.responsiveImages.map(async (asset) => {
         const { contents } = this.build(asset);

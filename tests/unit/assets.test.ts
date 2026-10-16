@@ -1,9 +1,10 @@
 import { readFileSync, readdirSync } from "node:fs";
 import path from "node:path";
 import { describe, expect, it } from "vite-plus/test";
-import { assetManifest, svgSize } from "../../src/lib/assets.ts";
+import { svgSize } from "../../src/lib/assets.ts";
 import { portraits } from "../../src/lib/images.ts";
 import { ROOT, paths } from "../../src/lib/site.ts";
+import { manifests } from "./helpers.ts";
 
 describe("images", () => {
   it("imports a portrait for each author with an image", () => {
@@ -16,7 +17,7 @@ describe("images", () => {
   });
 
   it("makes smaller copies of responsive images at URLs that differ from the original", async () => {
-    const assets = assetManifest();
+    const assets = manifests.sharp;
     const outputs = await assets.variantOutputs();
     expect(assets.responsiveImages.length).toBeGreaterThan(0);
     for (const asset of assets.responsiveImages) {

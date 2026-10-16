@@ -433,9 +433,14 @@ function addImageAttributes(tree: Root, images: Map<string, ImageDescription>): 
   }
 }
 
-/** The `srcset` value for an image and its smaller copies. Shared with the MDX image component. */
+/**
+ * The `srcset` value for an image and its smaller copies. Shared with the MDX image component.
+ * A transformed copy at the image's own width replaces the original.
+ */
 export function imageSrcset(url: string, image: ImageDescription): string {
-  return [...image.variants.map((variant) => `${variant.url} ${variant.width}w`), `${url} ${image.width}w`].join(", ");
+  const candidates = image.variants.map((variant) => `${variant.url} ${variant.width}w`);
+  if (image.variants.at(-1)?.width !== image.width) candidates.push(`${url} ${image.width}w`);
+  return candidates.join(", ");
 }
 
 /** The width that an image takes up at each viewport width, for `sizes`. */

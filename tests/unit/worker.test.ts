@@ -76,6 +76,11 @@ describe("worker", () => {
     expect(await response.text()).toBe("asset /nscache");
   });
 
+  it("serves the original for a Cloudflare Image Transformations URL in local previews", async () => {
+    const response = await fetchWorker("/cdn-cgi/image/width=400,format=auto,onerror=redirect/nscache");
+    expect(await response.text()).toBe("asset /nscache");
+  });
+
   it("serves the 404 page for missing paths without caching it for long", async () => {
     for (const pathname of ["/assets/missing.png", "/_astro/missing.js", "/missing"]) {
       const response = await fetchWorker(pathname);

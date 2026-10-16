@@ -26,6 +26,7 @@ const RENDER_SOURCES = [
   "src/lib/content",
   "src/lib/assets.ts",
   "src/lib/dates.ts",
+  "src/lib/image-transformations.ts",
   "src/lib/scalar.ts",
   "src/lib/site.ts",
   "src/lib/text.ts",

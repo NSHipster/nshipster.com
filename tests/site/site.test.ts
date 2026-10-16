@@ -1,6 +1,7 @@
 import { readFileSync } from "node:fs";
 import { afterAll, beforeAll, describe, expect, it } from "vite-plus/test";
 import { chromium, type Browser, type BrowserContextOptions } from "playwright";
+import { IMAGE_TRANSFORMATIONS } from "../../src/lib/image-transformations.ts";
 import { startPreview, type PreviewServer } from "./server.ts";
 
 let server: PreviewServer;
@@ -309,13 +310,18 @@ describe("pages", () => {
       await context.close();
       return new URL(source).pathname;
     };
+    // A copy 800 pixels wide, or the image at its own width, made by sharp or by Cloudflare.
+    const copy = (name: string, width?: number) =>
+      IMAGE_TRANSFORMATIONS
+        ? new RegExp(
+            `^/cdn-cgi/image/${width ? `width=${width},` : ""}format=auto,[^/]*/assets/${name}-[0-9a-f]+\\.png$`,
+          )
+        : new RegExp(`^/assets/${name}-${width ? `${width}w-` : ""}[0-9a-f]+\\.png$`);
     const phone = { viewport: { width: 390, height: 844 }, deviceScaleFactor: 2 };
-    expect(await currentSource(phone)).toMatch(/^\/assets\/uncertainty-screenshot--light-800w-/);
-    expect(await currentSource({ ...phone, colorScheme: "dark" })).toMatch(
-      /^\/assets\/uncertainty-screenshot--dark-800w-/,
-    );
+    expect(await currentSource(phone)).toMatch(copy("uncertainty-screenshot--light", 800));
+    expect(await currentSource({ ...phone, colorScheme: "dark" })).toMatch(copy("uncertainty-screenshot--dark", 800));
     expect(await currentSource({ viewport: { width: 1440, height: 900 }, deviceScaleFactor: 2 })).toMatch(
-      /^\/assets\/uncertainty-screenshot--light-[0-9a-f]+\.png$/,
+      copy("uncertainty-screenshot--light"),
     );
   });
 
