@@ -51,6 +51,11 @@ const globFrontmatter = z.object({
   status: z.unknown().optional(),
   retired: z.unknown().optional(),
   published: z.unknown().optional(),
+  /**
+   * Whether a page uses the plain page layout, without the article byline and footer.
+   * (MDX reserves the `layout` key for a layout component import.)
+   */
+  plain: z.boolean().optional(),
 });
 
 /**
@@ -62,7 +67,7 @@ const articles = defineCollection({
   schema: globFrontmatter,
 });
 
-/** Pages that use the article layout, written in MDX. */
+/** Pages written in MDX, which use the article layout unless they set `plain: true`. */
 const pages = defineCollection({
   loader: glob({ base: `./${paths.pages}`, pattern: "**/*.mdx" }),
   schema: globFrontmatter,
