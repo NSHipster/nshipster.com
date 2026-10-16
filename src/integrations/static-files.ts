@@ -3,6 +3,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import type { AstroIntegration } from "astro";
 import { AssetManifest } from "../lib/assets.ts";
+import { IMAGE_TRANSFORMATIONS, transformationSource } from "../lib/image-transformations.ts";
 import { pageMarkdown, pageURL } from "../lib/markdown-alternate.ts";
 import { ROOT, paths } from "../lib/site.ts";
 import { headers, redirects } from "./routing.ts";
@@ -34,7 +35,8 @@ const CONTENT_TYPES: Record<string, string> = {
 
 /**
  * Publishes `assets/` with content-hashed names under `/assets/`,
- * along with smaller copies of the images in `src/data/responsive-images.json`,
+ * along with smaller copies of the images in `src/data/responsive-images.json`
+ * unless Cloudflare Image Transformations make them (see `src/lib/image-transformations.ts`),
  * writes the Markdown versions of articles that their pages link to,
  * and writes Cloudflare routing files.
  * Files served as-is from the site root live in `public/`.
@@ -44,6 +46,10 @@ export function staticFiles(): AstroIntegration {
     name: "nshipster:static-files",
     hooks: {
       "astro:config:setup": ({ updateConfig, command }) => {
+        // Only Cloudflare serves `/cdn-cgi/image/` URLs, so the development server keeps Astro's sharp service.
+        if (command === "build" && IMAGE_TRANSFORMATIONS) {
+          updateConfig({ image: { service: { entrypoint: path.join(ROOT, "src/lib/image-service.ts") } } });
+        }
         if (command !== "dev") return;
         let manifest: AssetManifest | undefined;
         let outputs: Map<string, { contents: Buffer }> | undefined;
@@ -63,7 +69,10 @@ export function staticFiles(): AstroIntegration {
                     }
                   });
                   server.middlewares.use((request, response, next) => {
-                    const pathname = decodeURIComponent(new URL(request.url ?? "/", "http://localhost").pathname);
+                    // Transformed image URLs serve the original image.
+                    const pathname = transformationSource(
+                      decodeURIComponent(new URL(request.url ?? "/", "http://localhost").pathname),
+                    );
                     const send = (contents: Buffer | undefined) => {
                       if (!contents) return next();
                       response.setHeader(

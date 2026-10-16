@@ -123,6 +123,18 @@ To find large images for that list,
 run `mise run audit:weight`,
 which reports the heaviest pages and the largest images.
 
+`IMAGE_TRANSFORMATIONS` in `src/lib/image-transformations.ts`
+serves images through [Cloudflare Image Transformations](https://developers.cloudflare.com/images/transform-images/transform-via-url/) instead.
+Every PNG, JPEG, and WebP image in an article
+then lists `/cdn-cgi/image/` copies in `srcset`,
+at 400, 800, 1200, and 1600 pixels wide and at its own width,
+and Cloudflare serves each one as AVIF or WebP to browsers that accept them.
+Author portraits use the same URLs through `src/lib/image-service.ts`.
+GIF, SVG, and TIFF images stay as they are.
+Transformations must be enabled for the nshipster.com zone first,
+under Images > Transformations in the Cloudflare dashboard;
+the development server serves the original images at these URLs.
+
 ### Markdown Versions of Articles
 
 Each article is also published as Markdown

@@ -88,7 +88,9 @@ const avatars = new Set(
 const withoutExtension = (asset: string) => asset.replace(/\.[^./]+$/, "");
 const normalizeAssets = (assets: string[]) =>
   [...new Set(assets.filter((asset) => !avatars.has(asset)).map(withoutExtension))].sort();
-const assetURLs = (text: string) => [...text.matchAll(/["'(](\/assets\/[^"')\s]+)/g)].map((match) => match[1]!);
+// A Cloudflare Image Transformations URL refers to the original image that follows its options.
+const assetURLs = (text: string) =>
+  [...text.matchAll(/["'(](?:\/cdn-cgi\/image\/[^/"'\s]+)?(\/assets\/[^"')\s]+)/g)].map((match) => match[1]!);
 // Jekyll pages included the site stylesheet inline, so its images counted as page assets.
 const stylesheet = manifest.build(manifest.resolve("screen.css"));
 const stylesheetAssets = assetURLs(stylesheet.contents.toString("utf8"));
