@@ -48,13 +48,19 @@ function respond(request: Request, body: BodyInit | null, headers: Record<string
 async function notFound(request: Request, env: Env): Promise<Response> {
   const method = request.method === "HEAD" ? "HEAD" : "GET";
   const page = await env.ASSETS.fetch(new Request(new URL("/404", request.url), { method }));
+  const cacheControl = "public, max-age=0, must-revalidate";
   if (!page.ok) {
-    return respond(request, "Not Found\n", { "Content-Type": "text/plain; charset=utf-8" }, 404);
+    return respond(
+      request,
+      "Not Found\n",
+      { "Content-Type": "text/plain; charset=utf-8", "Cache-Control": cacheControl },
+      404,
+    );
   }
   return respond(
     request,
     page.body,
-    { "Content-Type": "text/html; charset=utf-8", "Cache-Control": "public, max-age=0, must-revalidate" },
+    { "Content-Type": "text/html; charset=utf-8", "Cache-Control": cacheControl },
     404,
   );
 }

@@ -100,6 +100,7 @@ describe("worker", () => {
     const response = await worker.fetch(new Request("https://nshipster.com/missing"), assets(null));
     expect(response.status).toBe(404);
     expect(response.headers.get("Content-Type")).toBe("text/plain; charset=utf-8");
+    expect(response.headers.get("Cache-Control")).toBe("public, max-age=0, must-revalidate");
     expect(await response.text()).toBe("Not Found\n");
   });
 });
