@@ -4,7 +4,7 @@ import { postsByUpdate, postsNewestFirst } from "../lib/collections.ts";
 import { byCodeUnit } from "../lib/content/posts.ts";
 import { t } from "../lib/i18n.ts";
 import { site } from "../lib/site.ts";
-import { camelBreak, stripHTML } from "../lib/text.ts";
+import { camelBreak, plainText, stripHTML } from "../lib/text.ts";
 
 const posts = await postsNewestFirst();
 const sorted = await postsByUpdate();
@@ -38,7 +38,7 @@ const archive = site.groups
           <Fragment set:html={latest.data.excerptHTML} />
 
           <a class="readmore" href={latest.data.url} data-astro-prefetch>
-            {t.continueReading}
+            {t.continueReading}<span class="visually-hidden">: {plainText(latest.data.title)}</span>
           </a>
         </article>
       </section>

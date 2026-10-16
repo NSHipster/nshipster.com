@@ -323,7 +323,7 @@ describe("pages", () => {
 
   it("makes the underline of a text link solid on hover", async () => {
     const { page, context } = await open("/addressbookui/");
-    const link = page.locator(".content p a").first();
+    const link = page.locator(".content > p a").first();
     const underline = () =>
       link.evaluate((element) => ({
         color: getComputedStyle(element).textDecorationColor,
