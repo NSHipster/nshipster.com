@@ -191,6 +191,25 @@ describe("pages", () => {
     expect(authorHTML).toContain('<meta name="twitter:creator" content="@mattt">');
   });
 
+  it("gives each article a large link preview image of its own", async () => {
+    const meta = (html: string, property: string) =>
+      html.match(new RegExp(`<meta (?:property|name)="${property}" content="([^"]*)"`))?.[1];
+    const article = await (await fetch(url("/nscache"))).text();
+    const home = await (await fetch(url("/"))).text();
+    expect(meta(article, "twitter:card")).toBe("summary_large_image");
+    expect(meta(article, "og:image")).toMatch(/^https:\/\/nshipster\.com\/assets\/og\/nscache-[0-9a-f]{16}\.png$/);
+    expect(meta(article, "og:image:width")).toBe("1200");
+    expect(meta(article, "og:image:height")).toBe("630");
+    expect(meta(article, "og:image:alt")).toBe("NSCache, by Mattt, on NSHipster");
+    expect(meta(home, "og:image")).toMatch(/^https:\/\/nshipster\.com\/assets\/og\/nshipster-[0-9a-f]{16}\.png$/);
+
+    const image = await fetch(url(new URL(meta(article, "og:image")!).pathname));
+    expect(image.status).toBe(200);
+    expect(image.headers.get("content-type")).toBe("image/png");
+    expect(image.headers.get("cache-control")).toBe("public, max-age=31536000, immutable");
+    expect(image.headers.get("cross-origin-resource-policy")).toBe("cross-origin");
+  });
+
   it("loads representative pages without errors", async () => {
     for (const pathname of [
       "/",

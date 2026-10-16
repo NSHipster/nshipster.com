@@ -2,11 +2,12 @@
 import Base from "./Base.astro";
 import Contributor from "../components/Contributor.astro";
 import JsonLd from "../components/JsonLd.astro";
-import { authorNamed, authorPerson, authorURL, type Post } from "../lib/collections.ts";
+import { authorNamed, authorPerson, authorURL, creditedNames, postCard, type Post } from "../lib/collections.ts";
 import type { PostEntryData } from "../lib/content/loaders.ts";
 import { formatDate } from "../lib/dates.ts";
 import { t } from "../lib/i18n.ts";
 import { markdownPath } from "../lib/markdown-alternate.ts";
+import { ogImage } from "../lib/og-image.ts";
 import { camelBreak, plainText, stripHTML } from "../lib/text.ts";
 
 interface Props {
@@ -23,10 +24,8 @@ interface Props {
 const { post, isArticle, next, previous, continueWith } = Astro.props;
 const author = await authorNamed(post.author);
 const coauthors = await Promise.all(post.authors.map(async (name) => ({ name, author: await authorNamed(name) })));
-// Some older articles credit coauthors only in `author`, as in "Nate Cook, Mattt".
-const creditedNames = post.authors.length > 0 ? post.authors : (post.author ?? "Mattt").split(/\s*[,&]\s*/);
 const credited = await Promise.all(
-  creditedNames.map(async (name) => {
+  creditedNames(post).map(async (name) => {
     const entry = await authorNamed(name);
     return entry ? authorPerson(entry) : { "@type": "Person", name };
   }),
@@ -37,11 +36,13 @@ const shown = post.lastRevisedOn ?? post.date;
 const swift = post.status?.swift;
 const hasSwiftVersion = swift && swift !== "t.b.c." && swift !== "n/a";
 const description = plainText(post.excerptHTML);
+const image = isArticle ? ogImage(post.slug, await postCard(post), Astro.site!) : undefined;
 ---
 
 <Base
   title={post.title}
   path={post.url}
+  image={image}
   document={isArticle
     ? {
         description,
@@ -57,7 +58,7 @@ const description = plainText(post.excerptHTML);
         "@type": "Article",
         headline: stripHTML(post.title).trim(),
         description,
-        image: absolute("/logo.png"),
+        image: image && { "@type": "ImageObject", url: image.url, width: image.width, height: image.height },
         datePublished: post.date.toISOString(),
         dateModified: post.updatedOn.toISOString(),
         mainEntityOfPage: { "@type": "WebPage", "@id": absolute(post.url) },
