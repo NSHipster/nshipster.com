@@ -134,6 +134,34 @@ describe("routing", () => {
     expect((await fetchManual("/status.md")).status).toBe(404);
   });
 
+  it("publishes llms.txt with the indexed articles, linked to their Markdown versions", async () => {
+    const page = await (await fetch(url("/"))).text();
+    expect(page).toContain('<link rel="describedby" type="text/plain" href="/llms.txt">');
+    const response = await fetchManual("/llms.txt");
+    expect(response.status).toBe(200);
+    expect(response.headers.get("content-type")).toBe("text/plain; charset=utf-8");
+    const text = await response.text();
+    expect(text).toMatch(/^# NSHipster\n\n> NSHipster is a journal/);
+
+    const links = [...text.matchAll(/^- \[.+?\]\((https:\/\/nshipster\.com\/[^)]*)\)/gm)].map(
+      (match) => new URL(match[1]!).pathname,
+    );
+    const articles = links.filter((pathname) => pathname.endsWith(".md")).map((pathname) => pathname.slice(0, -3));
+    expect(articles).toContain("/nscache");
+    // Retired articles are marked noindex and left out, as in the sitemap.
+    expect(articles).not.toContain("/addressbookui");
+    for (const pathname of links) expect((await fetchManual(pathname)).status, pathname).toBe(200);
+    for (const pathname of articles) {
+      expect(await (await fetch(url(pathname))).text(), pathname).not.toContain('<meta name="robots"');
+    }
+
+    const sitemap = await (await fetch(url("/sitemap.xml"))).text();
+    const indexed = [...sitemap.matchAll(/<loc>https:\/\/nshipster\.com(\/[^<]+)<\/loc>/g)]
+      .map((match) => match[1]!)
+      .filter((pathname) => !pathname.startsWith("/authors/"));
+    expect(articles).toEqual(expect.arrayContaining(indexed));
+  });
+
   it("redirects asset URLs from the previous site", async () => {
     const aliases = (await import("../../src/data/legacy-assets.json", { with: { type: "json" } })).default as Record<
       string,
