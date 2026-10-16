@@ -83,7 +83,10 @@ const plainTitle = stripHTML(title).trim();
     <meta name="apple-mobile-web-app-title" content="NSHipster" />
     <meta name="application-name" content="NSHipster" />
     <meta name="msapplication-TileColor" content="#f8f7f5" />
-    <meta name="theme-color" content="#f8f7f5" />
+    {/* These match --background in assets/css/_colors.scss, which the page edges use. */}
+    <meta name="theme-color" content="#ebebf1" media="(prefers-color-scheme: light) and (prefers-contrast: more)" />
+    <meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#121213" media="(prefers-color-scheme: dark)" />
 
     <link rel="author" type="text/plain" href="/humans.txt" />
     <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" />
@@ -172,6 +175,9 @@ const plainTitle = stripHTML(title).trim();
         </section>
       </footer>
     </div>
+
+    <div class="edge-top" aria-hidden="true"></div>
+    <div class="edge-bottom" aria-hidden="true"></div>
 
     <script>
       import "../scripts/application.ts";

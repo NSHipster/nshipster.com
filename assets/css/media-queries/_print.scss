@@ -124,6 +124,12 @@
   [hidden] {
     display: none !important;
   }
+
+  .edge-top,
+  .edge-bottom,
+  body::before {
+    display: none;
+  }
 }
 
 @media print and (color) {

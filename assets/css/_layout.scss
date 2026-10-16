@@ -128,6 +128,66 @@ dl {
   }
 }
 
+// Mobile Safari tints its status bar and toolbar
+// with the color of fixed elements at the edges of the viewport.
+// Each strip must be at least 5px tall for Safari to use it,
+// and Safari ignores the strip unless its element is also fixed.
+.edge-top,
+.edge-bottom {
+  position: fixed;
+  left: 0;
+  right: 0;
+  z-index: 998;
+  pointer-events: none;
+
+  &::after {
+    content: "";
+    position: fixed;
+    left: 0;
+    right: 0;
+  }
+}
+
+.edge-top {
+  top: 0;
+
+  &::after {
+    top: 0;
+    height: max(12px, env(safe-area-inset-top));
+    background-color: var(--edge-top-background);
+  }
+}
+
+.edge-bottom {
+  bottom: 0;
+
+  &::after {
+    bottom: 0;
+    height: max(12px, env(safe-area-inset-bottom));
+    background-color: var(--edge-bottom-background);
+  }
+}
+
+// Keeps the targets of links to fragments clear of the strips.
+html {
+  scroll-padding-top: max(12px, env(safe-area-inset-top));
+  scroll-padding-bottom: max(12px, env(safe-area-inset-bottom));
+}
+
+// Redraws the orange rule from the top borders of html and body
+// above the top strip, so that the rule stays visible at the top of the page.
+body::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 6px;
+  z-index: 999;
+  background-color: var(--orange);
+  pointer-events: none;
+}
+
 .container {
   @include mixins.clearfix;
 

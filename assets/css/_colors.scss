@@ -27,6 +27,11 @@
   --secondary-fill: rgb(120, 120, 128);
   --background: rgb(242, 242, 247);
   --secondary-background: rgb(255, 255, 255);
+
+  // Colors at the top and bottom edges of the page,
+  // which mobile Safari uses for its status bar and toolbar.
+  --edge-top-background: var(--background);
+  --edge-bottom-background: var(--background);
 }
 
 // Each color has a light and a dark value in Display P3,
@@ -65,9 +70,10 @@
 
 html {
   border-top: 3px var(--orange) solid;
+  background-color: var(--edge-top-background);
 
   body {
-    background-color: var(--background);
+    background-color: var(--edge-bottom-background);
     color: var(--text);
   }
 }
