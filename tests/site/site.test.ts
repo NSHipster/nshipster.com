@@ -106,8 +106,18 @@ describe("routing", () => {
       "Sitemap: https://nshipster.com/sitemap.xml",
     );
     expect(await (await fetch(url("/.well-known/humans.txt"))).text()).toContain("Language: en-US");
-    expect(await (await fetch(url("/robots.txt"))).text()).toContain("Disallow: /search");
-    expect(await (await fetch(url("/robots.txt"))).text()).toContain("Sitemap: https://nshipster.com/sitemap.xml");
+    const robots = await (await fetch(url("/robots.txt"))).text();
+    // The AI usage policy belongs to the `User-agent: *` group, before its first rule.
+    expect(robots).toContain(
+      [
+        "User-agent: *",
+        "Content-Signal: search=yes, ai-input=yes, ai-train=no",
+        "Content-Usage: train-ai=n, search=y",
+        "Allow: /",
+        "Disallow: /search",
+      ].join("\n"),
+    );
+    expect(robots).toContain("Sitemap: https://nshipster.com/sitemap.xml");
     const humans = await (await fetch(url("/humans.txt"))).text();
     expect(humans).toContain("Language: en-US");
     expect(humans).not.toContain("---");
