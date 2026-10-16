@@ -6,6 +6,7 @@ import { assetManifest } from "../lib/assets.ts";
 import { authorURL } from "../lib/collections.ts";
 import { site } from "../lib/site.ts";
 import { t } from "../lib/i18n.ts";
+import { SITE_CARD, SITE_CARD_SLUG, ogImage, type OgImage } from "../lib/og-image.ts";
 import { stripHTML } from "../lib/text.ts";
 
 interface Props {
@@ -24,6 +25,8 @@ interface Props {
     published: string;
     modified: string;
   };
+  /** The Open Graph image. Other pages use the site's image. */
+  image?: OgImage | undefined;
   /** Article structured data. */
   article?: Record<string, unknown>;
   /** Article author's Twitter handle, without the leading `@`. */
@@ -38,6 +41,7 @@ interface Props {
 }
 
 const { title, path, document, article, creator, next, previous, noindex, markdown, home } = Astro.props;
+const image = Astro.props.image ?? ogImage(SITE_CARD_SLUG, SITE_CARD, Astro.site!);
 const assets = assetManifest();
 const absolute = (value: string) => new URL(value, Astro.site).href;
 const founder = { "@type": "Person", name: "Mattt", url: absolute(authorURL("mattt")) };
@@ -92,7 +96,7 @@ const plainTitle = stripHTML(title).trim();
     <link rel="author" type="text/plain" href="/humans.txt" />
     <link rel="license" href="https://creativecommons.org/licenses/by-nc/4.0/" />
 
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@NSHipster" />
     {creator && <meta name="twitter:creator" content={`@${creator}`} />}
     {
@@ -110,10 +114,15 @@ const plainTitle = stripHTML(title).trim();
         </>
       )
     }
+    <meta name="twitter:image:alt" content={image.alt} />
     <meta name="twitter:account_id" content={site.twitter} />
 
     <meta property="og:site_name" content={site.title} />
-    <meta property="og:image" content={absolute("/logo.png")} />
+    <meta property="og:image" content={image.url} />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content={String(image.width)} />
+    <meta property="og:image:height" content={String(image.height)} />
+    <meta property="og:image:alt" content={image.alt} />
     {
       document ? (
         <>

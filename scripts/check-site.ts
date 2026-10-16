@@ -4,6 +4,7 @@
  * - element IDs are unique within each page,
  * - each page has one `h1`, before any other heading,
  * - local images have a width and height,
+ * - each page has an Open Graph image of the declared size, and each article has its own,
  * - referenced assets exist,
  * - unpublished articles are not published,
  * - the Atom feed and sitemap are well-formed and complete,
@@ -90,6 +91,23 @@ for (const file of pages) {
     if (!/\swidth="\d+"/.test(img) || !/\sheight="\d+"/.test(img))
       problems.push(`${route}: image ${src} has no width and height`);
   }
+
+  // The Open Graph image exists at the size its tags give, and each article has an image of its own.
+  const meta = (property: string) => html.match(new RegExp(`<meta property="${property}" content="([^"]*)"`))?.[1];
+  const image = meta("og:image") ?? "";
+  const imagePath = image.startsWith("https://nshipster.com/") ? new URL(image).pathname : undefined;
+  const imageFile = imagePath && resolve(imagePath);
+  if (!imageFile) {
+    problems.push(`${route}: missing Open Graph image ${image}`);
+  } else {
+    // A PNG's width and height follow the 8-byte signature and the IHDR chunk's length and type.
+    const png = readFileSync(imageFile);
+    const size = `${png.readUInt32BE(16)}×${png.readUInt32BE(20)}`;
+    const declared = `${meta("og:image:width")}×${meta("og:image:height")}`;
+    if (size !== declared) problems.push(`${route}: Open Graph image ${imagePath} is ${size}, not ${declared}`);
+  }
+  if (html.includes(`"@type": "Article"`) && !imagePath?.startsWith(`/assets/og${route}-`))
+    problems.push(`${route}: article has no Open Graph image of its own`);
 
   for (const match of markup.matchAll(
     /<(?:a|link|img|source|script|video|audio|track)\s[^>]*?(?:href|src|srcset|poster)="([^"]+)"/g,

@@ -2,12 +2,13 @@ import { getCollection, render, type CollectionEntry } from "astro:content";
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import type { PostEntryData } from "./content/loaders.ts";
 import { mdxPostData } from "./content/mdx.ts";
+import { cardTitle, type OgCard } from "./og-image.ts";
 import { chronological } from "./content/posts.ts";
 import { withCitations } from "./render/citations.ts";
 import { renderFragment } from "./render/index.ts";
 import { processorRenderer } from "./render/renderer.ts";
 import { site } from "./site.ts";
-import { plainText } from "./text.ts";
+import { decodeEntities, plainText, stripHTML } from "./text.ts";
 
 /** A published article, from either the legacy Markdown loader or Markdoc. */
 export interface Post {
@@ -124,4 +125,22 @@ export async function postHTML(post: Post): Promise<string> {
 export async function authorNamed(name: string | undefined): Promise<Author | undefined> {
   if (!name) return undefined;
   return (await getCollection("authors")).find((author) => author.data.name === name);
+}
+
+/**
+ * The names that an article's byline credits.
+ * Some older articles credit coauthors only in `author`, as in "Nate Cook, Mattt".
+ */
+export function creditedNames(post: PostEntryData): string[] {
+  return post.authors.length > 0 ? post.authors : (post.author ?? "Mattt").split(/\s*[,&]\s*/);
+}
+
+/** The text that an article's Open Graph image shows. */
+export async function postCard(post: PostEntryData): Promise<OgCard> {
+  return {
+    kind: "article",
+    title: cardTitle(decodeEntities(stripHTML(post.title))),
+    category: post.category,
+    authors: await Promise.all(creditedNames(post).map(async (name) => (await authorNamed(name))?.data.name ?? name)),
+  };
 }

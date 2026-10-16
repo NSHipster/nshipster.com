@@ -51,6 +51,7 @@
     "@vitest/browser-playwright": "^4.1.11",
     "fast-xml-validator": "^1.4.2",
     "playwright": "^1.63.0",
+    "satori": "^0.60.0",
     "sharp": "^0.35.4",
     "typescript": "^6.0.3",
     "vite-plus": "^0.3.3",

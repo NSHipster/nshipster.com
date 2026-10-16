@@ -96,6 +96,14 @@ It also generates a separate 512-pixel maskable icon
 with the logo inside the circular safe area.
 Existing icon URLs remain available for older clients.
 
+Each article has a 1200 × 630 Open Graph image for link previews,
+with its title set in Merriweather, its category, and its authors.
+Other pages share an image with the site's tagline.
+`src/lib/og-image.ts` lays out the images with Satori,
+and `src/pages/assets/og/[name].png.ts` renders them with Sharp during the build.
+Each file name includes a digest of the text, the fonts, the logo, and the layout code,
+so link previews update when any of them change.
+
 Files in `assets/` are published under `/assets/` with content-hashed names.
 Use them in articles with the `{% asset %}` tag, as before.
 Fonts and author portraits are the exceptions.
