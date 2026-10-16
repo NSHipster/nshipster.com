@@ -21,11 +21,6 @@ import { toMarkdown } from "mdast-util-to-markdown";
  * callouts become block quotes, and URLs are absolute.
  */
 
-/** The path of the Markdown version of a page, e.g. `/nscache.md` for `/nscache`. */
-export function markdownPath(pathname: string): string {
-  return `${pathname.replace(/\/+$/, "") || "/index"}.md`;
-}
-
 /**
  * The URL of the page with the Markdown version at `pathname`, on the server at `origin`.
  * The URL stays on that server even if the path starts with `//`.

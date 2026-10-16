@@ -148,6 +148,13 @@ the development server converts the page on request.
 with `X-Robots-Tag: noindex`,
 so that search engines index only the articles.
 
+In production, the Worker in `src/worker.ts` also links each article
+to its Markdown version in the `Link` response header.
+A request for the article's URL that prefers `text/markdown` in its `Accept` header
+gets the Markdown version, with `Content-Location: /nscache.md`.
+Both versions are sent with `Vary: Accept`.
+Browsers don't ask for `text/markdown`, so they always get HTML.
+
 ### Comparing with the Jekyll Site
 
 `tests/reference/` records facts about the last Jekyll build of the site:
@@ -172,18 +179,37 @@ NSHipster.com is served by
 `wrangler.jsonc` configures trailing-slash handling;
 the build writes `_redirects` and `_headers` into `dist/`.
 
-A small Worker in `src/worker.ts` handles the paths
-listed in `assets.run_worker_first` in `wrangler.jsonc`.
-It generates `/.well-known/security.txt` for each request,
+A small Worker in `src/worker.ts` runs before the static assets
+for requests for pages and for paths that match no file.
+`assets.run_worker_first` in `wrangler.jsonc` sends every path to the Worker
+except those that it excludes with `!`:
+`/assets/`, `/_astro/`, Markdown files, and the files at the site root.
+Requests for those files go directly to the static assets.
+`scripts/check-site.ts` checks that every page runs the Worker
+and that every other file in `dist/` is excluded.
+
+For a page, the Worker fetches the static asset,
+which applies `_redirects`, trailing-slash handling, and `_headers`,
+and adds a `Link` header that names the article's Markdown version.
+It serves the Markdown version to requests that prefer it,
+as described in [Markdown Versions of Articles](#markdown-versions-of-articles).
+The Worker generates `/.well-known/security.txt` for each request,
 so that its `Expires` date is always about a year away.
-The Worker also handles requests that match no asset or redirect.
-It responds with the 404 page and a `Cache-Control` header
-that makes browsers revalidate it,
-so that a file that is missing during a deploy isn't cached for a year
-by the `/assets/*` rule in `_headers`.
-All other requests go directly to the static assets.
+For a missing page or root file, it responds with the 404 page
+and a `Cache-Control` header that makes browsers revalidate it.
+A missing file under an excluded path,
+such as `/assets/`, gets an empty 404 response from the static assets
+with the headers of that path in `_headers`.
 `_headers` doesn't apply to responses that the Worker creates,
 so the Worker adds the security headers from `src/lib/security-headers.ts` itself.
+
+Requests for static assets are free,
+but every request that runs the Worker counts toward the Workers plan's request limit.
+Each page view runs the Worker once,
+so the site needs the Workers Paid plan;
+the Free plan allows 100,000 requests a day
+and responds to page requests over that limit with `429 Too Many Requests`.
+Images, styles, scripts, and other files don't run the Worker.
 
 The Cloudflare Git integration builds and deploys `master` to production.
 It creates preview deployments for other branches.

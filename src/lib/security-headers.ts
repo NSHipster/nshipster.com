@@ -3,7 +3,8 @@
  *
  * The build writes them into the `/*` rule of Cloudflare's `_headers` file,
  * and the Worker in `src/worker.ts` adds them to the responses it creates,
- * because `_headers` rules don't apply to those.
+ * because `_headers` rules don't apply to those,
+ * and to the responses it passes on from the static assets if they're missing.
  *
  * `Content-Security-Policy` allows the YouTube videos that some articles embed with `frame-src`,
  * and MapKit JS in the `/mapkit-js` article, which runs its map renderer in a `blob:` worker.

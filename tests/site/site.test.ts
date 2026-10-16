@@ -39,7 +39,8 @@ async function open(pathname: string, options: BrowserContextOptions = {}) {
 }
 
 describe("routing", () => {
-  const fetchManual = (pathname: string) => fetch(url(pathname), { redirect: "manual" });
+  const fetchManual = (pathname: string, init: RequestInit = {}) =>
+    fetch(url(pathname), { ...init, redirect: "manual" });
 
   it("serves every page without a trailing slash", async () => {
     expect((await fetchManual("/nscache")).status).toBe(200);
@@ -57,8 +58,8 @@ describe("routing", () => {
     expect(await response.text()).toContain("NSError");
   });
 
-  it("doesn't let browsers cache a missing asset", async () => {
-    for (const pathname of ["/assets/missing.png", "/_astro/missing.js", "/missing"]) {
+  it("doesn't let browsers cache a missing page or root file", async () => {
+    for (const pathname of ["/missing", "/missing.png"]) {
       const response = await fetchManual(pathname);
       expect(response.status, pathname).toBe(404);
       expect(response.headers.get("content-type"), pathname).toBe("text/html; charset=utf-8");
@@ -66,9 +67,17 @@ describe("routing", () => {
       expect(response.headers.get("content-security-policy"), pathname).toContain("default-src 'self'");
       expect(await response.text(), pathname).toContain("NSError");
     }
-    const head = await fetch(url("/assets/missing.png"), { method: "HEAD" });
+    const head = await fetch(url("/missing.png"), { method: "HEAD" });
     expect(head.status).toBe(404);
     expect(await head.text()).toBe("");
+
+    // Requests under `/assets/` and `/_astro/` don't run the Worker,
+    // so a missing file gets an empty 404 response from the static assets.
+    for (const pathname of ["/assets/missing.png", "/_astro/missing.js", "/missing.md"]) {
+      const response = await fetchManual(pathname);
+      expect(response.status, pathname).toBe(404);
+      expect(await response.text(), pathname).toBe("");
+    }
 
     const stylesheet = (await (await fetch(url("/nscache"))).text()).match(/\/assets\/screen-[0-9a-f]+\.css/)![0];
     const asset = await fetchManual(stylesheet);
@@ -224,10 +233,11 @@ describe("routing", () => {
       '</feed.xml>; rel="alternate"; type="application/atom+xml", ' +
       '</sitemap.xml>; rel="sitemap"; type="application/xml", ' +
       '</llms.txt>; rel="describedby"; type="text/plain"';
-    // Pages, files, redirects, and responses from the Worker.
+    // Pages without a Markdown version, files, redirects, and responses from the Worker.
     const paths = [
       "/",
-      "/nscache",
+      "/status",
+      "/nscache/",
       "/nscache.md",
       "/feed.xml",
       "/logo.png",
@@ -238,6 +248,46 @@ describe("routing", () => {
     for (const pathname of paths) {
       expect((await fetchManual(pathname)).headers.get("link"), pathname).toBe(links);
     }
+    // Articles also link to their Markdown versions.
+    for (const pathname of ["/nscache", "/swift-1.2", "/__attribute__"]) {
+      expect((await fetchManual(pathname)).headers.get("link"), pathname).toBe(
+        `${links}, <${pathname}.md>; rel="alternate"; type="text/markdown"`,
+      );
+    }
+  });
+
+  it("serves the Markdown version of an article at its URL to requests that prefer Markdown", async () => {
+    const markdown = await fetchManual("/nscache", { headers: { Accept: "text/markdown" } });
+    expect(markdown.status).toBe(200);
+    expect(markdown.headers.get("content-type")).toBe("text/markdown; charset=utf-8");
+    expect(markdown.headers.get("content-location")).toBe("/nscache.md");
+    expect(markdown.headers.get("vary")).toBe("Accept");
+    expect(markdown.headers.get("x-robots-tag")).toBeNull();
+    expect(markdown.headers.get("content-security-policy")).toContain("default-src 'self'");
+    expect(await markdown.text()).toBe(await (await fetchManual("/nscache.md")).text());
+
+    const notModified = await fetchManual("/nscache", {
+      headers: { Accept: "text/markdown", "If-None-Match": markdown.headers.get("etag")! },
+    });
+    expect(notModified.status).toBe(304);
+
+    // Browsers get the page, which also varies by `Accept`.
+    const accept = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8";
+    const page = await fetchManual("/nscache", { headers: { Accept: accept } });
+    expect(page.headers.get("content-type")).toBe("text/html; charset=utf-8");
+    expect(page.headers.get("vary")).toBe("Accept");
+    expect(page.headers.get("cache-control")).toBe("public, max-age=0, must-revalidate");
+    expect(await page.text()).toContain("<!DOCTYPE html>");
+
+    // Pages without a Markdown version and redirects don't vary.
+    const status = await fetchManual("/status", { headers: { Accept: "text/markdown" } });
+    expect(status.headers.get("content-type")).toBe("text/html; charset=utf-8");
+    expect(status.headers.get("vary")).toBeNull();
+    const redirect = await fetchManual("/nscache/", { headers: { Accept: "text/markdown" } });
+    expect(redirect.headers.get("location")).toBe("/nscache");
+    const missing = await fetchManual("/missing", { headers: { Accept: "text/markdown" } });
+    expect(missing.status).toBe(404);
+    expect(await missing.text()).toContain("NSError");
   });
 
   it("serves security.txt from the Worker with the security headers", async () => {

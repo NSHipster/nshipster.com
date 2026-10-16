@@ -1,7 +1,8 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
-  // Static assets with a small Worker (`src/worker.ts`) for the few paths
-  // that need a response at request time. No server rendering or database.
+  // Static assets with a small Worker (`src/worker.ts`) in front of the pages,
+  // which adds headers and serves Markdown versions to agents that ask for them.
+  // No server rendering or database.
   "name": "nshipster",
   "main": "src/worker.ts",
   "compatibility_date": "2026-09-01",
@@ -14,13 +15,50 @@
     "binding": "ASSETS",
     // `/nscache` serves `nscache.html`, and `/nscache/` redirects to it.
     "html_handling": "auto-trailing-slash",
-    // Requests that match no asset or redirect run the Worker, which serves the 404 page.
-    // Cloudflare's "404-page" handling would serve it with the headers of the requested path,
-    // which caches a missing `/assets/` file for a year.
+    // Missing pages get the 404 page from the Worker.
+    // Cloudflare's "404-page" handling would serve it with the headers of the requested path.
     "not_found_handling": "none",
-    // These paths run the Worker before the static assets.
-    // `security.txt` is generated per request so that its `Expires` date stays in the future.
-    "run_worker_first": ["/.well-known/security.txt"],
+    // Requests for pages run the Worker before the static assets,
+    // so that it can add per-page `Link` headers and negotiate Markdown versions,
+    // and so that `security.txt` is generated per request with an `Expires` date in the future.
+    // Every request that runs the Worker counts toward the Workers plan's request allowance,
+    // so each page view is billed; the Workers Free plan allows 100,000 a day.
+    // Requests matching a `!` pattern go directly to the static assets, which are free.
+    // These patterns exclude the files in `dist/` other than pages; `scripts/check-site.ts` checks them.
+    // `*` also matches `/`, and `!` patterns take precedence, so root files are listed by name:
+    // `!/*.txt` would exclude `security.txt`, and `!/*.png` would exclude transformed image URLs in local previews.
+    // A missing file under an excluded pattern gets an empty 404 response with the headers of its path.
+    "run_worker_first": [
+      "/*",
+      "!/assets/*",
+      "!/_astro/*",
+      "!/*.md",
+      "!/.well-known/brave-payments-verification.txt",
+      "!/android-chrome-192x192.png",
+      "!/android-chrome-384x384.png",
+      "!/android-chrome-512x512.png",
+      "!/apple-touch-icon.png",
+      "!/browserconfig.xml",
+      "!/contribute.json",
+      "!/favicon-16x16.png",
+      "!/favicon-32x32.png",
+      "!/favicon.ico",
+      "!/favicon.svg",
+      "!/feed.xml",
+      "!/humans.txt",
+      "!/llms.txt",
+      "!/logo.png",
+      "!/maskable-icon-512x512.png",
+      "!/mstile-150x150.png",
+      "!/robots.txt",
+      "!/safari-pinned-tab.svg",
+      "!/site.webmanifest",
+      "!/sitemap.xml",
+      "!/touch-icon-ipad-retina.png",
+      "!/touch-icon-ipad.png",
+      "!/touch-icon-iphone-retina.png",
+      "!/touch-icon-iphone.png",
+    ],
   },
   // Pull request builds run `wrangler preview`, which requires this block.
   "previews": {},

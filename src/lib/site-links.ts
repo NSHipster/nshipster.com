@@ -14,3 +14,12 @@ export const SITE_LINKS = [
   '</sitemap.xml>; rel="sitemap"; type="application/xml"',
   '</llms.txt>; rel="describedby"; type="text/plain"',
 ].join(", ");
+
+/**
+ * The value of the `Link` header for a page,
+ * which adds the page's Markdown version at `markdown` if it has one.
+ * The Worker in `src/worker.ts` sends it, because `_headers` rules can't give one link per page.
+ */
+export function pageLinks(markdown?: string): string {
+  return markdown ? `${SITE_LINKS}, <${markdown}>; rel="alternate"; type="text/markdown"` : SITE_LINKS;
+}

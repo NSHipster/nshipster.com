@@ -8,13 +8,15 @@
  * - referenced assets exist,
  * - unpublished articles are not published,
  * - the Atom feed and sitemap are well-formed and complete,
- * - redirect destinations exist.
+ * - redirect destinations exist,
+ * - requests for pages run the Worker first, and requests for other files don't.
  *
  * Usage: node scripts/check-site.ts [dist-directory]
  */
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import path from "node:path";
 import { SyntaxValidator } from "fast-xml-validator";
+import { unstable_readConfig } from "wrangler";
 import { transformationSource } from "../src/lib/image-transformations.ts";
 
 const DIST = path.resolve(process.argv[2] ?? "dist");
@@ -174,6 +176,35 @@ for (const url of readFileSync(path.join(DIST, "sitemap.xml"), "utf8").matchAll(
 // Internal redirect destinations.
 for (const [from, to] of redirects) {
   if (to.startsWith("/") && !resolve(to)) problems.push(`_redirects: ${from} points to missing ${to}`);
+}
+
+// Requests for pages and `security.txt` run the Worker first, and requests for other files don't.
+// Cloudflare matches `*` in a `run_worker_first` pattern with any characters, including `/`,
+// and a `!` pattern takes precedence over the others.
+const runWorkerFirst = unstable_readConfig({ config: path.join(ROOT, "wrangler.jsonc") }).assets?.run_worker_first;
+const patterns = Array.isArray(runWorkerFirst) ? runWorkerFirst : [];
+const matches = (pattern: string, pathname: string) =>
+  new RegExp(
+    `^${pattern
+      .split("*")
+      .map((part) => part.replace(/[\\^$.*+?()[\]{}|/]/g, "\\$&"))
+      .join(".*")}$`,
+  ).test(pathname);
+const runsWorker = (pathname: string) =>
+  patterns.some((pattern) => !pattern.startsWith("!") && matches(pattern, pathname)) &&
+  !patterns.some((pattern) => pattern.startsWith("!") && matches(pattern.slice(1), pathname));
+if (!runsWorker("/.well-known/security.txt")) {
+  problems.push("wrangler.jsonc: /.well-known/security.txt doesn't run the Worker first");
+}
+for (const file of walk(DIST)) {
+  const relative = path.relative(DIST, file).split(path.sep).join("/");
+  if (relative === "_headers" || relative === "_redirects") continue;
+  if (relative.endsWith(".html")) {
+    const pathname = `/${relative.replace(/(^|\/)index\.html$/, "$1").replace(/\.html$/, "")}`;
+    if (!runsWorker(pathname)) problems.push(`wrangler.jsonc: page ${pathname} doesn't run the Worker first`);
+  } else if (runsWorker(`/${relative}`)) {
+    problems.push(`wrangler.jsonc: /${relative} runs the Worker first; exclude it with "!/${relative}"`);
+  }
 }
 
 const known = new Set(
