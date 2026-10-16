@@ -1,3 +1,4 @@
+import { transformationSource } from "./lib/image-transformations.ts";
 import { SECURITY_HEADERS } from "./lib/security-headers.ts";
 import { securityTxt } from "./lib/security-txt.ts";
 
@@ -67,9 +68,15 @@ async function notFound(request: Request, env: Env): Promise<Response> {
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
-    const handler = routes[new URL(request.url).pathname];
+    const { pathname } = new URL(request.url);
+    const handler = routes[pathname];
     if (!handler) {
-      const response = await env.ASSETS.fetch(request);
+      // Cloudflare handles `/cdn-cgi/image/` URLs before they reach the Worker,
+      // so only local previews get here; they serve the original image.
+      const source = transformationSource(pathname);
+      const response = await env.ASSETS.fetch(
+        source === pathname ? request : new Request(new URL(source, request.url), request),
+      );
       return response.status === 404 ? notFound(request, env) : response;
     }
     if (request.method !== "GET" && request.method !== "HEAD") {
