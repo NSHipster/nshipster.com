@@ -127,7 +127,8 @@ export function staticFiles(): AstroIntegration {
         const existsExactly = (relative: string): boolean => {
           let directory = output;
           for (const part of relative.split("/").filter(Boolean)) {
-            if (!existsSync(directory) || !readdirSync(directory).includes(part)) return false;
+            if (!existsSync(directory) || !statSync(directory).isDirectory()) return false;
+            if (!readdirSync(directory).includes(part)) return false;
             directory = path.join(directory, part);
           }
           return true;
