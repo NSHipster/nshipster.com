@@ -16,6 +16,8 @@ export type OgCard =
       kind: "article";
       /** Plain text, without HTML. */
       title: string;
+      /** The article's description, as plain text. */
+      summary?: string | undefined;
       category?: string | undefined;
       authors: string[];
     }
@@ -42,16 +44,30 @@ const BACKGROUND = "#f2f2f7";
 const TEXT = "#000000";
 const SECONDARY_TEXT = "#3c3c43";
 
-const PADDING = { top: 56, right: 80, bottom: 60, left: 80 } as const;
-const TITLE_WIDTH = OG_IMAGE_WIDTH - PADDING.left - PADDING.right;
+const PADDING = { top: 48, right: 80, bottom: 48, left: 80 } as const;
+const TEXT_WIDTH = OG_IMAGE_WIDTH - PADDING.left - PADDING.right;
 const TITLE_LINE_HEIGHT = 1.15;
 const TITLE_LETTER_SPACING = "-0.01em";
 /** Title sizes in pixels, largest first. A title uses the largest size at which it fits. */
 const TITLE_SIZES = [128, 112, 100, 88, 80, 72, 64, 56, 50, 44] as const;
 /** How much larger a title must be to break between camel-case words instead of only between words. */
 const CAMEL_BREAK_GAIN = 1.3;
-/** The height available to the title, which leaves a margin above the byline. */
-const TITLE_HEIGHT = { article: 290, site: 270 } as const;
+/**
+ * The height available to the title, and to the summary below it,
+ * which leaves a margin below the header and above the byline.
+ */
+const TEXT_HEIGHT = { article: 360, site: 270 } as const;
+/**
+ * Summary sizes in pixels, largest first.
+ * Link previews often show these images about 500 pixels wide, at about 0.42 times their size,
+ * where 28 pixels becomes about 12, the smallest size that reads easily.
+ */
+const SUMMARY_SIZES = [32, 30, 28] as const;
+const SUMMARY_LINE_HEIGHT = 1.35;
+/** The space between the title and the summary. */
+const SUMMARY_GAP = 20;
+/** The smallest title size at which the summary keeps its largest size. */
+const TITLE_FLOOR = 56;
 
 const FONT_FILES = [
   ["Merriweather-Regular.woff", 400, "normal"],
@@ -153,11 +169,16 @@ const SUBSTITUTIONS: ReadonlyArray<readonly [RegExp, string]> = [
   [/\uf8ff\s*/g, "Apple "],
   [/\u27e8/g, "<"],
   [/\u27e9/g, ">"],
+  // A card has room for one paragraph.
+  [/\s+/g, " "],
 ];
 
-/** An article title as plain text, with replacements for characters that the card's font lacks. */
-export function cardTitle(title: string): string {
-  return SUBSTITUTIONS.reduce((text, [pattern, replacement]) => text.replace(pattern, replacement), title).trim();
+/**
+ * Plain text for a card, on one line,
+ * with replacements for characters that the card's font lacks.
+ */
+export function cardText(text: string): string {
+  return SUBSTITUTIONS.reduce((result, [pattern, replacement]) => result.replace(pattern, replacement), text).trim();
 }
 
 function titleStyle(card: OgCard, size: number): Record<string, unknown> {
@@ -169,33 +190,48 @@ function titleStyle(card: OgCard, size: number): Record<string, unknown> {
   };
 }
 
-/** The title's text, which may contain zero-width spaces to break long names, and its size in pixels. */
-export interface TitleLayout {
+function summaryStyle(size: number): Record<string, unknown> {
+  return { fontWeight: 400, fontSize: `${size}px`, lineHeight: SUMMARY_LINE_HEIGHT };
+}
+
+/** Text as it appears on a card, which may contain zero-width spaces to break long names, and its size in pixels. */
+export interface TextLayout {
   text: string;
   size: number;
 }
 
+/** The title and summary of a card. */
+export interface CardTextLayout {
+  title: TextLayout;
+  summary?: TextLayout | undefined;
+}
+
 /** The Satori element tree for a card. */
-function cardLayout(card: OgCard, title: TitleLayout): Node {
+function cardLayout(card: OgCard, layout: CardTextLayout): Node {
   const { uri, aspectRatio } = loadLogo();
   const logoImage = (height: number): Node => ({
     type: "img",
     props: { src: uri, width: Math.round(height * aspectRatio), height },
   });
-  const heading = element(
-    "div",
+  const block = (style: Record<string, unknown>, text: string, key: string) =>
+    element("div", { ...style, display: "block", width: `${TEXT_WIDTH}px`, flexShrink: 0 }, text, key);
+  const heading = block(
     {
-      ...titleStyle(card, title.size),
-      display: "block",
-      width: `${TITLE_WIDTH}px`,
+      ...titleStyle(card, layout.title.size),
       color: card.kind === "site" ? SECONDARY_TEXT : TEXT,
       // Satori's `word-break: break-word` breaks words that balanced lines could fit,
       // so the title's size leaves room for the longest word instead.
       textWrap: "balance",
     },
-    title.text,
+    layout.title.text,
     "title",
   );
+  const text = layout.summary
+    ? element("div", { display: "flex", flexDirection: "column", gap: `${SUMMARY_GAP}px`, flexShrink: 0 }, [
+        heading,
+        block({ ...summaryStyle(layout.summary.size), color: SECONDARY_TEXT }, layout.summary.text, "summary"),
+      ])
+    : heading;
   const domain = element("div", {}, "nshipster.com");
   return element(
     "div",
@@ -224,7 +260,7 @@ function cardLayout(card: OgCard, title: TitleLayout): Node {
         ]
       : [
           element("div", { display: "flex", alignItems: "center", justifyContent: "space-between" }, [
-            logoImage(72),
+            logoImage(64),
             element(
               "div",
               {
@@ -238,7 +274,7 @@ function cardLayout(card: OgCard, title: TitleLayout): Node {
               card.category ?? "",
             ),
           ]),
-          heading,
+          text,
           element(
             "div",
             { display: "flex", justifyContent: "space-between", gap: "40px", fontSize: "30px", color: SECONDARY_TEXT },
@@ -261,89 +297,188 @@ function cardLayout(card: OgCard, title: TitleLayout): Node {
   );
 }
 
-/** Measures each word of a title, and the space between words, at a size of 100 pixels. */
-async function measureWords(card: OgCard, text: string): Promise<{ words: number[]; space: number }> {
+/** The widths of a text's words, of the space between words, and of an ellipsis, at a size of 100 pixels. */
+interface WordWidths {
+  words: number[];
+  space: number;
+  ellipsis: number;
+}
+
+/** Splits text where Satori may break lines, keeping the words that it keeps together. */
+function splitWords(text: string): string[] {
   const words: string[] = [];
   // Zero-width spaces are break opportunities, too.
   for (const word of text.split(/[\s\u200b]+/).filter(Boolean)) {
     // Unicode line breaking keeps closing punctuation and slashes on the line before, even after a space.
-    if (words.length > 0 && /^[)\]}!?,.:;/]/.test(word)) words[words.length - 1] += ` ${word}`;
+    if (words.length > 0 && /^[)\]}!?,.:;/\u2026]/.test(word)) words[words.length - 1] += ` ${word}`;
     else words.push(word);
   }
-  const samples = [...words, "a a", "aa"];
+  return words;
+}
+
+/** Measures the words of each text in its style, at a size of 100 pixels, with one layout. */
+async function measureWords(
+  texts: ReadonlyArray<{ style: (size: number) => Record<string, unknown>; text: string }>,
+): Promise<WordWidths[]> {
+  const groups = texts.map(({ style, text }) => ({
+    style: { ...style(100), whiteSpace: "pre" },
+    words: splitWords(text),
+  }));
+  const nodes = groups.flatMap(({ style, words }, group) =>
+    [...words, "a a", "aa", "\u2026"].map((sample, index) => element("div", style, sample, `${group}-${index}`)),
+  );
   const widths = new Map<string, number>();
-  const style = { ...titleStyle(card, 100), whiteSpace: "pre" };
   await satori(
     element(
       "div",
       { display: "flex", flexDirection: "column", alignItems: "flex-start", fontFamily: "Merriweather" },
-      samples.map((sample, index) => element("div", style, sample, `${index}`)),
+      nodes,
     ) as never,
     {
       width: 100_000,
-      height: 120 * samples.length,
+      height: 150 * nodes.length,
       fonts: loadFonts(),
       onNodeDetected: (node) => {
         if (typeof node.key === "string") widths.set(node.key, node.width);
       },
     },
   );
-  const width = (index: number) => widths.get(`${index}`) ?? 0;
-  return { words: words.map((_, index) => width(index)), space: width(words.length) - width(words.length + 1) };
+  return groups.map(({ words }, group) => {
+    const width = (index: number) => widths.get(`${group}-${index}`) ?? 0;
+    return {
+      words: words.map((_, index) => width(index)),
+      space: width(words.length) - width(words.length + 1),
+      ellipsis: width(words.length + 2),
+    };
+  });
 }
 
-/** The number of lines that a greedy line breaker needs for words of these widths. */
-function lineCount(words: number[], space: number, available: number): number {
+// Leave a little room for differences between these estimates and Satori's layout.
+const AVAILABLE_WIDTH = TEXT_WIDTH * 0.98;
+
+/**
+ * The number of lines that a greedy line breaker needs for words at a size,
+ * or `undefined` if a word is wider than a line.
+ */
+function lineCount({ words, space }: WordWidths, size: number): number | undefined {
+  const scale = size / 100;
   let lines = 1;
   let line = 0;
   for (const word of words) {
-    if (line > 0 && line + space + word > available) {
+    const width = word * scale;
+    if (width > AVAILABLE_WIDTH) return undefined;
+    if (line > 0 && line + space * scale + width > AVAILABLE_WIDTH) {
       lines += 1;
-      line = word;
+      line = width;
     } else {
-      line += (line > 0 ? space : 0) + word;
+      line += (line > 0 ? space * scale : 0) + width;
     }
   }
   return lines;
 }
 
-/** The largest size at which each word fits on a line and every line fits on the card. */
-async function fittingSize(card: OgCard, text: string): Promise<number | undefined> {
-  const { words, space } = await measureWords(card, text);
-  // Leave a little room for differences between this estimate and Satori's layout.
-  const available = TITLE_WIDTH * 0.98;
-  return TITLE_SIZES.find((size) => {
-    const scale = size / 100;
-    if (Math.max(...words) * scale > available) return false;
-    const lines = lineCount(
-      words.map((word) => word * scale),
-      space * scale,
-      available,
-    );
-    return lines * size * TITLE_LINE_HEIGHT <= TITLE_HEIGHT[card.kind];
-  });
-}
+/** A title's text and the widths of its words. */
+type TitleText = { text: string; widths: WordWidths };
 
 /**
- * Sizes a title to fit the card.
+ * The largest title size, no smaller than `floor`, at which each word fits on a line
+ * and every line fits in a height.
  * Long names like `UILocalizedIndexedCollation` may also break between camel-case words,
  * as they do on the site, if that lets the title be much larger.
  */
-export async function titleLayout(card: OgCard): Promise<TitleLayout> {
-  const text = card.kind === "site" ? TAGLINE : card.title;
-  const broken = camelBreak(text);
-  const size = await fittingSize(card, text);
-  const brokenSize = broken === text ? size : await fittingSize(card, broken);
-  if (size !== undefined && (brokenSize === undefined || brokenSize < size * CAMEL_BREAK_GAIN)) return { text, size };
-  return { text: broken, size: brokenSize ?? TITLE_SIZES.at(-1)! };
+function fitTitle(titles: readonly TitleText[], height: number, floor: number): TextLayout | undefined {
+  const fittingSize = ({ widths }: TitleText) =>
+    TITLE_SIZES.find((size) => {
+      const lines = lineCount(widths, size);
+      return size >= floor && lines !== undefined && lines * size * TITLE_LINE_HEIGHT <= height;
+    });
+  const [plain, broken] = titles;
+  const size = fittingSize(plain!);
+  const brokenSize = broken && fittingSize(broken);
+  if (size !== undefined && (brokenSize === undefined || brokenSize < size * CAMEL_BREAK_GAIN))
+    return { text: plain!.text, size };
+  return brokenSize === undefined ? undefined : { text: broken!.text, size: brokenSize };
+}
+
+/** The height of a summary at a size, or `undefined` if a word is wider than a line. */
+function summaryHeight(widths: WordWidths, size: number): number | undefined {
+  const lines = lineCount(widths, size);
+  return lines === undefined ? undefined : lines * size * SUMMARY_LINE_HEIGHT;
+}
+
+/**
+ * Sizes a card's title and summary to fit together.
+ * The summary keeps its largest size, and the title takes the largest size that fits above it,
+ * down to {@link TITLE_FLOOR}.
+ * After that, the summary gets smaller, and then the title gets as small as it needs to.
+ * If the summary doesn't fit even then, it ends early, with an ellipsis.
+ */
+export async function cardTextLayout(card: OgCard): Promise<CardTextLayout> {
+  const title = card.kind === "site" ? TAGLINE : card.title;
+  const broken = camelBreak(title);
+  const summary = card.kind === "article" && card.summary ? card.summary : undefined;
+  const texts = [title, ...(broken === title ? [] : [broken])].map((text) => ({
+    style: (size: number) => titleStyle(card, size),
+    text,
+  }));
+  const widths = await measureWords(summary ? [...texts, { style: summaryStyle, text: summary }] : texts);
+  const titles = texts.map(({ text }, index) => ({ text, widths: widths[index]! }));
+  const minimum = TITLE_SIZES.at(-1)!;
+  if (!summary) return { title: fitTitle(titles, TEXT_HEIGHT[card.kind], 0) ?? { text: broken, size: minimum } };
+
+  const summaryWidths = widths.at(-1)!;
+  for (const floor of [TITLE_FLOOR, minimum]) {
+    for (const size of SUMMARY_SIZES) {
+      const height = summaryHeight(summaryWidths, size);
+      if (height === undefined) continue;
+      const fitted = fitTitle(titles, TEXT_HEIGHT.article - SUMMARY_GAP - height, floor);
+      if (fitted) return { title: fitted, summary: { text: summary, size } };
+    }
+  }
+
+  // A summary too long for the card at the smallest sizes ends with an ellipsis after the last word that fits.
+  const size = SUMMARY_SIZES.at(-1)!;
+  const smallest = titles.find(({ widths }) => lineCount(widths, minimum) !== undefined) ?? titles.at(-1)!;
+  const fitted = { text: smallest.text, size: minimum };
+  const available =
+    TEXT_HEIGHT.article - SUMMARY_GAP - (lineCount(smallest.widths, minimum) ?? 1) * minimum * TITLE_LINE_HEIGHT;
+  const words = splitWords(summary);
+  for (let count = words.length - 1; count > 0; count--) {
+    const shortened = {
+      ...summaryWidths,
+      words: [...summaryWidths.words.slice(0, count - 1), summaryWidths.words[count - 1]! + summaryWidths.ellipsis],
+    };
+    const height = summaryHeight(shortened, size);
+    if (height !== undefined && height <= available)
+      return {
+        title: fitted,
+        summary: {
+          text: `${words
+            .slice(0, count)
+            .join(" ")
+            .replace(/[\s,;:.\u2014\u2013-]+$/, "")}\u2026`,
+          size,
+        },
+      };
+  }
+  return { title: fitted };
 }
 
 /** Renders a card as a PNG with a 256-color palette, which keeps the text smooth at about half the size. */
 export async function renderOgImage(card: OgCard): Promise<Buffer> {
-  const svg = await satori(cardLayout(card, await titleLayout(card)) as never, {
+  const layout = await cardTextLayout(card);
+  const heights = new Map<string, number>();
+  const svg = await satori(cardLayout(card, layout) as never, {
     width: OG_IMAGE_WIDTH,
     height: OG_IMAGE_HEIGHT,
     fonts: loadFonts(),
+    onNodeDetected: (node) => {
+      if (typeof node.key === "string") heights.set(node.key, node.height);
+    },
   });
+  // The estimates in `cardTextLayout` leave some room, but Satori's layout is what the image shows.
+  const height = (heights.get("title") ?? 0) + (layout.summary ? SUMMARY_GAP + (heights.get("summary") ?? 0) : 0);
+  if (height > TEXT_HEIGHT[card.kind])
+    throw new Error(`The text of the Open Graph image for "${layout.title.text}" is ${height} pixels tall.`);
   return sharp(Buffer.from(svg)).png({ palette: true, compressionLevel: 9 }).toBuffer();
 }
