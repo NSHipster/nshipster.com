@@ -94,7 +94,7 @@ const plainTitle = stripHTML(title).trim();
     {
       document ? (
         <>
-          <meta name="twitter:title" content={title} />
+          <meta name="twitter:title" content={plainTitle} />
           <meta name="twitter:description" content={document.description} />
           <meta name="twitter:label1" content="Category" />
           <meta name="twitter:data1" content={document.category ?? ""} />
@@ -114,7 +114,7 @@ const plainTitle = stripHTML(title).trim();
       document ? (
         <>
           <meta property="og:type" content="article" />
-          <meta property="og:title" content={title} />
+          <meta property="og:title" content={plainTitle} />
           <meta property="og:url" content={absolute(path)} />
           <meta property="og:description" content={document.description} />
           <meta property="article:published_time" content={document.published} />

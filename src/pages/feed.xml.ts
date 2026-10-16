@@ -17,7 +17,7 @@ export const GET: APIRoute = async ({ site: origin }) => {
       const categories = [data.category, ...data.tags].filter(Boolean);
       return `  <entry>
     <title type="html">${escapeXML(stripHTML(smartify(data.title)).replace(/\s+/g, " ").trim())}</title>
-    <link href="${escapeXML(url)}" rel="alternate" type="text/html" title="${escapeXML(data.title)}" />
+    <link href="${escapeXML(url)}" rel="alternate" type="text/html" title="${escapeXML(stripHTML(data.title).replace(/\s+/g, " ").trim())}" />
     <published>${data.date.toISOString()}</published>
     <updated>${data.updatedOn.toISOString()}</updated>
     <id>${escapeXML(absolute(`/${data.slug}`))}</id>
