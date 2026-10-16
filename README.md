@@ -86,7 +86,9 @@ from `_bibliography/references.bib`.
 Authors, books, and article-like pages live in `src/content/`.
 Files served as-is from the site root, such as icons and `robots.txt`,
 live in `public/`, which Astro copies to the output without changes.
-The links in `public/.well-known/` serve the same files under `/.well-known/`.
+`public/.well-known/` holds only the Brave publisher verification file.
+The previous site also served the root files under `/.well-known/`;
+those paths redirect to the root files.
 
 Site icons are generated from `assets/images/logo.svg`.
 Run `mise run icons:generate` after changing the logo artwork or colours.

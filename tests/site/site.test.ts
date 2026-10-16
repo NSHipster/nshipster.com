@@ -89,6 +89,24 @@ describe("routing", () => {
     }
   });
 
+  it("redirects root files that the previous site also served under /.well-known/", async () => {
+    for (const [from, to] of [
+      ["/.well-known/favicon.ico", "/favicon.ico"],
+      ["/.well-known/robots.txt", "/robots.txt"],
+      ["/.well-known/humans.txt", "/humans.txt"],
+      ["/.well-known/site.webmanifest", "/site.webmanifest"],
+      ["/brave-payments-verification.txt", "/.well-known/brave-payments-verification.txt"],
+    ]) {
+      const response = await fetchManual(from!);
+      expect(response.status, from).toBe(301);
+      expect(response.headers.get("location"), from).toBe(to);
+      expect((await fetchManual(to!)).status, to).toBe(200);
+    }
+    expect(await (await fetch(url("/.well-known/brave-payments-verification.txt"))).text()).toContain(
+      "Domain: nshipster.com",
+    );
+  });
+
   it("keeps the article at /clang-diagnostics instead of redirecting", async () => {
     expect((await fetchManual("/clang-diagnostics")).status).toBe(200);
   });
@@ -100,12 +118,6 @@ describe("routing", () => {
       "application/manifest+json; charset=utf-8",
     );
     expect((await fetchManual("/robots.txt")).headers.get("content-type")).toMatch(/^text\/plain/);
-    expect((await fetchManual("/.well-known/favicon.ico")).status).toBe(200);
-    expect(await (await fetch(url("/.well-known/robots.txt"))).text()).toContain("Disallow: /search");
-    expect(await (await fetch(url("/.well-known/robots.txt"))).text()).toContain(
-      "Sitemap: https://nshipster.com/sitemap.xml",
-    );
-    expect(await (await fetch(url("/.well-known/humans.txt"))).text()).toContain("Language: en-US");
     const robots = await (await fetch(url("/robots.txt"))).text();
     // The AI usage policy belongs to the `User-agent: *` group, before its first rule.
     expect(robots).toContain(

@@ -38,6 +38,44 @@ export const PAGE_REDIRECTS: ReadonlyArray<readonly [string, string]> = [
   ["/CocoaPods", "/cocoapods"],
 ];
 
+/**
+ * Root files that the Jekyll site also served under `/.well-known/`.
+ * None of them is a registered well-known URI (RFC 8615),
+ * so the old paths redirect to the root files.
+ */
+const WELL_KNOWN_DUPLICATES = [
+  "android-chrome-192x192.png",
+  "android-chrome-384x384.png",
+  "android-chrome-512x512.png",
+  "apple-touch-icon.png",
+  "browserconfig.xml",
+  "favicon-16x16.png",
+  "favicon-32x32.png",
+  "favicon.ico",
+  "favicon.svg",
+  "humans.txt",
+  "logo.png",
+  "maskable-icon-512x512.png",
+  "mstile-150x150.png",
+  "robots.txt",
+  "safari-pinned-tab.svg",
+  "site.webmanifest",
+  "touch-icon-ipad-retina.png",
+  "touch-icon-ipad.png",
+  "touch-icon-iphone-retina.png",
+  "touch-icon-iphone.png",
+];
+
+/**
+ * Redirects between files.
+ * Brave reads the publisher verification file from `/.well-known/`,
+ * so the root path that the Jekyll site also served redirects there.
+ */
+export const FILE_REDIRECTS: ReadonlyArray<readonly [string, string]> = [
+  ...WELL_KNOWN_DUPLICATES.map((name) => [`/.well-known/${name}`, `/${name}`] as const),
+  ["/brave-payments-verification.txt", "/.well-known/brave-payments-verification.txt"],
+];
+
 /** Redirects to other hosts. */
 export const EXTERNAL_REDIRECTS: ReadonlyArray<readonly [string, string]> = [
   ["/swift-documentation-example/*", "https://swift-documentation-example.nshipster.com/:splat"],
@@ -66,6 +104,11 @@ export function redirects(assets: AssetManifest, exists: (pathname: string) => b
     if (exists(from)) continue;
     if (!exists(to)) throw new RoutingError(`Redirect destination ${to} (from ${from}) does not exist`);
     rules.push({ from, to, status: 301 }, { from: `${from}/`, to, status: 301 });
+  }
+  for (const [from, to] of FILE_REDIRECTS) {
+    if (exists(from)) throw new RoutingError(`Redirect source ${from} is a file in the output`);
+    if (!exists(to)) throw new RoutingError(`Redirect destination ${to} (from ${from}) does not exist`);
+    rules.push({ from, to, status: 301 });
   }
   for (const [legacy, logical] of Object.entries(legacyAssetAliases()).sort(([a], [b]) => (a < b ? -1 : 1))) {
     // The Jekyll pipeline sometimes changed extensions, e.g. `.m4v` to `.mp4`.
@@ -123,9 +166,6 @@ ${security.join("\n")}
   X-Robots-Tag: noindex
 
 /site.webmanifest
-  Content-Type: application/manifest+json; charset=utf-8
-
-/.well-known/site.webmanifest
   Content-Type: application/manifest+json; charset=utf-8
 `;
 }
