@@ -14,8 +14,11 @@
     "binding": "ASSETS",
     // `/nscache` serves `nscache.html`, and `/nscache/` redirects to it.
     "html_handling": "auto-trailing-slash",
-    "not_found_handling": "404-page",
-    // Only these paths run the Worker; all other requests go straight to the static assets.
+    // Requests that match no asset or redirect run the Worker, which serves the 404 page.
+    // Cloudflare's "404-page" handling would serve it with the headers of the requested path,
+    // which caches a missing `/assets/` file for a year.
+    "not_found_handling": "none",
+    // These paths run the Worker before the static assets.
     // `security.txt` is generated per request so that its `Expires` date stays in the future.
     "run_worker_first": ["/.well-known/security.txt"],
   },
