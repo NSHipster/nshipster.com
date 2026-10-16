@@ -166,8 +166,7 @@ are configured in the Cloudflare dashboard:
 The build image uses its default Node.js version
 and doesn't read `mise.toml`.
 
-Previews serve the site at a `workers.dev` URL,
-but they return a plain 404 response instead of the custom 404 page.
+Previews serve the site at a `workers.dev` URL.
 To create a Preview of your current branch from your machine, run:
 
 ```terminal
