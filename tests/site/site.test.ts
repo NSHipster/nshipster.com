@@ -373,7 +373,7 @@ describe("pages", () => {
 
   it("prefetches the latest article when a reader hovers over its link", async () => {
     const { page, context, errors } = await open("/");
-    const latest = page.locator("#latest h1 a");
+    const latest = page.locator("#latest h2.title a");
     const path = new URL((await latest.getAttribute("href"))!, server.url).pathname;
     const request = page.waitForRequest((candidate) => new URL(candidate.url()).pathname === path);
     await latest.hover();
@@ -406,7 +406,7 @@ describe("pages", () => {
           document.documentElement.dataset.viewTransition = String(Boolean(event.viewTransition));
         });
       });
-      await page.locator("#latest h1 a").click();
+      await page.locator("#latest h2.title a").click();
       await page.waitForLoadState("load");
       await expect(
         page.evaluate(() => document.documentElement.dataset.viewTransition),
