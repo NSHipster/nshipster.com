@@ -2,7 +2,7 @@ import { getCollection, render, type CollectionEntry } from "astro:content";
 import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import type { PostEntryData } from "./content/loaders.ts";
 import { mdxPostData } from "./content/mdx.ts";
-import { cardTitle, type OgCard } from "./og-image.ts";
+import { cardText, type OgCard } from "./og-image.ts";
 import { chronological } from "./content/posts.ts";
 import { withCitations } from "./render/citations.ts";
 import { renderFragment } from "./render/index.ts";
@@ -139,7 +139,8 @@ export function creditedNames(post: PostEntryData): string[] {
 export async function postCard(post: PostEntryData): Promise<OgCard> {
   return {
     kind: "article",
-    title: cardTitle(decodeEntities(stripHTML(post.title))),
+    title: cardText(decodeEntities(stripHTML(post.title))),
+    summary: cardText(post.description),
     category: post.category,
     authors: await Promise.all(creditedNames(post).map(async (name) => (await authorNamed(name))?.data.name ?? name)),
   };
