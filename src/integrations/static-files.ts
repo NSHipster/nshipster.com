@@ -113,6 +113,12 @@ export function staticFiles(): AstroIntegration {
         for (const [url, { contents }] of variants) write(url, contents);
         const pruned = manifest.pruneImageCache();
         const { encoded, cached } = manifest.imageCacheStatistics;
+        // TEMPORARY: report the image cache in the preview deployment.
+        write(
+          "/image-cache.txt",
+          JSON.stringify({ ...manifest.imageCacheStatistics, pruned, imageCache: manifest.imageCache, at: new Date() }) +
+            "\n",
+        );
         logger.info(
           `Encoded ${encoded} WebP copies of images and read ${cached} from ${path.relative(ROOT, manifest.imageCache)}` +
             (pruned > 0 ? `, deleting ${pruned} unused copies` : ""),
