@@ -137,6 +137,14 @@ NSHipster.com is served by
 `wrangler.jsonc` configures trailing-slash handling and the 404 page;
 the build writes `_redirects` and `_headers` into `dist/`.
 
+A small Worker in `src/worker.ts` handles the paths
+listed in `assets.run_worker_first` in `wrangler.jsonc`.
+It generates `/.well-known/security.txt` for each request,
+so that its `Expires` date is always about a year away.
+All other requests go directly to the static assets.
+`_headers` doesn't apply to responses that the Worker creates,
+so the Worker adds the security headers from `src/lib/security-headers.ts` itself.
+
 The Cloudflare Git integration builds and deploys `master` to production.
 It creates preview deployments for other branches.
 The GitHub Actions workflow runs checks but does not deploy the site.
