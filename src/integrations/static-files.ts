@@ -22,6 +22,7 @@ const CONTENT_TYPES: Record<string, string> = {
   ".m4v": "video/mp4",
   ".mov": "video/quicktime",
   ".srt": "text/plain; charset=utf-8",
+  ".vtt": "text/vtt; charset=utf-8",
   ".txt": "text/plain; charset=utf-8",
   ".xml": "application/xml; charset=utf-8",
   ".json": "application/json; charset=utf-8",

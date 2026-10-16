@@ -1,6 +1,7 @@
 /**
- * Page behavior: code listing tabs, scrollable code listings, and the logo animation.
+ * Page behavior: code listing tabs, scrollable code listings, video autoplay, and the logo animation.
  */
+import { setUpAutoplay } from "./autoplay.ts";
 import { setUpTabs } from "./code-tabs.ts";
 import { setUpScrollableCode } from "./scrollable-code.ts";
 
@@ -18,4 +19,5 @@ function setUpLogo(): void {
 
 setUpTabs();
 setUpScrollableCode();
+setUpAutoplay();
 setUpLogo();
