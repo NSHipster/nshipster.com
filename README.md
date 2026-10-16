@@ -113,6 +113,19 @@ To find large images for that list,
 run `mise run audit:weight`,
 which reports the heaviest pages and the largest images.
 
+### Markdown Versions of Articles
+
+Each article is also published as Markdown
+at its URL with `.md` appended, such as `/nscache.md`,
+for agents and other programs that read the site.
+The article's `<head>` links to it with `rel="alternate"`.
+After the build, `src/integrations/static-files.ts` converts each page
+that has this link with `src/lib/markdown-alternate.ts`;
+the development server converts the page on request.
+`_headers` serves these files as `text/markdown`
+with `X-Robots-Tag: noindex`,
+so that search engines index only the articles.
+
 ### Comparing with the Jekyll Site
 
 `tests/reference/` records facts about the last Jekyll build of the site:

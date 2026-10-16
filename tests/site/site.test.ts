@@ -121,6 +121,19 @@ describe("routing", () => {
     expect(blocks.some((block) => /\n {2,}\S/.test(block))).toBe(true);
   });
 
+  it("serves the Markdown version of each article that the article links to", async () => {
+    const page = await (await fetch(url("/nscache"))).text();
+    expect(page).toContain('<link rel="alternate" type="text/markdown" href="/nscache.md">');
+    const response = await fetchManual("/nscache.md");
+    expect(response.status).toBe(200);
+    expect(response.headers.get("content-type")).toBe("text/markdown; charset=utf-8");
+    expect(response.headers.get("x-robots-tag")).toBe("noindex");
+    expect(await response.text()).toMatch(/^# NSCache\n\nBy \[Mattt\]\(https:\/\/nshipster\.com\/authors\/mattt\)\./);
+    expect((await fetchManual("/flight-school.md")).status).toBe(200);
+    expect((await fetchManual("/missing.md")).status).toBe(404);
+    expect((await fetchManual("/status.md")).status).toBe(404);
+  });
+
   it("redirects asset URLs from the previous site", async () => {
     const aliases = (await import("../../src/data/legacy-assets.json", { with: { type: "json" } })).default as Record<
       string,
