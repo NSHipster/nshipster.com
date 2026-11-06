@@ -211,6 +211,30 @@ describe("routing", () => {
     expect(cssTarget.status).toBe(200);
   });
 
+  it.each([
+    "/assets/screen-e48ab195e39c3520.css",
+    "/assets/screen-3db438987985a3c8.css",
+    "/assets/screen-d3429e8f51c7a250.css",
+    "/assets/screen-d9fa26165d2ee726.css",
+  ])("redirects the preceding Astro stylesheet %s", async (pathname) => {
+    const response = await fetchManual(pathname);
+    expect(response.status).toBe(301);
+    const location = response.headers.get("location")!;
+    const html = await (await fetch(url("/nscache"))).text();
+    const stylesheet = html.match(/\/_astro\/Base\.[0-9a-zA-Z_-]+\.css/)![0];
+    expect(location).toBe(stylesheet);
+    const target = await fetchManual(location);
+    expect(target.status).toBe(200);
+    expect(target.headers.get("content-type")).toContain("text/css");
+    expect(target.headers.get("cache-control")).toBe("public, max-age=31536000, immutable");
+  });
+
+  it("returns 404 for an unknown stylesheet fingerprint", async () => {
+    const response = await fetchManual("/assets/screen-0000000000000000.css");
+    expect(response.status).toBe(404);
+    expect(response.headers.get("location")).toBeNull();
+  });
+
   it("keeps the original URL of an image with smaller copies", async () => {
     const aliases = (await import("../../src/data/legacy-assets.json", { with: { type: "json" } })).default as Record<
       string,

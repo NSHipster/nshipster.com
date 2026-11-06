@@ -92,6 +92,14 @@ export function legacyAssetAliases(): Record<string, string> {
   return JSON.parse(readFileSync(file, "utf8")) as Record<string, string>;
 }
 
+/** Stylesheet URLs emitted by Astro from this branch's original base through the last Sprockets build. */
+const PREVIOUS_STYLESHEETS = [
+  "/assets/screen-e48ab195e39c3520.css", // f55a527: original base
+  "/assets/screen-3db438987985a3c8.css", // e9538bb: balanced headings
+  "/assets/screen-d3429e8f51c7a250.css", // a1c1f23: heading hierarchy
+  "/assets/screen-d9fa26165d2ee726.css", // dda1151 through ccdd0b5: Continue Reading links
+];
+
 export class RoutingError extends Error {}
 
 /**
@@ -125,6 +133,9 @@ export function redirects(
     const asset = assets.find(logical) ?? assets.find(logical.replace(/\.[^./]+$/, ""));
     if (!asset) throw new RoutingError(`Legacy asset ${legacy} refers to missing asset "${logical}"`);
     rules.push({ from: legacy, to: assets.build(asset).url, status: 301 });
+  }
+  if (stylesheetURL) {
+    for (const from of PREVIOUS_STYLESHEETS) rules.push({ from, to: stylesheetURL, status: 301 });
   }
   // Rules with wildcards come last, which Cloudflare matches more efficiently.
   for (const [from, to] of EXTERNAL_REDIRECTS) rules.push({ from, to, status: 301 });
