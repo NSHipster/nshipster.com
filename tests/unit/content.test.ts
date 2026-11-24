@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vite-plus/test";
 import { formatDate, localDate, parseDate, strftime, xmlschema } from "../../src/lib/dates.ts";
 import { parseFrontMatter } from "../../src/lib/content/frontmatter.ts";
-import { isUnpublished, normalizePost, parsePostFilename } from "../../src/lib/content/posts.ts";
+import { isUnpublished, newestListedFirst, normalizePost, parsePostFilename } from "../../src/lib/content/posts.ts";
 import { parseAssetArguments } from "../../src/lib/render/liquid.ts";
 import { gfmHeaderID, kramdownHeaderID, parameterize } from "../../src/lib/render/markdown.ts";
 
@@ -62,6 +62,14 @@ describe("front matter", () => {
     expect(data.commitHistoryURL).toBe(
       "https://github.com/nshipster/articles/commits/master/2012-07-31-datecomponents.md",
     );
+  });
+
+  it("parses updated_at like the publication date", () => {
+    expect(post("2014-03-10-x.md", "title: X\nupdated_at: 2026-10-09").updatedAt?.toISOString()).toBe(
+      localDate(2026, 10, 9).date.toISOString(),
+    );
+    expect(post("2014-03-10-x.md", "title: X").updatedAt).toBeUndefined();
+    expect(() => post("2014-03-10-x.md", "title: X\nupdated_at: soon")).toThrow(/updated_at/);
   });
 
   it("normalizes authors, categories, and tags", () => {
@@ -130,5 +138,42 @@ describe("asset tags", () => {
     expect(parseAssetArguments('test.png alt="The test target\'s settings"').attributes).toEqual([
       ["alt", "The test target's settings"],
     ]);
+  });
+});
+
+describe("article order on the home page and in the feed", () => {
+  const article = (filename: string, frontMatter = "") => ({
+    data: normalizePost(parseFrontMatter(`---\ntitle: ${filename}\n${frontMatter}\n---\nBody`, filename), {
+      file: filename,
+    }),
+  });
+  // Ten articles published after the old one, as many as the feed holds.
+  const newer = Array.from({ length: 10 }, (_, index) => article(`2026-0${(index % 9) + 1}-1${index}-new-${index}.md`));
+  const slugs = (posts: Array<{ data: { slug: string } }>) => posts.map((post) => post.data.slug);
+  // The pages take the first article as the latest, and the feed takes the first ten.
+  const feed = (posts: Array<{ data: { slug: string } }>) => slugs(posts.slice(0, 10));
+
+  it("does not move an old article for a new revision or review", () => {
+    const revised = article(
+      "2014-03-10-revised.md",
+      'revisions:\n  "2014-03-10": Original\n  "2026-10-09": Rewritten\nstatus:\n  reviewed: October 9, 2026',
+    );
+    expect(revised.data.updatedOn.toISOString()).toBe(localDate(2026, 10, 9).date.toISOString());
+    const ordered = newestListedFirst([revised, ...newer]);
+    expect(ordered.at(-1)).toBe(revised);
+    expect(feed(ordered)).not.toContain("revised");
+  });
+
+  it("moves an article to the top for a new updated_at date", () => {
+    const updated = article("2014-03-10-updated.md", 'updated_at: 2026-10-09\nrevisions:\n  "2026-10-09": Rewritten');
+    const ordered = newestListedFirst([...newer, updated]);
+    expect(ordered[0]).toBe(updated);
+    expect(feed(ordered)).toContain("updated");
+  });
+
+  it("orders articles without updated_at by publication date, newest first", () => {
+    const ordered = newestListedFirst([...newer].reverse());
+    const dates = ordered.map((post) => post.data.date.getTime());
+    expect(dates).toEqual([...dates].sort((a, b) => b - a));
   });
 });

@@ -135,6 +135,25 @@ Transformations must be enabled for the nshipster.com zone first,
 under Images > Transformations in the Cloudflare dashboard;
 the development server serves the original images at these URLs.
 
+### Article Order and Update Dates
+
+The home page's latest and recent articles
+and the ten entries of the Atom feed are ordered newest first
+by each article's `updated_at` front matter date,
+or by its publication date if it has no `updated_at`.
+Set `updated_at` only when a rewrite should appear as new:
+
+```yaml
+updated_at: 2026-10-09
+```
+
+Nothing else moves an article in these lists.
+A new entry in `revisions` or a new `status.reviewed` date
+does not bring an old article to the top of the home page or into the feed.
+The latest `revisions` date is still the article's modification date:
+the byline, `dateModified`, the sitemap's `lastmod`,
+and the `<updated>` element of the article's feed entry use it.
+
 ### Markdown Versions of Articles
 
 Each article is also published as Markdown
@@ -160,6 +179,12 @@ Browsers don't ask for `text/markdown`, so they always get HTML.
 `tests/reference/` records facts about the last Jekyll build of the site:
 its routes, canonical URLs, feed entry IDs, heading anchors, and asset references.
 `mise run reference:compare` checks the Astro build against them.
+The feed check doesn't compare the feed's articles or their order,
+which change with each new article and are covered by the unit and site tests.
+It checks that the feed has as many entries as the Jekyll feed,
+that each entry ID is unique and is the canonical URL of an article page,
+and that the articles in the Jekyll feed still have those canonical URLs,
+so that feed readers don't show an article again as a new entry.
 To also compare the text and structure of every page,
 build the Jekyll site from commit `55b5572`,
 the last version deployed with Jekyll,
