@@ -1,13 +1,13 @@
 ---
 import Base from "../layouts/Base.astro";
-import { postsByUpdate, postsNewestFirst } from "../lib/collections.ts";
+import { postsListedNewestFirst, postsNewestFirst } from "../lib/collections.ts";
 import { byCodeUnit } from "../lib/content/posts.ts";
 import { t } from "../lib/i18n.ts";
 import { site } from "../lib/site.ts";
 import { camelBreak, plainText, stripHTML } from "../lib/text.ts";
 
 const posts = await postsNewestFirst();
-const sorted = await postsByUpdate();
+const sorted = await postsListedNewestFirst();
 const [latest, ...rest] = sorted;
 const recent = rest.slice(0, 6);
 const title = (value: string) => camelBreak(stripHTML(value));
