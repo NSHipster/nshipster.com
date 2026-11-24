@@ -179,6 +179,12 @@ Browsers don't ask for `text/markdown`, so they always get HTML.
 `tests/reference/` records facts about the last Jekyll build of the site:
 its routes, canonical URLs, feed entry IDs, heading anchors, and asset references.
 `mise run reference:compare` checks the Astro build against them.
+The feed check doesn't compare the feed's articles or their order,
+which change with each new article and are covered by the unit and site tests.
+It checks that the feed has as many entries as the Jekyll feed,
+that each entry ID is unique and is the canonical URL of an article page,
+and that the articles in the Jekyll feed still have those canonical URLs,
+so that feed readers don't show an article again as a new entry.
 To also compare the text and structure of every page,
 build the Jekyll site from commit `55b5572`,
 the last version deployed with Jekyll,
