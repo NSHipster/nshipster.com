@@ -15,6 +15,11 @@ export interface PostData {
   lastRevisedOn?: Date;
   /** The latest revision date, or the publication date. */
   updatedOn: Date;
+  /**
+   * The `updated_at` front matter date, if the article has one.
+   * Only this date moves an article up the home page and the feed; see `listedOn`.
+   */
+  updatedAt?: Date;
   revisions: Array<{ date: string; description: string }>;
   author?: string;
   authors: string[];
@@ -98,6 +103,13 @@ export function normalizePost(document: ParsedDocument, options: NormalizeOption
     lastRevisedOn = parsed.date;
   }
 
+  let updatedAt: Date | undefined;
+  if (data.updated_at !== undefined) {
+    const parsed = parseDate(data.updated_at);
+    if (!parsed) throw new FrontMatterError(`Invalid updated_at date "${string(data.updated_at)}" in ${options.file}`);
+    updatedAt = parsed.date;
+  }
+
   const status = data.status as Record<string, unknown> | undefined;
 
   return {
@@ -107,6 +119,7 @@ export function normalizePost(document: ParsedDocument, options: NormalizeOption
     date: date.date,
     lastRevisedOn,
     updatedOn: lastRevisedOn ?? date.date,
+    updatedAt,
     revisions,
     author: string(data.author),
     authors: list(data.authors),
@@ -142,6 +155,39 @@ export function chronological<T extends { data: Pick<PostData, "date" | "sourceP
       a.data.date.getTime() - b.data.date.getTime() ||
       (a.data.sourcePath < b.data.sourcePath ? -1 : a.data.sourcePath > b.data.sourcePath ? 1 : 0),
   );
+}
+
+/**
+ * The date that orders an article on the home page and in the feed:
+ * its `updated_at` date, or its publication date.
+ * Revisions and review dates do not move an article,
+ * so a rewrite of an old article does not displace new ones
+ * or reappear in feed readers unless its front matter sets `updated_at`.
+ */
+export function listedOn(data: Pick<PostData, "date" | "updatedAt">): Date {
+  return data.updatedAt ?? data.date;
+}
+
+/**
+ * Orders posts by `listedOn`, newest first.
+ * Posts with the same date keep the order of `chronological`, reversed.
+ */
+export function newestListedFirst<T extends { data: Pick<PostData, "date" | "updatedAt" | "sourcePath"> }>(
+  posts: T[],
+): T[] {
+  return sortedDescending(chronological(posts), (post) => listedOn(post.data).getTime());
+}
+
+/**
+ * Sorts by a key like Liquid's `sort` followed by `reverse`:
+ * ascending with ties in their original order, then reversed.
+ */
+function sortedDescending<T>(items: T[], key: (item: T) => number): T[] {
+  return items
+    .map((item, index) => ({ item, index }))
+    .sort((a, b) => key(a.item) - key(b.item) || a.index - b.index)
+    .map(({ item }) => item)
+    .reverse();
 }
 
 /** Compares strings by code unit, like Liquid's `sort` filter. */

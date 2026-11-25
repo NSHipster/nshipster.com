@@ -2,7 +2,7 @@
 import { getCollection, render } from "astro:content";
 import Avatar from "../../../components/Avatar.astro";
 import Base from "../../../layouts/Base.astro";
-import { authorDescription, authorPerson, authorURL, postsNewestFirst } from "../../../lib/collections.ts";
+import { authorDescription, authorPerson, authorURL, creditedNames, postsNewestFirst } from "../../../lib/collections.ts";
 import { formatDate } from "../../../lib/dates.ts";
 import { t } from "../../../lib/i18n.ts";
 
@@ -13,7 +13,7 @@ export async function getStaticPaths() {
 const { author } = Astro.props;
 const { name } = author.data;
 const { Content } = await render(author);
-const posts = (await postsNewestFirst()).filter((post) => post.data.author === name || post.data.authors.includes(name));
+const posts = (await postsNewestFirst()).filter((post) => creditedNames(post.data).includes(name));
 const latest = posts[0]?.data.updatedOn;
 const url = authorURL(author);
 const description = await authorDescription(author);

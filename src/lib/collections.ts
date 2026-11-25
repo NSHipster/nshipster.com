@@ -3,7 +3,7 @@ import { experimental_AstroContainer as AstroContainer } from "astro/container";
 import type { PostEntryData } from "./content/loaders.ts";
 import { mdxPostData } from "./content/mdx.ts";
 import { cardText, type OgCard } from "./og-image.ts";
-import { chronological } from "./content/posts.ts";
+import { chronological, newestListedFirst } from "./content/posts.ts";
 import { withCitations } from "./render/citations.ts";
 import { renderFragment } from "./render/index.ts";
 import { processorRenderer } from "./render/renderer.ts";
@@ -90,21 +90,9 @@ export async function postsNewestFirst(): Promise<Post[]> {
   return [...(await postsOldestFirst())].reverse();
 }
 
-/**
- * Sorts by a key like Liquid's `sort` followed by `reverse`:
- * ascending with ties in their original order, then reversed.
- */
-export function sortedDescending<T>(items: T[], key: (item: T) => number): T[] {
-  return items
-    .map((item, index) => ({ item, index }))
-    .sort((a, b) => key(a.item) - key(b.item) || a.index - b.index)
-    .map(({ item }) => item)
-    .reverse();
-}
-
-/** Posts ordered by their latest revision, most recent first. */
-export async function postsByUpdate(): Promise<Post[]> {
-  return sortedDescending(await postsNewestFirst(), (post) => post.data.updatedOn.getTime());
+/** Published articles in the order of the home page and the feed: by `listedOn`, newest first. */
+export async function postsListedNewestFirst(): Promise<Post[]> {
+  return newestListedFirst(await postsOldestFirst());
 }
 
 let container: Promise<AstroContainer> | undefined;

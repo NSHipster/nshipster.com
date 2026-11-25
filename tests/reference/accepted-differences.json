@@ -236,6 +236,22 @@
     {
       "difference": "Sitemap URLs are missing: https://nshipster.com/contact-tracing/, https://nshipster.com/xcplayground/, https://nshipster.com/ibinspectable-ibdesignable/, https://nshipster.com/apple-pay/, https://nshipster.com/watchkit/, https://nshipster.com/swift-system-version-checking/, https://nshipster.com/swift-default-protocol-implementations/, https://nshipster.com/xcode-plugins/, https://nshipster.com/multipeer-connectivity/, https://nshipster.com/objective-c-documentation/, https://nshipster.com/uimenucontroller/, https://nshipster.com/uuid-udid-unique-identifier/, https://nshipster.com/unit-testing/, https://nshipster.com/nslinguistictagger/, https://nshipster.com/addressbookui/",
       "reason": "Retired articles are no longer listed in the sitemap."
+    },
+    {
+      "difference": "/nsurl/: heading anchors differ (missing: url-components, nsurlcomponents, bookmark-urls; added: urlcomponents, parsing-urls, relative-urls, query-items, building-urls, file-urls)",
+      "reason": "The article was rewritten for URL and URLComponents (NSHipster/articles#871), with new sections and without its image."
+    },
+    {
+      "difference": "/nsurl/: asset references differ (missing: nsurl; added: none)",
+      "reason": "The article was rewritten for URL and URLComponents (NSHipster/articles#871), with new sections and without its image."
+    },
+    {
+      "difference": "/swiftsyntax/: heading anchors differ (missing: how-does-it-work, demystifying-the-ast, working-around-file-system-constraints, what-can-you-do-with-it, writing-swift-code-the-hard-way; added: what-is-swiftsyntax, versions-and-modules, demystifying-the-syntax-tree, walking-the-tree, writing-swift-code-the-easy-way, standing-on-the-syntax-tree)",
+      "reason": "The article was rewritten for swift-syntax 604 (NSHipster/articles#872), with new sections and without its two images."
+    },
+    {
+      "difference": "/swiftsyntax/: asset references differ (missing: swift-compilation-diagram, swiftsyntaxhightlighter-example-output; added: none)",
+      "reason": "The article was rewritten for swift-syntax 604 (NSHipster/articles#872), with new sections and without its two images."
     }
   ]
 }
