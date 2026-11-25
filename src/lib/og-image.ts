@@ -37,7 +37,7 @@ export interface OgImage {
 
 const TAGLINE = "A journal of the overlooked bits in Objective-C, Swift, and Cocoa.";
 
-// Keep these aligned with the light palette in `assets/css/_colors.scss`.
+// Keep these aligned with the light palette in `src/styles/_colors.scss`.
 // Satori can't resolve CSS variables.
 const ORANGE = "#ff8000";
 const BACKGROUND = "#f2f2f7";

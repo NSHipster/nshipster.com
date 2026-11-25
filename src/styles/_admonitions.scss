@@ -2,7 +2,7 @@
 
 @mixin border-icon($name) {
   content: " ";
-  background-image: asset_url($name + ".svg");
+  background-image: url("../../assets/images/#{$name}.svg");
   background-size: 24px 24px;
   width: 24px;
   height: 24px;

@@ -2,8 +2,8 @@
 import { Font } from "astro:assets";
 import Logo from "../../assets/images/logo.svg";
 import JsonLd from "../components/JsonLd.astro";
-import { assetManifest } from "../lib/assets.ts";
 import { authorURL } from "../lib/collections.ts";
+import "../styles/screen.scss";
 import { site } from "../lib/site.ts";
 import { t } from "../lib/i18n.ts";
 import { SITE_CARD, SITE_CARD_SLUG, ogImage, type OgImage } from "../lib/og-image.ts";
@@ -42,7 +42,6 @@ interface Props {
 
 const { title, path, document, article, creator, next, previous, noindex, markdown, home } = Astro.props;
 const image = Astro.props.image ?? ogImage(SITE_CARD_SLUG, SITE_CARD, Astro.site!);
-const assets = assetManifest();
 const absolute = (value: string) => new URL(value, Astro.site).href;
 const founder = { "@type": "Person", name: "Mattt", url: absolute(authorURL("mattt")) };
 const siteDescription = "NSHipster is a journal of the overlooked bits in Objective-C, Swift, and Cocoa.";
@@ -77,8 +76,6 @@ const plainTitle = stripHTML(title).trim();
     {/* Body text uses Merriweather Light. Other faces load when the page uses them. */}
     <Font cssVariable="--font-merriweather" preload={[{ weight: 300, style: "normal" }]} />
     <Font cssVariable="--font-creative-commons" />
-
-    <link rel="stylesheet" href={assets.url("screen.css")} />
 
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <link rel="icon" type="image/x-icon" sizes="16x16 32x32 48x48" href="/favicon.ico" />

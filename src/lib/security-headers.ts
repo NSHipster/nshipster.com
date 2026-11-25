@@ -19,7 +19,7 @@
  */
 export const SECURITY_HEADERS: Readonly<Record<string, string>> = {
   "Content-Security-Policy":
-    "default-src 'self'; script-src 'self' https://*.apple-mapkit.com; style-src 'self' 'unsafe-inline'; img-src 'self' https://*.apple-mapkit.com; frame-src https://www.youtube-nocookie.com; frame-ancestors 'none'; object-src 'none'; connect-src 'self' https://*.apple-mapkit.com; base-uri 'none'; worker-src blob:; upgrade-insecure-requests",
+    "default-src 'self'; script-src 'self' https://*.apple-mapkit.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://*.apple-mapkit.com; frame-src https://www.youtube-nocookie.com; frame-ancestors 'none'; object-src 'none'; connect-src 'self' https://*.apple-mapkit.com; base-uri 'none'; worker-src blob:; upgrade-insecure-requests",
   "Cross-Origin-Opener-Policy": "same-origin",
   "Cross-Origin-Resource-Policy": "same-origin",
   "Permissions-Policy":
