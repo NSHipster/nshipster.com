@@ -1,14 +1,17 @@
 import type { APIRoute } from "astro";
-import { authorNamed, authorURL, postHTML, postsByUpdate } from "../lib/collections.ts";
+import { authorNamed, authorURL, postHTML, postsListedNewestFirst } from "../lib/collections.ts";
 import { site } from "../lib/site.ts";
 import { escapeXML, smartify, stripHTML } from "../lib/text.ts";
 
-/** The ten most recently published or revised articles, as an Atom feed. */
+/**
+ * The ten newest articles by publication date or `updated_at`, as an Atom feed.
+ * A new entry in `revisions` updates an entry's `<updated>` but does not bring an old article into the feed.
+ */
 export const GET: APIRoute = async ({ site: origin }) => {
   const absolute = (path: string) => new URL(path, origin).href;
-  const posts = (await postsByUpdate()).slice(0, 10);
-  // The feed changes only when an entry does, so it takes the newest entry's revision date.
-  const updated = posts[0]!.data.updatedOn;
+  const posts = (await postsListedNewestFirst()).slice(0, 10);
+  // The feed changes only when an entry does, so it takes the latest of its entries' update dates.
+  const updated = new Date(Math.max(...posts.map((post) => post.data.updatedOn.getTime())));
 
   const entries = await Promise.all(
     posts.map(async (post) => {

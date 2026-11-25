@@ -4,7 +4,8 @@
  * Usage: node scripts/compare-reference.ts [reference-site-directory] [--verbose] [--only=slug]
  *
  * Always compares routes, canonical URLs, robots directives, heading anchors,
- * asset references, and existing sitemap URLs with `tests/reference/reference.json`.
+ * asset references, existing sitemap URLs, and the form of feed entry IDs
+ * with `tests/reference/reference.json`.
  * With a reference site directory, also compares the text and structure of each page's content.
  */
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
@@ -14,6 +15,8 @@ import { fromHtml } from "hast-util-from-html";
 import { select, selectAll } from "hast-util-select";
 import { toString } from "hast-util-to-string";
 import { AssetManifest } from "../src/lib/assets.ts";
+import { parsePostFilename } from "../src/lib/content/posts.ts";
+import { paths } from "../src/lib/site.ts";
 
 const ROOT = process.cwd();
 const DIST = path.join(ROOT, "dist");
@@ -141,11 +144,29 @@ const sitemapURLs = [...sitemap.matchAll(/<loc>([^<]*)<\/loc>/g)].map((match) =>
 const missingSitemapURLs = reference.sitemapURLs.filter((url) => !sitemapURLs.includes(withoutTrailingSlash(url)));
 if (missingSitemapURLs.length) report(`Sitemap URLs are missing: ${missingSitemapURLs.join(", ")}`);
 
+// Feed readers identify an entry by its ID, so an article's ID must never change.
+// Which articles the feed holds, and their order, change with every new article
+// and are covered by the unit and site tests; this checks the IDs themselves.
+// Each ID is the canonical URL of an article page, which is also the form of the Jekyll IDs.
+const articleCanonical = new Set<string>();
+for (const file of readdirSync(path.join(ROOT, paths.posts))) {
+  const slug = parsePostFilename(file)?.slug;
+  const page = slug && routeFile(`/${slug}`);
+  const canonical = page && readFileSync(page, "utf8").match(/<link rel="canonical" href="([^"]*)"/)?.[1];
+  if (canonical) articleCanonical.add(canonical);
+}
 const feed = readFileSync(path.join(DIST, "feed.xml"), "utf8");
 const atomIDs = [...feed.matchAll(/<entry>[\s\S]*?<id>([^<]*)<\/id>/g)].map((match) => match[1]!);
-if (!sameList(atomIDs, reference.atomIDs)) {
-  report(`Atom entry IDs differ (expected: ${reference.atomIDs.join(", ")}; actual: ${atomIDs.join(", ")})`);
+if (atomIDs.length !== reference.atomIDs.length) {
+  report(`The feed has ${atomIDs.length} entries instead of ${reference.atomIDs.length}`);
 }
+const repeatedIDs = atomIDs.filter((id, index) => atomIDs.indexOf(id) !== index);
+if (repeatedIDs.length) report(`Atom entry IDs repeat: ${[...new Set(repeatedIDs)].join(", ")}`);
+const unknownIDs = atomIDs.filter((id) => !articleCanonical.has(id));
+if (unknownIDs.length) report(`Atom entry IDs are not article canonical URLs: ${unknownIDs.join(", ")}`);
+// The articles in the Jekyll feed must keep their IDs, even when they leave the feed.
+const changedIDs = reference.atomIDs.filter((id) => !articleCanonical.has(id));
+if (changedIDs.length) report(`Jekyll Atom entry IDs are no longer article canonical URLs: ${changedIDs.join(", ")}`);
 
 /** Compares the text and element counts of each page's main content. */
 function compareContent(site: string): void {
