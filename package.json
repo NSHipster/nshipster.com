@@ -15,7 +15,7 @@
     "@citation-js/core": "^0.9.0",
     "@citation-js/plugin-bibtex": "^0.9.0",
     "@citation-js/plugin-csl": "^0.9.0",
-    "astro": "~7.3.3",
+    "astro": "~7.4.12",
     "hast-util-from-html": "^2.0.3",
     "hast-util-select": "^6.0.4",
     "hast-util-to-html": "^9.0.5",
