@@ -73,7 +73,7 @@ h4,
 
 // Running text avoids a single word on its last line.
 // This costs more to lay out than balancing, so it's limited to article text and excerpts.
-:where(.content, #latest, #recent) :is(p, li) {
+:where(.content, #latest, #recent, #projects) :is(p, li) {
   text-wrap-style: pretty;
 }
 
@@ -176,6 +176,7 @@ samp {
 }
 
 #recent > h2,
+#projects > h2,
 .archive > h2 {
   font-family: font-stacks.$serif;
   font-weight: 300;

@@ -14,7 +14,7 @@
     padding: 1em;
   }
 
-  #recent {
+  :is(#recent, #projects) {
     ul {
       display: block;
 
@@ -106,7 +106,7 @@
     }
   }
 
-  #recent {
+  :is(#recent, #projects) {
     ul {
       grid-template-columns: repeat(2, 1fr);
     }

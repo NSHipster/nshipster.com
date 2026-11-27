@@ -13,7 +13,8 @@ import { plainText } from "../lib/text.ts";
  * grouped by category in the order of the home page archive.
  */
 export const GET: APIRoute = async ({ site: origin }) => {
-  const absolute = (path: string) => new URL(path, origin).href;
+  // Links to other sites, like the projects, keep their URLs as written.
+  const absolute = (path: string) => (URL.canParse(path) ? path : new URL(path, origin).href);
   const posts = (await postsNewestFirst()).filter((post) => !post.data.retired);
   const authors = (await getCollection("authors")).sort((a, b) => (a.id < b.id ? -1 : 1));
   const pages = await Promise.all(
@@ -55,6 +56,10 @@ export const GET: APIRoute = async ({ site: origin }) => {
       "(https://creativecommons.org/licenses/by-nc/4.0/), " +
       "which permits sharing and adapting them for non-commercial purposes with attribution.",
     ...sections.flatMap(({ category, posts }) => ["", `## ${category}`, "", ...posts.map(article)]),
+    "",
+    "## Projects",
+    "",
+    ...site.projects.map((project) => item(project.name, project.url, project.description)),
     "",
     "## Optional",
     "",
