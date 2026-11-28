@@ -1,4 +1,23 @@
-export { camelBreak } from "./render/liquid.ts";
+import { camelBreak } from "./render/liquid.ts";
+
+export { camelBreak };
+
+/**
+ * Returns an article title, as HTML, with extra places where it can wrap on a narrow screen:
+ * after a dot between identifiers, as in `Calendar.RecurrenceRule`,
+ * and between an initialism and the word after it, as in `NSURLComponents`.
+ * Each is a zero-width space in a `.narrow-break` element, which is shown only at widths
+ * where the stylesheet allows it, so wide layouts keep their line breaks.
+ * The camel-case breaks of `camelBreak` apply at every width, as before.
+ */
+export function titleHTML(input: string): string {
+  const narrowBreak = '<span class="narrow-break">\u200b</span>';
+  return escapeHTML(camelBreak(input))
+    .replace(/(\w)\.(?=[A-Z])/g, `$1.${narrowBreak}`)
+    .replace(/([A-Z]{2,})(?=[A-Z][a-z])/g, `$1${narrowBreak}`);
+}
+
+const escapeHTML = (text: string) => text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
 /**
  * Removes HTML tags, like Liquid's `strip_html`.

@@ -41,7 +41,7 @@ export const site = {
       id: "sosumi",
       name: "Sosumi",
       url: "https://sosumi.ai",
-      description: "Apple's developer documentation as Markdown, for agents.",
+      description: "Apple’s developer documentation as Markdown, for agents.",
     },
     { id: "trifle", name: "Trifle", url: "https://trifle.day", description: "One programming trivia question a day." },
   ],

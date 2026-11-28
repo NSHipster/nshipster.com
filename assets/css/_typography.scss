@@ -71,6 +71,12 @@ h4,
   text-wrap-style: balance;
 }
 
+// Extra places where a title can wrap, shown only on narrow screens by `media-queries/width`.
+// Balanced titles use every place they can wrap, so wide layouts don't get them.
+.narrow-break {
+  display: none;
+}
+
 // Running text avoids a single word on its last line.
 // This costs more to lay out than balancing, so it's limited to article text and excerpts.
 :where(.content, #latest, #recent) :is(p, li) {
@@ -268,8 +274,17 @@ h6 {
 
 // The titles of the latest and next articles are second-level headings
 // shown at the size of a first-level heading.
-:is(#latest, #continue) h2.title {
-  font-size: 2.5em;
+// Like article titles, they scale with the width of their section on narrow screens,
+// so that the longest word in a title, "Implementations", fits.
+// They stay a little larger than the recent article titles, which scale at 10cqi.
+// Browsers without container query units use the fixed size.
+:is(#latest, #continue) {
+  container-type: inline-size;
+
+  h2.title {
+    font-size: 2.5em;
+    font-size: clamp(0.75rem, 11cqi, 2.5em);
+  }
 }
 
 [role="article"] {

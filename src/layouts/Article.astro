@@ -8,7 +8,7 @@ import { formatDate } from "../lib/dates.ts";
 import { t } from "../lib/i18n.ts";
 import { markdownPath } from "../lib/markdown-negotiation.ts";
 import { ogImage } from "../lib/og-image.ts";
-import { camelBreak, plainText, stripHTML } from "../lib/text.ts";
+import { plainText, stripHTML, titleHTML } from "../lib/text.ts";
 
 interface Props {
   /** Normalized post data, from either the legacy loader or an MDX entry. */
@@ -30,7 +30,7 @@ const credited = await Promise.all(
     return entry ? authorPerson(entry) : { "@type": "Person", name };
   }),
 );
-const title = camelBreak(stripHTML(post.title));
+const title = titleHTML(stripHTML(post.title));
 const absolute = (path: string) => new URL(path, Astro.site).href;
 const shown = post.lastRevisedOn ?? post.date;
 const swift = post.status?.swift;
@@ -83,7 +83,7 @@ const image = isArticle ? ogImage(post.slug, await postCard(post), Astro.site!) 
   <article role="article">
     <header>
       <h1 class="title">
-        <a href={post.url}>{title}</a>
+        <a href={post.url} set:html={title} />
       </h1>
 
       <div class="byline">
@@ -184,7 +184,7 @@ const image = isArticle ? ogImage(post.slug, await postCard(post), Astro.site!) 
               <article>
                 <h2 class="title">
                   <a rel="next" href={continueWith.data.url} data-astro-prefetch>
-                    {camelBreak(stripHTML(continueWith.data.title))}
+                    <Fragment set:html={titleHTML(stripHTML(continueWith.data.title))} />
                   </a>
                 </h2>
 
