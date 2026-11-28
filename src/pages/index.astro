@@ -1,4 +1,7 @@
 ---
+import { Image } from "astro:assets";
+import SosumiIcon from "../../assets/images/projects/sosumi.svg";
+import trifleIcon from "../../assets/images/projects/trifle.png";
 import Base from "../layouts/Base.astro";
 import { postsListedNewestFirst, postsNewestFirst } from "../lib/collections.ts";
 import { byCodeUnit } from "../lib/content/posts.ts";
@@ -72,11 +75,19 @@ const archive = site.groups
       {
         site.projects.map((project) => (
           <li>
-            <a class="title" href={project.url}>
-              {project.name}
+            <a class="project" href={project.url} data-project={project.id}>
+              <div class="icon">
+                {project.id === "sosumi" && <SosumiIcon aria-hidden="true" />}
+                {project.id === "trifle" && (
+                  <Image src={trifleIcon} alt="" width={128} aria-hidden="true" draggable="false" />
+                )}
+              </div>
+              <div class="text">
+                <h3>{project.name}</h3>
+                <small>{new URL(project.url).host}</small>
+                <p>{project.description}</p>
+              </div>
             </a>
-
-            <p>{project.description}</p>
           </li>
         ))
       }
