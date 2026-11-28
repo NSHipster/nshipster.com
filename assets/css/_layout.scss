@@ -248,16 +248,22 @@ dl {
   }
 }
 
-// Other NSHipster projects, each a link with its icon beside its name and description.
+// Other NSHipster projects, each a link with its icon beside its name and description,
+// set off from the articles around them by hairlines.
 #projects {
+  border-block: 1px solid var(--opaque-separator);
+  margin-block: 4em;
+  padding-block: 2.5em 3em;
+
   > h2 {
-    margin-bottom: 1rem;
+    margin-top: 0;
+    margin-bottom: 2rem;
   }
 
   ul {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1em 2em;
+    gap: 2em 3em;
   }
 
   li {
@@ -266,8 +272,8 @@ dl {
 
   a.project {
     display: flex;
-    gap: 1em;
-    align-items: flex-start;
+    gap: 1.5em;
+    align-items: center;
 
     &,
     &:visited {
@@ -297,6 +303,19 @@ dl {
     height: 96px;
   }
 
+  // The icon grows a little when its link is hovered or focused.
+  // The reduced-motion rule only shortens transitions, so the scaling itself is limited here.
+  @media (prefers-reduced-motion: no-preference) {
+    .icon {
+      transform-origin: center;
+      transition: transform 0.15s ease-out;
+    }
+
+    a.project:is(:hover, :focus-visible) .icon {
+      transform: scale(1.08);
+    }
+  }
+
   .text {
     min-width: 0;
   }
@@ -309,11 +328,14 @@ dl {
     font-weight: 700;
     text-transform: lowercase;
     color: var(--secondary-text);
+    margin-top: 0.15em;
   }
 
   p {
-    font-size: smaller;
-    margin: 0.25em 0 0;
+    font-size: 0.8em;
+    line-height: 1.5;
+    margin: 0.5em 0 0;
+    color: var(--secondary-text);
     text-wrap-style: pretty;
   }
 }
