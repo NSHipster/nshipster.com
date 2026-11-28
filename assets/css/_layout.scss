@@ -248,29 +248,8 @@ dl {
   }
 }
 
-// Other NSHipster projects, as cards that link to each project's site.
+// Other NSHipster projects, each a link with its icon beside its name and description.
 #projects {
-  // Each project's icon color and the tint of its icon tile.
-  [data-project="sosumi"] {
-    --project-icon: #d68d6e;
-    --project-tile: #f9eee9;
-  }
-
-  [data-project="trifle"] {
-    --project-tile: #fff4df;
-  }
-
-  @supports (color: light-dark(#000, #fff)) {
-    [data-project="sosumi"] {
-      --project-icon: light-dark(#d68d6e, #ec9b7f);
-      --project-tile: light-dark(#f9eee9, #3e2d29);
-    }
-
-    [data-project="trifle"] {
-      --project-tile: light-dark(#fff4df, #3d3426);
-    }
-  }
-
   > h2 {
     margin-bottom: 1rem;
   }
@@ -289,12 +268,6 @@ dl {
     display: flex;
     gap: 1em;
     align-items: flex-start;
-    height: 100%;
-    padding: 1em;
-    border: 1px solid var(--opaque-separator);
-    border-radius: 4px;
-    background-color: var(--secondary-background);
-    transition: border-color 0.1s linear;
 
     &,
     &:visited {
@@ -310,7 +283,6 @@ dl {
     &:hover,
     &:focus-visible {
       text-decoration: none;
-      border-color: var(--link);
 
       h3 {
         color: var(--link);
@@ -320,20 +292,9 @@ dl {
 
   .icon {
     flex: none;
-    display: grid;
-    place-items: center;
-    width: 88px;
-    height: 88px;
-    border-radius: 4px;
-    background-color: var(--project-tile);
-    color: var(--project-icon);
-
-    svg,
-    img {
-      display: block;
-      width: 56px;
-      height: 56px;
-    }
+    display: block;
+    width: 96px;
+    height: 96px;
   }
 
   .text {

@@ -34,7 +34,7 @@ export const site = {
   groups: ["Cocoa", "Swift", "Xcode", "Open Source", "Miscellaneous", "Trivia", "Objective-C"],
   /**
    * Other NSHipster projects, listed on the home page and in `llms.txt`.
-   * The home page styles each card by its `id`.
+   * The home page finds each project's icon by its `id`.
    */
   projects: [
     {
