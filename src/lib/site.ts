@@ -32,6 +32,19 @@ export const site = {
   },
   /** Category order for the home page archive. */
   groups: ["Cocoa", "Swift", "Xcode", "Open Source", "Miscellaneous", "Trivia", "Objective-C"],
+  /**
+   * Other NSHipster projects, listed on the home page and in `llms.txt`.
+   * The home page finds each project's icon by its `id`.
+   */
+  projects: [
+    {
+      id: "sosumi",
+      name: "Sosumi",
+      url: "https://sosumi.ai",
+      description: "Apple’s developer documentation as Markdown, for agents.",
+    },
+    { id: "trifle", name: "Trifle", url: "https://trifle.day", description: "One programming trivia question a day." },
+  ],
   articlesRepository: "https://github.com/NSHipster/articles",
   commitHistoryBase: "https://github.com/nshipster/articles/commits/master/",
 } as const;

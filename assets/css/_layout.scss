@@ -248,6 +248,98 @@ dl {
   }
 }
 
+// Other NSHipster projects, each a link with its icon beside its name and description,
+// set off from the articles around them by hairlines.
+#projects {
+  border-block: 1px solid var(--opaque-separator);
+  margin-block: 4em;
+  padding-block: 2.5em 3em;
+
+  > h2 {
+    margin-top: 0;
+    margin-bottom: 2rem;
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2em 3em;
+  }
+
+  li {
+    margin: 0;
+  }
+
+  a.project {
+    display: flex;
+    gap: 1.5em;
+    align-items: center;
+
+    &,
+    &:visited {
+      color: var(--text);
+    }
+
+    h3 {
+      font-size: 1.25em;
+      margin: 0;
+      transition: color 0.1s linear;
+    }
+
+    &:hover,
+    &:focus-visible {
+      text-decoration: none;
+
+      h3 {
+        color: var(--link);
+      }
+    }
+  }
+
+  .icon {
+    flex: none;
+    display: block;
+    width: 96px;
+    height: 96px;
+  }
+
+  // The icon grows a little when its link is hovered or focused.
+  // The reduced-motion rule only shortens transitions, so the scaling itself is limited here.
+  @media (prefers-reduced-motion: no-preference) {
+    .icon {
+      transform-origin: center;
+      transition: transform 0.15s ease-out;
+    }
+
+    a.project:is(:hover, :focus-visible) .icon {
+      transform: scale(1.08);
+    }
+  }
+
+  .text {
+    min-width: 0;
+  }
+
+  // The domain matches the small caps of `footer small`.
+  small {
+    display: block;
+    font-family: font-stacks.$sans-serif;
+    font-variant: small-caps;
+    font-weight: 700;
+    text-transform: lowercase;
+    color: var(--secondary-text);
+    margin-top: 0.15em;
+  }
+
+  p {
+    font-size: 0.8em;
+    line-height: 1.5;
+    margin: 0.5em 0 0;
+    color: var(--secondary-text);
+    text-wrap-style: pretty;
+  }
+}
+
 article.author {
   padding-top: 2em;
 

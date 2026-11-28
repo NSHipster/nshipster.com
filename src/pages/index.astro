@@ -1,16 +1,27 @@
 ---
+import type { ImageMetadata } from "astro";
+import { Image } from "astro:assets";
+import sosumiIcon from "../../assets/images/projects/sosumi.png";
+import trifleIcon from "../../assets/images/projects/trifle.png";
 import Base from "../layouts/Base.astro";
 import { postsListedNewestFirst, postsNewestFirst } from "../lib/collections.ts";
 import { byCodeUnit } from "../lib/content/posts.ts";
 import { t } from "../lib/i18n.ts";
 import { site } from "../lib/site.ts";
-import { camelBreak, plainText, stripHTML } from "../lib/text.ts";
+import { camelBreak, plainText, stripHTML, titleHTML } from "../lib/text.ts";
+
+// Each project's icon, keyed by its `id` in `site.projects`.
+const projectIcons = { sosumi: sosumiIcon, trifle: trifleIcon } satisfies Record<
+  (typeof site.projects)[number]["id"],
+  ImageMetadata
+>;
 
 const posts = await postsNewestFirst();
 const sorted = await postsListedNewestFirst();
 const [latest, ...rest] = sorted;
 const recent = rest.slice(0, 6);
-const title = (value: string) => camelBreak(stripHTML(value));
+const title = (value: string) => titleHTML(stripHTML(value));
+const archiveTitle = (value: string) => camelBreak(stripHTML(value));
 
 // Categories appear in the configured order, if they have any articles.
 const archive = site.groups
@@ -30,7 +41,7 @@ const archive = site.groups
           <header>
             <h2 class="title">
               <a href={latest.data.url} data-astro-prefetch>
-                {title(latest.data.title)}
+                <Fragment set:html={title(latest.data.title)} />
               </a>
             </h2>
           </header>
@@ -54,7 +65,7 @@ const archive = site.groups
           {recent.map((post) => (
             <li>
               <a class="title" href={post.data.url}>
-                {title(post.data.title)}
+                <Fragment set:html={title(post.data.title)} />
               </a>
 
               <Fragment set:html={post.data.excerptHTML} />
@@ -65,6 +76,34 @@ const archive = site.groups
     )
   }
 
+  <section id="projects">
+    <h2>{t.moreFromNSHipster}</h2>
+
+    <ul>
+      {
+        site.projects.map((project) => (
+          <li>
+            <a class="project" href={project.url}>
+              <Image
+                class="icon"
+                src={projectIcons[project.id]}
+                alt=""
+                width={192}
+                aria-hidden="true"
+                draggable="false"
+              />
+              <div class="text">
+                <h3>{project.name}</h3>
+                <small>{new URL(project.url).host}</small>
+                <p>{project.description}</p>
+              </div>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
   <section id="archive" class="archive" role="navigation">
     {
       archive.map(({ group, posts }) => (
@@ -72,7 +111,7 @@ const archive = site.groups
           <dt>{group}</dt>
           {posts.map((post) => (
             <dd>
-              <a href={post.data.url}>{title(post.data.title)}</a>
+              <a href={post.data.url}>{archiveTitle(post.data.title)}</a>
             </dd>
           ))}
         </dl>

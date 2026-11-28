@@ -14,6 +14,11 @@
     padding: 1em;
   }
 
+  #projects ul {
+    grid-template-columns: 1fr;
+    gap: 2em;
+  }
+
   #recent {
     ul {
       display: block;
@@ -21,11 +26,15 @@
       li {
         min-height: auto;
         margin-bottom: 2em;
+        container-type: inline-size;
 
+        // Recent article titles scale with the width of the list once it is one column,
+        // like the titles of the latest article and of articles.
         .title {
           display: block;
           height: auto;
           padding-bottom: 0.5rem;
+          font-size: clamp(0.75rem, 10cqi, 1.75em);
         }
       }
     }
@@ -82,6 +91,10 @@
 }
 
 @media screen and (max-width: 960px) {
+  .narrow-break {
+    display: inline;
+  }
+
   [role="banner"] {
     display: block;
     margin-bottom: 0;

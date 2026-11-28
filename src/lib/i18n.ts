@@ -7,6 +7,7 @@ export const t = {
   revised: "revised",
   nextArticle: "Next Article",
   articles: "Articles",
+  moreFromNSHipster: "More from NSHipster",
   license:
     'NSHipster.com is released under a <a href="https://creativecommons.org/licenses/by-nc/4.0/" rel="license">Creative Commons BY-NC License</a>.',
   privacy: "Privacy Policy",
